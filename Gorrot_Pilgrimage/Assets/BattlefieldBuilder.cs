@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class BattlefieldBuilder : MonoBehaviour
 {
 
     public int battleFieldSize;
-    BattlefieldSquare[,] grid;
+    //BattlefieldSquare[,] grid;
     public GameObject battleFieldSquare;
 
     public GameObject[,] allSquares;
@@ -17,8 +18,12 @@ public class BattlefieldBuilder : MonoBehaviour
     public int enemySquareCount = 5;
     public int treasureSquareCount = 5;
    public int terrainSquareCount = 5;
+    public int healthSquareCount = 5;
 
     int playerStartingPosition = 0;
+
+    private List<Vector2Int> freeSquares = new List<Vector2Int>();
+
 
     public class BattlefieldSquare
     {
@@ -39,15 +44,29 @@ public class BattlefieldBuilder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerStartingPosition = UnityEngine.Random.Range(0,battleFieldSize);
+
+        BuildNewBattlefield();
         
-        enemySquareCount = battleFieldSize / 10;
-        treasureSquareCount = battleFieldSize / 10;
-        terrainSquareCount = battleFieldSize / 10;
+    }
+
+    public void BuildNewBattlefield()
+    {
+        ClearOldBattlefield();   // <- add this
+        setPlayerStartSquare();
+        setContentAmount();
+
 
         buildBattleFieldGrid(battleFieldSize);
         placePlayer(battleFieldSize);
-        
+    }
+
+    void ClearOldBattlefield()
+    {
+        // Loop backwards to avoid issues when destroying children while iterating
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -56,30 +75,87 @@ public class BattlefieldBuilder : MonoBehaviour
         
     }
 
+    void setContentAmount()
+    {
+        enemySquareCount = (battleFieldSize * battleFieldSize) / 20;
+        treasureSquareCount = (battleFieldSize * battleFieldSize) / 20;
+        terrainSquareCount = (battleFieldSize * battleFieldSize) / 10;
+        healthSquareCount = (battleFieldSize * battleFieldSize) / 20;
+    }
+
+    void setPlayerStartSquare()
+    {
+        // ranndom Horizontal Index on the first row
+        playerStartingPosition = UnityEngine.Random.Range(0, battleFieldSize);
+    }
+
+    int setRandomGoalSquare()
+    {
+        return UnityEngine.Random.Range(0, battleFieldSize);
+    }
+
+
+
+
    
 
     void buildBattleFieldGrid(int size)
     {
 
-        grid = new BattlefieldSquare[size, size];
         allSquares = new GameObject[size, size];
+        freeSquares.Clear();
 
-        int placedGoalSquares = 0;
-        int placedEnemySquares = 0;
-        int placedTreasureSquares = 0;
-        int placedTerrainSquares = 0;
+        int randomGoalSquare = setRandomGoalSquare();
 
-      
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                GameObject newSquare = Instantiate(battleFieldSquare, transform);
+                newSquare.transform.position = new Vector3(x, y, 0);
+                allSquares[x, y] = newSquare;
 
-        int randomGoalSquare = UnityEngine.Random.Range(0, size);
+                SquareController newSquareController = newSquare.GetComponent<SquareController>();
+                newSquareController.SetSquarePosition(x, y);
+                newSquareController.MakeEmptySquare();
 
+                bool isPlayerStart = (x == playerStartingPosition && y == 0);
+                bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
+
+                // Goal placement
+                if (isGoalSpot)
+                {
+                    if (newSquareController != null)
+                    {
+                        newSquareController.MakeGoalSquare();
+                        PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
+                        compassController.SetGoalLocation(newSquare);
+                        PlayerDistanceController distanceController = player.GetComponent<PlayerDistanceController>();
+                        distanceController.SetGoalLocation(newSquare);
+
+                    }
+                    continue; // don't add goal to free squares
+                }
+
+                // Don't add the player start tile to free list either
+                if (!isPlayerStart)
+                {
+                    freeSquares.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        AssignContentSquares();
+
+
+        /*
         for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)
             {
                 bool thisSquareIsOccupied = false;
 
-                grid[x, y] = new BattlefieldSquare(x, y);
+               // grid[x, y] = new BattlefieldSquare(x, y);
 
 
                 GameObject newSquare = Instantiate(battleFieldSquare, transform);
@@ -87,6 +163,7 @@ public class BattlefieldBuilder : MonoBehaviour
                 allSquares[x,y] = newSquare;
 
                 SquareController newSquareController = newSquare.GetComponent<SquareController>();
+                newSquareController.SetSquarePosition(x, y);
                 
                 newSquareController.MakeEmptySquare();
 
@@ -161,27 +238,77 @@ public class BattlefieldBuilder : MonoBehaviour
 
             }
         }
+*/
+    }
+
+    void AssignContentSquares()
+    {
+        // Shuffle-style selection: random index, remove, repeat.
+
+        // Terrain
+        PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare());
+
+        // Enemies
+        PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare());
+
+        // Health
+        PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
+
+        // Treasure (also hook compass on first one if you want)
+        bool treasureTargetSet = false;
+        PlaceTypeSquares(treasureSquareCount, sq =>
+        {
+            sq.MakeTreasureSquare();
+            if (!treasureTargetSet)
+            {
+                PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
+                compassController.SetTreasureLocation(sq.gameObject);
+                treasureTargetSet = true;
+            }
+        });
+    }
+
+    void PlaceTypeSquares(int count, System.Action<SquareController> applyType)
+    {
+        int placed = 0;
+
+        while (placed < count && freeSquares.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, freeSquares.Count);
+            Vector2Int coord = freeSquares[index];
+            freeSquares.RemoveAt(index);
+
+            SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
+            if (sq != null)
+            {
+                applyType(sq);
+                placed++;
+            }
+        }
+
+        if (placed < count)
+        {
+            Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}.");
+        }
     }
 
     void placePlayer(int size)
     {
-        Vector2 startPosition = new Vector2(
-             grid[playerStartingPosition, 0].x,
-            grid[playerStartingPosition, 0].y
-            );
+        SquareController newSquareController = allSquares[playerStartingPosition,0].GetComponent<SquareController>();
 
-        player.transform.position = new Vector3( 
-            startPosition.x, 
-            startPosition.y, 
-            0);
+        int testX = newSquareController.GetSquareXPosition();
+        int testY = newSquareController.GetSquareYPosition();
 
+        
 
         PlayerMovementController playerMovementController = player.GetComponent<PlayerMovementController>();
         if (playerMovementController != null)
         {
+            Debug.Log("Got Player Controller");
             playerMovementController.ReceiveBattlefieldSize(size, allSquares);
-            playerMovementController.SetStartCurrentPosition(startPosition);
+            playerMovementController.SetPlayerStartSquare(testX, testY);
         }
+        else { Debug.LogError("No Player Controller"); }
 
 
     }

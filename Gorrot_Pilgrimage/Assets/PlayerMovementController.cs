@@ -10,34 +10,26 @@ public class PlayerMovementController : MonoBehaviour
 
     GameObject[,] allSquares;
 
-    BattlefieldSquare[,] grid;
+    
 
-    public Vector2 currentPosition = new Vector2 (0,0);
+    public Vector2Int currentPosition;
 
     public bool isPlayerTurn;
     public TurnOrganiser turnOrganiser;
 
+    public AudioManager audioManager;
 
-    public class BattlefieldSquare
-    {
-        public int x;
-        public int y;
+    PlayerStatsController playerStatsController;
 
-        public bool blocked;
-        public bool visited;
-        public string tileType;
+    public bool playerIsAlive;
 
-        public BattlefieldSquare(int xPos, int yPos)
-        {
-            x = xPos;
-            y = yPos;
-        }
-    }
+   public BattlefieldBuilder battlefieldBuilder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerStatsController = this.GetComponent<PlayerStatsController>();
+        playerIsAlive = CheckPlayerAlive();
     }
 
     // Update is called once per frame
@@ -45,6 +37,11 @@ public class PlayerMovementController : MonoBehaviour
     {
         isPlayerTurn = turnOrganiser.GetPlayerTurn();
         
+    }
+
+    bool CheckPlayerAlive()
+    {
+        return playerStatsController.playerIsAlive;
     }
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue)
@@ -57,8 +54,9 @@ public class PlayerMovementController : MonoBehaviour
 
         if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
 
+        playerIsAlive = CheckPlayerAlive();
 
-        if(isPlayerTurn)
+        if(isPlayerTurn && playerIsAlive)
         {
             MovePlayer(normalizedMoveValue);
         }
@@ -71,23 +69,102 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
+    bool IsInsideGrid(int x, int y)
+    {
+        return x >= 0 && x < battleFieldSize &&
+               y >= 0 && y < battleFieldSize;
+    }
+
     public void MovePlayer(Vector2 newMoveValue)
     {
+        
+
+
+        int newPositionX = currentPosition.x + Mathf.RoundToInt(newMoveValue.x);
+        int newPositionY = currentPosition.y + Mathf.RoundToInt(newMoveValue.y);
+
+        // FIRST: check bounds BEFORE touching the array
+        if (!IsInsideGrid(newPositionX, newPositionY))
+        {
+            BlockedSquare();
+            return;
+        }
+
+        SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
+
+        if (newSquareController == null)
+        {
+            BlockedSquare();
+            return;
+        }
+
+        bool isMoveableSquare = newSquareController.isMoveableSquare();
+
+        if (!isMoveableSquare)
+        {
+            BlockedSquare();
+            return;
+        }
+
         turnOrganiser.disablePlayerTurn();
-        Vector2 newPosition = new Vector2(currentPosition.x + newMoveValue.x, currentPosition.y + newMoveValue.y);
 
+        Vector2 newPosition = new Vector2(
+           newSquareController.GetSquareXPosition(),
+           newSquareController.GetSquareYPosition()
+            );
 
+        if(newSquareController.isTreasureSquare)
+        {
+            playerStatsController.subtractSuffering(3);
+        }
+
+        if(newSquareController.isEnemySquare)
+        {
+            playerStatsController.subtractHealth(1);
+            playerStatsController.resetSuffering();
+        }
+
+        if(newSquareController.isHealthSquare)
+        {
+            playerStatsController.addHealth(3);
+            playerStatsController.subtractSuffering(3);
+        }
+
+        if(newSquareController.isGoalSquare)
+        {
+            playerStatsController.resetSuffering();
+            battlefieldBuilder.BuildNewBattlefield();
+            return; // <- stop here, don't move to old newPosition
+
+        }
+                
         this.transform.position = newPosition;
-        currentPosition = newPosition;
+        currentPosition = new Vector2Int(newPositionX, newPositionY);
+
+        UpdateStats();
+
+           
+       
+       
+
+    }
+
+    void UpdateStats()
+    {
+        playerStatsController.addSuffering(1);
+    }
+
+    void BlockedSquare()
+    {
+        audioManager.playCannotMoveSoundEffect();
+        Debug.Log("Blocked Square");
     }
 
     public void ReceiveBattlefieldSize(int size, GameObject[,] receivedAllSquares)
     {
-        Debug.Log("Battlefield SIze: " + size + " x " + size);
         battleFieldSize = size;
 
         allSquares = receivedAllSquares;
-        Debug.Log(allSquares);
 
 
         int randomX = UnityEngine.Random.Range(0, size);
@@ -98,17 +175,27 @@ public class PlayerMovementController : MonoBehaviour
         Transform squareCentre = squareController.GetSquareCentre();
         squareController.ActivateSquareVisited();
 
-
-        //currentPosition = new Vector2(randomX,randomY);
-        //this.transform.position = allSquares[randomX, randomY].transform.position;
-
-
     }
 
-    public void SetStartCurrentPosition(Vector2 startPosition)
+    public void SetPlayerStartSquare(int recX, int recY)
     {
-        currentPosition = startPosition;
+        SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
+
+        this.transform.position = new Vector2(
+            newSquareController.GetSquareXPosition(),
+            newSquareController.GetSquareYPosition()
+        );
+
+        SetStartCurrentPosition(recX, recY);
     }
+
+    void SetStartCurrentPosition(int startCurX, int startCurY)
+    {
+        currentPosition = new Vector2Int(startCurX, startCurY);
+    }
+
+
+
 
 
 }

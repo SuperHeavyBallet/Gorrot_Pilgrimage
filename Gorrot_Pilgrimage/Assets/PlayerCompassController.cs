@@ -50,6 +50,8 @@ public class PlayerCompassController : MonoBehaviour
 
             foreach(GameObject go in treasureLocationList)
             {
+                if (go == null) return;
+
                 float distanceToThisTreasure = Vector2.Distance(treasureCompassContainer.transform.position , go.transform.position);
 
                 if(distanceToThisTreasure < shortestDistance)

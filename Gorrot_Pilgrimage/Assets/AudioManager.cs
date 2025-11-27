@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip turnChangeSoundEffect_Player;
     public AudioClip turnChangeSoundEffect_Enemy;
+    public AudioClip cannotMoveSoundEffect;
     public AudioSource soundEffectPlayer;
 
     public AudioClip backgroundMusic;
@@ -43,5 +44,10 @@ public class AudioManager : MonoBehaviour
     void playSoundEffect(AudioClip newClip)
     {
         soundEffectPlayer.PlayOneShot(newClip);
+    }
+
+    public void playCannotMoveSoundEffect()
+    {
+        playSoundEffect(cannotMoveSoundEffect);
     }
 }

@@ -12,12 +12,17 @@ public class SquareController : MonoBehaviour
     public bool isEnemySquare;
     public bool isTerrainSquare;
     public bool isEmptySquare;
+    public bool isHealthSquare;
 
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
     public GameObject enemySquareSprite;
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
+    public GameObject healthSquareSprite;
+
+    public int squareX = 0;
+    public int squareY = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,13 +38,28 @@ public class SquareController : MonoBehaviour
         
     }
 
+    public void MakeHealthSquare()
+    {
+        isGoalSquare = false;
+        isEnemySquare = false;
+        isTreasureSquare = false;
+        isEmptySquare = false;
+        isHealthSquare = true;
+
+        enemySquareSprite.SetActive(false);
+        treasureSquareSprite.SetActive(false);
+        terrainSquareSprite.SetActive(false);
+        emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(true);
+    }
+
     public void MakeGoalSquare()
     {
         isGoalSquare = true;
         isEnemySquare = false;
         isTreasureSquare = false;
-        isTreasureSquare = false;
         isEmptySquare = false;
+        isHealthSquare = true;
 
         goalSquareSprite.SetActive(true);
 
@@ -47,6 +67,7 @@ public class SquareController : MonoBehaviour
         treasureSquareSprite.SetActive(false);
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(false);
     }
 
     public void MakeTreasureSquare()
@@ -54,13 +75,13 @@ public class SquareController : MonoBehaviour
         isGoalSquare = false;
         isEnemySquare = false;
         isTreasureSquare = true;
-        isTreasureSquare = false;
         isEmptySquare = false;
 
         goalSquareSprite.SetActive(false);
         enemySquareSprite.SetActive(false);
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(false);
 
         treasureSquareSprite.SetActive(true);
     }
@@ -70,7 +91,6 @@ public class SquareController : MonoBehaviour
         isGoalSquare= false;
         isEnemySquare = true;
         isTreasureSquare = false;
-        isTreasureSquare = false;
         isEmptySquare = false;
 
         goalSquareSprite.SetActive(false);
@@ -78,6 +98,7 @@ public class SquareController : MonoBehaviour
         treasureSquareSprite.SetActive(false);
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(false);
 
     }
 
@@ -94,6 +115,7 @@ public class SquareController : MonoBehaviour
         treasureSquareSprite.SetActive(false);
         terrainSquareSprite.SetActive(true);
         emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(false);
     }
 
 
@@ -101,7 +123,6 @@ public class SquareController : MonoBehaviour
     {
         isGoalSquare = false;
         isEnemySquare = false;
-        isTreasureSquare = false;
         isTreasureSquare = false;
         isEmptySquare = true;
 
@@ -111,6 +132,7 @@ public class SquareController : MonoBehaviour
         treasureSquareSprite.SetActive(false);
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(true);
+        healthSquareSprite.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -137,5 +159,26 @@ public class SquareController : MonoBehaviour
     {
         hasBeenVisited = true;
         visitedSprite.gameObject.SetActive(true);
+    }
+
+    public void SetSquarePosition(int x, int y)
+    {
+        squareX = x; squareY = y;
+
+    }
+
+    public int GetSquareXPosition()
+    {
+        return squareX;
+    }
+
+    public int GetSquareYPosition()
+    {
+        return squareY;
+    }
+
+    public bool isMoveableSquare()
+    {
+        return !isTerrainSquare;
     }
 }
