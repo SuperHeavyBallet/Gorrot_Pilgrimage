@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEditor;
+using TMPro;
 
 public class BattlefieldBuilder : MonoBehaviour
 {
@@ -22,7 +24,13 @@ public class BattlefieldBuilder : MonoBehaviour
 
     int playerStartingPosition = 0;
 
+    public bool isFinalMap = false;
+
     private List<Vector2Int> freeSquares = new List<Vector2Int>();
+
+    public TextMeshProUGUI finalMapText;
+    public int currentMapCount = 0;
+    public TextMeshProUGUI currentMapCountText;
 
 
     public class BattlefieldSquare
@@ -49,16 +57,51 @@ public class BattlefieldBuilder : MonoBehaviour
         
     }
 
+
+    void FinalMapDecider()
+    {
+        int chance = Mathf.Clamp(10 - currentMapCount, 2, 8);
+
+        // lower chance higher probability of final
+        int roll = UnityEngine.Random.Range(0, chance);
+
+        isFinalMap = (roll == 0);
+
+        finalMapText.text = isFinalMap ? "Final Map" : "Keep Going";
+    }
+
     public void BuildNewBattlefield()
     {
-        ClearOldBattlefield();   // <- add this
-        setPlayerStartSquare();
-        setContentAmount();
+        if(!isFinalMap)
+        {
+            currentMapCount += 1;
+            currentMapCountText.text = "Map: " + currentMapCount.ToString();
+            ClearOldBattlefield();   // <- add this
+            FinalMapDecider();
+            setPlayerStartSquare();
+            setContentAmount();
 
 
-        buildBattleFieldGrid(battleFieldSize);
-        placePlayer(battleFieldSize);
+            buildBattleFieldGrid(battleFieldSize);
+            placePlayer(battleFieldSize);
+        }
+        else
+        {
+            QuitGame(); 
+        }
+       
     }
+
+    public void QuitGame()
+    {
+        // This code only runs in the Unity Editor
+        #if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+        #else
+                Application.Quit(); // This runs in standalone builds
+        #endif
+    }
+
 
     void ClearOldBattlefield()
     {
@@ -69,19 +112,55 @@ public class BattlefieldBuilder : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void setContentAmount()
     {
-        enemySquareCount = (battleFieldSize * battleFieldSize) / 20;
-        treasureSquareCount = (battleFieldSize * battleFieldSize) / 20;
-        terrainSquareCount = (battleFieldSize * battleFieldSize) / 10;
-        healthSquareCount = (battleFieldSize * battleFieldSize) / 20;
+        int area = battleFieldSize * battleFieldSize;
+
+        // --- 1. Define easy / hard ratios ---
+
+        float easyEnemyRatio = 1f / 40f;
+        float easyTreasureRatio = 1f / 20f;
+        float easyTerrainRatio = 1f / 20f;
+        float easyHealthRatio = 1f / 20f;
+
+        float hardEnemyRatio = 1f / 20f;
+        float hardTreasureRatio = 1f / 40f;
+        float hardTerrainRatio = 1f / 10f;
+        float hardHealthRatio = 1f / 40f;
+
+        // --- 2. Compute difficulty [0..1] ---
+
+        int maxDifficultyMap = 3;
+        float difficulty01;
+
+        if (isFinalMap)
+        {
+            difficulty01 = 1f;
+        }
+        else
+        {
+            difficulty01 = Mathf.Clamp01(
+                (currentMapCount - 1f) / (maxDifficultyMap - 1f)
+            );
+        }
+
+        // --- 3. Lerp ratios based on difficulty ---
+
+        float enemyRatio = Mathf.Lerp(easyEnemyRatio, hardEnemyRatio, difficulty01);
+        float treasureRatio = Mathf.Lerp(easyTreasureRatio, hardTreasureRatio, difficulty01);
+        float terrainRatio = Mathf.Lerp(easyTerrainRatio, hardTerrainRatio, difficulty01);
+        float healthRatio = Mathf.Lerp(easyHealthRatio, hardHealthRatio, difficulty01);
+
+        // --- 4. Convert ratios to tile counts ---
+
+        enemySquareCount = Mathf.Max(1, Mathf.RoundToInt(area * enemyRatio));
+        treasureSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * treasureRatio));
+        terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * terrainRatio));
+        healthSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * healthRatio));
     }
+
+
 
     void setPlayerStartSquare()
     {
@@ -304,7 +383,6 @@ public class BattlefieldBuilder : MonoBehaviour
         PlayerMovementController playerMovementController = player.GetComponent<PlayerMovementController>();
         if (playerMovementController != null)
         {
-            Debug.Log("Got Player Controller");
             playerMovementController.ReceiveBattlefieldSize(size, allSquares);
             playerMovementController.SetPlayerStartSquare(testX, testY);
         }

@@ -9,6 +9,7 @@ public class PlayerInputReceiver : MonoBehaviour
 
    // public GameObject player;
     PlayerMovementController playerMovementController;
+    public DiceController diceController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +22,14 @@ public class PlayerInputReceiver : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CaptureDiceRollInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            diceController.RollDice();
+        }
     }
 
     public void CaptureMovementInput(InputAction.CallbackContext context)
@@ -74,5 +83,7 @@ public class PlayerInputReceiver : MonoBehaviour
         {
             Debug.LogError("No Player Found");
         }
+
+        
     }
 }

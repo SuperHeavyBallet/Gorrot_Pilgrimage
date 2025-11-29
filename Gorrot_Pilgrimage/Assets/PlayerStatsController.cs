@@ -17,6 +17,8 @@ public class PlayerStatsController : MonoBehaviour
 
     public bool playerIsAlive;
 
+    public AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +34,9 @@ public class PlayerStatsController : MonoBehaviour
 
     public void subtractHealth(int subtractAmount)
     {
+
+        audioManager.playTakeDamageSoundEffect();
+
         if (playerCurrentHealth > playerMinHealth)
         {
             playerCurrentHealth -= subtractAmount;

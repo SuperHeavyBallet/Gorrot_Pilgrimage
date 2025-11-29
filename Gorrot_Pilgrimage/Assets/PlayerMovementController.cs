@@ -24,6 +24,7 @@ public class PlayerMovementController : MonoBehaviour
     public bool playerIsAlive;
 
    public BattlefieldBuilder battlefieldBuilder;
+    public string nextSquareQuantity = "medium";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,9 +47,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue)
     {
-
-
-        Debug.Log("Player Received Move Command: " + receivedMoveValue);
         Vector2 normalizedMoveValue = receivedMoveValue;
         if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1;}
 
@@ -60,12 +58,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             MovePlayer(normalizedMoveValue);
         }
-       
-
-        
-        
-
-        
 
     }
 
@@ -91,6 +83,8 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
+        nextSquareQuantity = newSquareController.getSquareQuantity();
+
 
         if (newSquareController == null)
         {
@@ -106,42 +100,111 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        turnOrganiser.disablePlayerTurn();
+        
 
         Vector2 newPosition = new Vector2(
            newSquareController.GetSquareXPosition(),
            newSquareController.GetSquareYPosition()
             );
 
-        if(newSquareController.isTreasureSquare)
-        {
-            playerStatsController.subtractSuffering(3);
-        }
-
-        if(newSquareController.isEnemySquare)
-        {
-            playerStatsController.subtractHealth(1);
-            playerStatsController.resetSuffering();
-        }
-
-        if(newSquareController.isHealthSquare)
-        {
-            playerStatsController.addHealth(3);
-            playerStatsController.subtractSuffering(3);
-        }
-
-        if(newSquareController.isGoalSquare)
+        if (newSquareController.isGoalSquare)
         {
             playerStatsController.resetSuffering();
             battlefieldBuilder.BuildNewBattlefield();
             return; // <- stop here, don't move to old newPosition
 
         }
+
+        newSquareController.ActivateSquareVisited();
+
+        if (newSquareController.isEmptySquare)
+        {
+            addMovementSuffering();
+        }
+
+        if (newSquareController.isTreasureSquare)
+        {
+            int amount = 0;
+
+            switch(nextSquareQuantity)
+            {
+                case "small":
+                    amount = 1;
+                    break;
+                case "medium":
+                    amount = 3;
+                    break;
+                case "large":
+                    amount = 5;
+                    break;
+                default:
+                    amount = 3;
+                    break;
+            }
+            playerStatsController.subtractSuffering(amount);
+            newSquareController.MakeEmptySquare();
+        }
+
+        if(newSquareController.isEnemySquare)
+        {
+            int amount = 0;
+
+            switch (nextSquareQuantity)
+            {
+                case "small":
+                    amount = 1;
+                    break;
+                case "medium":
+                    amount = 3;
+                    break;
+                case "large":
+                    amount = 5;
+                    break;
+                default:
+                    amount = 3;
+                    break;
+            }
+
+            turnOrganiser.landedOnEnemySquare(amount);
+            newSquareController.MakeEmptySquare();
+        }
+
+        if(newSquareController.isHealthSquare)
+        {
+            int amount = 0;
+
+            switch (nextSquareQuantity)
+            {
+                case "small":
+                    amount = 1;
+                    break;
+                case "medium":
+                    amount = 3;
+                    break;
+                case "large":
+                    amount = 5;
+                    break;
+                default:
+                    amount = 3;
+                    break;
+            }
+
+            playerStatsController.addHealth(amount);
+            int sufferingAmount = Mathf.Clamp(amount, 0, amount-2);
+            playerStatsController.subtractSuffering(sufferingAmount);
+            newSquareController.MakeEmptySquare();
+        }
+
+        
                 
         this.transform.position = newPosition;
         currentPosition = new Vector2Int(newPositionX, newPositionY);
 
-        UpdateStats();
+        turnOrganiser.disablePlayerTurn();
+
+
+
+       
 
            
        
@@ -149,15 +212,15 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
-    void UpdateStats()
+    void addMovementSuffering()
     {
         playerStatsController.addSuffering(1);
     }
 
+
     void BlockedSquare()
     {
         audioManager.playCannotMoveSoundEffect();
-        Debug.Log("Blocked Square");
     }
 
     public void ReceiveBattlefieldSize(int size, GameObject[,] receivedAllSquares)
@@ -165,16 +228,6 @@ public class PlayerMovementController : MonoBehaviour
         battleFieldSize = size;
 
         allSquares = receivedAllSquares;
-
-
-        int randomX = UnityEngine.Random.Range(0, size);
-        int randomY = UnityEngine.Random.Range(0, size);
-
-        GameObject randomStartSquare = allSquares[randomX, randomY];
-        SquareController squareController = randomStartSquare.GetComponent<SquareController>();
-        Transform squareCentre = squareController.GetSquareCentre();
-        squareController.ActivateSquareVisited();
-
     }
 
     public void SetPlayerStartSquare(int recX, int recY)
@@ -185,6 +238,8 @@ public class PlayerMovementController : MonoBehaviour
             newSquareController.GetSquareXPosition(),
             newSquareController.GetSquareYPosition()
         );
+
+        newSquareController.ActivateSquareVisited();
 
         SetStartCurrentPosition(recX, recY);
     }

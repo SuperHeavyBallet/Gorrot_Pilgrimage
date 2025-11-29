@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class SquareController : MonoBehaviour
 {
@@ -21,21 +22,72 @@ public class SquareController : MonoBehaviour
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
 
+
     public int squareX = 0;
     public int squareY = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public enum squareQuantity { small, medium, large };
+    public squareQuantity square = squareQuantity.medium;
+    public string squareQuantityString;
 
-       
+    float spriteScale = 1;
+
+
+    public TextMeshProUGUI squareValue;
+
+    private void OnEnable()
+    {
+        decideSquareQuantity();
+    }
+
+
+    void ActivateGameObject(GameObject targetGO)
+    {
+        goalSquareSprite.SetActive(false);
+        enemySquareSprite.SetActive(false);
+        treasureSquareSprite.SetActive(false);
+        terrainSquareSprite.SetActive(false);
+        emptySquareSprite.SetActive(false);
+        healthSquareSprite.SetActive(false);
+
+        
+        targetGO.SetActive(true);
+
+        if(targetGO != emptySquareSprite && targetGO != goalSquareSprite && targetGO != terrainSquareSprite)
+        {
+            targetGO.transform.localScale = new Vector3(spriteScale, spriteScale, 1);
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void decideSquareQuantity()
     {
-        
+        int randomChance = UnityEngine.Random.Range(0, 3);
+        switch (randomChance)
+        {
+            case 0:
+                SetSquare(squareQuantity.small, 0.25f, "small");
+                break;
+            case 1:
+            case 2:
+                SetSquare(squareQuantity.medium, 0.5f, "medium");
+                break;
+            case 3:
+                SetSquare(squareQuantity.large, 1f, "large");
+                break;
+        }
+    }
+
+    void SetSquare(squareQuantity sq, float scale, string name)
+    {
+        square = sq;
+        spriteScale = scale;
+        squareQuantityString = name;
+    }
+
+    public string getSquareQuantity()
+    {
+        return squareQuantityString;
     }
 
     public void MakeHealthSquare()
@@ -46,11 +98,25 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-        enemySquareSprite.SetActive(false);
-        treasureSquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(false);
-        emptySquareSprite.SetActive(false);
-        healthSquareSprite.SetActive(true);
+        squareValue.gameObject.SetActive(true);
+
+        switch(square)
+        {
+            case squareQuantity.small:
+                squareValue.text = "+1H";
+                break;
+            case squareQuantity.medium:
+                squareValue.text = "+3H, -1S";
+                break;
+            case squareQuantity.large:
+                squareValue.text = "5H, -3S";
+                break;
+            default:
+                break;
+
+        }
+
+        ActivateGameObject(healthSquareSprite);
     }
 
     public void MakeGoalSquare()
@@ -61,13 +127,9 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-        goalSquareSprite.SetActive(true);
+        squareValue.gameObject.SetActive(false);
 
-        enemySquareSprite.SetActive(false);
-        treasureSquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(false);
-        emptySquareSprite.SetActive(false);
-        healthSquareSprite.SetActive(false);
+        ActivateGameObject(goalSquareSprite);
     }
 
     public void MakeTreasureSquare()
@@ -77,13 +139,26 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = true;
         isEmptySquare = false;
 
-        goalSquareSprite.SetActive(false);
-        enemySquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(false);
-        emptySquareSprite.SetActive(false);
-        healthSquareSprite.SetActive(false);
+        squareValue.gameObject.SetActive(true);
 
-        treasureSquareSprite.SetActive(true);
+        switch (square)
+        {
+            case squareQuantity.small:
+                squareValue.text = "-1S";
+                break;
+            case squareQuantity.medium:
+                squareValue.text = "-3S";
+                break;
+            case squareQuantity.large:
+                squareValue.text = "-5S";
+                break;
+            default:
+                break;
+
+        }
+
+        ActivateGameObject(treasureSquareSprite);
+
     }
 
     public void MakeEnemySquare()
@@ -93,12 +168,25 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = false;
 
-        goalSquareSprite.SetActive(false);
-        enemySquareSprite.SetActive(true);
-        treasureSquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(false);
-        emptySquareSprite.SetActive(false);
-        healthSquareSprite.SetActive(false);
+        squareValue.gameObject.SetActive(true);
+
+        switch (square)
+        {
+            case squareQuantity.small:
+                squareValue.text = "-1H, >2";
+                break;
+            case squareQuantity.medium:
+                squareValue.text = "-3H, >3";
+                break;
+            case squareQuantity.large:
+                squareValue.text = "-5H, >4";
+                break;
+            default:
+                break;
+
+        }
+
+        ActivateGameObject(enemySquareSprite);
 
     }
 
@@ -110,12 +198,9 @@ public class SquareController : MonoBehaviour
         isTerrainSquare = true;
         isEmptySquare = false;
 
-        goalSquareSprite.SetActive(false);
-        enemySquareSprite.SetActive(false);
-        treasureSquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(true);
-        emptySquareSprite.SetActive(false);
-        healthSquareSprite.SetActive(false);
+        squareValue.gameObject.SetActive(false);
+
+        ActivateGameObject(terrainSquareSprite);
     }
 
 
@@ -126,29 +211,12 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = true;
 
+        squareValue.gameObject.SetActive(false);
 
-        goalSquareSprite.SetActive(false);
-        enemySquareSprite.SetActive(false);
-        treasureSquareSprite.SetActive(false);
-        terrainSquareSprite.SetActive(false);
-        emptySquareSprite.SetActive(true);
-        healthSquareSprite.SetActive(false);
+        ActivateGameObject(emptySquareSprite);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!hasBeenVisited)
-        {
-            if (collision != null)
-            {
-                if(collision.gameObject.CompareTag("Player"))
-                {
-                    ActivateSquareVisited();
-                    
-                }
-            }
-        }
-    }
+  
 
     public Transform GetSquareCentre()
     {
