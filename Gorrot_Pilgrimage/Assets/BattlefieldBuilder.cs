@@ -21,6 +21,7 @@ public class BattlefieldBuilder : MonoBehaviour
     public int treasureSquareCount = 5;
    public int terrainSquareCount = 5;
     public int healthSquareCount = 5;
+    public int potionSquareCount = 5;
 
     int playerStartingPosition = 0;
 
@@ -123,11 +124,13 @@ public class BattlefieldBuilder : MonoBehaviour
         float easyTreasureRatio = 1f / 20f;
         float easyTerrainRatio = 1f / 20f;
         float easyHealthRatio = 1f / 20f;
+        float easyPotionRatio = 1f / 20f;
 
         float hardEnemyRatio = 1f / 20f;
         float hardTreasureRatio = 1f / 40f;
         float hardTerrainRatio = 1f / 10f;
         float hardHealthRatio = 1f / 40f;
+        float hardPotionRatio = 1f / 40f;
 
         // --- 2. Compute difficulty [0..1] ---
 
@@ -151,6 +154,7 @@ public class BattlefieldBuilder : MonoBehaviour
         float treasureRatio = Mathf.Lerp(easyTreasureRatio, hardTreasureRatio, difficulty01);
         float terrainRatio = Mathf.Lerp(easyTerrainRatio, hardTerrainRatio, difficulty01);
         float healthRatio = Mathf.Lerp(easyHealthRatio, hardHealthRatio, difficulty01);
+        float potionRatio = Mathf.Lerp(easyPotionRatio, hardPotionRatio, difficulty01);
 
         // --- 4. Convert ratios to tile counts ---
 
@@ -158,6 +162,7 @@ public class BattlefieldBuilder : MonoBehaviour
         treasureSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * treasureRatio));
         terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * terrainRatio));
         healthSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * healthRatio));
+        potionSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * potionRatio));
     }
 
 
@@ -332,6 +337,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
         // Health
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
+
+        // Potions
+        PlaceTypeSquares(potionSquareCount, sq => sq.MakePotionSquare());
 
         // Treasure (also hook compass on first one if you want)
         bool treasureTargetSet = false;

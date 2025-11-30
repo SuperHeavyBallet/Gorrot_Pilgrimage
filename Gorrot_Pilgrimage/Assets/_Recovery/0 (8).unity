@@ -1284,7 +1284,7 @@ Transform:
   m_GameObject: {fileID: 534332725}
   serializedVersion: 2
   m_LocalRotation: {x: 0.65368193, y: -0, z: -0, w: 0.7567694}
-  m_LocalPosition: {x: 44.02, y: 21.71, z: -3.99}
+  m_LocalPosition: {x: 44.02, y: 28.45, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1375,7 +1375,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 10
+  field of view: 8
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1873,7 +1873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -220
+      value: -110
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2326,7 +2326,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -50, y: 50}
-  m_SizeDelta: {x: 400, y: 400}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &762526086
 MonoBehaviour:
@@ -2589,7 +2589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: 152.21}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1001 &860872055
@@ -3194,9 +3194,6 @@ MonoBehaviour:
   - {fileID: 1434305043}
   - {fileID: 683525155}
   - {fileID: 1685404450}
-  allInventoryItems:
-  - {fileID: 11400000, guid: 3ed38c13ec808394aaf2f1afe1d499e0, type: 2}
-  - {fileID: 11400000, guid: 763c887ed6619d840840855e25087fbb, type: 2}
 --- !u!1 &965698060
 GameObject:
   m_ObjectHideFlags: 0
@@ -3638,7 +3635,6 @@ MonoBehaviour:
   treasureSquareCount: 5
   terrainSquareCount: 5
   healthSquareCount: 5
-  potionSquareCount: 5
   isFinalMap: 0
   finalMapText: {fileID: 546519800}
   currentMapCount: 0
@@ -4375,11 +4371,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -110
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4879,11 +4875,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -330
+      value: -110
       objectReference: {fileID: 0}
     - target: {fileID: 6914408675354499201, guid: d3eee32e36ba2644da450c07791561c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -48,9 +48,32 @@ public class PlayerStatsController : MonoBehaviour
 
     }
 
+    public void UseItem(string itemName)
+    {
+
+        Debug.Log("USE ITEM: " + itemName);
+        switch (itemName)
+        {
+            case "Sma Pot":
+                addHealth(1);
+                break;
+            case "Med Pot":
+                addHealth(3);
+                break;
+            case "Big Pot":
+                addHealth(5);
+                break;
+            default:
+                addHealth(3);
+
+                break;
+        }
+    }
+
     public void addHealth(int addAmount)
     {
         playerCurrentHealth += addAmount;
+        UpdateNumbersDisplay();
     }
 
     public void subtractSuffering(int subtractAmount)

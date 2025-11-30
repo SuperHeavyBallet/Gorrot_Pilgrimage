@@ -14,6 +14,7 @@ public class SquareController : MonoBehaviour
     public bool isTerrainSquare;
     public bool isEmptySquare;
     public bool isHealthSquare;
+    public bool isPotionSquare;
 
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
@@ -21,6 +22,7 @@ public class SquareController : MonoBehaviour
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
+    public GameObject potionSquareSprite;
 
 
     public int squareX = 0;
@@ -49,6 +51,7 @@ public class SquareController : MonoBehaviour
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(false);
         healthSquareSprite.SetActive(false);
+        potionSquareSprite.SetActive(false);
 
         
         targetGO.SetActive(true);
@@ -117,6 +120,35 @@ public class SquareController : MonoBehaviour
         }
 
         ActivateGameObject(healthSquareSprite);
+    }
+
+    public void MakePotionSquare()
+    {
+        isGoalSquare = false;
+        isEnemySquare = false;
+        isTreasureSquare = false;
+        isEmptySquare = false;
+        isHealthSquare = false;
+        isPotionSquare = true;
+
+        squareValue.gameObject.SetActive(true);
+
+        switch(square)
+        {
+            case squareQuantity.small:
+                squareValue.text = "+1H";
+                break;
+            case squareQuantity.medium:
+                squareValue.text = "+3H, -1S";
+                break;
+            case squareQuantity.large:
+                squareValue.text = "5H, -3S";
+                break;
+            default:
+                break;
+        }
+
+        ActivateGameObject(potionSquareSprite);
     }
 
     public void MakeGoalSquare()

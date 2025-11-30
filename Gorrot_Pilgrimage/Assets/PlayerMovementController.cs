@@ -26,11 +26,14 @@ public class PlayerMovementController : MonoBehaviour
    public BattlefieldBuilder battlefieldBuilder;
     public string nextSquareQuantity = "medium";
 
+    PlayerInventory playerInventory;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerStatsController = this.GetComponent<PlayerStatsController>();
         playerIsAlive = CheckPlayerAlive();
+        playerInventory = this.GetComponent<PlayerInventory>();
     }
 
     // Update is called once per frame
@@ -120,6 +123,42 @@ public class PlayerMovementController : MonoBehaviour
         if (newSquareController.isEmptySquare)
         {
             addMovementSuffering();
+        }
+
+        if(newSquareController.isPotionSquare)
+        {
+            int amount = 0;
+            string potionSize = "Med Pot";
+
+            switch (nextSquareQuantity)
+            {
+                case "small":
+                    potionSize = "Sma Pot";
+                    break;
+                case "medium":
+                    potionSize = "Med Pot";
+                    break;
+                case "large":
+                    potionSize = "Big Pot";
+                    break;
+                default:
+                    potionSize = "Med Pot";
+                    break;
+            }
+
+            bool canAddItem = playerInventory.TryToAddItem(potionSize);
+
+            if (canAddItem)
+            {
+                newSquareController.MakeEmptySquare();
+            }
+
+            else
+            {
+                audioManager.playCannotMoveSoundEffect();
+            }
+           
+
         }
 
         if (newSquareController.isTreasureSquare)
