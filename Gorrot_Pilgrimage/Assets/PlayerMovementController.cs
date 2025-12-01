@@ -70,6 +70,7 @@ public class PlayerMovementController : MonoBehaviour
                y >= 0 && y < battleFieldSize;
     }
 
+
     public void MovePlayer(Vector2 newMoveValue)
     {
         
@@ -125,10 +126,14 @@ public class PlayerMovementController : MonoBehaviour
             addMovementSuffering();
         }
 
-        if(newSquareController.isPotionSquare)
+        if(newSquareController.isItemSquare)
         {
             int amount = 0;
             string potionSize = "Med Pot";
+
+            string squareContentsID = newSquareController.GetContentsID();
+
+
 
             switch (nextSquareQuantity)
             {
@@ -146,7 +151,7 @@ public class PlayerMovementController : MonoBehaviour
                     break;
             }
 
-            bool canAddItem = playerInventory.TryToAddItem(potionSize);
+            bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
             if (canAddItem)
             {

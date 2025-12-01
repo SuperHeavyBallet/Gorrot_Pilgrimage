@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -11,16 +12,19 @@ public class PlayerInventory : MonoBehaviour
 
     bool hasFreeSlot = true;
 
-    public InventoryItemTemplate[] allInventoryItems;
+    List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
+
+    public ItemCatalogue itemCatalogue;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        allItemsList = itemCatalogue.GetAllItems();
 
-        for(int i = 0; i < allInventoryItems.Length; i++)
+        foreach (InventoryItemTemplate item in allItemsList)
         {
-            Debug.Log(allInventoryItems[i].name);
+            Debug.Log(item.itemID);
         }
 
         
@@ -32,21 +36,32 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-    void TestItemAdd(string itemName, int slotIndex)
+    void TestItemAdd(string itemID, int slotIndex)
     {
        InventorySlotController inventorySlotController = inventorySlots[slotIndex].GetComponent<InventorySlotController>();
-        inventorySlotController.PlaceItemInSlot(itemName);
+
+        foreach (InventoryItemTemplate item in allItemsList)
+        {
+            if (item.itemID == itemID)
+            {
+                Debug.Log("This Item: " + itemID + "Is In The List of Items");
+                inventorySlotController.PlaceItemInSlot(itemID);
+                return;
+            }
+
+        }
+        
     }
 
-    public bool TryToAddItem(string itemName)
+    public bool TryToAddItem(string itemID)
     {
-        int freeSlotIndex = FindFreeSlot(itemName);
+        int freeSlotIndex = FindFreeSlot(itemID);
 
         // -2 Is the 'Add Duplicate' State - maybe find more elegant fix
 
         if (freeSlotIndex != -1 && freeSlotIndex != -2 && hasFreeSlot)
         {
-            TestItemAdd(itemName, freeSlotIndex);
+            TestItemAdd(itemID, freeSlotIndex);
             return true;
         }
         else if(freeSlotIndex == -2)

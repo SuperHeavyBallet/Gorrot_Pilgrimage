@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc6cbf3b97132e44280f8404670f06cd, type: 3}
-  m_Name: Potion
+  m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemTemplate
-  itemID: potion
-  itemName: Potion
-  itemImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemID: sword
+  itemName: Sword
+  itemImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   amountHeld: 0

@@ -42,6 +42,7 @@ public class TurnOrganiser : MonoBehaviour
 
         if (hasLandedOnEnemy)
         {
+            Debug.Log("On Enemy");
             RollDiceContest();
         }
         else

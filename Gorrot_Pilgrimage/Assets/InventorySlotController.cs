@@ -33,9 +33,6 @@ public class InventorySlotController : MonoBehaviour
 
     public void UseItemClick()
     {
-        Debug.Log("CLICKED USE ITEM!: " + itemText.text);
-        
-
         if(itemQuantity >= 1)
         {
             playerStatsController.UseItem(itemText.text);

@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System;
 
 public class SquareController : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class SquareController : MonoBehaviour
     public bool isTerrainSquare;
     public bool isEmptySquare;
     public bool isHealthSquare;
-    public bool isPotionSquare;
+    public bool isItemSquare;
 
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
@@ -22,7 +25,7 @@ public class SquareController : MonoBehaviour
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
-    public GameObject potionSquareSprite;
+    public GameObject itemSquareSprite;
 
 
     public int squareX = 0;
@@ -34,8 +37,13 @@ public class SquareController : MonoBehaviour
 
     float spriteScale = 1;
 
+    string squareContentsID = "";
 
     public TextMeshProUGUI squareValue;
+
+    List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
+
+    InventoryItemTemplate[] allItems;
 
     private void OnEnable()
     {
@@ -51,7 +59,7 @@ public class SquareController : MonoBehaviour
         terrainSquareSprite.SetActive(false);
         emptySquareSprite.SetActive(false);
         healthSquareSprite.SetActive(false);
-        potionSquareSprite.SetActive(false);
+        itemSquareSprite.SetActive(false);
 
         
         targetGO.SetActive(true);
@@ -71,11 +79,11 @@ public class SquareController : MonoBehaviour
             case 0:
                 SetSquare(squareQuantity.small, 0.25f, "small");
                 break;
+           
             case 1:
-            case 2:
                 SetSquare(squareQuantity.medium, 0.5f, "medium");
                 break;
-            case 3:
+            case 2:
                 SetSquare(squareQuantity.large, 1f, "large");
                 break;
         }
@@ -122,16 +130,49 @@ public class SquareController : MonoBehaviour
         ActivateGameObject(healthSquareSprite);
     }
 
-    public void MakePotionSquare()
+    public string GetContentsID()
+    {
+        return squareContentsID;
+    }
+    public void MakeItemSquare()
     {
         isGoalSquare = false;
         isEnemySquare = false;
         isTreasureSquare = false;
         isEmptySquare = false;
         isHealthSquare = false;
-        isPotionSquare = true;
+        isItemSquare = true;
 
         squareValue.gameObject.SetActive(true);
+
+        ItemCatalogue itemCatalogue = GameObject.Find("ItemCatalogue").GetComponent<ItemCatalogue>();
+
+        if(itemCatalogue != null)
+        {
+            
+                allItemsList = itemCatalogue.GetAllItems();
+
+            InventoryItemTemplate[] itemCatalogueArray = allItemsList.ToArray();
+
+            int randomInt = UnityEngine.Random.Range(0, itemCatalogueArray.Length);
+            string randomID = "";
+
+            for(int i = 0; i < itemCatalogueArray.Length; i++)
+            {
+                if(i == randomInt)
+                {
+                    randomID = itemCatalogueArray[i].itemID;
+                }
+            }
+            Debug.Log(allItemsList.Count);
+            Debug.Log("Square: " + randomID);
+
+            squareContentsID = randomID;
+
+
+        }
+
+
 
         switch(square)
         {
@@ -148,7 +189,7 @@ public class SquareController : MonoBehaviour
                 break;
         }
 
-        ActivateGameObject(potionSquareSprite);
+        ActivateGameObject(itemSquareSprite);
     }
 
     public void MakeGoalSquare()

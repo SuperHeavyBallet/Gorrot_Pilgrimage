@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />
     <Compile Include="Assets\PlayerStatsController.cs" />
     <Compile Include="Assets\SquareController.cs" />
+    <Compile Include="Assets\ItemCatalogue.cs" />
     <Compile Include="Assets\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>

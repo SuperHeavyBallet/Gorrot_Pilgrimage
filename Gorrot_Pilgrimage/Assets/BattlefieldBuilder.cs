@@ -339,7 +339,7 @@ public class BattlefieldBuilder : MonoBehaviour
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
 
         // Potions
-        PlaceTypeSquares(potionSquareCount, sq => sq.MakePotionSquare());
+        PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
 
         // Treasure (also hook compass on first one if you want)
         bool treasureTargetSet = false;

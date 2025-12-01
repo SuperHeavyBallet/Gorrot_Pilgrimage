@@ -213,14 +213,14 @@ MonoBehaviour:
   isTerrainSquare: 0
   isEmptySquare: 0
   isHealthSquare: 0
-  isPotionSquare: 0
+  isItemSquare: 0
   goalSquareSprite: {fileID: 2079368541572557217}
   treasureSquareSprite: {fileID: 8803553558590778619}
   enemySquareSprite: {fileID: 6318903799233828932}
   terrainSquareSprite: {fileID: 3361120687102296729}
   emptySquareSprite: {fileID: 8554551360456835540}
   healthSquareSprite: {fileID: 7235329973958619227}
-  potionSquareSprite: {fileID: 3835939806479357633}
+  itemSquareSprite: {fileID: 3835939806479357633}
   squareX: 0
   squareY: 0
   square: 1
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 1922748055075864359}
   - component: {fileID: 6194976906794836812}
   m_Layer: 0
-  m_Name: Potion
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
