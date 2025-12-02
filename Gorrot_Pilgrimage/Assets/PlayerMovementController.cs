@@ -185,7 +185,10 @@ public class PlayerMovementController : MonoBehaviour
                     amount = 3;
                     break;
             }
-            playerStatsController.subtractSuffering(amount);
+
+            playerStatsController.alterSuffering(amount * -1);
+
+            //playerStatsController.subtractSuffering(amount);
             newSquareController.MakeEmptySquare();
         }
 
@@ -233,9 +236,13 @@ public class PlayerMovementController : MonoBehaviour
                     break;
             }
 
-            playerStatsController.addHealth(amount);
+            //playerStatsController.addHealth(amount);
+            playerStatsController.alterHealth(amount);
             int sufferingAmount = Mathf.Clamp(amount, 0, amount-2);
-            playerStatsController.subtractSuffering(sufferingAmount);
+
+            playerStatsController.alterSuffering(sufferingAmount * -1);
+
+            //playerStatsController.subtractSuffering(sufferingAmount);
             newSquareController.MakeEmptySquare();
         }
 
@@ -258,7 +265,9 @@ public class PlayerMovementController : MonoBehaviour
 
     void addMovementSuffering()
     {
-        playerStatsController.addSuffering(1);
+
+        playerStatsController.alterSuffering(1);
+//        playerStatsController.addSuffering(1);
     }
 
 

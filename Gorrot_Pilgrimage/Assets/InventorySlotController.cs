@@ -16,27 +16,27 @@ public class InventorySlotController : MonoBehaviour
 
     PlayerStatsController playerStatsController;
 
+    public string itemID = "Empty";
+
+
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerStatsController = GameObject.Find("Player").GetComponent<PlayerStatsController>();
+        UpdateItemID("Empty");
 
-    }
+  
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void UseItemClick()
     {
         if(itemQuantity >= 1)
         {
-            playerStatsController.UseItem(itemText.text);
-           
+            playerStatsController.UseItem(itemID);
 
         }
 
@@ -50,22 +50,29 @@ public class InventorySlotController : MonoBehaviour
 
     }
 
-    public void UpdateItemText(string newItemText)
+    public void UpdateItemText(string newItemID)
     {
-        itemText.text = newItemText;
+        string itemName = ItemCatalogue.Instance.GetItemName(newItemID);
+        itemText.text = itemName;
     }
 
-    public void PlaceItemInSlot(string newItem)
+    public void UpdateItemID(string newItemID)
+    {
+        itemID = newItemID;
+    }
+
+    public void PlaceItemInSlot(string itemID)
     {
         slotIsEmpty = false;
         itemQuantity += 1;
         itemQuantityText.text = itemQuantity.ToString();
-        UpdateItemText(newItem);
+        UpdateItemID(itemID);
+        UpdateItemText(itemID);
     }
 
-    public string GetCurrentItemName()
+    public string GetCurrentItemID()
     {
-        return itemText.text;
+        return itemID;
     }
 
     public void PlaceDuplcateItemInSlot()
@@ -85,7 +92,8 @@ public class InventorySlotController : MonoBehaviour
         slotIsEmpty = true;
 
 
-        UpdateItemText("Empty");
+        UpdateItemText("...");
+        UpdateItemID("Empty");
     }
 
     public bool CheckSlotEmpty()

@@ -4,20 +4,27 @@ using TMPro;
 public class PlayerStatsController : MonoBehaviour
 {
 
-    public int playerCurrentHealth = 10;
+    int playerCurrentHealth = 10;
     int playerMaxHealth = 10;
     int playerMinHealth = 0;
 
-    public int playerCurrentSuffering = 0;
+    int playerCurrentSuffering = 0;
     int playerMaxSuffering = 10;
     int playerMinSuffering = 0;
 
+    int playerCurrentAttack = 0;
+    int playerMaxAttack = 6;
+    int playerMinAttack = 0;
+
     public TextMeshProUGUI healthDisplay;
     public TextMeshProUGUI sufferingDisplay;
+    public TextMeshProUGUI attackDisplay;
 
     public bool playerIsAlive;
 
     public AudioManager audioManager;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,58 +55,83 @@ public class PlayerStatsController : MonoBehaviour
 
     }
 
-    public void UseItem(string itemName)
+    public void UseItem(string itemID)
     {
+        string statEffected = ItemCatalogue.Instance.GetItemStatEffected(itemID);
+        int effectDelta = ItemCatalogue.Instance.GetItemEffectDelta(itemID);
 
-        Debug.Log("USE ITEM: " + itemName);
-        switch (itemName)
+
+        switch (statEffected)
         {
-            case "Sma Pot":
-                addHealth(1);
+            case "health":
+                alterHealth(effectDelta);
                 break;
-            case "Med Pot":
-                addHealth(3);
+            case "suffering":
+                alterSuffering(effectDelta);
                 break;
-            case "Big Pot":
-                addHealth(5);
+            case "attack":
+                alterAttack(effectDelta);
                 break;
             default:
-                addHealth(3);
+                alterHealth(3);
 
                 break;
         }
     }
 
-    public void addHealth(int addAmount)
+
+    public void alterAttack(int alterAmount)
     {
-        playerCurrentHealth += addAmount;
+        Debug.Log("ATTACK BOOST BY: " + alterAmount);
+
+        int before = playerCurrentAttack;
+        int raw = before + alterAmount;
+
+        playerCurrentAttack = Mathf.Clamp(raw, playerMinAttack, playerMaxAttack);
+
         UpdateNumbersDisplay();
     }
 
-    public void subtractSuffering(int subtractAmount)
+    public int getCurrentAttackBuff()
     {
-        if(playerCurrentSuffering > playerMinSuffering)
-        {
-            playerCurrentSuffering -= subtractAmount;
-        }
+        return playerCurrentAttack;
+    }
+
+    public void alterHealth(int alterAmount)
+    {
         
+
+        if (playerCurrentHealth > playerMinHealth)
+        {
+            playerCurrentHealth += alterAmount;
+
+        }
+
+        if(alterAmount < 0)
+        {
+            audioManager.playTakeDamageSoundEffect();
+        }
+
         UpdateNumbersDisplay();
+
     }
 
-    public void addSuffering(int addAmount)
+    public void alterSuffering(int alterAmount)
     {
-        if (playerCurrentSuffering >= playerMaxSuffering)
-        {
-            subtractHealth(1);
+        int before = playerCurrentSuffering;
+        int raw = before + alterAmount;
 
-        }
-        else
+        playerCurrentSuffering = Mathf.Clamp(raw, playerMinSuffering, playerMaxSuffering);
+
+        if(playerCurrentSuffering >= playerMaxSuffering)
         {
-            playerCurrentSuffering += addAmount;
+            alterHealth(-1);
         }
+
 
         UpdateNumbersDisplay();
     }
+
 
     public void resetSuffering()
     {
@@ -114,6 +146,7 @@ public class PlayerStatsController : MonoBehaviour
             playerIsAlive = true;
             healthDisplay.text = "Health: " + playerCurrentHealth.ToString();
             sufferingDisplay.text = "Suffering: " + playerCurrentSuffering.ToString();
+            attackDisplay.text = "Attack: +" + playerCurrentAttack.ToString();
         }
         else
         {

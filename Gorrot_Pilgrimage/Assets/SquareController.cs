@@ -145,9 +145,9 @@ public class SquareController : MonoBehaviour
 
         squareValue.gameObject.SetActive(true);
 
-        ItemCatalogue itemCatalogue = GameObject.Find("ItemCatalogue").GetComponent<ItemCatalogue>();
+        ItemCatalogue itemCatalogue = ItemCatalogue.Instance;
 
-        if(itemCatalogue != null)
+        if (itemCatalogue != null)
         {
             
                 allItemsList = itemCatalogue.GetAllItems();
@@ -164,16 +164,16 @@ public class SquareController : MonoBehaviour
                     randomID = itemCatalogueArray[i].itemID;
                 }
             }
-            Debug.Log(allItemsList.Count);
-            Debug.Log("Square: " + randomID);
 
             squareContentsID = randomID;
 
 
         }
 
+        squareValue.text = squareContentsID;
 
 
+        /*
         switch(square)
         {
             case squareQuantity.small:
@@ -187,7 +187,7 @@ public class SquareController : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
 
         ActivateGameObject(itemSquareSprite);
     }

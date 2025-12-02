@@ -8,4 +8,8 @@ public class InventoryItemTemplate : ScriptableObject
     public Sprite itemImage;
     public int amountHeld;
 
+    public enum statsToEffect { health, suffering, attack};
+    public statsToEffect statEffected = statsToEffect.health;
+    public int effectDelta = 1; // +1, -1 to adjust stat
+
 }

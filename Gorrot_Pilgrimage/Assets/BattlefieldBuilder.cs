@@ -8,7 +8,7 @@ using TMPro;
 public class BattlefieldBuilder : MonoBehaviour
 {
 
-    public int battleFieldSize;
+    //public int battleFieldSize;
     //BattlefieldSquare[,] grid;
     public GameObject battleFieldSquare;
 
@@ -71,20 +71,28 @@ public class BattlefieldBuilder : MonoBehaviour
         finalMapText.text = isFinalMap ? "Final Map" : "Keep Going";
     }
 
+    int CalculateMapSize()
+    {
+        int mapSize = 10 * currentMapCount;
+        return mapSize;
+    }
+
     public void BuildNewBattlefield()
     {
         if(!isFinalMap)
         {
             currentMapCount += 1;
             currentMapCountText.text = "Map: " + currentMapCount.ToString();
+            int currentMapSize = CalculateMapSize();
+
             ClearOldBattlefield();   // <- add this
             FinalMapDecider();
-            setPlayerStartSquare();
-            setContentAmount();
+            setPlayerStartSquare(currentMapSize);
+            setContentAmount(currentMapSize);
 
 
-            buildBattleFieldGrid(battleFieldSize);
-            placePlayer(battleFieldSize);
+            buildBattleFieldGrid(currentMapSize);
+            placePlayer(currentMapSize);
         }
         else
         {
@@ -114,9 +122,9 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
-    void setContentAmount()
+    void setContentAmount(int currentMapSize)
     {
-        int area = battleFieldSize * battleFieldSize;
+        int area = currentMapSize * currentMapSize;
 
         // --- 1. Define easy / hard ratios ---
 
@@ -167,15 +175,15 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
-    void setPlayerStartSquare()
+    void setPlayerStartSquare(int currentMapSize)
     {
         // ranndom Horizontal Index on the first row
-        playerStartingPosition = UnityEngine.Random.Range(0, battleFieldSize);
+        playerStartingPosition = UnityEngine.Random.Range(0, currentMapSize);
     }
 
-    int setRandomGoalSquare()
+    int setRandomGoalSquare(int currentMapSize)
     {
-        return UnityEngine.Random.Range(0, battleFieldSize);
+        return UnityEngine.Random.Range(0, currentMapSize);
     }
 
 
@@ -189,7 +197,7 @@ public class BattlefieldBuilder : MonoBehaviour
         allSquares = new GameObject[size, size];
         freeSquares.Clear();
 
-        int randomGoalSquare = setRandomGoalSquare();
+        int randomGoalSquare = setRandomGoalSquare(size);
 
         for (int x = 0; x < size; x++)
         {

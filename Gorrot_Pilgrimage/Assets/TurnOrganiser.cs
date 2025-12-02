@@ -38,11 +38,10 @@ public class TurnOrganiser : MonoBehaviour
 
     void BuildContestPhase()
     {
-        Debug.Log("Build Contest Phase");
+
 
         if (hasLandedOnEnemy)
         {
-            Debug.Log("On Enemy");
             RollDiceContest();
         }
         else
@@ -66,21 +65,23 @@ public class TurnOrganiser : MonoBehaviour
     public void landedOnEnemySquare(int squareQuantity)
     {
         currentEnemyDamage = squareQuantity;
+        int playerCurrentAttackBost = playerStatsController.getCurrentAttackBuff();
+
         switch(squareQuantity)
         {
             case 1:
-                enemyRollToBeat = 2;
+                enemyRollToBeat = 2 - playerCurrentAttackBost;
                 break;
 
             case 2:
-                enemyRollToBeat = 3;
+                enemyRollToBeat = 3 - playerCurrentAttackBost;
                 break;
 
             case 3:
-                enemyRollToBeat = 4;
+                enemyRollToBeat = 4 - playerCurrentAttackBost;
                 break;
             default:
-                enemyRollToBeat = 3;
+                enemyRollToBeat = 3 - playerCurrentAttackBost;
                 break;
         }
         hasLandedOnEnemy = true;
@@ -116,11 +117,10 @@ public class TurnOrganiser : MonoBehaviour
         yield return new WaitUntil(() => !diceController.isRolling);
 
         int result = diceController.getDiceResult();
-        Debug.Log("Final contest result = " + result);
 
         if(result <= enemyRollToBeat)
         {
-            playerStatsController.subtractHealth(currentEnemyDamage);
+            playerStatsController.alterHealth(currentEnemyDamage * -1);
             playerStatsController.resetSuffering();
         }
         else

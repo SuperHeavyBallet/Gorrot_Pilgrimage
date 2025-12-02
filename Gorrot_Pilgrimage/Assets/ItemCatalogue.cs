@@ -4,29 +4,70 @@ using System.Collections.Generic;
 
 public class ItemCatalogue : MonoBehaviour
 {
-    public InventoryItemTemplate[] allItems;
+
+    public static ItemCatalogue Instance { get; private set; }
 
     public List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
+    private Dictionary<string, InventoryItemTemplate> itemLookup = new Dictionary<string, InventoryItemTemplate>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        ListAllItems();
+
+        // Singleton enforcement
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        itemLookup.Clear();
+
+        foreach (var item in allItemsList)
+        {
+            if (!itemLookup.ContainsKey(item.itemID))
+                itemLookup.Add(item.itemID, item);
+            else
+                Debug.LogWarning($"Duplicate itemID detected: {item.itemID}");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void ListAllItems()
-    {
-      
-    }
 
     public List<InventoryItemTemplate> GetAllItems()
     {
         return allItemsList;
+    }
+
+    public string GetItemName(string itemID)
+    {
+        if (itemLookup.TryGetValue(itemID, out var item))
+            return item.itemName;
+
+        return ""; 
+
+    }
+
+    public string GetItemStatEffected(string itemID)
+    {
+        if (itemLookup.TryGetValue(itemID, out var item))
+        {
+            Debug.Log("Got Item Effect for: " + itemID);
+            return item.statEffected.ToString();
+        }
+
+        Debug.Log("NO Item Effect for: " + itemID);
+        return "";
+    }
+
+    public int GetItemEffectDelta(string itemID)
+    {
+        if(itemLookup.TryGetValue(itemID,out var item))
+        {
+            return item.effectDelta;
+        }
+
+        return 0;
     }
 }
