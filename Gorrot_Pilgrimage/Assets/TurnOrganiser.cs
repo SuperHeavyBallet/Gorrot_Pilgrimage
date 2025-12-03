@@ -24,6 +24,8 @@ public class TurnOrganiser : MonoBehaviour
     int currentEnemyDamage;
     int enemyRollToBeat;
 
+    public TextMeshProUGUI DiceRollFormulaText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -106,7 +108,16 @@ public class TurnOrganiser : MonoBehaviour
         if (waitForDiceRoll != null)
             StopCoroutine(waitForDiceRoll);
 
+        UpdateDiceRollFormulaText();
+
         waitForDiceRoll = StartCoroutine(RollDiceContestRoutine());
+    }
+
+    void UpdateDiceRollFormulaText()
+    {
+        int playerAttackBuff = playerStatsController.getCurrentAttackBuff();
+
+        DiceRollFormulaText.text = "1D6 + " + playerAttackBuff + " vs " + enemyRollToBeat; 
     }
 
     private IEnumerator RollDiceContestRoutine()
