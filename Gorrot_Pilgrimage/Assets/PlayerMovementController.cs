@@ -28,6 +28,8 @@ public class PlayerMovementController : MonoBehaviour
 
     PlayerInventory playerInventory;
 
+    public FateCounter fateCounter;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -250,6 +252,8 @@ public class PlayerMovementController : MonoBehaviour
                 
         this.transform.position = newPosition;
         currentPosition = new Vector2Int(newPositionX, newPositionY);
+
+        fateCounter.alterFateCounter(1);
 
         turnOrganiser.disablePlayerTurn();
 

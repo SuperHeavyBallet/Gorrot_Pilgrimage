@@ -8,20 +8,18 @@ using TMPro;
 public class BattlefieldBuilder : MonoBehaviour
 {
 
-    //public int battleFieldSize;
-    //BattlefieldSquare[,] grid;
     public GameObject battleFieldSquare;
 
     public GameObject[,] allSquares;
 
     public GameObject player;
 
-    public int goalSquareCount = 1;
-    public int enemySquareCount = 5;
-    public int treasureSquareCount = 5;
-   public int terrainSquareCount = 5;
-    public int healthSquareCount = 5;
-    public int potionSquareCount = 5;
+    int goalSquareCount = 1;
+    int enemySquareCount = 5;
+    int treasureSquareCount = 5;
+   int terrainSquareCount = 5;
+    int healthSquareCount = 5;
+    int potionSquareCount = 5;
 
     int playerStartingPosition = 0;
 
@@ -33,22 +31,7 @@ public class BattlefieldBuilder : MonoBehaviour
     public int currentMapCount = 0;
     public TextMeshProUGUI currentMapCountText;
 
-
-    public class BattlefieldSquare
-    {
-        public int x;
-        public int y;
-
-        public bool blocked;
-        public bool visited;
-        public string tileType;
-
-        public BattlefieldSquare(int xPos, int yPos)
-        {
-            x = xPos;
-            y = yPos;
-        }
-    }
+    int minMapCount = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,10 +44,19 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void FinalMapDecider()
     {
-        int chance = Mathf.Clamp(10 - currentMapCount, 2, 8);
+
+        int chance = 1;
+        int roll = 1;
+
+        if (currentMapCount > minMapCount)
+        {
+            chance = Mathf.Clamp(10 - currentMapCount, 2, 8);
+            roll = UnityEngine.Random.Range(0, chance);
+        }
+            
 
         // lower chance higher probability of final
-        int roll = UnityEngine.Random.Range(0, chance);
+        
 
         isFinalMap = (roll == 0);
 
@@ -85,8 +77,12 @@ public class BattlefieldBuilder : MonoBehaviour
             currentMapCountText.text = "Map: " + currentMapCount.ToString();
             int currentMapSize = CalculateMapSize();
 
-            ClearOldBattlefield();   // <- add this
-            FinalMapDecider();
+            ClearOldBattlefield();
+
+            
+                FinalMapDecider();
+            
+            
             setPlayerStartSquare(currentMapSize);
             setContentAmount(currentMapSize);
 
@@ -129,16 +125,16 @@ public class BattlefieldBuilder : MonoBehaviour
         // --- 1. Define easy / hard ratios ---
 
         float easyEnemyRatio = 1f / 40f;
-        float easyTreasureRatio = 1f / 20f;
+        float easyTreasureRatio = 1f / 30f;
         float easyTerrainRatio = 1f / 20f;
-        float easyHealthRatio = 1f / 20f;
-        float easyPotionRatio = 1f / 20f;
+        float easyHealthRatio = 1f / 40f;
+        float easyPotionRatio = 1f / 40f;
 
-        float hardEnemyRatio = 1f / 20f;
-        float hardTreasureRatio = 1f / 40f;
+        float hardEnemyRatio = 1f / 30f;
+        float hardTreasureRatio = 1f / 80f;
         float hardTerrainRatio = 1f / 10f;
-        float hardHealthRatio = 1f / 40f;
-        float hardPotionRatio = 1f / 40f;
+        float hardHealthRatio = 1f / 90f;
+        float hardPotionRatio = 1f / 90f;
 
         // --- 2. Compute difficulty [0..1] ---
 

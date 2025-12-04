@@ -67,13 +67,16 @@
     <Compile Include="Assets\PlayerInventory.cs" />
     <Compile Include="Assets\ShadowPulseAnimation.cs" />
     <Compile Include="Assets\TurnOrganiser.cs" />
+    <Compile Include="Assets\FateOutcomes.cs" />
     <Compile Include="Assets\InventorySlotController.cs" />
     <Compile Include="Assets\PlayerInputReceiver.cs" />
     <Compile Include="Assets\CameraTrackPlayer.cs" />
     <Compile Include="Assets\BattlefieldBuilder.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
+    <Compile Include="Assets\FateCounter.cs" />
     <Compile Include="Assets\PlayerDistanceController.cs" />
     <Compile Include="Assets\ShadowController.cs" />
+    <Compile Include="Assets\Scriptable\FateOutcome.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\PlayerCompassController.cs" />
     <Compile Include="Assets\DiceCollisionSound.cs" />
