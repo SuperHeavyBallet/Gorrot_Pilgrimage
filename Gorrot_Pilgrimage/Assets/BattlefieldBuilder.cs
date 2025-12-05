@@ -31,6 +31,8 @@ public class BattlefieldBuilder : MonoBehaviour
     public int currentMapCount = 0;
     public TextMeshProUGUI currentMapCountText;
 
+
+
     int minMapCount = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

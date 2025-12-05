@@ -106,6 +106,10 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
+        // Compare Positions between this and proposed next square to set the entry direction
+        Vector2Int newMoveVector = new Vector2Int(newPositionX, newPositionY);
+        newSquareController.SetEntryDirection(currentPosition, newMoveVector);
+
         
 
         Vector2 newPosition = new Vector2(

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemTemplate
   itemID: soothing_words
   itemName: Soothing Words
-  itemImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  itemImage: {fileID: 21300000, guid: 1018e0482af582240b83f5b6d147bebd, type: 3}
   amountHeld: 0
   statEffected: 1
   effectDelta: -3

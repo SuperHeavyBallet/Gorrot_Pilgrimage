@@ -1,0 +1,1989 @@
+fileFormatVersion: 2
+guid: a37d55ccbe2cba343abc4842b35b3b8a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1344352691214339880
+    second: Sprite_GridSquareOverlay_0
+  - first:
+      213: -880038456552266304
+    second: Sprite_GridSquareOverlay_1
+  - first:
+      213: -4853450354515437329
+    second: Sprite_GridSquareOverlay_2
+  - first:
+      213: 3291392560334068332
+    second: Sprite_GridSquareOverlay_3
+  - first:
+      213: 5383413317775269065
+    second: Sprite_GridSquareOverlay_4
+  - first:
+      213: 1018754503762548465
+    second: Sprite_GridSquareOverlay_5
+  - first:
+      213: 4278813780583110132
+    second: Sprite_GridSquareOverlay_6
+  - first:
+      213: 2170134504639283733
+    second: Sprite_GridSquareOverlay_7
+  - first:
+      213: 3580882030308350870
+    second: Sprite_GridSquareOverlay_8
+  - first:
+      213: -2594763167096421989
+    second: Sprite_GridSquareOverlay_9
+  - first:
+      213: 775965557182786980
+    second: Sprite_GridSquareOverlay_10
+  - first:
+      213: -9210282613066448221
+    second: Sprite_GridSquareOverlay_11
+  - first:
+      213: 8500429326883095754
+    second: Sprite_GridSquareOverlay_12
+  - first:
+      213: -4670681623618980896
+    second: Sprite_GridSquareOverlay_13
+  - first:
+      213: -5684374144586718840
+    second: Sprite_GridSquareOverlay_14
+  - first:
+      213: -4434135024907800221
+    second: Sprite_GridSquareOverlay_15
+  - first:
+      213: 7629375812178087454
+    second: Sprite_GridSquareOverlay_16
+  - first:
+      213: 293325423549131587
+    second: Sprite_GridSquareOverlay_17
+  - first:
+      213: -8161521073077907873
+    second: Sprite_GridSquareOverlay_18
+  - first:
+      213: -2532506613461198395
+    second: Sprite_GridSquareOverlay_19
+  - first:
+      213: 5559191710816069846
+    second: Sprite_GridSquareOverlay_20
+  - first:
+      213: -6449694289312321970
+    second: Sprite_GridSquareOverlay_21
+  - first:
+      213: -3246335175830927390
+    second: Sprite_GridSquareOverlay_22
+  - first:
+      213: -7756646448949823379
+    second: Sprite_GridSquareOverlay_23
+  - first:
+      213: 6279258153892718907
+    second: Sprite_GridSquareOverlay_24
+  - first:
+      213: 2975399240787357983
+    second: Sprite_GridSquareOverlay_25
+  - first:
+      213: -5376808910210316666
+    second: Sprite_GridSquareOverlay_26
+  - first:
+      213: 4500635626008198092
+    second: Sprite_GridSquareOverlay_27
+  - first:
+      213: 8632894803510715534
+    second: Sprite_GridSquareOverlay_28
+  - first:
+      213: 6659820191411766744
+    second: Sprite_GridSquareOverlay_29
+  - first:
+      213: -6528690096306054285
+    second: Sprite_GridSquareOverlay_30
+  - first:
+      213: -1041906637233398163
+    second: Sprite_GridSquareOverlay_31
+  - first:
+      213: -8688904625521726465
+    second: Sprite_GridSquareOverlay_32
+  - first:
+      213: -3605230935718884058
+    second: Sprite_GridSquareOverlay_33
+  - first:
+      213: 3084349712226892697
+    second: Sprite_GridSquareOverlay_34
+  - first:
+      213: -810651783426623905
+    second: Sprite_GridSquareOverlay_35
+  - first:
+      213: 8803306824380718597
+    second: Sprite_GridSquareOverlay_36
+  - first:
+      213: 2214785472327754804
+    second: Sprite_GridSquareOverlay_37
+  - first:
+      213: 7102967431324282994
+    second: Sprite_GridSquareOverlay_38
+  - first:
+      213: 3340752564882400196
+    second: Sprite_GridSquareOverlay_39
+  - first:
+      213: 8444688590819071215
+    second: Sprite_GridSquareOverlay_40
+  - first:
+      213: 1461251589061477197
+    second: Sprite_GridSquareOverlay_41
+  - first:
+      213: 5643038771342532895
+    second: Sprite_GridSquareOverlay_42
+  - first:
+      213: -4878525838752418352
+    second: Sprite_GridSquareOverlay_43
+  - first:
+      213: 9123454447060161813
+    second: Sprite_GridSquareOverlay_44
+  - first:
+      213: 840300041514458075
+    second: Sprite_GridSquareOverlay_45
+  - first:
+      213: 6114330338527097825
+    second: Sprite_GridSquareOverlay_46
+  - first:
+      213: 3648626121432784923
+    second: Sprite_GridSquareOverlay_47
+  - first:
+      213: -6338628753418990424
+    second: Sprite_GridSquareOverlay_48
+  - first:
+      213: 4839684495989290411
+    second: Sprite_GridSquareOverlay_49
+  - first:
+      213: 8364339041383286771
+    second: Sprite_GridSquareOverlay_50
+  - first:
+      213: -8583426604261547456
+    second: Sprite_GridSquareOverlay_51
+  - first:
+      213: 7233320319638824104
+    second: Sprite_GridSquareOverlay_52
+  - first:
+      213: 3489937553544242115
+    second: Sprite_GridSquareOverlay_53
+  - first:
+      213: 1941039710125735996
+    second: Sprite_GridSquareOverlay_54
+  - first:
+      213: -3301138747312119061
+    second: Sprite_GridSquareOverlay_55
+  - first:
+      213: -7132445521809401241
+    second: Sprite_GridSquareOverlay_56
+  - first:
+      213: 7491222156856197923
+    second: Sprite_GridSquareOverlay_57
+  - first:
+      213: -2760232096957059102
+    second: Sprite_GridSquareOverlay_58
+  - first:
+      213: 9559393503813401
+    second: Sprite_GridSquareOverlay_59
+  - first:
+      213: 296760361053843270
+    second: Sprite_GridSquareOverlay_60
+  - first:
+      213: 9052553019100209495
+    second: Sprite_GridSquareOverlay_61
+  - first:
+      213: -801748399464317962
+    second: Sprite_GridSquareOverlay_62
+  - first:
+      213: -3402785545273426530
+    second: Sprite_GridSquareOverlay_63
+  - first:
+      213: 5440246590749861649
+    second: Sprite_GridSquareOverlay_64
+  - first:
+      213: -8427218840758459855
+    second: Sprite_GridSquareOverlay_65
+  - first:
+      213: -7468297019709869747
+    second: Sprite_GridSquareOverlay_66
+  - first:
+      213: 5880925194598868132
+    second: Sprite_GridSquareOverlay_67
+  - first:
+      213: -1728819980109607323
+    second: Sprite_GridSquareOverlay_68
+  - first:
+      213: -3678909356445236178
+    second: Sprite_GridSquareOverlay_69
+  - first:
+      213: 5762215976693570244
+    second: Sprite_GridSquareOverlay_70
+  - first:
+      213: -6971779093445923978
+    second: Sprite_GridSquareOverlay_71
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1071
+        width: 37
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d0345b9956e75de0800000000000000
+      internalID: -1344352691214339880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5e488bfa979c3f0800000000000000
+      internalID: -880038456552266304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_2
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe81d140e9415acb0800000000000000
+      internalID: -4853450354515437329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_3
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a531758106dad20800000000000000
+      internalID: 3291392560334068332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_4
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cc1a15d3e9b5ba40800000000000000
+      internalID: 5383413317775269065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_5
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f69816d2d7532e00800000000000000
+      internalID: 1018754503762548465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_6
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f5d3bb9676616b30800000000000000
+      internalID: 4278813780583110132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_7
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 512c7d785dddd1e10800000000000000
+      internalID: 2170134504639283733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_8
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69bdb17fb39d1b130800000000000000
+      internalID: 3580882030308350870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_9
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9143fca5ac8dfbd0800000000000000
+      internalID: -2594763167096421989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_10
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ad61d12098c4ca00800000000000000
+      internalID: 775965557182786980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_11
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2c737f2c08e2080800000000000000
+      internalID: -9210282613066448221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_12
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac40e238f6797f570800000000000000
+      internalID: 8500429326883095754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_13
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e3fe354fc76e2fb0800000000000000
+      internalID: -4670681623618980896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_14
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8816e7525db0d11b0800000000000000
+      internalID: -5684374144586718840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_15
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 361b04a10b9c672c0800000000000000
+      internalID: -4434135024907800221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_16
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1e05d601ecf0e960800000000000000
+      internalID: 7629375812178087454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_17
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 1071
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34bac3a2be9121400800000000000000
+      internalID: 293325423549131587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_18
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 1044
+        width: 12
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e835c53d37cbe80800000000000000
+      internalID: -8161521073077907873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1019
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c9515127aabadcd0800000000000000
+      internalID: -2532506613461198395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_20
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 984
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d8ec793867362d40800000000000000
+      internalID: 5559191710816069846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 959
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4e6caf37351e76a0800000000000000
+      internalID: -6449694289312321970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_22
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 924
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e70ebe7b53b2f2d0800000000000000
+      internalID: -3246335175830927390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 899
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d68fc02b62bda5490800000000000000
+      internalID: -7756646448949823379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_24
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 864
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3920c3a508642750800000000000000
+      internalID: 6279258153892718907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 839
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11f81c58ddba4920800000000000000
+      internalID: 2975399240787357983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_26
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 804
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68642c1a8ccb165b0800000000000000
+      internalID: -5376808910210316666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 779
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbbfa7a148757e30800000000000000
+      internalID: 4500635626008198092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_28
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 744
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e846292b5143ec770800000000000000
+      internalID: 8632894803510715534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 719
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d58219cd2f6c6c50800000000000000
+      internalID: 6659820191411766744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_30
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 684
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37b1119a2fe6565a0800000000000000
+      internalID: -6528690096306054285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_31
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 659
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6ed4960f676a81f0800000000000000
+      internalID: -1041906637233398163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_32
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 624
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb6784674fca6780800000000000000
+      internalID: -8688904625521726465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 599
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62d0a37b095a7fdc0800000000000000
+      internalID: -3605230935718884058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_34
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 564
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99bbc50c8bfcdca20800000000000000
+      internalID: 3084349712226892697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f56b15c7f7cffb4f0800000000000000
+      internalID: -810651783426623905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_36
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 504
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e1cf33ae0ab2a70800000000000000
+      internalID: 8803306824380718597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_37
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 479
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434aac317af7cbe10800000000000000
+      internalID: 2214785472327754804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_38
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 444
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 270b043ee3fc29260800000000000000
+      internalID: 7102967431324282994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 419
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c36a48f1ccbc5e20800000000000000
+      internalID: 3340752564882400196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_40
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 384
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe4909e088f813570800000000000000
+      internalID: 8444688590819071215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 359
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d430c750498674410800000000000000
+      internalID: 1461251589061477197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_42
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 324
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11e0ab4dd9105e40800000000000000
+      internalID: 5643038771342532895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 299
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d5f891e89efb4cb0800000000000000
+      internalID: -4878525838752418352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_44
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 264
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5159a714b750d9e70800000000000000
+      internalID: 9123454447060161813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 239
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb17378f6859ab00800000000000000
+      internalID: 840300041514458075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_46
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 204
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e33d4b3c077ad450800000000000000
+      internalID: 6114330338527097825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 179
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b10663e402682a230800000000000000
+      internalID: 3648626121432784923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_48
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 144
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ac42657bbaa808a0800000000000000
+      internalID: -6338628753418990424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_49
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 119
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba5386848630a2340800000000000000
+      internalID: 4839684495989290411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_50
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 84
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f7059eba0a141470800000000000000
+      internalID: 8364339041383286771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 59
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0426a59fafa81e880800000000000000
+      internalID: -8583426604261547456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_52
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 24
+        width: 12
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a4efa6c18ae16460800000000000000
+      internalID: 7233320319638824104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_53
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 9
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3ec47e6bfbe6030800000000000000
+      internalID: 3489937553544242115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_54
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c30c8f01555ffea10800000000000000
+      internalID: 1941039710125735996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_55
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be2ee2caccfff22d0800000000000000
+      internalID: -3301138747312119061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_56
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76a99b45696740d90800000000000000
+      internalID: -7132445521809401241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_57
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32303f88cda26f760800000000000000
+      internalID: 7491222156856197923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_58
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ef2e3b388fa1b9d0800000000000000
+      internalID: -2760232096957059102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_59
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91f101eb736f12000800000000000000
+      internalID: 9559393503813401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_60
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64fe700e9fd4e1400800000000000000
+      internalID: 296760361053843270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_61
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 751abd5220121ad70800000000000000
+      internalID: 9052553019100209495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_62
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fbf0ba141e9fd4f0800000000000000
+      internalID: -801748399464317962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_63
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9db4274390e6c0d0800000000000000
+      internalID: -3402785545273426530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_64
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 117ec2c5373af7b40800000000000000
+      internalID: 5440246590749861649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_65
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 132ec181d118c0b80800000000000000
+      internalID: -8427218840758459855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_66
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d41b517ed674b5890800000000000000
+      internalID: -7468297019709869747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_67
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a4e5b65e4e3d9150800000000000000
+      internalID: 5880925194598868132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_68
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56e08f4436ff108e0800000000000000
+      internalID: -1728819980109607323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_69
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2488389e63e1fcc0800000000000000
+      internalID: -3678909356445236178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_70
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ca96e9b6e087ff40800000000000000
+      internalID: 5762215976693570244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_GridSquareOverlay_71
+      rect:
+        serializedVersion: 2
+        x: 1038
+        y: 0
+        width: 42
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b29a24ad34f3f90800000000000000
+      internalID: -6971779093445923978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sprite_GridSquareOverlay_0: -1344352691214339880
+      Sprite_GridSquareOverlay_1: -880038456552266304
+      Sprite_GridSquareOverlay_10: 775965557182786980
+      Sprite_GridSquareOverlay_11: -9210282613066448221
+      Sprite_GridSquareOverlay_12: 8500429326883095754
+      Sprite_GridSquareOverlay_13: -4670681623618980896
+      Sprite_GridSquareOverlay_14: -5684374144586718840
+      Sprite_GridSquareOverlay_15: -4434135024907800221
+      Sprite_GridSquareOverlay_16: 7629375812178087454
+      Sprite_GridSquareOverlay_17: 293325423549131587
+      Sprite_GridSquareOverlay_18: -8161521073077907873
+      Sprite_GridSquareOverlay_19: -2532506613461198395
+      Sprite_GridSquareOverlay_2: -4853450354515437329
+      Sprite_GridSquareOverlay_20: 5559191710816069846
+      Sprite_GridSquareOverlay_21: -6449694289312321970
+      Sprite_GridSquareOverlay_22: -3246335175830927390
+      Sprite_GridSquareOverlay_23: -7756646448949823379
+      Sprite_GridSquareOverlay_24: 6279258153892718907
+      Sprite_GridSquareOverlay_25: 2975399240787357983
+      Sprite_GridSquareOverlay_26: -5376808910210316666
+      Sprite_GridSquareOverlay_27: 4500635626008198092
+      Sprite_GridSquareOverlay_28: 8632894803510715534
+      Sprite_GridSquareOverlay_29: 6659820191411766744
+      Sprite_GridSquareOverlay_3: 3291392560334068332
+      Sprite_GridSquareOverlay_30: -6528690096306054285
+      Sprite_GridSquareOverlay_31: -1041906637233398163
+      Sprite_GridSquareOverlay_32: -8688904625521726465
+      Sprite_GridSquareOverlay_33: -3605230935718884058
+      Sprite_GridSquareOverlay_34: 3084349712226892697
+      Sprite_GridSquareOverlay_35: -810651783426623905
+      Sprite_GridSquareOverlay_36: 8803306824380718597
+      Sprite_GridSquareOverlay_37: 2214785472327754804
+      Sprite_GridSquareOverlay_38: 7102967431324282994
+      Sprite_GridSquareOverlay_39: 3340752564882400196
+      Sprite_GridSquareOverlay_4: 5383413317775269065
+      Sprite_GridSquareOverlay_40: 8444688590819071215
+      Sprite_GridSquareOverlay_41: 1461251589061477197
+      Sprite_GridSquareOverlay_42: 5643038771342532895
+      Sprite_GridSquareOverlay_43: -4878525838752418352
+      Sprite_GridSquareOverlay_44: 9123454447060161813
+      Sprite_GridSquareOverlay_45: 840300041514458075
+      Sprite_GridSquareOverlay_46: 6114330338527097825
+      Sprite_GridSquareOverlay_47: 3648626121432784923
+      Sprite_GridSquareOverlay_48: -6338628753418990424
+      Sprite_GridSquareOverlay_49: 4839684495989290411
+      Sprite_GridSquareOverlay_5: 1018754503762548465
+      Sprite_GridSquareOverlay_50: 8364339041383286771
+      Sprite_GridSquareOverlay_51: -8583426604261547456
+      Sprite_GridSquareOverlay_52: 7233320319638824104
+      Sprite_GridSquareOverlay_53: 3489937553544242115
+      Sprite_GridSquareOverlay_54: 1941039710125735996
+      Sprite_GridSquareOverlay_55: -3301138747312119061
+      Sprite_GridSquareOverlay_56: -7132445521809401241
+      Sprite_GridSquareOverlay_57: 7491222156856197923
+      Sprite_GridSquareOverlay_58: -2760232096957059102
+      Sprite_GridSquareOverlay_59: 9559393503813401
+      Sprite_GridSquareOverlay_6: 4278813780583110132
+      Sprite_GridSquareOverlay_60: 296760361053843270
+      Sprite_GridSquareOverlay_61: 9052553019100209495
+      Sprite_GridSquareOverlay_62: -801748399464317962
+      Sprite_GridSquareOverlay_63: -3402785545273426530
+      Sprite_GridSquareOverlay_64: 5440246590749861649
+      Sprite_GridSquareOverlay_65: -8427218840758459855
+      Sprite_GridSquareOverlay_66: -7468297019709869747
+      Sprite_GridSquareOverlay_67: 5880925194598868132
+      Sprite_GridSquareOverlay_68: -1728819980109607323
+      Sprite_GridSquareOverlay_69: -3678909356445236178
+      Sprite_GridSquareOverlay_7: 2170134504639283733
+      Sprite_GridSquareOverlay_70: 5762215976693570244
+      Sprite_GridSquareOverlay_71: -6971779093445923978
+      Sprite_GridSquareOverlay_8: 3580882030308350870
+      Sprite_GridSquareOverlay_9: -2594763167096421989
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

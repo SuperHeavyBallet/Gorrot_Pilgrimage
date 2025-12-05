@@ -35,19 +35,88 @@ public class SquareController : MonoBehaviour
     public squareQuantity square = squareQuantity.medium;
     public string squareQuantityString;
 
+    public enum directions
+    {
+        up, down, left, right
+    }
+
+    public directions enterDirection = directions.up;
+
     float spriteScale = 1;
 
     string squareContentsID = "";
 
-    public TextMeshProUGUI squareValue;
+   public TextMeshProUGUI squareValue;
 
     List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
 
     InventoryItemTemplate[] allItems;
 
+    SquareSpriteLibrary squareSpriteLibrary;
+
+    public SpriteRenderer squareTerrainSpriteRenderer;
+    public SpriteRenderer squareItemSpriteRenderer;
+
+  
+
+    public string squareType = "empty";
+
     private void OnEnable()
     {
         decideSquareQuantity();
+        squareValue.gameObject.SetActive(false);
+
+    }
+
+    void ChooseSquareSprite()
+    {
+        Sprite chosenSprite = SquareSpriteLibrary.Instance.GetRandomSprite(squareType);
+        squareTerrainSpriteRenderer.sprite = chosenSprite;
+    }
+
+    private static readonly Dictionary<Vector2Int, directions> dirLookup =
+    new Dictionary<Vector2Int, directions>
+    {
+        { new Vector2Int(0, 1), directions.up },
+        { new Vector2Int(0, -1), directions.down },
+        { new Vector2Int(1, 0), directions.right },
+        { new Vector2Int(-1, 0), directions.left }
+    };
+
+    public void SetEntryDirection(Vector2Int currentPosition, Vector2Int thisPosition)
+    {
+        Vector2Int delta = thisPosition - currentPosition;
+
+        if (dirLookup.TryGetValue(delta, out directions d))
+            enterDirection = d;
+        else
+            Debug.LogWarning("Invalid movement delta: " + delta);
+
+        int angle = 0;
+
+        switch(enterDirection)
+        {
+            case directions.up:
+                angle = 0;
+                break;
+                case directions.down:
+                angle = 180;
+                break;
+                case directions.left:
+                angle = 90;
+                break;
+                case directions.right:
+                angle = 270;
+                break;
+                default:
+                angle = 0;
+                break;
+        }
+        Quaternion rot = Quaternion.Euler(0, 0, angle);
+
+        visitedSprite.transform.rotation = rot;
+
+        
     }
 
 
@@ -64,10 +133,7 @@ public class SquareController : MonoBehaviour
         
         targetGO.SetActive(true);
 
-        if(targetGO != emptySquareSprite && targetGO != goalSquareSprite && targetGO != terrainSquareSprite)
-        {
-            targetGO.transform.localScale = new Vector3(spriteScale, spriteScale, 1);
-        }
+        
         
     }
 
@@ -109,8 +175,10 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-        squareValue.gameObject.SetActive(true);
-
+       // squareValue.gameObject.SetActive(true);
+        squareType = "health";
+        ChooseSquareSprite();
+        /*
         switch(square)
         {
             case squareQuantity.small:
@@ -125,7 +193,7 @@ public class SquareController : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
         ActivateGameObject(healthSquareSprite);
     }
@@ -143,9 +211,12 @@ public class SquareController : MonoBehaviour
         isHealthSquare = false;
         isItemSquare = true;
 
-        squareValue.gameObject.SetActive(true);
+       // squareValue.gameObject.SetActive(true);
+        squareType = "item";
+        ChooseSquareSprite();
 
         ItemCatalogue itemCatalogue = ItemCatalogue.Instance;
+        Sprite itemSprite = null;
 
         if (itemCatalogue != null)
         {
@@ -162,32 +233,24 @@ public class SquareController : MonoBehaviour
                 if(i == randomInt)
                 {
                     randomID = itemCatalogueArray[i].itemID;
+                    itemSprite = itemCatalogueArray[i].itemImage;
                 }
             }
 
             squareContentsID = randomID;
+            
 
 
         }
 
-        squareValue.text = squareContentsID;
-
-
-        /*
-        switch(square)
+        if(itemSprite != null)
         {
-            case squareQuantity.small:
-                squareValue.text = "+1H";
-                break;
-            case squareQuantity.medium:
-                squareValue.text = "+3H, -1S";
-                break;
-            case squareQuantity.large:
-                squareValue.text = "5H, -3S";
-                break;
-            default:
-                break;
-        }*/
+            squareItemSpriteRenderer.sprite = itemSprite;
+        }
+        
+
+        //squareValue.text = squareContentsID;
+
 
         ActivateGameObject(itemSquareSprite);
     }
@@ -200,7 +263,9 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-        squareValue.gameObject.SetActive(false);
+        //squareValue.gameObject.SetActive(false);
+        squareType = "goal";
+        ChooseSquareSprite();
 
         ActivateGameObject(goalSquareSprite);
     }
@@ -212,8 +277,11 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = true;
         isEmptySquare = false;
 
-        squareValue.gameObject.SetActive(true);
+        //squareValue.gameObject.SetActive(true);
+        squareType = "treasure";
+        ChooseSquareSprite();
 
+        /*
         switch (square)
         {
             case squareQuantity.small:
@@ -228,7 +296,7 @@ public class SquareController : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
         ActivateGameObject(treasureSquareSprite);
 
@@ -241,8 +309,11 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = false;
 
-        squareValue.gameObject.SetActive(true);
+        //squareValue.gameObject.SetActive(true);
+        squareType = "enemy";
+        ChooseSquareSprite();
 
+        /*
         switch (square)
         {
             case squareQuantity.small:
@@ -257,7 +328,7 @@ public class SquareController : MonoBehaviour
             default:
                 break;
 
-        }
+        }*/
 
         ActivateGameObject(enemySquareSprite);
 
@@ -271,8 +342,10 @@ public class SquareController : MonoBehaviour
         isTerrainSquare = true;
         isEmptySquare = false;
 
-        squareValue.gameObject.SetActive(false);
+        //squareValue.gameObject.SetActive(false);
 
+        squareType = "terrain";
+        ChooseSquareSprite();
         ActivateGameObject(terrainSquareSprite);
     }
 
@@ -284,7 +357,9 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = true;
 
-        squareValue.gameObject.SetActive(false);
+        //squareValue.gameObject.SetActive(false);
+        squareType = "empty";
+        ChooseSquareSprite();
 
         ActivateGameObject(emptySquareSprite);
     }

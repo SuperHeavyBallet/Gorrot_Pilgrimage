@@ -78,6 +78,7 @@
     <Compile Include="Assets\ShadowController.cs" />
     <Compile Include="Assets\Scriptable\FateOutcome.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
+    <Compile Include="Assets\SquareSpriteLibrary.cs" />
     <Compile Include="Assets\PlayerCompassController.cs" />
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />

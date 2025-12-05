@@ -2428,6 +2428,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   allFateOutcomes:
   - {fileID: 11400000, guid: f1f440c504fa4ca42a429fedcd2cc296, type: 2}
+  - {fileID: 11400000, guid: 272c0a7bc52ac7640bfae466471cb914, type: 2}
+  - {fileID: 11400000, guid: d4ef2244e52a87244a151c27b46a38ce, type: 2}
   playerStatsController: {fileID: 914908672}
 --- !u!1 &783517356
 GameObject:
@@ -3716,6 +3718,53 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1157923975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1157923977}
+  - component: {fileID: 1157923976}
+  m_Layer: 0
+  m_Name: SquareSpriteLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1157923976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157923975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af537c9ed61af484596e7c3cfc085b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  terrainSprites:
+  - {fileID: 21300000, guid: 6a469882432cbcd45a6fb0c2bff4f558, type: 3}
+  - {fileID: 21300000, guid: a3ea92c79d7deef4690e8df77306b08b, type: 3}
+--- !u!4 &1157923977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157923975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 382.39227, y: 0, z: 5692.0083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7367,3 +7416,4 @@ SceneRoots:
   - {fileID: 1310552304}
   - {fileID: 964849348}
   - {fileID: 783402515}
+  - {fileID: 1157923977}
