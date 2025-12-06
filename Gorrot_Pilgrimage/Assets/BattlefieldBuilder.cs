@@ -31,6 +31,8 @@ public class BattlefieldBuilder : MonoBehaviour
     public int currentMapCount = 0;
     public TextMeshProUGUI currentMapCountText;
 
+    List<GameObject> enemySquares = new List<GameObject>();
+
 
 
     int minMapCount = 3;
@@ -73,6 +75,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void BuildNewBattlefield()
     {
+        enemySquares.Clear();
+
         if(!isFinalMap)
         {
             currentMapCount += 1;
@@ -212,6 +216,46 @@ public class BattlefieldBuilder : MonoBehaviour
                 bool isPlayerStart = (x == playerStartingPosition && y == 0);
                 bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
 
+                if(x == 0 || x == size -1 || y == 0 || y == size -1)
+                {
+
+                    newSquareController.MakeEdgeSquare();
+
+                    int[] sidesEmpty = new int[4];
+                    sidesEmpty[0] = 0;
+                    sidesEmpty[1] = 0;
+                    sidesEmpty[2] = 0;
+                    sidesEmpty[3] = 0;
+
+                    string edgeSide;
+
+                    if (x == 0)
+                    {
+                        edgeSide = "left";
+                        sidesEmpty[0] = 1;
+
+                    }
+                    else if (x == size - 1)
+                    {
+                        edgeSide = "right";
+                        sidesEmpty[2] = 1;
+                    }
+                    else if (y == 0)
+                    {
+                        edgeSide = "top";
+                        sidesEmpty[1] = 1;
+                    }
+                    else
+                    {
+                        edgeSide = "bottom";
+                        sidesEmpty[3] = 1;
+                    }
+
+                    newSquareController.AddBorderSquare(sidesEmpty);
+
+                
+                }
+
                 // Goal placement
                 if (isGoalSpot)
                 {
@@ -236,7 +280,7 @@ public class BattlefieldBuilder : MonoBehaviour
         }
 
         AssignContentSquares();
-
+        CollectInitialEnemySquares();
 
         /*
         for (int x = 0; x < size; x++)
@@ -331,6 +375,31 @@ public class BattlefieldBuilder : MonoBehaviour
 */
     }
 
+    void CollectInitialEnemySquares()
+    {
+        foreach (var item in allSquares)
+        {
+            if(item != null)
+            {
+                SquareController squareController = item.GetComponent<SquareController>();
+                if (squareController != null)
+                {
+                    if(squareController.CheckIsEnemy())
+                    {
+                        enemySquares.Add(item);
+                    }
+                }
+                
+            }
+        }
+    }
+
+    public void AddEnemySquareToList(GameObject enemySquare)
+    {
+        enemySquares.Add(enemySquare);
+
+    }
+
     void AssignContentSquares()
     {
         // Shuffle-style selection: random index, remove, repeat.
@@ -364,6 +433,7 @@ public class BattlefieldBuilder : MonoBehaviour
     void PlaceTypeSquares(int count, System.Action<SquareController> applyType)
     {
         int placed = 0;
+
 
         while (placed < count && freeSquares.Count > 0)
         {

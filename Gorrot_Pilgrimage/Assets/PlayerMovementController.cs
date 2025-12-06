@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    int[,] battleFieldCoordinates;
+    //int[,] battleFieldCoordinates;
     public GameObject square;
     int battleFieldSize = 0;
 
@@ -61,7 +61,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if(isPlayerTurn && playerIsAlive)
         {
-            MovePlayer(normalizedMoveValue);
+            MovePlayer(normalizedMoveValue, false);
         }
 
     }
@@ -72,8 +72,12 @@ public class PlayerMovementController : MonoBehaviour
                y >= 0 && y < battleFieldSize;
     }
 
+    public void FateMovement(Vector2Int direction)
+    {
+        MovePlayer(direction, true);
+    }
 
-    public void MovePlayer(Vector2 newMoveValue)
+    public void MovePlayer(Vector2 newMoveValue, bool isFateOrdained)
     {
         
 
@@ -110,8 +114,6 @@ public class PlayerMovementController : MonoBehaviour
         Vector2Int newMoveVector = new Vector2Int(newPositionX, newPositionY);
         newSquareController.SetEntryDirection(currentPosition, newMoveVector);
 
-        
-
         Vector2 newPosition = new Vector2(
            newSquareController.GetSquareXPosition(),
            newSquareController.GetSquareYPosition()
@@ -127,35 +129,16 @@ public class PlayerMovementController : MonoBehaviour
 
         newSquareController.ActivateSquareVisited();
 
-        if (newSquareController.isEmptySquare)
+        if (newSquareController.isEmptySquare && !isFateOrdained)
         {
             addMovementSuffering();
         }
 
         if(newSquareController.isItemSquare)
         {
-            int amount = 0;
-            string potionSize = "Med Pot";
 
             string squareContentsID = newSquareController.GetContentsID();
 
-
-
-            switch (nextSquareQuantity)
-            {
-                case "small":
-                    potionSize = "Sma Pot";
-                    break;
-                case "medium":
-                    potionSize = "Med Pot";
-                    break;
-                case "large":
-                    potionSize = "Big Pot";
-                    break;
-                default:
-                    potionSize = "Med Pot";
-                    break;
-            }
 
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
@@ -193,8 +176,6 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             playerStatsController.alterSuffering(amount * -1);
-
-            //playerStatsController.subtractSuffering(amount);
             newSquareController.MakeEmptySquare();
         }
 
@@ -242,13 +223,10 @@ public class PlayerMovementController : MonoBehaviour
                     break;
             }
 
-            //playerStatsController.addHealth(amount);
             playerStatsController.alterHealth(amount);
             int sufferingAmount = Mathf.Clamp(amount, 0, amount-2);
 
             playerStatsController.alterSuffering(sufferingAmount * -1);
-
-            //playerStatsController.subtractSuffering(sufferingAmount);
             newSquareController.MakeEmptySquare();
         }
 
@@ -257,17 +235,13 @@ public class PlayerMovementController : MonoBehaviour
         this.transform.position = newPosition;
         currentPosition = new Vector2Int(newPositionX, newPositionY);
 
-        fateCounter.alterFateCounter(1);
+        if(!isFateOrdained)
+        {
+            fateCounter.alterFateCounter(1);
+        }
+      
 
         turnOrganiser.disablePlayerTurn();
-
-
-
-       
-
-           
-       
-       
 
     }
 
@@ -275,7 +249,6 @@ public class PlayerMovementController : MonoBehaviour
     {
 
         playerStatsController.alterSuffering(1);
-//        playerStatsController.addSuffering(1);
     }
 
 

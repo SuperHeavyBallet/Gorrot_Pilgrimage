@@ -6,6 +6,8 @@ public class SquareSpriteLibrary : MonoBehaviour
 
     public Sprite[] terrainSprites;
 
+    public GameObject borderSquare;
+
     private void Awake()
     {
 
@@ -47,5 +49,10 @@ public class SquareSpriteLibrary : MonoBehaviour
         return terrainSprites[1];
 
 
+    }
+
+    public GameObject getBorderSquare()
+    {
+        return borderSquare;
     }
 }

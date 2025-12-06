@@ -6,6 +6,7 @@ public class FateOutcomes : MonoBehaviour
     public FateOutcome[] allFateOutcomes;
 
     public PlayerStatsController playerStatsController;
+    public PlayerMovementController playerMovementController;
 
     public void SelectFateOutcome()
     {
@@ -30,6 +31,10 @@ public class FateOutcomes : MonoBehaviour
         else if(chosenFateStatEffected == "attack")
         {
             playerStatsController.alterAttack(chosenFateEffectDelta);
+        }
+        else if (chosenFateStatEffected == "movement")
+        {
+            playerMovementController.FateMovement(chosenFateOutcome.GetEffectDirection());
         }
     }
 }

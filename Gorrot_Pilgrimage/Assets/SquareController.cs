@@ -1,8 +1,8 @@
 using UnityEngine;
 using TMPro;
-using NUnit.Framework;
+
 using System.Collections.Generic;
-using System;
+
 
 public class SquareController : MonoBehaviour
 {
@@ -60,6 +60,50 @@ public class SquareController : MonoBehaviour
   
 
     public string squareType = "empty";
+
+    public bool isEdgeSquare;
+
+    public bool leftEmpty;
+   public bool upEmpty;
+   public bool rightEmpty;
+    public bool bottomEmpty;
+
+    public void MakeEdgeSquare()
+    {
+        isEdgeSquare = true;
+  
+    }
+
+    public void AddBorderSquare(int[] sides)
+    {
+
+        int squareLeft = sides[0];
+        int squareUp = sides[1];
+        int squareRight = sides[2];
+        int squareBottom = sides[3];
+
+        leftEmpty = (sides[0] == 1);
+        upEmpty = (sides[1] == 1);
+        rightEmpty = (sides[2] == 1);
+        bottomEmpty = (sides[3] == 1);
+
+        Debug.Log("EDGE SQUARE: " + squareLeft + ", " + squareUp + ", " + squareRight + ", " + squareBottom);
+
+        float thisSquareSize = this.transform.localScale.x;
+        
+        if(leftEmpty)
+        {
+            Vector3 leftPosition = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y, this.transform.position.z);
+            GameObject borderSquare = SquareSpriteLibrary.Instance.getBorderSquare();
+
+            GameObject newBorderSquare = UnityEngine.Object.Instantiate(borderSquare, leftPosition, Quaternion.identity);
+        }
+
+
+
+
+
+    }
 
     private void OnEnable()
     {
@@ -255,6 +299,11 @@ public class SquareController : MonoBehaviour
         ActivateGameObject(itemSquareSprite);
     }
 
+    public bool CheckIsEnemy()
+    {
+        return isEnemySquare;
+    }
+
     public void MakeGoalSquare()
     {
         isGoalSquare = true;
@@ -331,6 +380,8 @@ public class SquareController : MonoBehaviour
         }*/
 
         ActivateGameObject(enemySquareSprite);
+
+        
 
     }
 

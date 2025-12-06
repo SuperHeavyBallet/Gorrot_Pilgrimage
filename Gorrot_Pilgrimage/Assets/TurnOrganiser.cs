@@ -138,6 +138,7 @@ public class TurnOrganiser : MonoBehaviour
         else
         {
             playerStatsController.resetSuffering();
+            audioManager.playCombatWinSoundEffect();
         }
 
         currentEnemyDamage = 0;

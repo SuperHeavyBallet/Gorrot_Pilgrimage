@@ -30,8 +30,12 @@ public class FateCounter : MonoBehaviour
 
         if(fateCounter >= maxFateCounter)
         {
-            fateOutcomes.SelectFateOutcome();
             resetFateCounter();
+
+           
+            SelectFateOutcome();
+            
+            
         }
 
     }
@@ -44,5 +48,10 @@ public class FateCounter : MonoBehaviour
     public void resetFateCounter()
     {
         fateCounter = 0;
+    }
+
+    void SelectFateOutcome()
+    {
+        fateOutcomes.SelectFateOutcome();
     }
 }
