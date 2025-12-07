@@ -26,6 +26,11 @@ public class TurnOrganiser : MonoBehaviour
 
     public TextMeshProUGUI DiceRollFormulaText;
 
+    public bool readyToReturnToPlayer;
+    Coroutine inContestPhase;
+
+    public bool waitingForFate;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +44,38 @@ public class TurnOrganiser : MonoBehaviour
         
     }
 
+ 
+
+    public void disablePlayerTurn()
+    {
+        audioManager.changeTurnSound("enemy");
+        isPlayerTurn = false;
+        turnDisplay.text = "Turn: Contest";
+
+        if(inContestPhase != null )
+        {
+            StopCoroutine(inContestPhase);
+        }
+        readyToReturnToPlayer = false;
+
+        inContestPhase = StartCoroutine(waitForContestToFinish());
+        BuildContestPhase();
+        
+
+
+        
+    }
+
+    public void WaitForFate()
+    {
+        waitingForFate = true;
+    }
+    public void FinishFate()
+    {
+        waitingForFate = false;
+        testSetReadyPlayerTurn();
+    }
+
     void BuildContestPhase()
     {
 
@@ -49,20 +86,26 @@ public class TurnOrganiser : MonoBehaviour
         }
         else
         {
-            Invoke("enablePlayerTurn", playerTurnCooldownTime);
+
+            if(!waitingForFate)
+            {
+                Invoke("testSetReadyPlayerTurn", playerTurnCooldownTime);
+            }
+
+            
         }
     }
 
-    public void disablePlayerTurn()
+    void testSetReadyPlayerTurn()
     {
-        audioManager.changeTurnSound("enemy");
-        isPlayerTurn = false;
-        turnDisplay.text = "Turn: Contest";
+        readyToReturnToPlayer = true;
+    }
 
-        BuildContestPhase();
-
-
-        
+    private IEnumerator waitForContestToFinish()
+    {
+        yield return new WaitUntil(() => readyToReturnToPlayer);
+        inContestPhase = null;
+        enablePlayerTurn();
     }
 
     public void landedOnEnemySquare(int squareQuantity)

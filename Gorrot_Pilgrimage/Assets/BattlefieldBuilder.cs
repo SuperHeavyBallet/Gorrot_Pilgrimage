@@ -235,20 +235,23 @@ public class BattlefieldBuilder : MonoBehaviour
                         sidesEmpty[0] = 1;
 
                     }
-                    else if (x == size - 1)
+                  
+                    if (y == 0)
+                    {
+                        edgeSide = "bottom";
+                        sidesEmpty[3] = 1;
+                       
+                    }
+                    if (x == size - 1)
                     {
                         edgeSide = "right";
                         sidesEmpty[2] = 1;
                     }
-                    else if (y == 0)
+
+                    if (y == size - 1)
                     {
                         edgeSide = "top";
                         sidesEmpty[1] = 1;
-                    }
-                    else
-                    {
-                        edgeSide = "bottom";
-                        sidesEmpty[3] = 1;
                     }
 
                     newSquareController.AddBorderSquare(sidesEmpty);

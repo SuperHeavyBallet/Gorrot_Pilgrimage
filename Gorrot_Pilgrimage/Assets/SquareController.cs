@@ -66,7 +66,8 @@ public class SquareController : MonoBehaviour
     public bool leftEmpty;
    public bool upEmpty;
    public bool rightEmpty;
-    public bool bottomEmpty;
+    public bool downEmpty;
+    public bool needsCorner;
 
     public void MakeEdgeSquare()
     {
@@ -85,20 +86,66 @@ public class SquareController : MonoBehaviour
         leftEmpty = (sides[0] == 1);
         upEmpty = (sides[1] == 1);
         rightEmpty = (sides[2] == 1);
-        bottomEmpty = (sides[3] == 1);
+        downEmpty = (sides[3] == 1);
 
         Debug.Log("EDGE SQUARE: " + squareLeft + ", " + squareUp + ", " + squareRight + ", " + squareBottom);
 
         float thisSquareSize = this.transform.localScale.x;
-        
-        if(leftEmpty)
-        {
-            Vector3 leftPosition = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y, this.transform.position.z);
-            GameObject borderSquare = SquareSpriteLibrary.Instance.getBorderSquare();
 
-            GameObject newBorderSquare = UnityEngine.Object.Instantiate(borderSquare, leftPosition, Quaternion.identity);
+        if(leftEmpty && upEmpty || rightEmpty && upEmpty || leftEmpty && downEmpty || rightEmpty && downEmpty)
+        {
+            needsCorner = true;
+
+            if(leftEmpty && upEmpty)
+            {
+                Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
+                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+            }
+
+            if(rightEmpty && upEmpty)
+            {
+                Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
+                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+            }
+
+            if(leftEmpty && downEmpty)
+            {
+                Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
+                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+            }
+
+            if (rightEmpty && downEmpty)
+            {
+                Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
+                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+            }
         }
 
+
+  
+
+        if (leftEmpty)
+        {
+            Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y, this.transform.position.z);
+           
+
+            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
+        }
+        if(rightEmpty)
+        {
+            Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y, this.transform.position.z);
+            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
+        }
+        if (upEmpty)
+        {
+            Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y + thisSquareSize ,this.transform.position.z);
+            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
+        }
+        if (downEmpty)
+        {
+            Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y - thisSquareSize, this.transform.position.z);
+            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
+        }
 
 
 
