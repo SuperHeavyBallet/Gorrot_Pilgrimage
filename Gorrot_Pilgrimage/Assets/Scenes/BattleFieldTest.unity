@@ -2558,6 +2558,7 @@ MonoBehaviour:
   musicVolume: 0
   takeDamageSoundEffect: {fileID: 8300000, guid: 144367344f1ad6e45b4a9edeef9da5d2, type: 3}
   combatWinSoundEffect: {fileID: 8300000, guid: e515f6e96e7eecf49a813491e1455163, type: 3}
+  healthBoostSoundEffect: {fileID: 8300000, guid: a859bee8a22011a44b17f1c070daac46, type: 3}
 --- !u!4 &709544913
 Transform:
   m_ObjectHideFlags: 0
@@ -3215,15 +3216,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4ef2244e52a87244a151c27b46a38ce, type: 2}
   - {fileID: 11400000, guid: f1f440c504fa4ca42a429fedcd2cc296, type: 2}
   - {fileID: 11400000, guid: 4c8fcac61ff435346a89251adeee39b8, type: 2}
+  - {fileID: 11400000, guid: acef3e8d456a544469e2cc24e7a30203, type: 2}
+  - {fileID: 11400000, guid: c404274376f0b0f4d83945dc58361ca3, type: 2}
+  - {fileID: 11400000, guid: 07db8977f8421a4469783018edc7030b, type: 2}
   playerStatsController: {fileID: 914908672}
   playerMovementController: {fileID: 914908666}
   turnOrganiser: {fileID: 542128493}
-  healthPlus: {fileID: 1949229540}
-  healthNeg: {fileID: 391823431}
-  attackPlus: {fileID: 432423636}
-  attackNeg: {fileID: 739672640}
-  sufferingPlus: {fileID: 727845478}
-  sufferingNeg: {fileID: 499558178}
 --- !u!1 &783517356
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,6 +4004,12 @@ MonoBehaviour:
   attackDisplay: {fileID: 1983050015}
   playerIsAlive: 0
   audioManager: {fileID: 709544912}
+  healthPlus: {fileID: 1949229540}
+  healthNeg: {fileID: 391823431}
+  attackPlus: {fileID: 432423636}
+  attackNeg: {fileID: 739672640}
+  sufferingPlus: {fileID: 727845478}
+  sufferingNeg: {fileID: 499558178}
 --- !u!114 &914908673
 MonoBehaviour:
   m_ObjectHideFlags: 0

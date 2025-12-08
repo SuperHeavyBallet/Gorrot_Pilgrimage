@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class PlayerStatsController : MonoBehaviour
 {
@@ -24,6 +25,17 @@ public class PlayerStatsController : MonoBehaviour
 
     public AudioManager audioManager;
 
+    public GameObject healthPlus;
+    public GameObject healthNeg;
+    public GameObject attackPlus;
+    public GameObject attackNeg;
+    public GameObject sufferingPlus;
+    public GameObject sufferingNeg;
+
+
+
+    Coroutine activateSign;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +43,13 @@ public class PlayerStatsController : MonoBehaviour
     {
         playerIsAlive = true;
         UpdateNumbersDisplay();
+
+        healthPlus.SetActive(false);
+        healthNeg.SetActive(false);
+        attackPlus.SetActive(false);
+        attackNeg.SetActive(false);
+        sufferingPlus.SetActive(false);
+        sufferingNeg.SetActive(false);
     }
 
     // Update is called once per frame
@@ -89,6 +108,15 @@ public class PlayerStatsController : MonoBehaviour
 
         playerCurrentAttack = Mathf.Clamp(raw, playerMinAttack, playerMaxAttack);
 
+        if (alterAmount > 0)
+        {
+            ActivateSignForTime(attackPlus);
+        }
+        else if (alterAmount < 0)
+        {
+            ActivateSignForTime(attackNeg);
+        }
+
         UpdateNumbersDisplay();
     }
 
@@ -105,12 +133,21 @@ public class PlayerStatsController : MonoBehaviour
         {
             playerCurrentHealth += alterAmount;
 
+            if(alterAmount > 0)
+            {
+                audioManager.playHealthBoostSoundEffect();
+                ActivateSignForTime(healthPlus);
+            }
+            else if (alterAmount < 0)
+            {
+                audioManager.playTakeDamageSoundEffect();
+                ActivateSignForTime(healthNeg);
+            }
+
+
         }
 
-        if(alterAmount < 0)
-        {
-            audioManager.playTakeDamageSoundEffect();
-        }
+       
 
         UpdateNumbersDisplay();
 
@@ -123,10 +160,20 @@ public class PlayerStatsController : MonoBehaviour
 
         playerCurrentSuffering = Mathf.Clamp(raw, playerMinSuffering, playerMaxSuffering);
 
-        if(playerCurrentSuffering >= playerMaxSuffering)
+        if (playerCurrentSuffering >= playerMaxSuffering)
         {
-            alterHealth(-1);
+            if (alterAmount > 0)
+            {
+                alterHealth(-1);
+                ActivateSignForTime(sufferingPlus);
+            }
+            else if (alterAmount < 0)
+            {
+                ActivateSignForTime(sufferingNeg);
+            }
+
         }
+        
 
 
         UpdateNumbersDisplay();
@@ -158,6 +205,24 @@ public class PlayerStatsController : MonoBehaviour
 
         
 
+    }
+
+    void ActivateSignForTime(GameObject sign)
+    {
+        sign.SetActive(true);
+        if (activateSign != null)
+        {
+            StopCoroutine(activateSign);
+        }
+
+        activateSign = StartCoroutine(DeActivateSignAfterTime(sign));
+
+    }
+
+    IEnumerator DeActivateSignAfterTime(GameObject sign)
+    {
+        yield return new WaitForSeconds(1);
+        sign.SetActive(false);
     }
 
 }

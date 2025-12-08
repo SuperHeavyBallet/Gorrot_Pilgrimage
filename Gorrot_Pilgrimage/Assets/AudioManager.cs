@@ -21,6 +21,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip combatWinSoundEffect;
 
+    public AudioClip healthBoostSoundEffect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -83,6 +85,11 @@ public class AudioManager : MonoBehaviour
     public void playCombatWinSoundEffect()
     {
         soundEffectPlayer.PlayOneShot(combatWinSoundEffect);
+    }
+
+    public void playHealthBoostSoundEffect()
+    {
+        soundEffectPlayer.PlayOneShot(healthBoostSoundEffect);
     }
 
 
