@@ -50,6 +50,9 @@ TagManager:
   - name: OverSquare
     uniqueID: 3247110691
     locked: 0
+  - name: Combat
+    uniqueID: 3317937217
+    locked: 0
   - name: Player
     uniqueID: 278477611
     locked: 0

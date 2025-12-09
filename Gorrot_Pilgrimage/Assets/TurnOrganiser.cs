@@ -7,7 +7,7 @@ public class TurnOrganiser : MonoBehaviour
 {
 
     public bool isPlayerTurn;
-    int playerTurnCooldownTime = 1;
+    int nextTurnBuildingTime = 1;
 
     public AudioManager audioManager;
 
@@ -18,7 +18,7 @@ public class TurnOrganiser : MonoBehaviour
 
     public DiceController diceController;
 
-    Coroutine waitForDiceRoll;
+    //Coroutine waitForDiceRoll;
 
     public PlayerStatsController playerStatsController;
     int currentEnemyDamage;
@@ -27,43 +27,91 @@ public class TurnOrganiser : MonoBehaviour
     public TextMeshProUGUI DiceRollFormulaText;
 
     public bool readyToReturnToPlayer;
-    Coroutine inContestPhase;
+    Coroutine inPhaseBuild;
 
     public bool waitingForFate;
+
+
+    public GameObject combatScene;
+    public GameObject diceDisplay;
+
+    Coroutine waitForFateRoll;
+
+    public TextMeshProUGUI currentPhaseText;
+
+    public enum ActivePhase {
+        movement,
+        combat,
+        fate,
+        goalReach,
+        death
+    }
+
+    public ActivePhase currentPhase = ActivePhase.movement;
+
+    CombatPhaseResolution combatPhaseResolution;
+    FatePhaseResolution fatePhaseResolution;
+    MovementPhaseResolution movementPhaseResolution;
+
+    int currentEnemySize = 0;
+
+    bool readyToRoll;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        enablePlayerTurn();
+        combatPhaseResolution = GetComponent<CombatPhaseResolution>();
+        fatePhaseResolution = GetComponent<FatePhaseResolution>();
+        movementPhaseResolution = GetComponent<MovementPhaseResolution>();
+
+        combatScene.SetActive(false);
+        diceDisplay.SetActive(false);
+
+
+       movementPhaseResolution.EnterMovementPhase();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateCurrentPhase(ActivePhase newPhase)
     {
-        
+        currentPhase = newPhase;
+        UpdatePhaseText();
     }
 
+    public void UpdateCurrentEnemySize(int newEnemySize)
+    {
+        currentEnemySize = newEnemySize;
+    }
+
+    public int GetEnemySize()
+    {
+        return currentEnemySize;
+    }
+    void UpdatePhaseText()
+    {
+        switch(currentPhase)
+        {
+            case ActivePhase.movement:
+                currentPhaseText.text = "Movement";
+                break;
+                case ActivePhase.combat:
+                currentPhaseText.text = "Combat";
+                break;
+                case ActivePhase.fate:
+                currentPhaseText.text = "Fate";
+                break;
+                default:
+                currentPhaseText.text = "Broken";
+                break;
+        }
+    }
  
 
     public void disablePlayerTurn()
     {
         audioManager.changeTurnSound("enemy");
         isPlayerTurn = false;
-        turnDisplay.text = "Turn: Contest";
-
-        if(inContestPhase != null )
-        {
-            StopCoroutine(inContestPhase);
-        }
-        readyToReturnToPlayer = false;
-
-        inContestPhase = StartCoroutine(waitForContestToFinish());
-        BuildContestPhase();
-        
-
-
-        
+        turnDisplay.text = "Turn: Building Next";   
     }
 
     public void WaitForFate()
@@ -73,65 +121,78 @@ public class TurnOrganiser : MonoBehaviour
     public void FinishFate()
     {
         waitingForFate = false;
-        testSetReadyPlayerTurn();
+        ReturnToMovementPhase();
     }
 
-    void BuildContestPhase()
+    public void SetLandedOnEnemySquare(bool value)
     {
+        hasLandedOnEnemy = value;
+    }
 
+    public void SetReadyToReturnToPlayer(bool value)
+    {
+        readyToReturnToPlayer = value;
+    }
+
+    public void SetReadyToRoll(bool value)
+    {
+        readyToRoll = value;
+    }
+
+
+    public void BuildNextTurn()
+    {
+        disablePlayerTurn();
+        BuildNextPhase();
+
+    }
+
+    void BuildNextPhase()
+    {
+        
+        StartBuildPhase();
 
         if (hasLandedOnEnemy)
         {
-            RollDiceContest();
+            combatPhaseResolution.EnterCombatPhase();
         }
         else
         {
-
-            if(!waitingForFate)
+            if(waitingForFate)
             {
-                Invoke("testSetReadyPlayerTurn", playerTurnCooldownTime);
+                fatePhaseResolution.EnterFatePhase();
             }
-
-            
+            else
+            {     
+               ReturnToMovementPhase();
+            }
         }
     }
 
-    void testSetReadyPlayerTurn()
+    void StartBuildPhase()
     {
-        readyToReturnToPlayer = true;
+        if (inPhaseBuild != null)
+        {
+            StopCoroutine(inPhaseBuild);
+        }
+        SetReadyToReturnToPlayer(false);
+
+        inPhaseBuild = StartCoroutine(waitForPhaseBuildToFinish());
     }
 
-    private IEnumerator waitForContestToFinish()
+    void ReturnToMovementPhase()
+    {
+        movementPhaseResolution.EnterMovementPhase();
+        SetReadyToReturnToPlayer(true);
+    }
+
+    private IEnumerator waitForPhaseBuildToFinish()
     {
         yield return new WaitUntil(() => readyToReturnToPlayer);
-        inContestPhase = null;
-        enablePlayerTurn();
+        inPhaseBuild = null;
+       
     }
 
-    public void landedOnEnemySquare(int squareQuantity)
-    {
-        currentEnemyDamage = squareQuantity;
-        int playerCurrentAttackBost = playerStatsController.getCurrentAttackBuff();
-
-        switch(squareQuantity)
-        {
-            case 1:
-                enemyRollToBeat = 2 - playerCurrentAttackBost;
-                break;
-
-            case 2:
-                enemyRollToBeat = 3 - playerCurrentAttackBost;
-                break;
-
-            case 3:
-                enemyRollToBeat = 4 - playerCurrentAttackBost;
-                break;
-            default:
-                enemyRollToBeat = 3 - playerCurrentAttackBost;
-                break;
-        }
-        hasLandedOnEnemy = true;
-    }
 
     public void enablePlayerTurn()
     {
@@ -147,48 +208,6 @@ public class TurnOrganiser : MonoBehaviour
         return isPlayerTurn;
     }
 
-    public void RollDiceContest()
-    {
-        if (waitForDiceRoll != null)
-            StopCoroutine(waitForDiceRoll);
-
-        UpdateDiceRollFormulaText();
-
-        waitForDiceRoll = StartCoroutine(RollDiceContestRoutine());
-    }
-
-    void UpdateDiceRollFormulaText()
-    {
-        int playerAttackBuff = playerStatsController.getCurrentAttackBuff();
-
-        DiceRollFormulaText.text = "1D6 + " + playerAttackBuff + " vs " + enemyRollToBeat; 
-    }
-
-    private IEnumerator RollDiceContestRoutine()
-    {
-        diceController.RollDice();
-
-        // Wait until the dice has settled
-        yield return new WaitUntil(() => !diceController.isRolling);
-
-        int result = diceController.getDiceResult();
-
-        if(result <= enemyRollToBeat)
-        {
-            playerStatsController.alterHealth(currentEnemyDamage * -1);
-            playerStatsController.resetSuffering();
-        }
-        else
-        {
-            playerStatsController.resetSuffering();
-            audioManager.playCombatWinSoundEffect();
-        }
-
-        currentEnemyDamage = 0;
-        enemyRollToBeat = 2;
-        StopCoroutine(waitForDiceRoll);
-
-            // Now continue the flow of your turn system here
-            enablePlayerTurn();   // or whatever the next step is
-    }
 }
+
+

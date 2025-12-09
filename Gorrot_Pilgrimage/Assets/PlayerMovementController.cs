@@ -61,6 +61,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if(isPlayerTurn && playerIsAlive)
         {
+            if(turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
             MovePlayer(normalizedMoveValue, false);
         }
 
@@ -74,7 +75,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void FateMovement(Vector2Int direction)
     {
-        MovePlayer(direction, true);
+      //  MovePlayer(direction, true);
     }
 
     public void MovePlayer(Vector2 newMoveValue, bool isFateOrdained)
@@ -199,7 +200,8 @@ public class PlayerMovementController : MonoBehaviour
                     break;
             }
 
-            turnOrganiser.landedOnEnemySquare(amount);
+            turnOrganiser.UpdateCurrentEnemySize(amount);
+            turnOrganiser.SetLandedOnEnemySquare(true);
             newSquareController.MakeEmptySquare();
         }
 
@@ -239,9 +241,9 @@ public class PlayerMovementController : MonoBehaviour
         {
             fateCounter.alterFateCounter(1);
         }
-      
 
-        turnOrganiser.disablePlayerTurn();
+        
+        turnOrganiser.BuildNextTurn();
 
     }
 

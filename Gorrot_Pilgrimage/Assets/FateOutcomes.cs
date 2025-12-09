@@ -13,13 +13,28 @@ public class FateOutcomes : MonoBehaviour
 
     int fateTimeout = 2;
 
-    Coroutine fateWait;
+    int playerCurrentHealth;
+    int playerMinHealth;
+    int playerMaxHealth;
 
-   
+    int playerCurrentSuffering;
+    int playerMinSuffering;
+    int playerMaxSuffering;
+
+    Coroutine fateWait;
+    FateOutcome chosenFateOutcome;
+    string chosenFateStatEffected;
+    int chosenFateEffectDelta;
+    Vector2Int chosenFateEffectDirection;
+    int randomNumber;
 
     private void Start()
     {
-        
+        playerMinHealth = playerStatsController.GetPlayerMinHealth();
+        playerMaxHealth = playerStatsController.GetPlayerMaxHealth();
+
+        playerMinSuffering = playerStatsController.GetPlayerMinSuffering();
+        playerMaxSuffering = playerStatsController.GetPlayerMaxSuffering();
     }
 
     public void SelectFateOutcome()
@@ -45,14 +60,54 @@ public class FateOutcomes : MonoBehaviour
         ConcludeFateOutcome();
     }
 
+    void PickFateOutcomeAtIndex(int index)
+    {
+        chosenFateOutcome = allFateOutcomes[index];
+        chosenFateStatEffected = chosenFateOutcome.GetStatEffected();
+        chosenFateEffectDelta = chosenFateOutcome.GetEffectDelta();
+        chosenFateEffectDirection = chosenFateOutcome.GetEffectDirection();
+    }
+
     void ConcludeFateOutcome()
     {
-        int randomNumber = UnityEngine.Random.Range(0, allFateOutcomes.Length);
+        playerCurrentHealth = playerStatsController.GetPlayerCurrentHealth();
+        playerCurrentSuffering = playerStatsController.GetPlayerCurrentSuffering();
 
-        FateOutcome chosenFateOutcome = allFateOutcomes[randomNumber];
-        string chosenFateStatEffected = chosenFateOutcome.GetStatEffected();
-        int chosenFateEffectDelta = chosenFateOutcome.GetEffectDelta();
-        Vector2Int chosenFateEffectDirection = chosenFateOutcome.GetEffectDirection();
+        randomNumber = Random.Range(0, allFateOutcomes.Length);
+        PickFateOutcomeAtIndex(randomNumber);
+
+        // Reroll  to reduce damage when hurt
+        if (playerCurrentHealth < (playerMaxHealth / 2))
+        {
+            if(chosenFateStatEffected == "health" && chosenFateEffectDelta < 0)
+            {
+                randomNumber = Random.Range(0, allFateOutcomes.Length);
+                PickFateOutcomeAtIndex(randomNumber);
+
+            }
+        }
+
+        // Reroll to reduce Excess Health
+        if (playerCurrentHealth > playerMaxHealth)
+        {
+            if (chosenFateStatEffected == "health" && chosenFateEffectDelta > 0)
+            {
+                randomNumber = Random.Range(0, allFateOutcomes.Length);
+                PickFateOutcomeAtIndex(randomNumber);
+
+            }
+        }
+
+        if (playerCurrentSuffering > (playerMaxSuffering / 2))
+        {
+            if(chosenFateStatEffected == "suffering" && chosenFateEffectDelta > 0)
+            {
+                randomNumber = Random.Range(0, allFateOutcomes.Length);
+                PickFateOutcomeAtIndex(randomNumber);
+            }
+        }
+
+        
 
 
         if (chosenFateStatEffected == "health")

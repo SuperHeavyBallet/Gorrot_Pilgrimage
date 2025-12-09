@@ -161,22 +161,25 @@ public class PlayerStatsController : MonoBehaviour
         playerCurrentSuffering = Mathf.Clamp(raw, playerMinSuffering, playerMaxSuffering);
 
         if (playerCurrentSuffering >= playerMaxSuffering)
+        { 
+                alterHealth(-1);
+        }
+        else
         {
             if (alterAmount > 0)
             {
-                alterHealth(-1);
+                audioManager.playAddSufferingSoundEffect();
                 ActivateSignForTime(sufferingPlus);
             }
             else if (alterAmount < 0)
             {
                 ActivateSignForTime(sufferingNeg);
             }
-
         }
-        
 
 
-        UpdateNumbersDisplay();
+
+            UpdateNumbersDisplay();
     }
 
 
@@ -209,6 +212,14 @@ public class PlayerStatsController : MonoBehaviour
 
     void ActivateSignForTime(GameObject sign)
     {
+        // Turn all signs off first so we don't leave a stale one on
+        healthPlus.SetActive(false);
+        healthNeg.SetActive(false);
+        attackPlus.SetActive(false);
+        attackNeg.SetActive(false);
+        sufferingPlus.SetActive(false);
+        sufferingNeg.SetActive(false);
+
         sign.SetActive(true);
         if (activateSign != null)
         {
@@ -223,6 +234,37 @@ public class PlayerStatsController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         sign.SetActive(false);
+        activateSign = null;
+    }
+
+    public int GetPlayerCurrentHealth()
+    {
+        return playerCurrentHealth;
+        
+    }
+    public int GetPlayerMinHealth()
+    {
+        return playerMinHealth;
+    }
+
+    public int GetPlayerMaxHealth()
+    {
+        return playerMaxHealth;
+    }
+
+    public int GetPlayerCurrentSuffering()
+    {
+        return playerCurrentSuffering;
+    }
+
+    public int GetPlayerMaxSuffering()
+    {
+        return playerMaxSuffering;
+    }
+
+    public int GetPlayerMinSuffering()
+    {
+        return playerMinSuffering;
     }
 
 }

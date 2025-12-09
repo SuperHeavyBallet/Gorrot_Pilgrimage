@@ -23,6 +23,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip healthBoostSoundEffect;
 
+    public AudioClip addSufferingSoundEffect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -90,6 +92,11 @@ public class AudioManager : MonoBehaviour
     public void playHealthBoostSoundEffect()
     {
         soundEffectPlayer.PlayOneShot(healthBoostSoundEffect);
+    }
+
+    public void playAddSufferingSoundEffect()
+    {
+        soundEffectPlayer.PlayOneShot(addSufferingSoundEffect);
     }
 
 
