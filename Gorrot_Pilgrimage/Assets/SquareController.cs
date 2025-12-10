@@ -56,6 +56,7 @@ public class SquareController : MonoBehaviour
 
     public SpriteRenderer squareTerrainSpriteRenderer;
     public SpriteRenderer squareItemSpriteRenderer;
+    [SerializeField] SpriteRenderer groundSpriteRenderer;
 
   
 
@@ -69,10 +70,17 @@ public class SquareController : MonoBehaviour
     public bool downEmpty;
     public bool needsCorner;
 
+    string mapLocation;
+
     public void MakeEdgeSquare()
     {
         isEdgeSquare = true;
   
+    }
+
+    public void SetMapLocation(string newMapLocation)
+    {
+        mapLocation = newMapLocation;
     }
 
     public void AddBorderSquare(int[] sides)
@@ -174,6 +182,13 @@ public class SquareController : MonoBehaviour
         { new Vector2Int(-1, 0), directions.left }
     };
 
+    void ChooseSquareGroundSprite()
+    {
+        
+
+        Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(squareType);
+        groundSpriteRenderer.sprite = chosenGroundSprite; 
+    }
     public void SetEntryDirection(Vector2Int currentPosition, Vector2Int thisPosition)
     {
         Vector2Int delta = thisPosition - currentPosition;

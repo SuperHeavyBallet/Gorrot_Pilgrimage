@@ -9,21 +9,12 @@ public class FateCounter : MonoBehaviour
 
     public FateOutcomes fateOutcomes;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+   public TurnOrganiser turnOrganiser;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void alterFateCounter(int alterAmount)
     {
-        Debug.Log("ADD FATE: " + alterAmount);
         fateCounter = Mathf.Clamp(fateCounter + alterAmount, 0, maxFateCounter);
 
         UpdateFateCounterText();
@@ -52,6 +43,8 @@ public class FateCounter : MonoBehaviour
 
     void SelectFateOutcome()
     {
-        fateOutcomes.SelectFateOutcome();
+        // fateOutcomes.SelectFateOutcome();
+        turnOrganiser.SetWaitingForFate(true);
+
     }
 }

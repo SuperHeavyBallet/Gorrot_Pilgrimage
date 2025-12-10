@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c12ec042a4aac44fb9c4d484e910b0b, type: 3}
   m_Name: NastyCut
   m_EditorClassIdentifier: Assembly-CSharp::FateOutcome
-  fateID: healthy_boost
-  fateName: A Healthy Boost
+  fateID: nasty_cut
+  fateName: A Nasty Cut
   statToEffect: 0
   effectDelta: -5
   effectDirection: {x: 0, y: 0}

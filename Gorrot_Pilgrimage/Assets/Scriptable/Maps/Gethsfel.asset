@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
+  m_Name: Gethsfel
+  m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapID: gethsfel
+  mapLocation: 2
+  mapName: Gethsfel
+  mapSize: 20
+  nextMap: {fileID: 11400000, guid: b8dd2203d14ae66459c3ac0c7bad71ef, type: 2}

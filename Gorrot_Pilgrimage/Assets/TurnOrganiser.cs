@@ -7,7 +7,6 @@ public class TurnOrganiser : MonoBehaviour
 {
 
     public bool isPlayerTurn;
-    int nextTurnBuildingTime = 1;
 
     public AudioManager audioManager;
 
@@ -18,11 +17,9 @@ public class TurnOrganiser : MonoBehaviour
 
     public DiceController diceController;
 
-    //Coroutine waitForDiceRoll;
 
     public PlayerStatsController playerStatsController;
-    int currentEnemyDamage;
-    int enemyRollToBeat;
+
 
     public TextMeshProUGUI DiceRollFormulaText;
 
@@ -30,12 +27,6 @@ public class TurnOrganiser : MonoBehaviour
     Coroutine inPhaseBuild;
 
     public bool waitingForFate;
-
-
-    public GameObject combatScene;
-    public GameObject diceDisplay;
-
-    Coroutine waitForFateRoll;
 
     public TextMeshProUGUI currentPhaseText;
 
@@ -49,27 +40,27 @@ public class TurnOrganiser : MonoBehaviour
 
     public ActivePhase currentPhase = ActivePhase.movement;
 
-    CombatPhaseResolution combatPhaseResolution;
-    FatePhaseResolution fatePhaseResolution;
-    MovementPhaseResolution movementPhaseResolution;
+    [SerializeField] CombatPhaseResolution combatPhaseResolution;
+    [SerializeField] FatePhaseResolution fatePhaseResolution;
+    [SerializeField] MovementPhaseResolution movementPhaseResolution;
+    [SerializeField] DeathPhaseResolution deathPhaseResolution;
+    [SerializeField] GoalPhaseResolution goalPhaseResolution;
 
     int currentEnemySize = 0;
 
-    bool readyToRoll;
+    bool playerIsAlive;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        combatPhaseResolution = GetComponent<CombatPhaseResolution>();
-        fatePhaseResolution = GetComponent<FatePhaseResolution>();
-        movementPhaseResolution = GetComponent<MovementPhaseResolution>();
-
-        combatScene.SetActive(false);
-        diceDisplay.SetActive(false);
 
 
-       movementPhaseResolution.EnterMovementPhase();
+
+
+        playerIsAlive = true;
+        movementPhaseResolution.EnterMovementPhase();
+       
     }
 
     public void UpdateCurrentPhase(ActivePhase newPhase)
@@ -114,14 +105,15 @@ public class TurnOrganiser : MonoBehaviour
         turnDisplay.text = "Turn: Building Next";   
     }
 
-    public void WaitForFate()
+
+    public void SetWaitingForFate(bool value)
     {
-        waitingForFate = true;
+        waitingForFate = value;
     }
+
     public void FinishFate()
     {
         waitingForFate = false;
-        ReturnToMovementPhase();
     }
 
     public void SetLandedOnEnemySquare(bool value)
@@ -134,10 +126,6 @@ public class TurnOrganiser : MonoBehaviour
         readyToReturnToPlayer = value;
     }
 
-    public void SetReadyToRoll(bool value)
-    {
-        readyToRoll = value;
-    }
 
 
     public void BuildNextTurn()
@@ -147,26 +135,34 @@ public class TurnOrganiser : MonoBehaviour
 
     }
 
+    public void LandedOnGoal()
+    {
+       goalPhaseResolution.EnterGoalPhase();
+    }
     void BuildNextPhase()
     {
-        
-        StartBuildPhase();
+        if(playerIsAlive)
+        {
+            SetReadyToReturnToPlayer(false);
+            StartBuildPhase();
 
-        if (hasLandedOnEnemy)
-        {
-            combatPhaseResolution.EnterCombatPhase();
-        }
-        else
-        {
-            if(waitingForFate)
+            if (hasLandedOnEnemy)
             {
-                fatePhaseResolution.EnterFatePhase();
+                combatPhaseResolution.EnterCombatPhase();
             }
             else
-            {     
-               ReturnToMovementPhase();
+            {
+                if (waitingForFate)
+                {
+                    fatePhaseResolution.EnterFatePhase();
+                }
+                else
+                {
+                    ReturnToMovementPhase();
+                }
             }
         }
+       
     }
 
     void StartBuildPhase()
@@ -175,7 +171,7 @@ public class TurnOrganiser : MonoBehaviour
         {
             StopCoroutine(inPhaseBuild);
         }
-        SetReadyToReturnToPlayer(false);
+        
 
         inPhaseBuild = StartCoroutine(waitForPhaseBuildToFinish());
     }
@@ -206,6 +202,12 @@ public class TurnOrganiser : MonoBehaviour
     public bool GetPlayerTurn()
     {
         return isPlayerTurn;
+    }
+
+    public void OnPlayerDeath()
+    {
+        playerIsAlive = false;
+        deathPhaseResolution.EnterDeathPhase();
     }
 
 }

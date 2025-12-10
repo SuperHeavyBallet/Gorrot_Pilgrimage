@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEditor;
 using TMPro;
+using System.Collections;
+using UnityEngine.UI;
 
 public class BattlefieldBuilder : MonoBehaviour
 {
@@ -33,18 +35,102 @@ public class BattlefieldBuilder : MonoBehaviour
 
     List<GameObject> enemySquares = new List<GameObject>();
 
-
+    [SerializeField] MapCatalogue mapCatalogue;
 
     int minMapCount = 3;
+
+    public GameObject blackScreen;
+    public Image blackScreenSprite;
+
+    MapData currentMap;
+    MapData nextMap;
+
+    public TextMeshProUGUI currentMapNameText;
+    public TextMeshProUGUI currentMapLocationText;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentMap = mapCatalogue.GetMap(currentMapCount);
 
+        blackScreen.SetActive(true);
         BuildNewBattlefield();
-        
+       
     }
 
+    IEnumerator ScreenFadeFromBlack()
+    {
+        blackScreen.SetActive(true);
+        //  yield return new WaitForSeconds(1);
+
+        Color c = blackScreenSprite.color;
+
+        float duration = 1f;
+        float t = 0f;
+
+        c.a = 1f;
+        blackScreenSprite.color = c;
+
+ 
+
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float normalized = t / duration;
+
+            // Lerp alpha from 1 > 0
+            c.a = Mathf.Lerp(1f, 0f, normalized);
+            blackScreenSprite.color = c;
+
+            yield return null;
+        }
+
+        // ensure full transparency at end
+        c.a = 0f;
+        blackScreenSprite.color = c;
+
+        // optional: hide object after fade
+        blackScreen.SetActive(false);
+
+
+
+
+    }
+
+    public void StartFadeToBlack()
+    {
+        StartCoroutine(ScreenFadeToBlack());
+    }
+
+    public IEnumerator ScreenFadeToBlack()
+    {
+        Color c = blackScreenSprite.color;
+        c.a = 1f;
+        blackScreenSprite.color = c;
+
+        float duration = 1f;
+        float t = 0f;
+
+        blackScreen.SetActive(true);
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float normalized = t / duration;
+
+            // Lerp alpha from 0 > 1
+            c.a = Mathf.Lerp(0f,1f, normalized);
+            blackScreenSprite.color = c;
+
+            yield return null;
+        }
+
+        c.a = 1f;
+        blackScreenSprite.color = c;
+
+    }
 
     void FinalMapDecider()
     {
@@ -75,13 +161,22 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void BuildNewBattlefield()
     {
+        StartCoroutine(ScreenFadeFromBlack());
+
+        nextMap = currentMap.GetNextMap();
+
+        currentMapNameText.text = currentMap.GetMapName();
+        currentMapLocationText.text = currentMap.GetMapLocation();
+
         enemySquares.Clear();
 
         if(!isFinalMap)
         {
             currentMapCount += 1;
             currentMapCountText.text = "Map: " + currentMapCount.ToString();
-            int currentMapSize = CalculateMapSize();
+            //int currentMapSize = CalculateMapSize();
+
+            int currentMapSize = currentMap.GetMapSize();
 
             ClearOldBattlefield();
 
@@ -100,6 +195,8 @@ public class BattlefieldBuilder : MonoBehaviour
         {
             QuitGame(); 
         }
+
+        currentMap = nextMap;
        
     }
 
@@ -211,6 +308,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
                 SquareController newSquareController = newSquare.GetComponent<SquareController>();
                 newSquareController.SetSquarePosition(x, y);
+                newSquareController.SetMapLocation(currentMap.GetMapLocation());
                 newSquareController.MakeEmptySquare();
 
                 bool isPlayerStart = (x == playerStartingPosition && y == 0);

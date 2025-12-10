@@ -22,6 +22,7 @@ public class PlayerStatsController : MonoBehaviour
     public TextMeshProUGUI attackDisplay;
 
     public bool playerIsAlive;
+    bool playerHasDied;
 
     public AudioManager audioManager;
 
@@ -35,6 +36,8 @@ public class PlayerStatsController : MonoBehaviour
 
 
     Coroutine activateSign;
+
+    [SerializeField] TurnOrganiser turnOrganiser;
 
 
 
@@ -147,6 +150,7 @@ public class PlayerStatsController : MonoBehaviour
 
         }
 
+
        
 
         UpdateNumbersDisplay();
@@ -189,6 +193,17 @@ public class PlayerStatsController : MonoBehaviour
         UpdateNumbersDisplay();
     }
 
+    void SendPlayerDeath()
+    {
+        if(!playerHasDied)
+        {
+            playerHasDied = true;
+
+            turnOrganiser.OnPlayerDeath();
+        }
+    }
+
+
     void UpdateNumbersDisplay()
     {
         if (playerCurrentHealth > playerMinHealth)
@@ -203,6 +218,11 @@ public class PlayerStatsController : MonoBehaviour
             playerIsAlive = false ;
             healthDisplay.text = "Health: " + "Dead";
             sufferingDisplay.text = "Suffering: " + "None";
+
+            if(!playerHasDied )
+            {
+                SendPlayerDeath();
+            }
 
         }
 

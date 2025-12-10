@@ -69,6 +69,7 @@
     <Compile Include="Assets\PlayerInventory.cs" />
     <Compile Include="Assets\ShadowPulseAnimation.cs" />
     <Compile Include="Assets\TurnOrganiser.cs" />
+    <Compile Include="Assets\DeathPhaseResolution.cs" />
     <Compile Include="Assets\CombatPhaseResolution.cs" />
     <Compile Include="Assets\FateOutcomes.cs" />
     <Compile Include="Assets\InventorySlotController.cs" />
@@ -81,8 +82,11 @@
     <Compile Include="Assets\PlayerDistanceController.cs" />
     <Compile Include="Assets\FatePhaseResolution.cs" />
     <Compile Include="Assets\ShadowController.cs" />
+    <Compile Include="Assets\MapCatalogue.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
+    <Compile Include="Assets\Scriptable\Maps\MapData.cs" />
     <Compile Include="Assets\SquareSpriteLibrary.cs" />
+    <Compile Include="Assets\GoalPhaseResolution.cs" />
     <Compile Include="Assets\PlayerCompassController.cs" />
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />

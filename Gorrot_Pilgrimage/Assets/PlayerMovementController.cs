@@ -122,9 +122,11 @@ public class PlayerMovementController : MonoBehaviour
 
         if (newSquareController.isGoalSquare)
         {
-            playerStatsController.resetSuffering();
-            battlefieldBuilder.BuildNewBattlefield();
-            return; // <- stop here, don't move to old newPosition
+            turnOrganiser.LandedOnGoal();
+
+           
+           
+           // return; // <- stop here, don't move to old newPosition
 
         }
 

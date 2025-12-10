@@ -25,7 +25,6 @@ public class FateOutcomes : MonoBehaviour
     FateOutcome chosenFateOutcome;
     string chosenFateStatEffected;
     int chosenFateEffectDelta;
-    Vector2Int chosenFateEffectDirection;
     int randomNumber;
 
     private void Start()
@@ -37,38 +36,7 @@ public class FateOutcomes : MonoBehaviour
         playerMaxSuffering = playerStatsController.GetPlayerMaxSuffering();
     }
 
-    public void SelectFateOutcome()
-    {
-      
-        turnOrganiser.WaitForFate();
-        if( fateWait != null )
-        {
-            StopCoroutine(waitForFate());
-        }
-
-        fateWait = StartCoroutine(waitForFate());
- 
-
-        
-
-      
-    }
-
-    public IEnumerator waitForFate()
-    {
-        yield return new WaitForSeconds(fateTimeout);
-        ConcludeFateOutcome();
-    }
-
-    void PickFateOutcomeAtIndex(int index)
-    {
-        chosenFateOutcome = allFateOutcomes[index];
-        chosenFateStatEffected = chosenFateOutcome.GetStatEffected();
-        chosenFateEffectDelta = chosenFateOutcome.GetEffectDelta();
-        chosenFateEffectDirection = chosenFateOutcome.GetEffectDirection();
-    }
-
-    void ConcludeFateOutcome()
+    public void PickFate()
     {
         playerCurrentHealth = playerStatsController.GetPlayerCurrentHealth();
         playerCurrentSuffering = playerStatsController.GetPlayerCurrentSuffering();
@@ -79,7 +47,7 @@ public class FateOutcomes : MonoBehaviour
         // Reroll  to reduce damage when hurt
         if (playerCurrentHealth < (playerMaxHealth / 2))
         {
-            if(chosenFateStatEffected == "health" && chosenFateEffectDelta < 0)
+            if (chosenFateStatEffected == "health" && chosenFateEffectDelta < 0)
             {
                 randomNumber = Random.Range(0, allFateOutcomes.Length);
                 PickFateOutcomeAtIndex(randomNumber);
@@ -100,41 +68,58 @@ public class FateOutcomes : MonoBehaviour
 
         if (playerCurrentSuffering > (playerMaxSuffering / 2))
         {
-            if(chosenFateStatEffected == "suffering" && chosenFateEffectDelta > 0)
+            if (chosenFateStatEffected == "suffering" && chosenFateEffectDelta > 0)
             {
                 randomNumber = Random.Range(0, allFateOutcomes.Length);
                 PickFateOutcomeAtIndex(randomNumber);
             }
         }
 
+
         
 
+     
+    }
 
+    public void ApplyFate()
+    {
         if (chosenFateStatEffected == "health")
         {
             playerStatsController.alterHealth(chosenFateEffectDelta);
 
-            
+
         }
         else if (chosenFateStatEffected == "suffering")
         {
             playerStatsController.alterSuffering(chosenFateEffectDelta);
 
-           
-            
+
+
         }
         else if (chosenFateStatEffected == "attack")
         {
             playerStatsController.alterAttack(chosenFateEffectDelta);
 
-         
+
         }
 
+    }
 
-        fateWait = null;
-        turnOrganiser.FinishFate();
+    public FateOutcome GetFateOutcome()
+    {
+        return chosenFateOutcome;
+    }
+
+
+
+    void PickFateOutcomeAtIndex(int index)
+    {
+        chosenFateOutcome = allFateOutcomes[index];
+        chosenFateStatEffected = chosenFateOutcome.GetStatEffected();
+        chosenFateEffectDelta = chosenFateOutcome.GetEffectDelta();
 
     }
+
 
    
 

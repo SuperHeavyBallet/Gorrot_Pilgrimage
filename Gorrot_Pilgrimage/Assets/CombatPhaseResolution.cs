@@ -9,7 +9,6 @@ public class CombatPhaseResolution : MonoBehaviour
 
     public DiceController diceController;
     public TextMeshProUGUI DiceRollFormulaText;
-    Coroutine waitForDiceRoll;
 
     int enemyRollToBeat;
     int playerCurrentAttackBoost;
@@ -20,35 +19,38 @@ public class CombatPhaseResolution : MonoBehaviour
 
     public AudioManager audioManager;
 
-    bool currentlyRolling;
-
     int result;
 
     bool waitingForPressRoll;
     bool hasPressedRoll;
 
+    public GameObject combatScreen;
+    public GameObject diceDisplay;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         turnOrganiser = GetComponent<TurnOrganiser>();
+        combatScreen.SetActive(false);
+        diceDisplay.SetActive(false);
     }
 
     public void EnterCombatPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
-        turnOrganiser.combatScene.SetActive(true);
-        turnOrganiser.diceDisplay.SetActive(true);
+        combatScreen.SetActive(true);
+        diceDisplay.SetActive(true);
 
         StartCoroutine(CombatRollScreen());
     }
 
 
 
-
-    IEnumerator CombatRollScreen()
+    void CalculateDiceStats()
     {
-        yield return new WaitForSeconds(0.5f);
-
         playerCurrentAttackBoost = playerStatsController.getCurrentAttackBuff();
         currentEnemyDamage = turnOrganiser.GetEnemySize();
 
@@ -61,6 +63,16 @@ public class CombatPhaseResolution : MonoBehaviour
         }
 
         UpdateDiceRollFormulaText();
+    }
+
+
+    IEnumerator CombatRollScreen()
+    {
+        CalculateDiceStats();
+
+        yield return new WaitForSeconds(0.5f);
+
+        
 
         hasPressedRoll = false;
         waitingForPressRoll = true;
@@ -69,11 +81,15 @@ public class CombatPhaseResolution : MonoBehaviour
         yield return new WaitUntil(() => hasPressedRoll);
 
         waitingForPressRoll = false;
-
         diceController.RollDice();
+        
+
+        yield return new WaitForSeconds(3f);
 
         // Wait for dice finish
         yield return new WaitUntil(() => !diceController.isRolling);
+        
+
         result = diceController.getDiceResult();
 
         if (result <= enemyRollToBeat)
@@ -112,15 +128,34 @@ public class CombatPhaseResolution : MonoBehaviour
     void UpdateDiceRollFormulaText()
     {
 
-        DiceRollFormulaText.text = "1D6 + " + playerCurrentAttackBoost + " vs " + enemyRollToBeat;
+        //DiceRollFormulaText.text = "1D6 + " + playerCurrentAttackBoost + " vs " + enemyRollToBeat;
+
+        int requiredRoll = enemyRollToBeat - playerCurrentAttackBoost + 1;
+
+        string displayText;
+
+        if (requiredRoll <= 1)
+        {
+            displayText = "Auto Success";
+        }
+        else if (requiredRoll >= 7)
+        {
+            displayText = "Impossible Roll";
+        }
+        else
+        {
+            displayText = "Need " + requiredRoll + "+ to Win";
+        }
+
+        DiceRollFormulaText.text = displayText;
     }
 
 
     void CloseCombatScene()
     {
 
-        turnOrganiser.combatScene.SetActive(false);
-        turnOrganiser.diceDisplay.SetActive(false);
+        combatScreen.SetActive(false);
+        diceDisplay.SetActive(false);
         turnOrganiser.SetLandedOnEnemySquare(false);
         turnOrganiser.BuildNextTurn();
     }

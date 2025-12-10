@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c12ec042a4aac44fb9c4d484e910b0b, type: 3}
   m_Name: StressfulBreeze
   m_EditorClassIdentifier: Assembly-CSharp::FateOutcome
-  fateID: calming_breeze
-  fateName: Calming Breeze
+  fateID: stressful_breeze
+  fateName: Stressful Breeze
   statToEffect: 1
   effectDelta: 5
   effectDirection: {x: 0, y: 0}

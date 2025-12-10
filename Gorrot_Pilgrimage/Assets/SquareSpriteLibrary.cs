@@ -8,6 +8,9 @@ public class SquareSpriteLibrary : MonoBehaviour
 
     public GameObject borderSquare;
 
+    public Sprite[] outswampGround;
+    public Sprite[] genericGround;
+
     private void Awake()
     {
 
@@ -49,6 +52,20 @@ public class SquareSpriteLibrary : MonoBehaviour
         return terrainSprites[1];
 
 
+    }
+
+    public Sprite GetRandomGroundSprite(string mapLocation)
+    {
+        Debug.Log("LOCATION: " + mapLocation);
+
+        if(mapLocation == "Outer Swamp")
+        {
+            return outswampGround[0];
+        }
+        else
+        {
+            return genericGround[0];
+        }
     }
 
     public GameObject getBorderSquare()
