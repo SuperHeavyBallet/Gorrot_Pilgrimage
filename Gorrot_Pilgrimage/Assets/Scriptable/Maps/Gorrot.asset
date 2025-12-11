@@ -17,3 +17,4 @@ MonoBehaviour:
   mapName: Gorrot
   mapSize: 10
   nextMap: {fileID: 11400000, guid: 8347424fc37a41246b2aa2ecc6f72d12, type: 2}
+  floorSprite: {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}

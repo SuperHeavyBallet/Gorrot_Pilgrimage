@@ -308,7 +308,10 @@ public class BattlefieldBuilder : MonoBehaviour
 
                 SquareController newSquareController = newSquare.GetComponent<SquareController>();
                 newSquareController.SetSquarePosition(x, y);
+               
                 newSquareController.SetMapLocation(currentMap.GetMapLocation());
+                newSquareController.ChooseSquareGroundSprite();
+
                 newSquareController.MakeEmptySquare();
 
                 bool isPlayerStart = (x == playerStartingPosition && y == 0);

@@ -58,6 +58,8 @@ public class SquareController : MonoBehaviour
     public SpriteRenderer squareItemSpriteRenderer;
     [SerializeField] SpriteRenderer groundSpriteRenderer;
 
+    BattlefieldBuilder battlefieldBuilder;
+
   
 
     public string squareType = "empty";
@@ -81,10 +83,12 @@ public class SquareController : MonoBehaviour
     public void SetMapLocation(string newMapLocation)
     {
         mapLocation = newMapLocation;
+
     }
 
     public void AddBorderSquare(int[] sides)
     {
+
 
         int squareLeft = sides[0];
         int squareUp = sides[1];
@@ -108,24 +112,28 @@ public class SquareController : MonoBehaviour
             {
                 Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
                 GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+                newBorderSquare.transform.SetParent(this.transform.parent);
             }
 
             if(rightEmpty && upEmpty)
             {
                 Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
                 GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+                newBorderSquare.transform.SetParent(this.transform.parent);
             }
 
             if(leftEmpty && downEmpty)
             {
                 Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
                 GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+                newBorderSquare.transform.SetParent(this.transform.parent);
             }
 
             if (rightEmpty && downEmpty)
             {
                 Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
                 GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
+                newBorderSquare.transform.SetParent(this.transform.parent);
             }
         }
 
@@ -182,11 +190,11 @@ public class SquareController : MonoBehaviour
         { new Vector2Int(-1, 0), directions.left }
     };
 
-    void ChooseSquareGroundSprite()
+    public void ChooseSquareGroundSprite()
     {
         
 
-        Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(squareType);
+        Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(mapLocation);
         groundSpriteRenderer.sprite = chosenGroundSprite; 
     }
     public void SetEntryDirection(Vector2Int currentPosition, Vector2Int thisPosition)

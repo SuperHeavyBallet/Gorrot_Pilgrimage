@@ -8,7 +8,12 @@ public class SquareSpriteLibrary : MonoBehaviour
 
     public GameObject borderSquare;
 
+    public Sprite[] midworldGround;
+    public Sprite[] outworldGround;
+
     public Sprite[] outswampGround;
+    public Sprite[] inswampGround;
+
     public Sprite[] genericGround;
 
     private void Awake()
@@ -56,15 +61,32 @@ public class SquareSpriteLibrary : MonoBehaviour
 
     public Sprite GetRandomGroundSprite(string mapLocation)
     {
-        Debug.Log("LOCATION: " + mapLocation);
+        int randomNumber = 0;
 
-        if(mapLocation == "Outer Swamp")
+        if (mapLocation == "OuterGorrot")
         {
-            return outswampGround[0];
+            randomNumber = UnityEngine.Random.Range(0, outswampGround.Length);
+            return outswampGround[randomNumber];
+        }
+        else if (mapLocation == "InnerGorrot")
+        {
+            randomNumber = UnityEngine.Random.Range(0, inswampGround.Length);
+            return inswampGround[randomNumber];
+        }
+        else if (mapLocation == "Midworld")
+        {
+            randomNumber = UnityEngine.Random.Range(0, midworldGround.Length);
+            return midworldGround[randomNumber];
+        }
+        else if(mapLocation == "Outworld")
+        {
+            randomNumber = UnityEngine.Random.Range(0, outworldGround.Length);
+            return outworldGround[randomNumber];
         }
         else
         {
-            return genericGround[0];
+            randomNumber = UnityEngine.Random.Range(0, genericGround.Length);
+            return genericGround[randomNumber];
         }
     }
 

@@ -230,7 +230,14 @@ MonoBehaviour:
   squareValue: {fileID: 6758965580617881374}
   squareTerrainSpriteRenderer: {fileID: 1478187110837370011}
   squareItemSpriteRenderer: {fileID: 6194976906794836812}
+  groundSpriteRenderer: {fileID: 8192808211701341989}
   squareType: empty
+  isEdgeSquare: 0
+  leftEmpty: 0
+  upEmpty: 0
+  rightEmpty: 0
+  downEmpty: 0
+  needsCorner: 0
 --- !u!1 &2079368541572557217
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +315,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0.7692599, b: 1, a: 1}
@@ -398,7 +405,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.57382214, g: 0.5849056, b: 0.5545567, a: 1}
@@ -488,7 +495,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: 21300000, guid: ca9a06bdca3e4c44aaca3781df744bb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -609,7 +616,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 102
   m_Sprite: {fileID: 21300000, guid: d1944384e119ed34eb165451d3b2b3e2, type: 3}
   m_Color: {r: 0.5116696, g: 0.5471698, b: 0.40521538, a: 0.69411767}
@@ -699,7 +706,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.98039216, g: 0, b: 0.10963795, a: 1}
@@ -723,7 +730,7 @@ GameObject:
   - component: {fileID: 852763076163783117}
   - component: {fileID: 8192808211701341989}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -789,10 +796,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}
-  m_Color: {r: 0.16820928, g: 0.5943396, b: 0.1541919, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -879,7 +886,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: -712631045867808456, guid: b670ab75dde984907b8570040daa08c5, type: 3}
   m_Color: {r: 0.27074933, g: 1, b: 0, a: 1}
@@ -969,10 +976,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 45
   m_Sprite: {fileID: 21300000, guid: a37d55ccbe2cba343abc4842b35b3b8a, type: 3}
-  m_Color: {r: 0.16820928, g: 0.5943396, b: 0.1541919, a: 0.14117648}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09411765}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1059,7 +1066,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.41773105, g: 0.9716981, b: 0.34376112, a: 1}
@@ -1149,7 +1156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1047856605
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 69
   m_Sprite: {fileID: 21300000, guid: ebed63241593fd944a12b3f689323722, type: 3}
   m_Color: {r: 0.98039216, g: 0.85700524, b: 0, a: 1}

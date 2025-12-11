@@ -20,7 +20,7 @@ public class MapData : ScriptableObject
 
     [SerializeField] int mapSize;
 
-    [SerializeField] MapData nextMap;
+    [SerializeField] MapData[] nextMaps;
 
     [SerializeField] Sprite floorSprite;
 
@@ -41,7 +41,9 @@ public class MapData : ScriptableObject
 
     public MapData GetNextMap()
     {
-        return nextMap;
+
+        int randomNumber = UnityEngine.Random.Range(0, nextMaps.Length);
+        return nextMaps[randomNumber];
     }
 
     public Sprite GetFloorSprite()
