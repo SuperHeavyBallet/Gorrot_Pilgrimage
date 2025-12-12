@@ -25,7 +25,7 @@ public class MapCatalogue : MonoBehaviour
         
     }
 
-   public MapData GetMap(int stage)
+   public MapData GetFirstMap()
     {
         return OutworldMaps[0];
     }

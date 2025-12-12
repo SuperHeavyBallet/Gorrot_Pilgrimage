@@ -17,6 +17,7 @@ public class MapData : ScriptableObject
     [SerializeField] MapLocations mapLocation = MapLocations.InnerGorrot;
 
     [SerializeField] string mapName;
+    public string GetMapName() => mapName;
 
     [SerializeField] int mapSize;
 
@@ -24,10 +25,20 @@ public class MapData : ScriptableObject
 
     [SerializeField] Sprite floorSprite;
 
-    public string GetMapName()
-    {
-        return mapName;
-    }
+    [SerializeField] bool isWildMap; // This decides if a map is single passing through or random, getting lost in a swamp or wilderness etc
+
+    [Tooltip("The number represents the chances of becoming 'stuck' in this map. 0 = No chance, 1 slight chance, 2+ higher chance. Rolled against random number, range: 0 - this int, if not 0 - Reroll same map")]
+    [SerializeField] int wildLevel;
+
+    [SerializeField] float escapeChance = 0.7f;
+    public float GetEscapeChance() => escapeChance;
+
+    [Tooltip("Reserved for THE final map")]
+    [SerializeField] bool isFinalMap = false;
+
+
+
+   
 
     public string GetMapLocation()
     {
@@ -51,6 +62,20 @@ public class MapData : ScriptableObject
         return floorSprite;
     }
 
+    public bool GetIsWildMap()
+    {
+        return isWildMap;
+    }
+
+    public int GetWildLevel()
+    {
+        return wildLevel;
+    }
+
+    public bool GetIsFinalMap()
+    {
+        return isFinalMap;
+    }
 
     
 }

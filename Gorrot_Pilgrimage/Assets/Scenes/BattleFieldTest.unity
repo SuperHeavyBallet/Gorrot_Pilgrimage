@@ -2590,6 +2590,7 @@ GameObject:
   - component: {fileID: 542128496}
   - component: {fileID: 542128498}
   - component: {fileID: 542128499}
+  - component: {fileID: 542128500}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -2670,6 +2671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c536ef5f787514386ddd5acc4bde9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  turnOrganiser: {fileID: 542128493}
 --- !u!114 &542128497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2721,6 +2723,18 @@ MonoBehaviour:
   turnOrganiser: {fileID: 542128493}
   playerStatsController: {fileID: 914908672}
   battlefieldBuilder: {fileID: 1131809994}
+--- !u!114 &542128500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542128492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3eba81f20d5e448bab403fb3e553a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &546519799
 GameObject:
   m_ObjectHideFlags: 0
@@ -4332,8 +4346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   allMaps: []
   OutworldMaps:
-  - {fileID: 11400000, guid: 8347424fc37a41246b2aa2ecc6f72d12, type: 2}
-  - {fileID: 11400000, guid: 98ea906bd14a8154f860c696deeae1b5, type: 2}
+  - {fileID: 11400000, guid: 8e4b093ddf6b6744bb74093165c88f34, type: 2}
   InworldMaps: []
   OuterGorrotMaps: []
   InnterGorrotMaps: []
@@ -6053,10 +6066,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: db67ab5139614c648b011d87963ab5f2, type: 3}
   outworldGround:
   - {fileID: 21300000, guid: 92e464d60fde17a4d96f1c93bcd528db, type: 3}
+  - {fileID: 21300000, guid: e1f8c832a5ead98488b3d8565510af23, type: 3}
+  - {fileID: 21300000, guid: 22f488415af10924581c2dafe3332189, type: 3}
+  - {fileID: 21300000, guid: 7481dd1f1a8f7f643acbe09b2d30fbb1, type: 3}
   outswampGround:
   - {fileID: 21300000, guid: 87678d01fc233764193e9eb48b523506, type: 3}
+  - {fileID: 21300000, guid: 4e9a71432f760ec4b9484521d0a60b31, type: 3}
+  - {fileID: 21300000, guid: 6029a02c735439d49bbad3eeb281b83a, type: 3}
+  - {fileID: 21300000, guid: 07177f9ec7414554a80b9e54c237e62f, type: 3}
   inswampGround:
   - {fileID: 21300000, guid: 994a6af3274318b4b94cf7f63b52e8dc, type: 3}
+  - {fileID: 21300000, guid: 993d8a9f8c3a8d44eb9453444b5ee017, type: 3}
+  - {fileID: 21300000, guid: 73c1d4dddadc5724ba2c9843f9286040, type: 3}
+  - {fileID: 21300000, guid: 0586fc85dc0a34149856bfa0dde0a5d2, type: 3}
   genericGround:
   - {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}
 --- !u!4 &1157923977

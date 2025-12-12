@@ -44,15 +44,21 @@ public class BattlefieldBuilder : MonoBehaviour
 
     MapData currentMap;
     MapData nextMap;
+    MapData mapToBuild;
 
     public TextMeshProUGUI currentMapNameText;
     public TextMeshProUGUI currentMapLocationText;
 
+    bool currentMapIsWildMap;
+    bool canAdvanceDifficulty;
+
+    // Wild Maps invite random reroll within that map
+    // Clear Maps only have a single passage through
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentMap = mapCatalogue.GetMap(currentMapCount);
+        currentMap = mapCatalogue.GetFirstMap();
 
         blackScreen.SetActive(true);
         BuildNewBattlefield();
@@ -135,20 +141,7 @@ public class BattlefieldBuilder : MonoBehaviour
     void FinalMapDecider()
     {
 
-        int chance = 1;
-        int roll = 1;
-
-        if (currentMapCount > minMapCount)
-        {
-            chance = Mathf.Clamp(10 - currentMapCount, 2, 8);
-            roll = UnityEngine.Random.Range(0, chance);
-        }
-            
-
-        // lower chance higher probability of final
-        
-
-        isFinalMap = (roll == 0);
+        isFinalMap = currentMap.GetIsFinalMap();
 
         finalMapText.text = isFinalMap ? "Final Map" : "Keep Going";
     }
@@ -159,29 +152,60 @@ public class BattlefieldBuilder : MonoBehaviour
         return mapSize;
     }
 
+
+
     public void BuildNewBattlefield()
     {
+
         StartCoroutine(ScreenFadeFromBlack());
 
-        nextMap = currentMap.GetNextMap();
+        if (currentMap == null) { Debug.LogError("currentMap is null"); return; }
 
+        // 1) Decide mapToBuild + whether difficulty advances
+        canAdvanceDifficulty = false;
+
+        if (currentMap.GetIsWildMap())
+        {
+            int wild = currentMap.GetWildLevel();
+
+            float escapeChance = currentMap.GetEscapeChance();
+            bool escaped = UnityEngine.Random.value < escapeChance;
+
+            mapToBuild = escaped ? currentMap.GetNextMap() : currentMap;
+            canAdvanceDifficulty = escaped;
+
+            Debug.Log(
+                        $"Map {currentMap.GetMapName()} wild={wild} " +
+                        $"escapeChance={escapeChance:F2} escaped={escaped}"
+                    );
+        }
+        else
+        {
+            mapToBuild = currentMap.GetNextMap();
+            canAdvanceDifficulty = true;
+        }
+
+        // 2) Commit map
+        currentMap = mapToBuild;
+
+        // 3) UI
         currentMapNameText.text = currentMap.GetMapName();
         currentMapLocationText.text = currentMap.GetMapLocation();
+
+
+        // 4) Final map check (data-driven)
+        FinalMapDecider();
 
         enemySquares.Clear();
 
         if(!isFinalMap)
         {
-            currentMapCount += 1;
+            if (canAdvanceDifficulty) currentMapCount++;
             currentMapCountText.text = "Map: " + currentMapCount.ToString();
-            //int currentMapSize = CalculateMapSize();
 
             int currentMapSize = currentMap.GetMapSize();
 
             ClearOldBattlefield();
-
-            
-                FinalMapDecider();
             
             
             setPlayerStartSquare(currentMapSize);
@@ -195,8 +219,6 @@ public class BattlefieldBuilder : MonoBehaviour
         {
             QuitGame(); 
         }
-
-        currentMap = nextMap;
        
     }
 
