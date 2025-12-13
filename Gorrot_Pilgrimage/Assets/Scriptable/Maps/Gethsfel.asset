@@ -21,3 +21,5 @@ MonoBehaviour:
   floorSprite: {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}
   isWildMap: 0
   wildLevel: 0
+  escapeChance: 1
+  isFinalMap: 0

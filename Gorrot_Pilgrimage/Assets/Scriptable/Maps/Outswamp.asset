@@ -19,6 +19,7 @@ MonoBehaviour:
   nextMaps:
   - {fileID: 11400000, guid: a0bb572da646e654d89c6d278c6c15a2, type: 2}
   floorSprite: {fileID: 21300000, guid: 87678d01fc233764193e9eb48b523506, type: 3}
-  isWildMap: 0
+  isWildMap: 1
   wildLevel: 1
+  escapeChance: 0.7
   isFinalMap: 0

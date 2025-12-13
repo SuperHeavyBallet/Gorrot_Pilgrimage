@@ -16,6 +16,10 @@ public class SquareSpriteLibrary : MonoBehaviour
 
     public Sprite[] genericGround;
 
+    public Sprite treasureSMALL;
+    public Sprite treasureMED;
+    public Sprite treasureLARGE;
+
     private void Awake()
     {
 
@@ -57,6 +61,22 @@ public class SquareSpriteLibrary : MonoBehaviour
         return terrainSprites[1];
 
 
+    }
+
+    public Sprite GetTreasureSprite(string size)
+    {
+        switch (size)
+        {
+            case "small":
+                return treasureSMALL;
+            case "medium":
+                return treasureMED;
+            case "large":
+                return treasureLARGE;
+            default:
+                return treasureMED;
+        }
+        
     }
 
     public Sprite GetRandomGroundSprite(string mapLocation)

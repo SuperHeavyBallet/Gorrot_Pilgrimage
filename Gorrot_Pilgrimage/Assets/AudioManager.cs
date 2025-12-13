@@ -3,7 +3,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
 
-    public AudioClip turnChangeSoundEffect_Player;
+   public AudioClip turnChangeSoundEffect_Player;
     public AudioClip turnChangeSoundEffect_Enemy;
     public AudioClip cannotMoveSoundEffect;
     public AudioSource soundEffectPlayer;
@@ -25,6 +25,9 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip addSufferingSoundEffect;
 
+    public AudioClip addMoneySoundEffect;
+
+    [SerializeField] AudioClip playerMoveSoundEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,18 +52,18 @@ public class AudioManager : MonoBehaviour
     {
         if (turnFor == "player")
         {
-            playSoundEffect(turnChangeSoundEffect_Player);
+            soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Player);
         }
         else if (turnFor == "enemy")
         {
-            playSoundEffect(turnChangeSoundEffect_Enemy);
+            soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Enemy, 0.25f);
         }
 
     }
 
     void playBackgroundMusic(AudioClip newMusic)
     {
-        backgroundMusicPlayer.Play();
+       // backgroundMusicPlayer.Play();
     }
 
     void playSoundEffect(AudioClip newClip)
@@ -98,6 +101,10 @@ public class AudioManager : MonoBehaviour
     {
         soundEffectPlayer.PlayOneShot(addSufferingSoundEffect);
     }
+
+    public void playPlayerMoveSoundEffect() => soundEffectPlayer.PlayOneShot(playerMoveSoundEffect); 
+
+    public void playAddMoneySoundEffect() => soundEffectPlayer.PlayOneShot(addMoneySoundEffect);
 
 
 }

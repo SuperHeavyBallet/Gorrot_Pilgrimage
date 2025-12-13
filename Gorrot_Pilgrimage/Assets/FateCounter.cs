@@ -39,6 +39,7 @@ public class FateCounter : MonoBehaviour
     public void resetFateCounter()
     {
         fateCounter = 0;
+        UpdateFateCounterText();
     }
 
     void SelectFateOutcome()

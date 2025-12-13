@@ -17,9 +17,14 @@ public class PlayerStatsController : MonoBehaviour
     int playerMaxAttack = 6;
     int playerMinAttack = 0;
 
+    int playerCurrentMoney = 0;
+    int playerMinMoney = 0;
+    int playerMaxMoney = 9999;
+
     public TextMeshProUGUI healthDisplay;
     public TextMeshProUGUI sufferingDisplay;
     public TextMeshProUGUI attackDisplay;
+    public TextMeshProUGUI moneyDisplay;
 
     public bool playerIsAlive;
     bool playerHasDied;
@@ -32,6 +37,9 @@ public class PlayerStatsController : MonoBehaviour
     public GameObject attackNeg;
     public GameObject sufferingPlus;
     public GameObject sufferingNeg;
+    public GameObject moneyPlus;
+    public GameObject moneyNeg;
+
 
 
 
@@ -53,29 +61,11 @@ public class PlayerStatsController : MonoBehaviour
         attackNeg.SetActive(false);
         sufferingPlus.SetActive(false);
         sufferingNeg.SetActive(false);
+        moneyPlus.SetActive(false);
+        moneyNeg.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public void subtractHealth(int subtractAmount)
-    {
-
-        audioManager.playTakeDamageSoundEffect();
-
-        if (playerCurrentHealth > playerMinHealth)
-        {
-            playerCurrentHealth -= subtractAmount;
-            
-        }
-
-        UpdateNumbersDisplay();
-
-
-    }
 
     public void UseItem(string itemID)
     {
@@ -212,6 +202,8 @@ public class PlayerStatsController : MonoBehaviour
             healthDisplay.text = "Health: " + playerCurrentHealth.ToString();
             sufferingDisplay.text = "Suffering: " + playerCurrentSuffering.ToString();
             attackDisplay.text = "Attack: +" + playerCurrentAttack.ToString();
+            moneyDisplay.text = "Money: " + playerCurrentMoney.ToString();
+            
         }
         else
         {
@@ -239,6 +231,8 @@ public class PlayerStatsController : MonoBehaviour
         attackNeg.SetActive(false);
         sufferingPlus.SetActive(false);
         sufferingNeg.SetActive(false);
+        moneyPlus.SetActive(false);
+        moneyNeg.SetActive(false);
 
         sign.SetActive(true);
         if (activateSign != null)
@@ -286,5 +280,32 @@ public class PlayerStatsController : MonoBehaviour
     {
         return playerMinSuffering;
     }
+
+    public void alterMoney(int alterAmount)
+    {
+        int before = playerCurrentMoney;
+        int raw = before + alterAmount;
+
+        playerCurrentMoney = Mathf.Clamp(raw, playerMinMoney, playerMaxMoney);
+
+        if (alterAmount > 0)
+        {
+            audioManager.playAddMoneySoundEffect();
+            ActivateSignForTime(moneyPlus);
+        }
+        else if (alterAmount < 0)
+        {
+            ActivateSignForTime(moneyNeg);
+        }
+
+
+        UpdateNumbersDisplay();
+    }
+
+    public int GetPlayerCurrentMoney() => playerCurrentMoney;
+
+    public int GetPlayerMinMoney() => playerMinMoney;
+
+    public int GetPlayerMaxMoney() => playerMaxMoney;
 
 }

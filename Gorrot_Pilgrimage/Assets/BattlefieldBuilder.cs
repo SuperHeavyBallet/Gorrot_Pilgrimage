@@ -52,6 +52,9 @@ public class BattlefieldBuilder : MonoBehaviour
     bool currentMapIsWildMap;
     bool canAdvanceDifficulty;
 
+    bool mapHasMerchant;
+    [SerializeField] TextMeshProUGUI hasMerchantText;
+
     // Wild Maps invite random reroll within that map
     // Clear Maps only have a single passage through
 
@@ -146,11 +149,6 @@ public class BattlefieldBuilder : MonoBehaviour
         finalMapText.text = isFinalMap ? "Final Map" : "Keep Going";
     }
 
-    int CalculateMapSize()
-    {
-        int mapSize = 10 * currentMapCount;
-        return mapSize;
-    }
 
 
 
@@ -211,9 +209,25 @@ public class BattlefieldBuilder : MonoBehaviour
             setPlayerStartSquare(currentMapSize);
             setContentAmount(currentMapSize);
 
+            mapHasMerchant = currentMap.GetHasMerchant();
 
-            buildBattleFieldGrid(currentMapSize);
+
+            
+
+
+                buildBattleFieldGrid(currentMapSize);
             placePlayer(currentMapSize);
+
+            if (mapHasMerchant)
+            {
+                hasMerchantText.text = "HAS A MERCHANT";
+                placeMerchant();
+            }
+            else
+            {
+                hasMerchantText.text = "NO MERCHANT HERE...";
+            }
+
         }
         else
         {
@@ -597,6 +611,24 @@ public class BattlefieldBuilder : MonoBehaviour
             playerMovementController.SetPlayerStartSquare(testX, testY);
         }
         else { Debug.LogError("No Player Controller"); }
+
+
+    }
+
+    void placeMerchant()
+    {
+        Vector2Int[] freeSquaresArray = freeSquares.ToArray();
+
+        int randomNumber = UnityEngine.Random.Range(0, freeSquaresArray.Length);
+
+        Vector2Int merchantPosition = freeSquaresArray[randomNumber];
+
+        SquareController merchantSquareController = allSquares[merchantPosition.x, merchantPosition.y].GetComponent<SquareController>();
+
+        if (merchantSquareController != null)
+        {
+            merchantSquareController.MakeMerchantSquare();
+        }
 
 
     }

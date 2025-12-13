@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections;
 
 
 public class PlayerMovementController : MonoBehaviour
@@ -30,6 +31,22 @@ public class PlayerMovementController : MonoBehaviour
 
     public FateCounter fateCounter;
 
+    bool isMoving;
+
+    public GameObject playerSprite;
+
+   [SerializeField] PlayerAnimationManager playerAnimationManager;
+
+    enum facingPositions
+    {
+        up, down, left, right
+    }
+
+    facingPositions nextFacingPosition = facingPositions.up;
+    facingPositions currentFacingPosition = facingPositions.up;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,17 +69,24 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue)
     {
+        if (isMoving) return;
+
         Vector2 normalizedMoveValue = receivedMoveValue;
         if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1;}
 
         if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
 
-        playerIsAlive = CheckPlayerAlive();
+        if(normalizedMoveValue.x < 0) { nextFacingPosition = facingPositions.left; }
+        else if (normalizedMoveValue.x > 0) { nextFacingPosition = facingPositions.right; }
+        else if (normalizedMoveValue.y < 0) nextFacingPosition = facingPositions.down;
+        else {  nextFacingPosition = facingPositions.up;}
+
+            playerIsAlive = CheckPlayerAlive();
 
         if(isPlayerTurn && playerIsAlive)
         {
             if(turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
-            MovePlayer(normalizedMoveValue, false);
+            MovePlayer(normalizedMoveValue);
         }
 
     }
@@ -73,18 +97,45 @@ public class PlayerMovementController : MonoBehaviour
                y >= 0 && y < battleFieldSize;
     }
 
-    public void FateMovement(Vector2Int direction)
+
+
+    void SetFacing()
     {
-      //  MovePlayer(direction, true);
+        float zRotation = 0f;
+
+        switch (nextFacingPosition)
+        {
+            case facingPositions.down:
+                zRotation = 180f;
+                break;
+
+            case facingPositions.right:
+                zRotation = 270f;
+                break;
+
+            case facingPositions.left:
+                zRotation = 90f;
+                break;
+
+            case facingPositions.up:
+            default:
+                zRotation = 0f;
+                break;
+        }
+
+        playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
     }
 
-    public void MovePlayer(Vector2 newMoveValue, bool isFateOrdained)
+    public void MovePlayer(Vector2 newMoveValue)
     {
         
 
 
         int newPositionX = currentPosition.x + Mathf.RoundToInt(newMoveValue.x);
         int newPositionY = currentPosition.y + Mathf.RoundToInt(newMoveValue.y);
+
+        
+        SetFacing();
 
         // FIRST: check bounds BEFORE touching the array
         if (!IsInsideGrid(newPositionX, newPositionY))
@@ -94,14 +145,14 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
-        nextSquareQuantity = newSquareController.getSquareQuantity();
-
 
         if (newSquareController == null)
         {
             BlockedSquare();
             return;
         }
+
+        nextSquareQuantity = newSquareController.getSquareQuantity();
 
         bool isMoveableSquare = newSquareController.isMoveableSquare();
 
@@ -110,6 +161,8 @@ public class PlayerMovementController : MonoBehaviour
             BlockedSquare();
             return;
         }
+
+
 
         // Compare Positions between this and proposed next square to set the entry direction
         Vector2Int newMoveVector = new Vector2Int(newPositionX, newPositionY);
@@ -120,69 +173,83 @@ public class PlayerMovementController : MonoBehaviour
            newSquareController.GetSquareYPosition()
             );
 
+
+        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController));
+
+       
+
+
+       
+
+
+
+    }
+
+    IEnumerator MoveRoutine(
+        SquareController targetSquare,
+    int newX,
+    int newY,
+    Vector2 worldTargetPos,
+    SquareController newSquareController
+    )
+    {
+        isMoving = true;
+        playerAnimationManager.SetIsWalking(true);
+
+        audioManager.playPlayerMoveSoundEffect();
+
+        Vector3 start = transform.position;
+        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
+
+        float duration = 0.25f; // tune feel
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
+
+            // Smoothstep-ish curve (feels nicer than linear)
+            u = u * u * (3f - 2f * u);
+
+            transform.position = Vector3.Lerp(start, end, u);
+            yield return null;
+        }
+
+        transform.position = end;
+
+        // Commit grid position *after* movement finishes
+        currentPosition = new Vector2Int(newX, newY);
+
+        
+
+        isMoving = false;
+        playerAnimationManager.SetIsWalking(false);
+        ApplyMoveResults(newSquareController);
+
+        // Now the turn can progress
+        turnOrganiser.BuildNextTurn();
+    }
+
+    void CheckIfEnemySquare(SquareController newSuareController)
+    { 
+        
+    }
+
+    void ApplyMoveResults(SquareController newSquareController)
+    {
+        newSquareController.ActivateSquareVisited();
+
+
+
         if (newSquareController.isGoalSquare)
         {
             turnOrganiser.LandedOnGoal();
-
-           
-           
-           // return; // <- stop here, don't move to old newPosition
-
+            fateCounter.resetFateCounter();
+            return;
         }
 
-        newSquareController.ActivateSquareVisited();
-
-        if (newSquareController.isEmptySquare && !isFateOrdained)
-        {
-            addMovementSuffering();
-        }
-
-        if(newSquareController.isItemSquare)
-        {
-
-            string squareContentsID = newSquareController.GetContentsID();
-
-
-            bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
-
-            if (canAddItem)
-            {
-                newSquareController.MakeEmptySquare();
-            }
-
-            else
-            {
-                audioManager.playCannotMoveSoundEffect();
-            }
-           
-
-        }
-
-        if (newSquareController.isTreasureSquare)
-        {
-            int amount = 0;
-
-            switch(nextSquareQuantity)
-            {
-                case "small":
-                    amount = 1;
-                    break;
-                case "medium":
-                    amount = 3;
-                    break;
-                case "large":
-                    amount = 5;
-                    break;
-                default:
-                    amount = 3;
-                    break;
-            }
-
-            playerStatsController.alterSuffering(amount * -1);
-            newSquareController.MakeEmptySquare();
-        }
-
-        if(newSquareController.isEnemySquare)
+        if (newSquareController.isEnemySquare)
         {
             int amount = 0;
 
@@ -204,10 +271,64 @@ public class PlayerMovementController : MonoBehaviour
 
             turnOrganiser.UpdateCurrentEnemySize(amount);
             turnOrganiser.SetLandedOnEnemySquare(true);
+            fateCounter.resetFateCounter();
+            newSquareController.MakeEmptySquare();
+            return;
+        }
+
+
+        fateCounter.alterFateCounter(1);
+
+        if (newSquareController.isEmptySquare)
+        {
+            addMovementSuffering();
+        }
+
+        if (newSquareController.isItemSquare)
+        {
+            string squareContentsID = newSquareController.GetContentsID();
+
+            bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
+
+            if (canAddItem)
+            {
+                newSquareController.MakeEmptySquare();
+            }
+            else
+            {
+                audioManager.playCannotMoveSoundEffect();
+            }
+
+        }
+
+        if (newSquareController.isTreasureSquare)
+        {
+            int amount = 0;
+
+            switch (nextSquareQuantity)
+            {
+                case "small":
+                    amount = 1;
+                    break;
+                case "medium":
+                    amount = 3;
+                    break;
+                case "large":
+                    amount = 5;
+                    break;
+                default:
+                    amount = 3;
+                    break;
+            }
+
+            playerStatsController.alterMoney(amount);
+            playerStatsController.alterSuffering(amount * -1);
             newSquareController.MakeEmptySquare();
         }
 
-        if(newSquareController.isHealthSquare)
+        
+
+        if (newSquareController.isHealthSquare)
         {
             int amount = 0;
 
@@ -228,25 +349,11 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             playerStatsController.alterHealth(amount);
-            int sufferingAmount = Mathf.Clamp(amount, 0, amount-2);
+            int sufferingAmount = Mathf.Clamp(amount, 0, amount - 2);
 
             playerStatsController.alterSuffering(sufferingAmount * -1);
             newSquareController.MakeEmptySquare();
         }
-
-        
-                
-        this.transform.position = newPosition;
-        currentPosition = new Vector2Int(newPositionX, newPositionY);
-
-        if(!isFateOrdained)
-        {
-            fateCounter.alterFateCounter(1);
-        }
-
-        
-        turnOrganiser.BuildNextTurn();
-
     }
 
     void addMovementSuffering()

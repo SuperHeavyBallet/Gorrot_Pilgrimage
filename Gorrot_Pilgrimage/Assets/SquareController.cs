@@ -74,6 +74,11 @@ public class SquareController : MonoBehaviour
 
     string mapLocation;
 
+    [SerializeField] SpriteRenderer treasureSpriteRenderer;
+
+    bool isMerchantSquare;
+    [SerializeField] GameObject merchantSprite;
+
     public void MakeEdgeSquare()
     {
         isEdgeSquare = true;
@@ -189,6 +194,11 @@ public class SquareController : MonoBehaviour
         { new Vector2Int(1, 0), directions.right },
         { new Vector2Int(-1, 0), directions.left }
     };
+
+    public void ChooseTreasureSprite()
+    {
+
+    }
 
     public void ChooseSquareGroundSprite()
     {
@@ -400,25 +410,47 @@ public class SquareController : MonoBehaviour
         squareType = "treasure";
         ChooseSquareSprite();
 
-        /*
+        string treasureSize = "medium";
+       
         switch (square)
         {
             case squareQuantity.small:
-                squareValue.text = "-1S";
+                treasureSize = "small";
                 break;
             case squareQuantity.medium:
-                squareValue.text = "-3S";
+                treasureSize = "medium";
                 break;
             case squareQuantity.large:
-                squareValue.text = "-5S";
+                treasureSize = "large";
                 break;
             default:
+                treasureSize = "medium";
                 break;
 
-        }*/
+        }
 
-        ActivateGameObject(treasureSquareSprite);
+        Sprite treasureSprite = SquareSpriteLibrary.Instance.GetTreasureSprite(treasureSize);
 
+        if(treasureSprite != null)
+        {
+            treasureSpriteRenderer.sprite = treasureSprite;
+        }
+        else
+        {
+            Debug.Log("No Sprite Gotten");
+        }
+
+
+
+
+
+            ActivateGameObject(treasureSquareSprite);
+
+    }
+
+    public void MakeMerchantSquare()
+    {
+        merchantSprite.SetActive(true);
     }
 
     public void MakeEnemySquare()

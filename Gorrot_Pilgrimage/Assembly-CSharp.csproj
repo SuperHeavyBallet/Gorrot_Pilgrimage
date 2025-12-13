@@ -64,6 +64,7 @@
     <Compile Include="Assets\SquareVisId.cs" />
     <Compile Include="Assets\DiceController.cs" />
     <Compile Include="Assets\PlayerMovementController.cs" />
+    <Compile Include="Assets\PlayerAnimationManager.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
     <Compile Include="Assets\PlayerInventory.cs" />

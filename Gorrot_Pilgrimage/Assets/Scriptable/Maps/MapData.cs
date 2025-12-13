@@ -36,6 +36,7 @@ public class MapData : ScriptableObject
     [Tooltip("Reserved for THE final map")]
     [SerializeField] bool isFinalMap = false;
 
+    [SerializeField]  bool hasMerchant = false;
 
 
    
@@ -75,6 +76,11 @@ public class MapData : ScriptableObject
     public bool GetIsFinalMap()
     {
         return isFinalMap;
+    }
+
+    public bool GetHasMerchant()
+    {
+        return hasMerchant;
     }
 
     
