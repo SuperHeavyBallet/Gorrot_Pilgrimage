@@ -451,6 +451,12 @@ public class SquareController : MonoBehaviour
     public void MakeMerchantSquare()
     {
         merchantSprite.SetActive(true);
+        isMerchantSquare = true;
+    }
+
+   public bool GetIsMerchantSquare()
+    {
+        return isMerchantSquare;
     }
 
     public void MakeEnemySquare()

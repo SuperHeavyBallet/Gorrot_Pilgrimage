@@ -113,6 +113,11 @@ public class BattlefieldBuilder : MonoBehaviour
         StartCoroutine(ScreenFadeToBlack());
     }
 
+    public void StartFadeFromBlack()
+    {
+        StartCoroutine(ScreenFadeFromBlack());
+    }
+
     public IEnumerator ScreenFadeToBlack()
     {
         Color c = blackScreenSprite.color;

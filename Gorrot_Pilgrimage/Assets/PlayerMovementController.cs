@@ -71,6 +71,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (isMoving) return;
 
+        if (turnOrganiser.GetIsInMerchant() == true) return;
+
         Vector2 normalizedMoveValue = receivedMoveValue;
         if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1;}
 
@@ -231,11 +233,6 @@ public class PlayerMovementController : MonoBehaviour
         turnOrganiser.BuildNextTurn();
     }
 
-    void CheckIfEnemySquare(SquareController newSuareController)
-    { 
-        
-    }
-
     void ApplyMoveResults(SquareController newSquareController)
     {
         newSquareController.ActivateSquareVisited();
@@ -246,6 +243,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             turnOrganiser.LandedOnGoal();
             fateCounter.resetFateCounter();
+            return;
+        }
+
+        if(newSquareController.GetIsMerchantSquare())
+        {
+            turnOrganiser.LandedOnMerchantSquare();
             return;
         }
 

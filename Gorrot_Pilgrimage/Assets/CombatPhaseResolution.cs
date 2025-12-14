@@ -27,6 +27,7 @@ public class CombatPhaseResolution : MonoBehaviour
     public GameObject combatScreen;
     public GameObject diceDisplay;
 
+    [SerializeField] BattlefieldBuilder battlefieldBuilder;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,8 +42,10 @@ public class CombatPhaseResolution : MonoBehaviour
     public void EnterCombatPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
-        combatScreen.SetActive(true);
-        diceDisplay.SetActive(true);
+
+        battlefieldBuilder.StartFadeToBlack();
+
+        
 
         StartCoroutine(CombatRollScreen());
     }
@@ -72,7 +75,10 @@ public class CombatPhaseResolution : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        
+        combatScreen.SetActive(true);
+        diceDisplay.SetActive(true);
+
+
 
         hasPressedRoll = false;
         waitingForPressRoll = true;
@@ -153,7 +159,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void CloseCombatScene()
     {
-
+        battlefieldBuilder.StartFadeFromBlack();
         combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
         turnOrganiser.SetLandedOnEnemySquare(false);

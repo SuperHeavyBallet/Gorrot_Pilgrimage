@@ -35,7 +35,8 @@ public class TurnOrganiser : MonoBehaviour
         combat,
         fate,
         goalReach,
-        death
+        death,
+        merchant
     }
 
     public ActivePhase currentPhase = ActivePhase.movement;
@@ -45,6 +46,9 @@ public class TurnOrganiser : MonoBehaviour
     [SerializeField] MovementPhaseResolution movementPhaseResolution;
     [SerializeField] DeathPhaseResolution deathPhaseResolution;
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
+    [SerializeField] MerchantPhaseResolution merchantPhaseResolution;
+
+    public bool isInMerchant;
 
     int currentEnemySize = 0;
 
@@ -121,6 +125,22 @@ public class TurnOrganiser : MonoBehaviour
         hasLandedOnEnemy = value;
     }
 
+    public void LandedOnMerchantSquare()
+    {
+        
+        merchantPhaseResolution.EnterMerchantPhase();
+    }
+
+    public void SetIsInMerchant(bool value)
+    {
+        isInMerchant = value;
+    }
+
+    public bool GetIsInMerchant()
+    {
+        return isInMerchant;
+    }
+
     public void SetReadyToReturnToPlayer(bool value)
     {
         readyToReturnToPlayer = value;
@@ -130,8 +150,13 @@ public class TurnOrganiser : MonoBehaviour
 
     public void BuildNextTurn()
     {
-        disablePlayerTurn();
-        BuildNextPhase();
+        if(!isInMerchant)
+        {
+            disablePlayerTurn();
+            BuildNextPhase();
+        }
+
+        
 
     }
 
