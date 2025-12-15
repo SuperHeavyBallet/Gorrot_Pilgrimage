@@ -28,34 +28,27 @@ public class CharacterStatSheet : MonoBehaviour
     }
 
     // Health
-    public void setStartingHealth(int health) {  startingHealth = health; }
-    public int getStartingHealth() => startingHealth;
+    public void SetStartingHealth(int health) {  startingHealth = health; }
+    public int GetStartingHealth() => startingHealth;
 
     // Money
-    public void setStartingMoney(int money) {  startingMoney = money; }
-    public int getStartingMoney() => startingMoney;
+    public void SetStartingMoney(int money) {  startingMoney = money; }
+    public int GetStartingMoney() => startingMoney;
 
     // Suffering
-    public void setStartingSuffering(int suffering) {  startingSuffering = suffering;}
-    public int getStartingSuffering() => startingSuffering;
+    public void SetStartingSuffering(int suffering) {  startingSuffering = suffering;}
+    public int GetStartingSuffering() => startingSuffering;
 
     // Name
-    public void setCharacterName(string name) { characterName = name; }
-    public string getCharacterName() => characterName;
+    public void SetCharacterName(string name) { characterName = name; }
+    public string GetCharacterName() => characterName;
 
     // Location
-    public void setCharacterStartLocation(int newStartLocation)
-    {
-        if (Enum.IsDefined(typeof(StartLocations), startLocation))
-        {
-            startLocation = (StartLocations)newStartLocation;
-        }
-        else
-        {
-            Debug.LogError("Invalid start location index");
-        }
+    public void SetCharacterStartLocation(StartLocations newStartLocation)
+    { 
+            startLocation = newStartLocation;
     }
-    public StartLocations getCharacterStartLocation() => startLocation;
+    public StartLocations GetCharacterStartLocation() => startLocation;
 
 
 }

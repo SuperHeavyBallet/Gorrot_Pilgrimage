@@ -1,170 +1,102 @@
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-using UnityEditor;
 using TMPro;
-using System.Collections;
-using UnityEngine.UI;
+using UnityEngine;
 
 public class BattlefieldBuilder : MonoBehaviour
 {
+    [SerializeField] GameObject battleFieldSquare;
 
-    public GameObject battleFieldSquare;
+    [SerializeField] GameObject[,] allSquares;
 
-    public GameObject[,] allSquares;
+    [SerializeField] GameObject player;
 
-    public GameObject player;
+    [SerializeField] UIController uiController;
 
-    int goalSquareCount = 1;
+    [SerializeField] DifficultyTuning difficultyTuning;
+
     int enemySquareCount = 5;
     int treasureSquareCount = 5;
-   int terrainSquareCount = 5;
+    int terrainSquareCount = 5;
     int healthSquareCount = 5;
     int potionSquareCount = 5;
 
     int playerStartingPosition = 0;
 
-    public bool isFinalMap = false;
+    bool isFinalMap = false;
 
     private List<Vector2Int> freeSquares = new List<Vector2Int>();
 
-    public TextMeshProUGUI finalMapText;
-    public int currentMapCount = 0;
-    public TextMeshProUGUI currentMapCountText;
+    int currentMapCount = 0;
 
     List<GameObject> enemySquares = new List<GameObject>();
 
     [SerializeField] MapCatalogue mapCatalogue;
-
-    int minMapCount = 3;
-
-    public GameObject blackScreen;
-    public Image blackScreenSprite;
-
     MapData currentMap;
-    MapData nextMap;
     MapData mapToBuild;
 
-    public TextMeshProUGUI currentMapNameText;
-    public TextMeshProUGUI currentMapLocationText;
-
-    bool currentMapIsWildMap;
     bool canAdvanceDifficulty;
 
-    bool mapHasMerchant;
     [SerializeField] TextMeshProUGUI hasMerchantText;
+    StartLocations startLocation;
 
-    // Wild Maps invite random reroll within that map
-    // Clear Maps only have a single passage through
+    PlayerCompassController playerCompassController;
+    PlayerDistanceController playerDistanceController;
+    PlayerMovementController playerMovementController;
+    PlayerStatsController playerStatsController;
+
+    void Awake()
+    {
+
+        if (battleFieldSquare == null) Debug.LogError("Battlefield square prefab not set", this);
+        if (player == null) Debug.LogError("Player not set", this);
+        if (uiController == null) Debug.LogError("UIController not set", this);
+        if (mapCatalogue == null) Debug.LogError("MapCatalogue not set", this);
+        if (hasMerchantText == null) Debug.LogError("Merchant text not set", this);
+
+        if (player != null)
+        {
+            playerMovementController = player.GetComponent<PlayerMovementController>();
+            playerCompassController = player.GetComponent<PlayerCompassController>();
+            playerDistanceController = player.GetComponent<PlayerDistanceController>();
+            playerStatsController = player.GetComponent<PlayerStatsController>();
+
+            if (playerMovementController == null) Debug.LogError("PlayerMovementController missing", player);
+            if (playerCompassController == null) Debug.LogError("PlayerCompassController missing", player);
+            if (playerDistanceController == null) Debug.LogError("PlayerDistanceController missing", player);
+            if (playerStatsController == null) Debug.LogError("PlayerStatsController missing", player);
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentMap = mapCatalogue.GetFirstMap();
-
-        blackScreen.SetActive(true);
+        uiController.ActivateBlackScreen(true);
+        SetFirstMap();
         BuildNewBattlefield();
-       
+    }
+    void SetFirstMap() { currentMap = mapCatalogue.GetFirstMap(); }
+
+    void DecideStartingLocation()
+    {
+        CharacterStatSheet sheet = CharacterStatSheet.Instance;
+        if(sheet != null ) { startLocation = CharacterStatSheet.Instance.GetCharacterStartLocation(); }
+        else { startLocation = StartLocations.Fetsmeld; }
     }
 
-    IEnumerator ScreenFadeFromBlack()
+    public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
+    
+    public void StartFadeFromBlack() { uiController.StartFadeFromBlack(); }
+
+    void CheckIfFinalMap() { isFinalMap = currentMap.GetIsFinalMap(); }
+
+    MapData DecideMapToBuild()
     {
-        blackScreen.SetActive(true);
-        //  yield return new WaitForSeconds(1);
-
-        Color c = blackScreenSprite.color;
-
-        float duration = 1f;
-        float t = 0f;
-
-        c.a = 1f;
-        blackScreenSprite.color = c;
-
- 
-
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float normalized = t / duration;
-
-            // Lerp alpha from 1 > 0
-            c.a = Mathf.Lerp(1f, 0f, normalized);
-            blackScreenSprite.color = c;
-
-            yield return null;
+        if (currentMap == null) 
+        { 
+            Debug.LogError("currentMap is null"); 
+            return mapCatalogue.GetFirstMap(); 
         }
 
-        // ensure full transparency at end
-        c.a = 0f;
-        blackScreenSprite.color = c;
-
-        // optional: hide object after fade
-        blackScreen.SetActive(false);
-
-
-
-
-    }
-
-    public void StartFadeToBlack()
-    {
-        StartCoroutine(ScreenFadeToBlack());
-    }
-
-    public void StartFadeFromBlack()
-    {
-        StartCoroutine(ScreenFadeFromBlack());
-    }
-
-    public IEnumerator ScreenFadeToBlack()
-    {
-        Color c = blackScreenSprite.color;
-        c.a = 1f;
-        blackScreenSprite.color = c;
-
-        float duration = 1f;
-        float t = 0f;
-
-        blackScreen.SetActive(true);
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float normalized = t / duration;
-
-            // Lerp alpha from 0 > 1
-            c.a = Mathf.Lerp(0f,1f, normalized);
-            blackScreenSprite.color = c;
-
-            yield return null;
-        }
-
-        c.a = 1f;
-        blackScreenSprite.color = c;
-
-    }
-
-    void FinalMapDecider()
-    {
-
-        isFinalMap = currentMap.GetIsFinalMap();
-
-        finalMapText.text = isFinalMap ? "Final Map" : "Keep Going";
-    }
-
-
-
-
-    public void BuildNewBattlefield()
-    {
-
-        StartCoroutine(ScreenFadeFromBlack());
-
-        if (currentMap == null) { Debug.LogError("currentMap is null"); return; }
-
-        // 1) Decide mapToBuild + whether difficulty advances
         canAdvanceDifficulty = false;
 
         if (currentMap.GetIsWildMap())
@@ -176,348 +108,173 @@ public class BattlefieldBuilder : MonoBehaviour
 
             mapToBuild = escaped ? currentMap.GetNextMap() : currentMap;
             canAdvanceDifficulty = escaped;
-
-            Debug.Log(
-                        $"Map {currentMap.GetMapName()} wild={wild} " +
-                        $"escapeChance={escapeChance:F2} escaped={escaped}"
-                    );
         }
         else
         {
-            mapToBuild = currentMap.GetNextMap();
-            canAdvanceDifficulty = true;
-        }
-
-        // 2) Commit map
-        currentMap = mapToBuild;
-
-        // 3) UI
-        currentMapNameText.text = currentMap.GetMapName();
-        currentMapLocationText.text = currentMap.GetMapLocation();
-
-
-        // 4) Final map check (data-driven)
-        FinalMapDecider();
-
-        enemySquares.Clear();
-
-        if(!isFinalMap)
-        {
-            if (canAdvanceDifficulty) currentMapCount++;
-            currentMapCountText.text = "Map: " + currentMapCount.ToString();
-
-            int currentMapSize = currentMap.GetMapSize();
-
-            ClearOldBattlefield();
-            
-            
-            setPlayerStartSquare(currentMapSize);
-            setContentAmount(currentMapSize);
-
-            mapHasMerchant = currentMap.GetHasMerchant();
-
-
-            
-
-
-                buildBattleFieldGrid(currentMapSize);
-            placePlayer(currentMapSize);
-
-            if (mapHasMerchant)
+            if (currentMap.GetIsFirstMap())
             {
-                hasMerchantText.text = "HAS A MERCHANT";
-                placeMerchant();
+                DecideStartingLocation();
+                playerStatsController.SetStartingStats();
+                mapToBuild = currentMap.GetStartingMap(startLocation);
             }
             else
             {
-                hasMerchantText.text = "NO MERCHANT HERE...";
+                mapToBuild = currentMap.GetNextMap();
+                canAdvanceDifficulty = true;
             }
-
         }
-        else
+
+        return mapToBuild;
+    }
+
+    void UpdateMapDataUI() { uiController.UpdateMapDataText(currentMap.GetMapName(), currentMap.GetMapLocation()); }
+
+    void ClearEnemySquares() { enemySquares.Clear(); }
+
+    void SetContent(int mapSize)
+    {
+        SetPlayerStartSquare(mapSize);
+        SetContentAmounts(mapSize);
+        BuildBattleFieldGrid(mapSize);
+        PlacePlayer(mapSize);
+        CheckMerchantNeeded();
+    }
+
+    void CheckMerchantNeeded()
+    {
+        if (currentMap.GetHasMerchant())
         {
-            QuitGame(); 
+            hasMerchantText.text = "MERCHANT";
+            PlaceMerchant();
         }
-       
+        else { hasMerchantText.text = "..."; }
     }
 
-    public void QuitGame()
+    void BuildNewMap()
     {
-        // This code only runs in the Unity Editor
-        #if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-        #else
-                Application.Quit(); // This runs in standalone builds
-        #endif
+        IncrementMapCount();
+        ClearOldBattlefield();
+        SetContent(currentMap.GetMapSize()); 
     }
 
-
-    void ClearOldBattlefield()
+    void IncrementMapCount() { if (canAdvanceDifficulty) { currentMapCount++; } }
+    public void BuildNewBattlefield()
     {
-        // Loop backwards to avoid issues when destroying children while iterating
-        for (int i = transform.childCount - 1; i >= 0; i--)
-        {
-            Destroy(transform.GetChild(i).gameObject);
-        }
+        currentMap = DecideMapToBuild();
+
+        UpdateMapDataUI();
+
+        CheckIfFinalMap();
+
+        ClearEnemySquares();
+
+        if(!isFinalMap) { BuildNewMap(); }
+        else { QuitGame(); }
+
+        StartFadeFromBlack();
+
     }
-
-
-    void setContentAmount(int currentMapSize)
-    {
-        int area = currentMapSize * currentMapSize;
-
-        // --- 1. Define easy / hard ratios ---
-
-        float easyEnemyRatio = 1f / 40f;
-        float easyTreasureRatio = 1f / 30f;
-        float easyTerrainRatio = 1f / 20f;
-        float easyHealthRatio = 1f / 40f;
-        float easyPotionRatio = 1f / 40f;
-
-        float hardEnemyRatio = 1f / 30f;
-        float hardTreasureRatio = 1f / 80f;
-        float hardTerrainRatio = 1f / 10f;
-        float hardHealthRatio = 1f / 90f;
-        float hardPotionRatio = 1f / 90f;
-
-        // --- 2. Compute difficulty [0..1] ---
-
-        int maxDifficultyMap = 3;
-        float difficulty01;
-
-        if (isFinalMap)
-        {
-            difficulty01 = 1f;
-        }
-        else
-        {
-            difficulty01 = Mathf.Clamp01(
-                (currentMapCount - 1f) / (maxDifficultyMap - 1f)
-            );
-        }
-
-        // --- 3. Lerp ratios based on difficulty ---
-
-        float enemyRatio = Mathf.Lerp(easyEnemyRatio, hardEnemyRatio, difficulty01);
-        float treasureRatio = Mathf.Lerp(easyTreasureRatio, hardTreasureRatio, difficulty01);
-        float terrainRatio = Mathf.Lerp(easyTerrainRatio, hardTerrainRatio, difficulty01);
-        float healthRatio = Mathf.Lerp(easyHealthRatio, hardHealthRatio, difficulty01);
-        float potionRatio = Mathf.Lerp(easyPotionRatio, hardPotionRatio, difficulty01);
-
-        // --- 4. Convert ratios to tile counts ---
-
-        enemySquareCount = Mathf.Max(1, Mathf.RoundToInt(area * enemyRatio));
-        treasureSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * treasureRatio));
-        terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * terrainRatio));
-        healthSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * healthRatio));
-        potionSquareCount = Mathf.Max(1, Mathf.RoundToInt(area * potionRatio));
-    }
-
-
-
-    void setPlayerStartSquare(int currentMapSize)
-    {
-        // ranndom Horizontal Index on the first row
-        playerStartingPosition = UnityEngine.Random.Range(0, currentMapSize);
-    }
-
-    int setRandomGoalSquare(int currentMapSize)
-    {
-        return UnityEngine.Random.Range(0, currentMapSize);
-    }
-
-
-
 
    
 
-    void buildBattleFieldGrid(int size)
+    void ClearOldBattlefield()
     {
+        for (int i = transform.childCount - 1; i >= 0; i--) { Destroy(transform.GetChild(i).gameObject); }
+    }
 
+    void SetContentAmounts(int currentMapSize)
+    {
+        if (difficultyTuning == null)
+        {
+            Debug.LogError("Difficulty Tuning not assigned.", this);
+            return;
+        }
+
+        var counts = difficultyTuning.ComputeCounts(currentMapSize, currentMapCount, isFinalMap);
+
+        enemySquareCount = counts.enemy;
+        treasureSquareCount = counts.treasure;
+        terrainSquareCount = counts.terrain;
+        healthSquareCount = counts.health;
+        potionSquareCount = counts.potion;
+    }
+
+    void SetPlayerStartSquare(int currentMapSize) { playerStartingPosition = UnityEngine.Random.Range(0, currentMapSize); }
+
+    void BuildBattleFieldGrid(int size)
+    {
         allSquares = new GameObject[size, size];
         freeSquares.Clear();
 
-        int randomGoalSquare = setRandomGoalSquare(size);
+        int randomGoalSquare = UnityEngine.Random.Range(0, size);
 
         for (int x = 0; x < size; x++)
         {
             for (int y = 0; y < size; y++)
             {
                 GameObject newSquare = Instantiate(battleFieldSquare, transform);
-                newSquare.transform.position = new Vector3(x, y, 0);
-                allSquares[x, y] = newSquare;
+                if(newSquare != null)
+                {
+                    newSquare.transform.position = new Vector3(x, y, 0);
+                    allSquares[x, y] = newSquare;
 
-                SquareController newSquareController = newSquare.GetComponent<SquareController>();
-                newSquareController.SetSquarePosition(x, y);
+                    SquareController newSquareController = newSquare.GetComponent<SquareController>();
+                    if (newSquareController != null) { newSquareController.SetupNewSquare(x, y, currentMap.GetMapLocation()); }
+
+                    // Border Placement
+                    if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, newSquareController); }
+
+                    // Goal placement
+                    bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
+                    if (isGoalSpot) { MakeGoalSquare(newSquareController, newSquare); }
+
+                    // Don't add the player start or goal tile to free list either
+                    bool isPlayerStart = (x == playerStartingPosition && y == 0);
+                    if (!isPlayerStart && !isGoalSpot) { freeSquares.Add(new Vector2Int(x, y)); }
+                }
+                else { Debug.LogError("Square prefab missing SquareController.", newSquare); return; }
+
                
-                newSquareController.SetMapLocation(currentMap.GetMapLocation());
-                newSquareController.ChooseSquareGroundSprite();
-
-                newSquareController.MakeEmptySquare();
-
-                bool isPlayerStart = (x == playerStartingPosition && y == 0);
-                bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
-
-                if(x == 0 || x == size -1 || y == 0 || y == size -1)
-                {
-
-                    newSquareController.MakeEdgeSquare();
-
-                    int[] sidesEmpty = new int[4];
-                    sidesEmpty[0] = 0;
-                    sidesEmpty[1] = 0;
-                    sidesEmpty[2] = 0;
-                    sidesEmpty[3] = 0;
-
-                    string edgeSide;
-
-                    if (x == 0)
-                    {
-                        edgeSide = "left";
-                        sidesEmpty[0] = 1;
-
-                    }
-                  
-                    if (y == 0)
-                    {
-                        edgeSide = "bottom";
-                        sidesEmpty[3] = 1;
-                       
-                    }
-                    if (x == size - 1)
-                    {
-                        edgeSide = "right";
-                        sidesEmpty[2] = 1;
-                    }
-
-                    if (y == size - 1)
-                    {
-                        edgeSide = "top";
-                        sidesEmpty[1] = 1;
-                    }
-
-                    newSquareController.AddBorderSquare(sidesEmpty);
-
-                
-                }
-
-                // Goal placement
-                if (isGoalSpot)
-                {
-                    if (newSquareController != null)
-                    {
-                        newSquareController.MakeGoalSquare();
-                        PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
-                        compassController.SetGoalLocation(newSquare);
-                        PlayerDistanceController distanceController = player.GetComponent<PlayerDistanceController>();
-                        distanceController.SetGoalLocation(newSquare);
-
-                    }
-                    continue; // don't add goal to free squares
-                }
-
-                // Don't add the player start tile to free list either
-                if (!isPlayerStart)
-                {
-                    freeSquares.Add(new Vector2Int(x, y));
-                }
             }
         }
 
         AssignContentSquares();
         CollectInitialEnemySquares();
 
-        /*
-        for (int x = 0; x < size; x++)
+    }
+
+    void MakeGoalSquare(SquareController newSquareController, GameObject newSquare)
+    {
+        if (newSquareController != null)
         {
-            for (int y = 0; y < size; y++)
+            newSquareController.MakeGoalSquare();
+
+            if(player != null)
             {
-                bool thisSquareIsOccupied = false;
+                if (playerCompassController != null) { playerCompassController.SetGoalLocation(newSquare); }
+                else { Debug.LogError("No Compass Controller Component Found on Player"); }
 
-               // grid[x, y] = new BattlefieldSquare(x, y);
-
-
-                GameObject newSquare = Instantiate(battleFieldSquare, transform);
-                newSquare.transform.position = new Vector3(x, y, 0);
-                allSquares[x,y] = newSquare;
-
-                SquareController newSquareController = newSquare.GetComponent<SquareController>();
-                newSquareController.SetSquarePosition(x, y);
-                
-                newSquareController.MakeEmptySquare();
-
-                // SKIP the player’s starting tile:
-                if (x == 0 && y == playerStartingPosition)
-                {
-                    continue;
-                }
-
-                if (y == size - 1 && x == randomGoalSquare && placedGoalSquares == 0)
-                    {
-                        if (newSquareController != null)
-                        {
-                            placedGoalSquares += 1;
-                            newSquareController.MakeGoalSquare();
-                            PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
-                            compassController.SetGoalLocation(newSquare);
-                            thisSquareIsOccupied = true;
-                        }
-                    }
-                    else
-                    {
-                        if(!thisSquareIsOccupied && placedTerrainSquares < terrainSquareCount)
-                    {
-                        int randomTerrainSquareChance = UnityEngine.Random.Range(0, size);
-
-                        if(randomTerrainSquareChance < 1)
-                        {
-                            placedTerrainSquares += 1;
-                            newSquareController.MakeTerrainSquare();
-                            thisSquareIsOccupied=true;
-                        }
-                    }
-
-                        if (!thisSquareIsOccupied && placedEnemySquares < enemySquareCount)
-                        {
-
-                            int randomEnemySquareChance = UnityEngine.Random.Range(0, size);
-
-                            if (randomEnemySquareChance < 1)
-                            {
-                                placedEnemySquares += 1;
-                                newSquareController.MakeEnemySquare();
-                                thisSquareIsOccupied = true;
-                            }
-
-                        }
-
-                        if (!thisSquareIsOccupied && placedTreasureSquares < treasureSquareCount)
-                        {
-                            int randomTreasureSquareChance = UnityEngine.Random.Range(0, size);
-
-                            if (randomTreasureSquareChance < 1)
-                            {
-                                placedTreasureSquares += 1;
-                                newSquareController.MakeTreasureSquare();
-                                
-                                thisSquareIsOccupied = true;
-                            PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
-                            compassController.SetTreasureLocation(newSquare);
-
-                        }
-                        }
-
-                    }
-                
-
-               
-                
-                
-
-
+                if (playerDistanceController != null) { playerDistanceController.SetGoalLocation(newSquare); }
+                else { Debug.LogError("No Distance Controller Component Found on Player"); }
             }
+            else { Debug.Log("No Player Object Found"); }
+            
         }
-*/
+    }
+
+    void MakeBorderSquare(int x, int y, int size, SquareController newSquareController)
+    {
+        newSquareController.MakeEdgeSquare();
+
+        int[] sidesEmpty =
+        {
+            x == 0        ? 1 : 0,
+            y == size-1  ? 1 : 0,
+            x == size-1  ? 1 : 0,
+            y == 0       ? 1 : 0
+        };
+
+        newSquareController.AddBorderSquare(sidesEmpty);
     }
 
     void CollectInitialEnemySquares()
@@ -527,59 +284,24 @@ public class BattlefieldBuilder : MonoBehaviour
             if(item != null)
             {
                 SquareController squareController = item.GetComponent<SquareController>();
-                if (squareController != null)
-                {
-                    if(squareController.CheckIsEnemy())
-                    {
-                        enemySquares.Add(item);
-                    }
-                }
-                
+                if (squareController != null && squareController.CheckIsEnemy()) { enemySquares.Add(item); }
+
             }
         }
     }
 
-    public void AddEnemySquareToList(GameObject enemySquare)
-    {
-        enemySquares.Add(enemySquare);
-
-    }
-
     void AssignContentSquares()
     {
-        // Shuffle-style selection: random index, remove, repeat.
-
-        // Terrain
         PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare());
-
-        // Enemies
         PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare());
-
-        // Health
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
-
-        // Potions
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
-
-        // Treasure (also hook compass on first one if you want)
-        bool treasureTargetSet = false;
-        PlaceTypeSquares(treasureSquareCount, sq =>
-        {
-            sq.MakeTreasureSquare();
-            if (!treasureTargetSet)
-            {
-                PlayerCompassController compassController = player.GetComponent<PlayerCompassController>();
-                compassController.SetTreasureLocation(sq.gameObject);
-                treasureTargetSet = true;
-            }
-        });
+        PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare());
     }
 
     void PlaceTypeSquares(int count, System.Action<SquareController> applyType)
     {
         int placed = 0;
-
-
         while (placed < count && freeSquares.Count > 0)
         {
             int index = UnityEngine.Random.Range(0, freeSquares.Count);
@@ -594,47 +316,52 @@ public class BattlefieldBuilder : MonoBehaviour
             }
         }
 
-        if (placed < count)
-        {
-            Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}.");
-        }
-    }
-
-    void placePlayer(int size)
-    {
-        SquareController newSquareController = allSquares[playerStartingPosition,0].GetComponent<SquareController>();
-
-        int testX = newSquareController.GetSquareXPosition();
-        int testY = newSquareController.GetSquareYPosition();
-
+        if (placed < count) { Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}."); }
         
+    }
 
-        PlayerMovementController playerMovementController = player.GetComponent<PlayerMovementController>();
-        if (playerMovementController != null)
+    void PlacePlayer(int size)
+    {
+        SquareController newSquareController = allSquares[playerStartingPosition, 0].GetComponent<SquareController>();
+        if (newSquareController != null)
         {
-            playerMovementController.ReceiveBattlefieldSize(size, allSquares);
-            playerMovementController.SetPlayerStartSquare(testX, testY);
+            int testX = newSquareController.GetSquareXPosition();
+            int testY = newSquareController.GetSquareYPosition();
+
+
+            if (playerMovementController != null)
+            {
+                playerMovementController.ReceiveBattlefieldSize(size, allSquares);
+                playerMovementController.SetPlayerStartSquare(testX, testY);
+            }
+            else { Debug.LogError("No Player Controller"); }
         }
-        else { Debug.LogError("No Player Controller"); }
+        else { Debug.LogError("No Player Start Square Controller"); }
+
+     
 
 
     }
 
-    void placeMerchant()
+    void PlaceMerchant()
     {
-        Vector2Int[] freeSquaresArray = freeSquares.ToArray();
-
-        int randomNumber = UnityEngine.Random.Range(0, freeSquaresArray.Length);
-
-        Vector2Int merchantPosition = freeSquaresArray[randomNumber];
+        int index = Random.Range(0, freeSquares.Count);
+        Vector2Int merchantPosition = freeSquares[index];
 
         SquareController merchantSquareController = allSquares[merchantPosition.x, merchantPosition.y].GetComponent<SquareController>();
 
-        if (merchantSquareController != null)
-        {
-            merchantSquareController.MakeMerchantSquare();
-        }
+        if (merchantSquareController != null) { merchantSquareController.MakeMerchantSquare(); }
+        else { Debug.LogError("No Merchant Square Controller"); }
 
 
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 }

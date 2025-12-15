@@ -46,6 +46,7 @@ public class PlayerStatsController : MonoBehaviour
     Coroutine activateSign;
 
     [SerializeField] TurnOrganiser turnOrganiser;
+    [SerializeField] PlayerStatReceiver playerStatReceiver;
 
 
 
@@ -65,7 +66,29 @@ public class PlayerStatsController : MonoBehaviour
         moneyNeg.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        SetStartingStats();
+    }
 
+    public void SetStartingStats()
+    {
+        if(playerStatReceiver != null)
+        {
+            int startingHealth = playerStatReceiver.GetStartingHealth();
+            if (startingHealth != 0) { playerCurrentHealth = startingHealth; }
+
+            int startingMoney = playerStatReceiver.GetStartingMoney();
+            if (startingMoney != 0) {playerCurrentMoney = startingMoney; }
+
+            int startSuffering = playerStatReceiver.GetStartingSuffering();
+            if( startSuffering != 0) { playerCurrentSuffering = startSuffering; }
+
+        }
+        else { Debug.Log("Null Reference: PlayerStatReceiver , assigning Default Stat Values");  }
+
+        UpdateNumbersDisplay();
+    }
 
     public void UseItem(string itemID)
     {

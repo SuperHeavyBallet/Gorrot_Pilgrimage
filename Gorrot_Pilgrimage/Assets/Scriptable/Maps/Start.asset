@@ -18,8 +18,13 @@ MonoBehaviour:
   mapSize: 10
   nextMaps:
   - {fileID: 11400000, guid: 8347424fc37a41246b2aa2ecc6f72d12, type: 2}
+  - {fileID: 11400000, guid: f749ac640389aca488ef3a8fd6904864, type: 2}
+  - {fileID: 11400000, guid: 7aee9e8c0d6586d448aa5973a20dc2fa, type: 2}
+  - {fileID: 11400000, guid: c07363f314d8bb84e88e148792400eec, type: 2}
   floorSprite: {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}
   isWildMap: 0
   wildLevel: 0
   escapeChance: 1
+  isFirstMap: 1
   isFinalMap: 0
+  hasMerchant: 0

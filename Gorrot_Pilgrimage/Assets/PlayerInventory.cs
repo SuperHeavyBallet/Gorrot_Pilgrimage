@@ -51,7 +51,6 @@ public class PlayerInventory : MonoBehaviour
     public bool TryToAddItem(string itemID)
     {
         int freeSlotIndex = FindFreeSlot(itemID);
-        bool itemAlreadyHeld = false;
 
         Debug.Log("Try To Add Item: " + itemID);
 
@@ -65,7 +64,7 @@ public class PlayerInventory : MonoBehaviour
 
             if(inventorySlotController.GetCurrentItemID() == itemID)
             {
-                itemAlreadyHeld = true;
+
                 Debug.Log("Item Already Held");
                 break;
             }

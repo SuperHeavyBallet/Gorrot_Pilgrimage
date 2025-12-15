@@ -17,11 +17,11 @@ public class CharacterSpriteLibrary : MonoBehaviour
     public void BuildNewCharacter()
     {
 
-        headDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetSpriteHead();
-        bodyDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetSpriteBody();
-        handsDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetSpriteHands();
-        legsDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetSpriteLegs();
-        feetDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetSpriteFeet();
+        headDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetMenuSpriteHead();
+        bodyDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetMenuSpriteBody();
+        handsDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetMenuSpriteHands();
+        legsDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetMenuSpriteLegs();
+        feetDisplay.sprite = GetRandomFromArray(characterSpriteSets).GetMenuSpriteFeet();
 
 
     }

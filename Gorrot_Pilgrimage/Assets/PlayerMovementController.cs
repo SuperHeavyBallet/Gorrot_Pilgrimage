@@ -69,9 +69,13 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue)
     {
+
         if (isMoving) return;
 
-        if (turnOrganiser.GetIsInMerchant() == true) return;
+        if (turnOrganiser.GetIsInMerchant()) return;
+
+        if(turnOrganiser.GetLandedOnGoal()) return;
+
 
         Vector2 normalizedMoveValue = receivedMoveValue;
         if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1;}

@@ -6,24 +6,25 @@ using System.Collections;
 public class TurnOrganiser : MonoBehaviour
 {
 
-    public bool isPlayerTurn;
+    bool isPlayerTurn;
 
-    public AudioManager audioManager;
+    [SerializeField] AudioManager audioManager;
 
-    public TextMeshProUGUI turnDisplay;
+    [SerializeField] TextMeshProUGUI turnDisplay;
 
-    public bool hasLandedOnEnemy = false;
-
-
-    public DiceController diceController;
+    bool hasLandedOnEnemy = false;
+    bool hasLandedOnGoal = false;
 
 
-    public PlayerStatsController playerStatsController;
+    [SerializeField] DiceController diceController;
 
 
-    public TextMeshProUGUI DiceRollFormulaText;
+    [SerializeField] PlayerStatsController playerStatsController;
 
-    public bool readyToReturnToPlayer;
+
+    [SerializeField] TextMeshProUGUI DiceRollFormulaText;
+
+    bool readyToReturnToPlayer;
     Coroutine inPhaseBuild;
 
     public bool waitingForFate;
@@ -48,7 +49,7 @@ public class TurnOrganiser : MonoBehaviour
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
     [SerializeField] MerchantPhaseResolution merchantPhaseResolution;
 
-    public bool isInMerchant;
+    bool isInMerchant;
 
     int currentEnemySize = 0;
 
@@ -160,9 +161,20 @@ public class TurnOrganiser : MonoBehaviour
 
     }
 
+    public bool GetLandedOnGoal()
+    {
+        return hasLandedOnGoal;
+    }
+
+    void SetLandedOnGoal(bool value)
+    {
+        hasLandedOnGoal = value;
+    }
     public void LandedOnGoal()
     {
+        SetLandedOnGoal(true);
        goalPhaseResolution.EnterGoalPhase();
+
     }
     void BuildNextPhase()
     {
@@ -204,6 +216,11 @@ public class TurnOrganiser : MonoBehaviour
     void ReturnToMovementPhase()
     {
         movementPhaseResolution.EnterMovementPhase();
+        if(GetLandedOnGoal())
+        {
+            SetLandedOnGoal(false);
+        }
+        
         SetReadyToReturnToPlayer(true);
     }
 

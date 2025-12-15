@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharacterSpriteSet", menuName = "Scriptable Objects/CharacterSpriteSet")]
 public class CharacterSpriteSet : ScriptableObject
 {
-
+    // In Game Sprites
+    
     [SerializeField] Sprite spriteHeadFront;
     [SerializeField] Sprite spriteHeadBack;
     [SerializeField] Sprite spriteHeadSide;
@@ -24,14 +25,20 @@ public class CharacterSpriteSet : ScriptableObject
     [SerializeField] Sprite spriteFeetBack;
     [SerializeField] Sprite spriteFeetSide;
 
-    public Sprite GetSpriteHead() => spriteHeadFront;
+    [SerializeField] Sprite menuHead;
+    [SerializeField] Sprite menuBody;
+    [SerializeField] Sprite menuHands;
+    [SerializeField] Sprite menuLegs;
+    [SerializeField] Sprite menuFeet;
 
-    public Sprite GetSpriteBody() => spriteBodyFront;
+    public Sprite GetMenuSpriteHead() => menuHead;
 
-    public Sprite GetSpriteHands() => spriteHandsFront;
+    public Sprite GetMenuSpriteBody() => menuBody;
 
-    public Sprite GetSpriteLegs() => spriteLegsFront;
+    public Sprite GetMenuSpriteHands() => menuHands;
 
-    public Sprite GetSpriteFeet() => spriteFeetFront;
+    public Sprite GetMenuSpriteLegs() => menuLegs;
+
+    public Sprite GetMenuSpriteFeet() => menuFeet;
 
 }

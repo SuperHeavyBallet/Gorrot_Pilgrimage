@@ -105,7 +105,7 @@ public class SquareController : MonoBehaviour
         rightEmpty = (sides[2] == 1);
         downEmpty = (sides[3] == 1);
 
-        Debug.Log("EDGE SQUARE: " + squareLeft + ", " + squareUp + ", " + squareRight + ", " + squareBottom);
+        
 
         float thisSquareSize = this.transform.localScale.x;
 
@@ -194,11 +194,6 @@ public class SquareController : MonoBehaviour
         { new Vector2Int(1, 0), directions.right },
         { new Vector2Int(-1, 0), directions.left }
     };
-
-    public void ChooseTreasureSprite()
-    {
-
-    }
 
     public void ChooseSquareGroundSprite()
     {
@@ -555,5 +550,16 @@ public class SquareController : MonoBehaviour
     public bool isMoveableSquare()
     {
         return !isTerrainSquare;
+    }
+
+    public void SetupNewSquare(
+        int x, int y,
+        string newMapLocation
+        )
+    {
+        SetSquarePosition(x, y);
+        SetMapLocation(newMapLocation);
+        ChooseSquareGroundSprite();
+        MakeEmptySquare();
     }
 }

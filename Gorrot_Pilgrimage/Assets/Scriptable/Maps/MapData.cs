@@ -33,6 +33,8 @@ public class MapData : ScriptableObject
     [SerializeField] float escapeChance = 0.7f;
     public float GetEscapeChance() => escapeChance;
 
+    [Tooltip("Reserved for THE first map")]
+    [SerializeField] bool isFirstMap = false;
     [Tooltip("Reserved for THE final map")]
     [SerializeField] bool isFinalMap = false;
 
@@ -78,9 +80,17 @@ public class MapData : ScriptableObject
         return isFinalMap;
     }
 
+    public bool GetIsFirstMap() => isFirstMap;
+
     public bool GetHasMerchant()
     {
         return hasMerchant;
+    }
+
+
+    public MapData GetStartingMap(StartLocations startingLocation)
+    {
+        return nextMaps[(int)startingLocation];
     }
 
     

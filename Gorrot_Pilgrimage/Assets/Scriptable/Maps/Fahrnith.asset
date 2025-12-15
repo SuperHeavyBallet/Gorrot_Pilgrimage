@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
-  m_Name: Fetsmeld
+  m_Name: Fahrnith
   m_EditorClassIdentifier: Assembly-CSharp::MapData
-  mapID: fetsmeld
+  mapID: fahrnith
   mapLocation: 3
-  mapName: Fetsmeld
-  mapSize: 10
+  mapName: Fahrnith
+  mapSize: 5
   nextMaps:
   - {fileID: 11400000, guid: 98ea906bd14a8154f860c696deeae1b5, type: 2}
   floorSprite: {fileID: 21300000, guid: cb286d78e8082854a9c65b7d11c96de8, type: 3}

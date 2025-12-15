@@ -11,17 +11,16 @@ public class FateOutcomes : MonoBehaviour
 
     public TurnOrganiser turnOrganiser;
 
-    int fateTimeout = 2;
+
 
     int playerCurrentHealth;
-    int playerMinHealth;
+
     int playerMaxHealth;
 
     int playerCurrentSuffering;
-    int playerMinSuffering;
+
     int playerMaxSuffering;
 
-    Coroutine fateWait;
     FateOutcome chosenFateOutcome;
     string chosenFateStatEffected;
     int chosenFateEffectDelta;
@@ -29,10 +28,9 @@ public class FateOutcomes : MonoBehaviour
 
     private void Start()
     {
-        playerMinHealth = playerStatsController.GetPlayerMinHealth();
+
         playerMaxHealth = playerStatsController.GetPlayerMaxHealth();
 
-        playerMinSuffering = playerStatsController.GetPlayerMinSuffering();
         playerMaxSuffering = playerStatsController.GetPlayerMaxSuffering();
     }
 

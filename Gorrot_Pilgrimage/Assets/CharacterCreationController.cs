@@ -12,7 +12,7 @@ public class CharacterCreationController : MonoBehaviour
     [SerializeField] TextMeshProUGUI characterSufferingText;
     [SerializeField] TextMeshProUGUI characterItemText;
 
-    [SerializeField] CharacterStatSheet characterStatSheet;
+    //[SerializeField] CharacterStatSheet characterStatSheet;
 
     string characterName;
     StartLocations characterStartLocation;
@@ -81,7 +81,20 @@ public class CharacterCreationController : MonoBehaviour
 
         characterSpriteLibrary.BuildNewCharacter();
 
+
+        UpdateStartStats();
         UpdateTextElements();
+    }
+
+    void UpdateStartStats()
+    {
+        CharacterStatSheet statSheet = CharacterStatSheet.Instance;
+
+        statSheet.SetCharacterName(characterName);
+        statSheet.SetCharacterStartLocation(characterStartLocation);
+        statSheet.SetStartingHealth(characterStartHealth);
+        statSheet.SetStartingMoney(characterStartMoney);
+        statSheet.SetStartingSuffering(characterStartSuffering);
     }
 
     string RollRandomName()

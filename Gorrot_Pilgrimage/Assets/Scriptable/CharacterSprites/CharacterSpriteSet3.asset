@@ -27,3 +27,8 @@ MonoBehaviour:
   spriteFeetFront: {fileID: 21300000, guid: d05640d92950a8340a2ffef889891a6a, type: 3}
   spriteFeetBack: {fileID: 0}
   spriteFeetSide: {fileID: 0}
+  menuHead: {fileID: 21300000, guid: bea53a9ad0a014d41a4f2ee861af6eb3, type: 3}
+  menuBody: {fileID: 21300000, guid: e4cad5ddc55c21d41960f1b9fb067fca, type: 3}
+  menuHands: {fileID: 21300000, guid: 39e370c547aab704b9840f8bb982d9fb, type: 3}
+  menuLegs: {fileID: 21300000, guid: d45546b4af6dd734bb0be2a0f0cd9e8b, type: 3}
+  menuFeet: {fileID: 21300000, guid: d05640d92950a8340a2ffef889891a6a, type: 3}
