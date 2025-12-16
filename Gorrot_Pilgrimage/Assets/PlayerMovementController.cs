@@ -69,12 +69,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue)
     {
-
-        if (isMoving) return;
-
-        if (turnOrganiser.GetIsInMerchant()) return;
-
-        if(turnOrganiser.GetLandedOnGoal()) return;
+        
 
 
         Vector2 normalizedMoveValue = receivedMoveValue;
@@ -82,17 +77,25 @@ public class PlayerMovementController : MonoBehaviour
 
         if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
 
-        if(normalizedMoveValue.x < 0) { nextFacingPosition = facingPositions.left; }
-        else if (normalizedMoveValue.x > 0) { nextFacingPosition = facingPositions.right; }
-        else if (normalizedMoveValue.y < 0) nextFacingPosition = facingPositions.down;
-        else {  nextFacingPosition = facingPositions.up;}
+        SetFacing(normalizedMoveValue.x, normalizedMoveValue.y);
 
-            playerIsAlive = CheckPlayerAlive();
 
-        if(isPlayerTurn && playerIsAlive)
+        if (isMoving) return;
+
+        if (turnOrganiser.GetIsInMerchant()) return;
+
+        if (turnOrganiser.GetLandedOnGoal()) return;
+
+
+
+        playerIsAlive = CheckPlayerAlive();
+
+    
+
+        if (isPlayerTurn && playerIsAlive)
         {
-            if(turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
-            MovePlayer(normalizedMoveValue);
+            if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
+                MovePlayer(normalizedMoveValue);
         }
 
     }
@@ -104,32 +107,43 @@ public class PlayerMovementController : MonoBehaviour
     }
 
 
-
-    void SetFacing()
+    
+    void SetFacing(float normX, float normY)
     {
-        float zRotation = 0f;
+        currentFacingPosition = nextFacingPosition;
 
-        switch (nextFacingPosition)
+        if (normX < 0) { nextFacingPosition = facingPositions.left; }
+        else if (normX > 0) { nextFacingPosition = facingPositions.right; }
+        else if (normY < 0) nextFacingPosition = facingPositions.down;
+        else { nextFacingPosition = facingPositions.up; }
+
+        if (currentFacingPosition != nextFacingPosition)
         {
-            case facingPositions.down:
-                zRotation = 180f;
-                break;
+            switch (nextFacingPosition)
+            {
+                case facingPositions.down:
+                    playerAnimationManager.SetFrontSprites();
+                    break;
 
-            case facingPositions.right:
-                zRotation = 270f;
-                break;
+                case facingPositions.right:
+                    playerAnimationManager.SetSideSprites("right");
+                    break;
 
-            case facingPositions.left:
-                zRotation = 90f;
-                break;
+                case facingPositions.left:
+                    playerAnimationManager.SetSideSprites("left");
+                    break;
 
-            case facingPositions.up:
-            default:
-                zRotation = 0f;
-                break;
+                case facingPositions.up:
+                default:
+                    playerAnimationManager.SetBackSprites();
+                    break;
+            }
+
         }
 
-        playerSprite.transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
+       
+
+    
     }
 
     public void MovePlayer(Vector2 newMoveValue)
@@ -141,7 +155,7 @@ public class PlayerMovementController : MonoBehaviour
         int newPositionY = currentPosition.y + Mathf.RoundToInt(newMoveValue.y);
 
         
-        SetFacing();
+        
 
         // FIRST: check bounds BEFORE touching the array
         if (!IsInsideGrid(newPositionX, newPositionY))
