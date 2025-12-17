@@ -10,7 +10,7 @@ public class CombatPhaseResolution : MonoBehaviour
     public DiceController diceController;
     public TextMeshProUGUI DiceRollFormulaText;
 
-    int enemyRollToBeat;
+    
     int playerCurrentAttackBoost;
 
     public PlayerStatsController playerStatsController;
@@ -28,6 +28,9 @@ public class CombatPhaseResolution : MonoBehaviour
     public GameObject diceDisplay;
 
     [SerializeField] BattlefieldBuilder battlefieldBuilder;
+    [SerializeField] PlayerMovementController playerMovementController;
+
+    int requiredToWin;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,15 +58,19 @@ public class CombatPhaseResolution : MonoBehaviour
     void CalculateDiceStats()
     {
         playerCurrentAttackBoost = playerStatsController.getCurrentAttackBuff();
-        currentEnemyDamage = turnOrganiser.GetEnemySize();
 
-        switch (currentEnemyDamage)
+        SquareController sq = turnOrganiser.landedSquare;
+
+        currentEnemyDamage = sq.square switch
         {
-            case 1: enemyRollToBeat = 2 - playerCurrentAttackBoost; break;
-            case 2: enemyRollToBeat = 3 - playerCurrentAttackBoost; break;
-            case 3: enemyRollToBeat = 4 - playerCurrentAttackBoost; break;
-            default: enemyRollToBeat = 3 - playerCurrentAttackBoost; break;
-        }
+            SquareController.squareQuantity.small => 1,
+            SquareController.squareQuantity.medium => 2,
+            SquareController.squareQuantity.large => 3,
+            _ => 2
+        };
+
+        int baseRequiredToWin = sq.GetEnemyBaseRequiredToWin();
+        requiredToWin = Mathf.Clamp(baseRequiredToWin - playerCurrentAttackBoost, 2, 6);
 
         UpdateDiceRollFormulaText();
     }
@@ -72,6 +79,7 @@ public class CombatPhaseResolution : MonoBehaviour
     IEnumerator CombatRollScreen()
     {
         CalculateDiceStats();
+        Debug.Log($"EnemySize: {currentEnemyDamage}, AttackBoost: {playerCurrentAttackBoost}, RequiredToWin: {requiredToWin}");
 
         yield return new WaitForSeconds(0.5f);
 
@@ -88,29 +96,32 @@ public class CombatPhaseResolution : MonoBehaviour
 
         waitingForPressRoll = false;
         diceController.RollDice();
-        
-
-        yield return new WaitForSeconds(3f);
 
         // Wait for dice finish
         yield return new WaitUntil(() => !diceController.isRolling);
-        
+        yield return new WaitForSeconds(0.25f);
+
 
         result = diceController.getDiceResult();
 
-        if (result <= enemyRollToBeat)
+        if (result < requiredToWin)
         {
+            // Lose Results
             playerStatsController.alterHealth(currentEnemyDamage * -1);
             playerStatsController.resetSuffering();
+            playerMovementController.MovePlayerBackOneSquare();
+            
         }
         else
         {
+            // Win Results
             playerStatsController.resetSuffering();
             audioManager.playCombatWinSoundEffect();
+            turnOrganiser.landedSquare.MakeEmptySquare();
         }
 
         currentEnemyDamage = 0;
-        enemyRollToBeat = 2;
+
 
         CloseCombatScene();
 
@@ -121,7 +132,6 @@ public class CombatPhaseResolution : MonoBehaviour
 
     public void PlayerPressedRoll()
     {
-        Debug.Log("PLAYER PRESSED ROLL");
 
         if(waitingForPressRoll)
         {
@@ -133,28 +143,20 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void UpdateDiceRollFormulaText()
     {
-
-        //DiceRollFormulaText.text = "1D6 + " + playerCurrentAttackBoost + " vs " + enemyRollToBeat;
-
-        int requiredRoll = enemyRollToBeat - playerCurrentAttackBoost + 1;
+        int requiredRoll = requiredToWin;
 
         string displayText;
 
         if (requiredRoll <= 1)
-        {
             displayText = "Auto Success";
-        }
         else if (requiredRoll >= 7)
-        {
             displayText = "Impossible Roll";
-        }
         else
-        {
             displayText = "Need " + requiredRoll + "+ to Win";
-        }
 
         DiceRollFormulaText.text = displayText;
     }
+
 
 
     void CloseCombatScene()
@@ -162,7 +164,7 @@ public class CombatPhaseResolution : MonoBehaviour
         battlefieldBuilder.StartFadeFromBlack();
         combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
-        turnOrganiser.SetLandedOnEnemySquare(false);
+        turnOrganiser.SetLandedOnEnemySquare(false, null);
         turnOrganiser.BuildNextTurn();
     }
 

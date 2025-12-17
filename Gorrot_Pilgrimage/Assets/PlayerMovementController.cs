@@ -11,8 +11,8 @@ public class PlayerMovementController : MonoBehaviour
 
     GameObject[,] allSquares;
 
-    
 
+    public Vector2Int previousPosition;
     public Vector2Int currentPosition;
 
     public bool isPlayerTurn;
@@ -45,6 +45,8 @@ public class PlayerMovementController : MonoBehaviour
     facingPositions nextFacingPosition = facingPositions.up;
     facingPositions currentFacingPosition = facingPositions.up;
 
+    int previousPositionX = 0;
+    int previousPositionY = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -149,7 +151,7 @@ public class PlayerMovementController : MonoBehaviour
     public void MovePlayer(Vector2 newMoveValue)
     {
         
-
+        previousPosition = currentPosition;
 
         int newPositionX = currentPosition.x + Mathf.RoundToInt(newMoveValue.x);
         int newPositionY = currentPosition.y + Mathf.RoundToInt(newMoveValue.y);
@@ -291,9 +293,9 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             turnOrganiser.UpdateCurrentEnemySize(amount);
-            turnOrganiser.SetLandedOnEnemySquare(true);
+            turnOrganiser.SetLandedOnEnemySquare(true, newSquareController);
             fateCounter.resetFateCounter();
-            newSquareController.MakeEmptySquare();
+            //newSquareController.MakeEmptySquare();
             return;
         }
 
@@ -342,7 +344,7 @@ public class PlayerMovementController : MonoBehaviour
                     break;
             }
 
-            playerStatsController.alterMoney(amount);
+            playerStatsController.AlterMoney(amount);
             playerStatsController.alterSuffering(amount * -1);
             newSquareController.MakeEmptySquare();
         }
@@ -383,7 +385,11 @@ public class PlayerMovementController : MonoBehaviour
         playerStatsController.alterSuffering(1);
     }
 
-
+    public void MovePlayerBackOneSquare()
+    {
+       Vector2Int delta = previousPosition - currentPosition;   // e.g. (-1,0)
+    MovePlayer(new Vector2(delta.x, delta.y));
+    }
     void BlockedSquare()
     {
         audioManager.playCannotMoveSoundEffect();

@@ -5,6 +5,7 @@ public class InventoryItem : MonoBehaviour
 
     public string itemName;
     public Sprite itemImage;
+    public int itemPrice;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

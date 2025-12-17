@@ -18,3 +18,4 @@ MonoBehaviour:
   amountHeld: 0
   statEffected: 0
   effectDelta: 6
+  price: 10

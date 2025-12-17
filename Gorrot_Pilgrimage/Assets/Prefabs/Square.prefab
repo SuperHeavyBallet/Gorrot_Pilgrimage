@@ -228,19 +228,14 @@ MonoBehaviour:
   square: 1
   squareQuantityString: 
   enterDirection: 0
-  squareValue: {fileID: 6758965580617881374}
   squareTerrainSpriteRenderer: {fileID: 1478187110837370011}
   squareItemSpriteRenderer: {fileID: 6194976906794836812}
   groundSpriteRenderer: {fileID: 8192808211701341989}
   squareType: empty
-  isEdgeSquare: 0
-  leftEmpty: 0
-  upEmpty: 0
-  rightEmpty: 0
-  downEmpty: 0
-  needsCorner: 0
   treasureSpriteRenderer: {fileID: 1447261729561774253}
   merchantSprite: {fileID: 6532739362534656693}
+  squareValue: {fileID: 8973297438059876071}
+  squareValueText: {fileID: 6758965580617881374}
 --- !u!1 &2079368541572557217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,12 +1269,12 @@ GameObject:
   - component: {fileID: 8596185846547135747}
   - component: {fileID: 6758965580617881374}
   m_Layer: 5
-  m_Name: BeatValue
+  m_Name: ValueDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5368611882879903136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1327,7 +1322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 3+
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

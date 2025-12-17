@@ -12,4 +12,11 @@ public class InventoryItemTemplate : ScriptableObject
     public statsToEffect statEffected = statsToEffect.health;
     public int effectDelta = 1; // +1, -1 to adjust stat
 
+    public int price;
+
+    public int GetItemPrice()
+    {
+        return price;
+    }
+
 }

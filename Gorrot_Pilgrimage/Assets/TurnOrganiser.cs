@@ -55,6 +55,11 @@ public class TurnOrganiser : MonoBehaviour
 
     bool playerIsAlive;
 
+    public SquareController landedSquare;
+    public void SetLandedSquare(SquareController sq)
+    {
+        landedSquare = sq;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -121,9 +126,14 @@ public class TurnOrganiser : MonoBehaviour
         waitingForFate = false;
     }
 
-    public void SetLandedOnEnemySquare(bool value)
+    public void SetLandedOnEnemySquare(bool value, SquareController landedSquare)
     {
         hasLandedOnEnemy = value;
+        if(landedSquare != null)
+        {
+             SetLandedSquare(landedSquare);
+        }
+       
     }
 
     public void LandedOnMerchantSquare()

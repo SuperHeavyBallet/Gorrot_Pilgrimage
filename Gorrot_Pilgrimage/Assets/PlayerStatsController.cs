@@ -304,7 +304,7 @@ public class PlayerStatsController : MonoBehaviour
         return playerMinSuffering;
     }
 
-    public void alterMoney(int alterAmount)
+    public void AlterMoney(int alterAmount)
     {
         int before = playerCurrentMoney;
         int raw = before + alterAmount;

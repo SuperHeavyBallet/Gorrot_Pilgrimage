@@ -42,35 +42,26 @@ public class SquareController : MonoBehaviour
 
     public directions enterDirection = directions.up;
 
-    float spriteScale = 1;
-
     string squareContentsID = "";
-
-   public TextMeshProUGUI squareValue;
 
     List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
 
-    InventoryItemTemplate[] allItems;
+    //InventoryItemTemplate[] allItems;
 
-    SquareSpriteLibrary squareSpriteLibrary;
+    //SquareSpriteLibrary squareSpriteLibrary;
 
     public SpriteRenderer squareTerrainSpriteRenderer;
     public SpriteRenderer squareItemSpriteRenderer;
     [SerializeField] SpriteRenderer groundSpriteRenderer;
 
-    BattlefieldBuilder battlefieldBuilder;
-
-  
+    //BattlefieldBuilder battlefieldBuilder;
 
     public string squareType = "empty";
-
-    public bool isEdgeSquare;
-
-    public bool leftEmpty;
-   public bool upEmpty;
-   public bool rightEmpty;
-    public bool downEmpty;
-    public bool needsCorner;
+    bool isEdgeSquare;
+    bool leftEmpty;
+    bool upEmpty;
+    bool rightEmpty;
+    bool downEmpty;
 
     string mapLocation;
 
@@ -79,21 +70,17 @@ public class SquareController : MonoBehaviour
     bool isMerchantSquare;
     [SerializeField] GameObject merchantSprite;
 
-    public void MakeEdgeSquare()
-    {
-        isEdgeSquare = true;
-  
-    }
+    float spriteScale = 1;
 
-    public void SetMapLocation(string newMapLocation)
-    {
-        mapLocation = newMapLocation;
+    [SerializeField] GameObject squareValue;
+    [SerializeField] TextMeshProUGUI squareValueText;
 
-    }
+    public void MakeEdgeSquare() { isEdgeSquare = true; }
+
+    public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
 
     public void AddBorderSquare(int[] sides)
     {
-
 
         int squareLeft = sides[0];
         int squareUp = sides[1];
@@ -105,79 +92,61 @@ public class SquareController : MonoBehaviour
         rightEmpty = (sides[2] == 1);
         downEmpty = (sides[3] == 1);
 
-        
-
         float thisSquareSize = this.transform.localScale.x;
 
-        if(leftEmpty && upEmpty || rightEmpty && upEmpty || leftEmpty && downEmpty || rightEmpty && downEmpty)
+        if (leftEmpty && upEmpty)
+            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, thisSquareSize, 0f));
+
+        if (rightEmpty && upEmpty)
+            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, thisSquareSize, 0f));
+
+        if (leftEmpty && downEmpty)
+            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, -thisSquareSize, 0f));
+
+        if (rightEmpty && downEmpty)
+            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, -thisSquareSize, 0f));
+
+
+        if (leftEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.left * thisSquareSize, "right");
+        if (rightEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.right * thisSquareSize, "left");
+        if (upEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.up * thisSquareSize, "bottom");
+        if (downEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.down * thisSquareSize, "top");
+    }
+
+    void MakeCornerBorderAtPosition(Vector3 position)
+    {
+        Instantiate(
+            SquareSpriteLibrary.Instance.getBorderSquare(),
+            position,
+            Quaternion.identity,
+            transform.parent
+        );
+    }
+
+    void MakeBorderSquareAtPosition(Vector3 position, string shadowSide)
+    {
+        GameObject newBorderSquare = UnityEngine.Object.Instantiate(
+            SquareSpriteLibrary.Instance.getBorderSquare(), 
+            position, 
+            Quaternion.identity, 
+            transform.parent
+            );
+
+        BorderSquareController borderSquareController = newBorderSquare.GetComponent<BorderSquareController>();
+        if(borderSquareController != null)
         {
-            needsCorner = true;
-
-            if(leftEmpty && upEmpty)
-            {
-                Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
-                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
-                newBorderSquare.transform.SetParent(this.transform.parent);
-            }
-
-            if(rightEmpty && upEmpty)
-            {
-                Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y + thisSquareSize, this.transform.position.z);
-                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
-                newBorderSquare.transform.SetParent(this.transform.parent);
-            }
-
-            if(leftEmpty && downEmpty)
-            {
-                Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
-                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
-                newBorderSquare.transform.SetParent(this.transform.parent);
-            }
-
-            if (rightEmpty && downEmpty)
-            {
-                Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y - thisSquareSize, this.transform.position.z);
-                GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity);
-                newBorderSquare.transform.SetParent(this.transform.parent);
-            }
+            borderSquareController.PositionBorderShadow(shadowSide);
         }
+    }
 
-
-  
-
-        if (leftEmpty)
-        {
-            Vector3 position = new Vector3(this.transform.position.x - thisSquareSize, this.transform.position.y, this.transform.position.z);
-           
-
-            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
-        }
-        if(rightEmpty)
-        {
-            Vector3 position = new Vector3(this.transform.position.x + thisSquareSize, this.transform.position.y, this.transform.position.z);
-            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
-        }
-        if (upEmpty)
-        {
-            Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y + thisSquareSize ,this.transform.position.z);
-            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
-        }
-        if (downEmpty)
-        {
-            Vector3 position = new Vector3(this.transform.position.x, this.transform.position.y - thisSquareSize, this.transform.position.z);
-            GameObject newBorderSquare = UnityEngine.Object.Instantiate(SquareSpriteLibrary.Instance.getBorderSquare(), position, Quaternion.identity, transform.parent);
-        }
-
-
-
-
+    private void Awake()
+    {
+        squareValue.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        decideSquareQuantity();
-        squareValue.gameObject.SetActive(false);
-
+        
     }
 
     void ChooseSquareSprite()
@@ -197,8 +166,6 @@ public class SquareController : MonoBehaviour
 
     public void ChooseSquareGroundSprite()
     {
-        
-
         Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(mapLocation);
         groundSpriteRenderer.sprite = chosenGroundSprite; 
     }
@@ -234,8 +201,6 @@ public class SquareController : MonoBehaviour
         Quaternion rot = Quaternion.Euler(0, 0, angle);
 
         visitedSprite.transform.rotation = rot;
-
-        
     }
 
 
@@ -248,12 +213,7 @@ public class SquareController : MonoBehaviour
         emptySquareSprite.SetActive(false);
         healthSquareSprite.SetActive(false);
         itemSquareSprite.SetActive(false);
-
-        
         targetGO.SetActive(true);
-
-        
-        
     }
 
     void decideSquareQuantity()
@@ -294,25 +254,8 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-       // squareValue.gameObject.SetActive(true);
         squareType = "health";
         ChooseSquareSprite();
-        /*
-        switch(square)
-        {
-            case squareQuantity.small:
-                squareValue.text = "+1H";
-                break;
-            case squareQuantity.medium:
-                squareValue.text = "+3H, -1S";
-                break;
-            case squareQuantity.large:
-                squareValue.text = "5H, -3S";
-                break;
-            default:
-                break;
-
-        }*/
 
         ActivateGameObject(healthSquareSprite);
     }
@@ -330,7 +273,6 @@ public class SquareController : MonoBehaviour
         isHealthSquare = false;
         isItemSquare = true;
 
-       // squareValue.gameObject.SetActive(true);
         squareType = "item";
         ChooseSquareSprite();
 
@@ -339,8 +281,7 @@ public class SquareController : MonoBehaviour
 
         if (itemCatalogue != null)
         {
-            
-                allItemsList = itemCatalogue.GetAllItems();
+            allItemsList = itemCatalogue.GetAllItems();
 
             InventoryItemTemplate[] itemCatalogueArray = allItemsList.ToArray();
 
@@ -355,10 +296,7 @@ public class SquareController : MonoBehaviour
                     itemSprite = itemCatalogueArray[i].itemImage;
                 }
             }
-
             squareContentsID = randomID;
-            
-
 
         }
 
@@ -366,10 +304,6 @@ public class SquareController : MonoBehaviour
         {
             squareItemSpriteRenderer.sprite = itemSprite;
         }
-        
-
-        //squareValue.text = squareContentsID;
-
 
         ActivateGameObject(itemSquareSprite);
     }
@@ -387,7 +321,6 @@ public class SquareController : MonoBehaviour
         isEmptySquare = false;
         isHealthSquare = true;
 
-        //squareValue.gameObject.SetActive(false);
         squareType = "goal";
         ChooseSquareSprite();
 
@@ -401,7 +334,6 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = true;
         isEmptySquare = false;
 
-        //squareValue.gameObject.SetActive(true);
         squareType = "treasure";
         ChooseSquareSprite();
 
@@ -424,6 +356,9 @@ public class SquareController : MonoBehaviour
 
         }
 
+        squareValue.gameObject.SetActive(true);
+        squareValueText.text = treasureSize;
+
         Sprite treasureSprite = SquareSpriteLibrary.Instance.GetTreasureSprite(treasureSize);
 
         if(treasureSprite != null)
@@ -435,11 +370,7 @@ public class SquareController : MonoBehaviour
             Debug.Log("No Sprite Gotten");
         }
 
-
-
-
-
-            ActivateGameObject(treasureSquareSprite);
+       ActivateGameObject(treasureSquareSprite);
 
     }
 
@@ -461,26 +392,28 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = false;
 
-        //squareValue.gameObject.SetActive(true);
+        
+
         squareType = "enemy";
         ChooseSquareSprite();
 
-        /*
+        squareValue.gameObject.SetActive(true );
+
         switch (square)
         {
             case squareQuantity.small:
-                squareValue.text = "-1H, >2";
+                squareValueText.text = "3+";
                 break;
             case squareQuantity.medium:
-                squareValue.text = "-3H, >3";
+                squareValueText.text = "4+";
                 break;
             case squareQuantity.large:
-                squareValue.text = "-5H, >4";
+                squareValueText.text = "5+";
                 break;
             default:
                 break;
 
-        }*/
+        }
 
         ActivateGameObject(enemySquareSprite);
 
@@ -496,7 +429,7 @@ public class SquareController : MonoBehaviour
         isTerrainSquare = true;
         isEmptySquare = false;
 
-        //squareValue.gameObject.SetActive(false);
+        squareValue.gameObject.SetActive(false);
 
         squareType = "terrain";
         ChooseSquareSprite();
@@ -511,7 +444,7 @@ public class SquareController : MonoBehaviour
         isTreasureSquare = false;
         isEmptySquare = true;
 
-        //squareValue.gameObject.SetActive(false);
+        squareValue.gameObject.SetActive(false);
         squareType = "empty";
         ChooseSquareSprite();
 
@@ -559,7 +492,20 @@ public class SquareController : MonoBehaviour
     {
         SetSquarePosition(x, y);
         SetMapLocation(newMapLocation);
+        decideSquareQuantity();
         ChooseSquareGroundSprite();
         MakeEmptySquare();
     }
+
+    public int GetEnemyBaseRequiredToWin()
+    {
+        return square switch
+        {
+            squareQuantity.small => 3,
+            squareQuantity.medium => 4,
+            squareQuantity.large => 5,
+            _ => 4
+        };
+    }
+
 }

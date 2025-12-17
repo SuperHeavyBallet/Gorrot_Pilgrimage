@@ -81,6 +81,7 @@
     <Compile Include="Assets\BattlefieldBuilder.cs" />
     <Compile Include="Assets\PhaseTemplate.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
+    <Compile Include="Assets\ItemSlotController.cs" />
     <Compile Include="Assets\FateCounter.cs" />
     <Compile Include="Assets\PlayerDistanceController.cs" />
     <Compile Include="Assets\FatePhaseResolution.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\Scriptable\DifficultyTuning.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />
+    <Compile Include="Assets\MerchantShopController.cs" />
     <Compile Include="Assets\MovementPhaseResolution.cs" />
+    <Compile Include="Assets\BorderSquareController.cs" />
     <Compile Include="Assets\PlayerStatsController.cs" />
     <Compile Include="Assets\WinPhaseResolution.cs" />
     <Compile Include="Assets\PlayerStatReceiver.cs" />
