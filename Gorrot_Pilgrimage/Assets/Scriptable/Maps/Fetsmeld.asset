@@ -22,5 +22,7 @@ MonoBehaviour:
   isWildMap: 0
   wildLevel: 0
   escapeChance: 1
+  isFirstMap: 0
   isFinalMap: 0
   hasMerchant: 1
+  merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}

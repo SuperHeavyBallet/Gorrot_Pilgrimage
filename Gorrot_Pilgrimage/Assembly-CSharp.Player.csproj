@@ -99,6 +99,7 @@
     <Compile Include="Assets\CharacterCreationController.cs" />
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\Scriptable\DifficultyTuning.cs" />
+    <Compile Include="Assets\Scriptable\MerchantStocks\MerchantStock.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />
     <Compile Include="Assets\MerchantShopController.cs" />
     <Compile Include="Assets\MovementPhaseResolution.cs" />

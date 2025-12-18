@@ -10,6 +10,11 @@ public class MerchantShopController : MonoBehaviour
     [SerializeField] ItemSlotController itemSlot3;
     [SerializeField] ItemSlotController itemSlot4;
 
+    MapData currentMap;
+    MerchantStock currentMapStock;
+    InventoryItemTemplate[] merchantInventory;
+    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +26,18 @@ public class MerchantShopController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetCurrentMap(MapData thisMap)
+    {
+        currentMap = thisMap;
+       currentMapStock = currentMap.GetMerchantStock();
+        merchantInventory = currentMapStock.GetInventory();
+        foreach(var item in merchantInventory)
+        {
+            Debug.Log(item.itemName);
+
+        }
     }
 
     void Choose4Items()

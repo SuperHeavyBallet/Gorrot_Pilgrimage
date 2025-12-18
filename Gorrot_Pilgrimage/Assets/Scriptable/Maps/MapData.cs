@@ -40,8 +40,19 @@ public class MapData : ScriptableObject
 
     [SerializeField]  bool hasMerchant = false;
 
-
+    [SerializeField] MerchantStock merchantStock;
    
+    public MerchantStock GetMerchantStock()
+    {
+        if(hasMerchant)
+        {
+            return merchantStock;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public string GetMapLocation()
     {

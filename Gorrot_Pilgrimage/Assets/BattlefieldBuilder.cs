@@ -37,6 +37,7 @@ public class BattlefieldBuilder : MonoBehaviour
     bool canAdvanceDifficulty;
 
     [SerializeField] TextMeshProUGUI hasMerchantText;
+    [SerializeField] MerchantShopController merchantShopController;
     StartLocations startLocation;
 
     PlayerCompassController playerCompassController;
@@ -52,6 +53,7 @@ public class BattlefieldBuilder : MonoBehaviour
         if (uiController == null) Debug.LogError("UIController not set", this);
         if (mapCatalogue == null) Debug.LogError("MapCatalogue not set", this);
         if (hasMerchantText == null) Debug.LogError("Merchant text not set", this);
+        if (merchantShopController == null) Debug.LogError("Merchant Shop Controller not set", this);
 
         if (player != null)
         {
@@ -146,6 +148,7 @@ public class BattlefieldBuilder : MonoBehaviour
         {
             hasMerchantText.text = "MERCHANT";
             PlaceMerchant();
+            merchantShopController.SetCurrentMap(currentMap);
         }
         else { hasMerchantText.text = "..."; }
     }
