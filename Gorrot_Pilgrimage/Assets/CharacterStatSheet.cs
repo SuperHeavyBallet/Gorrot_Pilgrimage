@@ -47,6 +47,7 @@ public class CharacterStatSheet : MonoBehaviour
     public void SetCharacterStartLocation(StartLocations newStartLocation)
     { 
             startLocation = newStartLocation;
+        Debug.Log("SET CHARACTER START LOC: " +  startLocation.ToString());
     }
     public StartLocations GetCharacterStartLocation() => startLocation;
 

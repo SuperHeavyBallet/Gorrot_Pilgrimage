@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
   m_Name: Limmut
   m_EditorClassIdentifier: Assembly-CSharp::MapData
-  mapID: 
+  mapID: limmut
   mapLocation: 0
-  mapName: 
-  mapSize: 0
-  nextMaps: []
-  floorSprite: {fileID: 0}
-  isWildMap: 0
-  wildLevel: 0
+  mapName: Limmut
+  mapSize: 25
+  nextMaps:
+  - {fileID: 11400000, guid: 700cccbf8a087bb44b71000941631082, type: 2}
+  floorSprite: {fileID: 21300000, guid: ccf94819ae479aa44b15fd736eef04a9, type: 3}
+  isWildMap: 1
+  wildLevel: 1
   escapeChance: 0.7
   isFirstMap: 0
   isFinalMap: 0
-  hasMerchant: 0
-  merchantStock: {fileID: 0}
+  hasMerchant: 1
+  merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}

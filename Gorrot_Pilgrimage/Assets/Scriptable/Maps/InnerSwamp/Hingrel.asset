@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
   m_Name: Hingrel
   m_EditorClassIdentifier: Assembly-CSharp::MapData
-  mapID: 
+  mapID: hingrel
   mapLocation: 0
-  mapName: 
-  mapSize: 0
-  nextMaps: []
-  floorSprite: {fileID: 0}
-  isWildMap: 0
-  wildLevel: 0
-  escapeChance: 0.7
+  mapName: Hingrel
+  mapSize: 20
+  nextMaps:
+  - {fileID: 11400000, guid: 553db43221b674f42830de500717b85f, type: 2}
+  floorSprite: {fileID: 21300000, guid: 19087b6ca6a3d1148aceed9afcb248d6, type: 3}
+  isWildMap: 1
+  wildLevel: 2
+  escapeChance: 0.5
   isFirstMap: 0
   isFinalMap: 0
   hasMerchant: 0

@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
   m_Name: Molgeritch
   m_EditorClassIdentifier: Assembly-CSharp::MapData
-  mapID: 
+  mapID: molgeritch
   mapLocation: 0
-  mapName: 
-  mapSize: 0
-  nextMaps: []
-  floorSprite: {fileID: 0}
-  isWildMap: 0
-  wildLevel: 0
+  mapName: Molgeritch
+  mapSize: 15
+  nextMaps:
+  - {fileID: 11400000, guid: 3527bf4480d51ba4797be1e5fa91ad92, type: 2}
+  floorSprite: {fileID: 21300000, guid: 4fd1e3cdd8da8964c86ef4c7fc90f829, type: 3}
+  isWildMap: 1
+  wildLevel: 2
   escapeChance: 0.7
   isFirstMap: 0
   isFinalMap: 0

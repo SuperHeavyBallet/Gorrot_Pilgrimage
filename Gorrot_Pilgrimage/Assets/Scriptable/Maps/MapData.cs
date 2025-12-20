@@ -101,7 +101,28 @@ public class MapData : ScriptableObject
 
     public MapData GetStartingMap(StartLocations startingLocation)
     {
-        return nextMaps[(int)startingLocation];
+
+        Debug.Log("FINAL DECIDER: " + startingLocation.ToString());
+
+        MapData startingMap = nextMaps[0];
+
+        for (int i = 0; i < nextMaps.Length; i++)
+        {
+
+            if (nextMaps[i].GetMapName() == startingLocation.ToString())
+            {
+                Debug.Log("GOT A MATCH" + nextMaps[i].GetMapName());
+                startingMap = nextMaps[i];
+                break;
+            }
+            else
+            {
+                Debug.Log("NOT A MATCH: " + nextMaps[i].GetMapName());
+            }
+        }
+
+        Debug.Log(startingMap.GetMapName());
+        return startingMap;
     }
 
     

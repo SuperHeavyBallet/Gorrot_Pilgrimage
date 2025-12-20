@@ -75,6 +75,8 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject squareValue;
     [SerializeField] TextMeshProUGUI squareValueText;
 
+    MapData thisSquareMapData;
+
     public void MakeEdgeSquare() { isEdgeSquare = true; }
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
@@ -164,10 +166,26 @@ public class SquareController : MonoBehaviour
         { new Vector2Int(-1, 0), directions.left }
     };
 
+    public void SetSquareMapData(MapData mapData)
+    {
+        thisSquareMapData = mapData;
+    }
+
     public void ChooseSquareGroundSprite()
     {
-        Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(mapLocation);
-        groundSpriteRenderer.sprite = chosenGroundSprite; 
+        if(thisSquareMapData != null)
+        {
+            groundSpriteRenderer.sprite = thisSquareMapData.GetFloorSprite();
+        }
+        else
+        {
+            Debug.LogError("Error Getting Ground Sprite via Map Data, No Map Data Found, resort to backup.", this);
+            Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(mapLocation);
+            groundSpriteRenderer.sprite = chosenGroundSprite;
+        }
+            
+
+        
     }
     public void SetEntryDirection(Vector2Int currentPosition, Vector2Int thisPosition)
     {

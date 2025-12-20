@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
   m_Name: Dwindir
   m_EditorClassIdentifier: Assembly-CSharp::MapData
-  mapID: 
+  mapID: dwindir
   mapLocation: 0
-  mapName: 
-  mapSize: 0
-  nextMaps: []
-  floorSprite: {fileID: 0}
-  isWildMap: 0
-  wildLevel: 0
-  escapeChance: 0.7
+  mapName: Dwindir
+  mapSize: 30
+  nextMaps:
+  - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
+  floorSprite: {fileID: 21300000, guid: 24ff047d198546743bfb129d10d8508b, type: 3}
+  isWildMap: 1
+  wildLevel: 2
+  escapeChance: 0.5
   isFirstMap: 0
   isFinalMap: 0
-  hasMerchant: 0
-  merchantStock: {fileID: 0}
+  hasMerchant: 1
+  merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}

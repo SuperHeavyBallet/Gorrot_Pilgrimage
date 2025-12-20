@@ -68,6 +68,8 @@ public class CharacterCreationController : MonoBehaviour
     {
         StartLocations[] values = (StartLocations[])System.Enum.GetValues(typeof(StartLocations));
         int index = UnityEngine.Random.Range(0, values.Length);
+
+        Debug.Log("RANDOM ROLL START LOC: " + values[index].ToString());
         return values[index];
     }
 

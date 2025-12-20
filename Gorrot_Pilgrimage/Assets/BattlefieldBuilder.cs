@@ -44,6 +44,7 @@ public class BattlefieldBuilder : MonoBehaviour
     PlayerDistanceController playerDistanceController;
     PlayerMovementController playerMovementController;
     PlayerStatsController playerStatsController;
+    PlayerStatReceiver playerStatReceiver;
 
     void Awake()
     {
@@ -61,11 +62,13 @@ public class BattlefieldBuilder : MonoBehaviour
             playerCompassController = player.GetComponent<PlayerCompassController>();
             playerDistanceController = player.GetComponent<PlayerDistanceController>();
             playerStatsController = player.GetComponent<PlayerStatsController>();
+            playerStatReceiver = player.GetComponent<PlayerStatReceiver>();
 
             if (playerMovementController == null) Debug.LogError("PlayerMovementController missing", player);
             if (playerCompassController == null) Debug.LogError("PlayerCompassController missing", player);
             if (playerDistanceController == null) Debug.LogError("PlayerDistanceController missing", player);
             if (playerStatsController == null) Debug.LogError("PlayerStatsController missing", player);
+            if (playerStatReceiver == null) Debug.LogError("PlayerStatReceiver missing", player);
         }
     }
 
@@ -80,8 +83,11 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void DecideStartingLocation()
     {
-        CharacterStatSheet sheet = CharacterStatSheet.Instance;
-        if(sheet != null ) { startLocation = CharacterStatSheet.Instance.GetCharacterStartLocation(); }
+
+        if(playerStatReceiver != null)
+        {
+            startLocation = playerStatReceiver.GetPlayerStartingLocation();
+        }
         else { startLocation = StartLocations.Fetsmeld; }
     }
 
@@ -222,7 +228,10 @@ public class BattlefieldBuilder : MonoBehaviour
                     allSquares[x, y] = newSquare;
 
                     SquareController newSquareController = newSquare.GetComponent<SquareController>();
-                    if (newSquareController != null) { newSquareController.SetupNewSquare(x, y, currentMap.GetMapLocation()); }
+                    if (newSquareController != null) { 
+                        newSquareController.SetSquareMapData(currentMap);
+                        newSquareController.SetupNewSquare(x, y, currentMap.GetMapLocation()); 
+                    }
 
                     // Border Placement
                     if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, newSquareController); }

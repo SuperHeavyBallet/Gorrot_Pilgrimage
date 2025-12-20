@@ -5,7 +5,7 @@ public class PlayerStatReceiver : MonoBehaviour
 {
 
     string playerName;
-    string playerHome;
+    StartLocations playerHome;
 
     [SerializeField] TextMeshProUGUI playerNameText;
     [SerializeField] TextMeshProUGUI playerHomeText;
@@ -42,7 +42,8 @@ public class PlayerStatReceiver : MonoBehaviour
         if(sheet != null )
         {
             playerName = sheet.GetCharacterName();
-            playerHome = sheet.GetCharacterStartLocation().ToString();
+            playerHome = sheet.GetCharacterStartLocation();
+            Debug.Log("GET PLAYER HOME: " + playerHome);
 
             startingHealth = sheet.GetStartingHealth();
             startingMoney = sheet.GetStartingMoney();
@@ -51,7 +52,7 @@ public class PlayerStatReceiver : MonoBehaviour
         else
         {
             playerName = "Default";
-            playerHome = "Default";
+            playerHome = StartLocations.Fetsmeld; 
             startingHealth = 10;
             startingMoney = 5;
             startingSuffering = 0;
@@ -63,11 +64,16 @@ public class PlayerStatReceiver : MonoBehaviour
     void UpdateUI()
     {
         playerNameText.text = playerName;
-        playerHomeText.text = playerHome;
+        playerHomeText.text = playerHome.ToString();
     }
 
     public int GetStartingHealth() => startingHealth;
     public int GetStartingMoney() => startingMoney;
     public int GetStartingSuffering() => startingSuffering;
+
+    public StartLocations GetPlayerStartingLocation()
+    {
+        return playerHome;
+    }
 
 }
