@@ -45,6 +45,8 @@ public class BattlefieldBuilder : MonoBehaviour
     PlayerMovementController playerMovementController;
     PlayerStatsController playerStatsController;
     PlayerStatReceiver playerStatReceiver;
+    [SerializeField] GoalPhaseResolution goalPhaseResolution;
+    [SerializeField] GameObject transitionScreen;
 
     void Awake()
     {
@@ -116,6 +118,11 @@ public class BattlefieldBuilder : MonoBehaviour
 
             mapToBuild = escaped ? currentMap.GetNextMap() : currentMap;
             canAdvanceDifficulty = escaped;
+
+            if(goalPhaseResolution != null)
+            {
+                goalPhaseResolution.GetLostStatus(escaped);
+            }
         }
         else
         {
@@ -181,6 +188,7 @@ public class BattlefieldBuilder : MonoBehaviour
         else { QuitGame(); }
 
         StartFadeFromBlack();
+        transitionScreen.SetActive(false);
 
     }
 
