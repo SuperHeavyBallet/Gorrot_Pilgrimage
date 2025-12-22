@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GoalPhaseResolution : MonoBehaviour
@@ -17,6 +18,12 @@ public class GoalPhaseResolution : MonoBehaviour
     [SerializeField] GameObject transitionScreen;
     [SerializeField] TextMeshProUGUI transitionScreenLostText;
 
+    bool isLost = false;
+
+    [SerializeField] GameObject succesfulTransitionGO;
+    [SerializeField] GameObject lostTransitionGO;
+    [SerializeField] TextMeshProUGUI transitionText;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,17 +38,24 @@ public class GoalPhaseResolution : MonoBehaviour
         
     }
 
-    public void GetLostStatus(bool value)
+    public void SetLostStatus(bool value, MapData currentMap, MapData nextMap)
     {
-        if(value == true)
+
+        isLost = value;
+
+        string currentMapName = currentMap.GetMapName();
+        string nextMapName = nextMap.GetMapName();
+
+        if(isLost )
         {
-            Debug.Log("PLAYER ESCAPED!");
-            transitionScreenLostText.text = "You Escaped...";
+
+            transitionText.text = "You lost your way and remain in " + currentMapName + ".";
         }
         else
         {
-            transitionScreenLostText.text = "You Are Lost...";
+            transitionText.text = "You Move from " + currentMapName + " to " + nextMapName + ".";
         }
+
     }
 
     public void EnterGoalPhase()

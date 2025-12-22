@@ -81,6 +81,9 @@ public class SquareController : MonoBehaviour
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
 
+    public bool isSacred;
+    [SerializeField] GameObject sacredMarker;
+
     public void AddBorderSquare(int[] sides)
     {
 
@@ -144,6 +147,7 @@ public class SquareController : MonoBehaviour
     private void Awake()
     {
         squareValue.gameObject.SetActive(false);
+        sacredMarker.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -250,6 +254,17 @@ public class SquareController : MonoBehaviour
                 SetSquare(squareQuantity.large, 1f, "large");
                 break;
         }
+    }
+
+    public void SetIsSacred(bool value)
+    {
+        isSacred = value;
+        sacredMarker.SetActive(value);
+    }
+
+    public bool GetIsSacred()
+    {
+        return isSacred;
     }
 
     void SetSquare(squareQuantity sq, float scale, string name)

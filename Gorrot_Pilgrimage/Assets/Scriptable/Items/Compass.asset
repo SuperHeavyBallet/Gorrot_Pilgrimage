@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc6cbf3b97132e44280f8404670f06cd, type: 3}
-  m_Name: Large Potion
+  m_Name: Compass
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemTemplate
-  itemID: large_potion
-  itemName: Large Potion
-  itemImage: {fileID: 21300000, guid: 46cb63746fc5c57408d3ca3f28b56aee, type: 3}
+  itemID: compass
+  itemName: Compass
+  itemImage: {fileID: 21300000, guid: a7f52db9b555a2e46bb867d158b36c33, type: 3}
   amountHeld: 0
-  statEffected: 0
-  effectDelta: 6
-  price: 10
-  ItemDescription: A mighty boost. +10 Health
+  statEffected: 3
+  effectDelta: 1
+  price: 20
+  ItemDescription: Greatly reduces getting lost.

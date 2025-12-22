@@ -19,3 +19,4 @@ MonoBehaviour:
   statEffected: 0
   effectDelta: 3
   price: 5
+  ItemDescription: A decent boost. +5 Health

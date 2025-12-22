@@ -19,3 +19,4 @@ MonoBehaviour:
   statEffected: 2
   effectDelta: 2
   price: 10
+  ItemDescription: A mighty weapon. +2 Attack

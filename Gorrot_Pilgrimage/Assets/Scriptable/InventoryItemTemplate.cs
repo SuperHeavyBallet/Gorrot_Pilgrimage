@@ -8,7 +8,7 @@ public class InventoryItemTemplate : ScriptableObject
     public Sprite itemImage;
     public int amountHeld;
 
-    public enum statsToEffect { health, suffering, attack};
+    public enum statsToEffect { health, suffering, attack, navigation};
     public statsToEffect statEffected = statsToEffect.health;
     public int effectDelta = 1; // +1, -1 to adjust stat
 
@@ -18,5 +18,7 @@ public class InventoryItemTemplate : ScriptableObject
     {
         return price;
     }
+
+    [SerializeField] string ItemDescription;
 
 }

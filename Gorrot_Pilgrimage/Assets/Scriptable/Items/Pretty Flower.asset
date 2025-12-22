@@ -19,3 +19,4 @@ MonoBehaviour:
   statEffected: 1
   effectDelta: -6
   price: 10
+  ItemDescription: A pretty flower. -10 Suffering

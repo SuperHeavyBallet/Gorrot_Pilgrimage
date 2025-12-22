@@ -19,3 +19,4 @@ MonoBehaviour:
   statEffected: 2
   effectDelta: 1
   price: 5
+  ItemDescription: A decent weapon. +1 Attack

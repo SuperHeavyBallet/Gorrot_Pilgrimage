@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -47,6 +48,10 @@ public class BattlefieldBuilder : MonoBehaviour
     PlayerStatReceiver playerStatReceiver;
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
     [SerializeField] GameObject transitionScreen;
+
+    Vector2 goalSquareLocation;
+
+    bool isLost = false;
 
     void Awake()
     {
@@ -103,11 +108,14 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         if (currentMap == null) 
         { 
-            Debug.LogError("currentMap is null"); 
-            return mapCatalogue.GetFirstMap(); 
+            Debug.LogError("currentMap is null");
+            isLost = false;
+            canAdvanceDifficulty = false;
+            return mapCatalogue.GetFirstMap();
         }
 
         canAdvanceDifficulty = false;
+        isLost = false; // default unless proven otherwise
 
         if (currentMap.GetIsWildMap())
         {
@@ -116,13 +124,10 @@ public class BattlefieldBuilder : MonoBehaviour
             float escapeChance = currentMap.GetEscapeChance();
             bool escaped = UnityEngine.Random.value < escapeChance;
 
+            isLost = !escaped;
             mapToBuild = escaped ? currentMap.GetNextMap() : currentMap;
             canAdvanceDifficulty = escaped;
 
-            if(goalPhaseResolution != null)
-            {
-                goalPhaseResolution.GetLostStatus(escaped);
-            }
         }
         else
         {
@@ -139,6 +144,10 @@ public class BattlefieldBuilder : MonoBehaviour
             }
         }
 
+        MapData nextMap = currentMap.GetNextMap();
+        MapData nextNextMap = nextMap.GetNextMap();
+
+        goalPhaseResolution.SetLostStatus(isLost, nextMap, nextNextMap);
         return mapToBuild;
     }
 
@@ -150,7 +159,12 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         SetPlayerStartSquare(mapSize);
         SetContentAmounts(mapSize);
+        
         BuildBattleFieldGrid(mapSize);
+        SetSacredPath(mapSize);
+        AssignContentSquares();
+        CollectInitialEnemySquares();
+
         PlacePlayer(mapSize);
         CheckMerchantNeeded();
     }
@@ -246,11 +260,17 @@ public class BattlefieldBuilder : MonoBehaviour
 
                     // Goal placement
                     bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
-                    if (isGoalSpot) { MakeGoalSquare(newSquareController, newSquare); }
+                    if (isGoalSpot) {
+                        MakeGoalSquare(newSquareController, newSquare); 
+                        goalSquareLocation = newSquare.transform.position;
+                    }
 
                     // Don't add the player start or goal tile to free list either
                     bool isPlayerStart = (x == playerStartingPosition && y == 0);
+
                     if (!isPlayerStart && !isGoalSpot) { freeSquares.Add(new Vector2Int(x, y)); }
+
+                   
                 }
                 else { Debug.LogError("Square prefab missing SquareController.", newSquare); return; }
 
@@ -258,8 +278,7 @@ public class BattlefieldBuilder : MonoBehaviour
             }
         }
 
-        AssignContentSquares();
-        CollectInitialEnemySquares();
+        
 
     }
 
@@ -325,15 +344,32 @@ public class BattlefieldBuilder : MonoBehaviour
         while (placed < count && freeSquares.Count > 0)
         {
             int index = UnityEngine.Random.Range(0, freeSquares.Count);
+
+ 
             Vector2Int coord = freeSquares[index];
             freeSquares.RemoveAt(index);
 
             SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
-            if (sq != null)
+
+            bool isSacredSquare = sq.GetIsSacred();
+
+            if (sq != null && !isSacredSquare)
             {
                 applyType(sq);
                 placed++;
+     
+
             }
+            else
+            {
+                Debug.Log("Sacred Square");
+
+
+
+            }
+
+
+
         }
 
         if (placed < count) { Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}."); }
@@ -383,5 +419,31 @@ public class BattlefieldBuilder : MonoBehaviour
         #else
                 Application.Quit();
         #endif
+    }
+
+    void SetSacredPath(int size)
+    {
+        Vector2 currentSquarePosition = Vector2.zero;
+
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                GameObject currentSquare = allSquares[x, y];
+                currentSquarePosition = currentSquare.transform.position;
+
+                Debug.Log("CURRENT SQUARE: " + x + " , " + y + " AT " + currentSquarePosition);
+                SquareController squareController = allSquares[x, y].GetComponent<SquareController>();
+
+                if (squareController != null)
+                {
+                    squareController.SetIsSacred(true);
+                }
+            }
+        }
+
+                
+
+
     }
 }
