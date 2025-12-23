@@ -7625,6 +7625,8 @@ MonoBehaviour:
   merchantShopController: {fileID: 1728712887}
   goalPhaseResolution: {fileID: 542128499}
   transitionScreen: {fileID: 1335742452}
+  drunkenness: 1
+  weightSharpness: 0.1
 --- !u!4 &1131809995
 Transform:
   m_ObjectHideFlags: 0

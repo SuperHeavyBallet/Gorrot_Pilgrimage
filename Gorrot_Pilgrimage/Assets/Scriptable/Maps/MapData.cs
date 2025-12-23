@@ -41,6 +41,9 @@ public class MapData : ScriptableObject
     [SerializeField]  bool hasMerchant = false;
 
     [SerializeField] MerchantStock merchantStock;
+
+    [Tooltip("The amount of terrain to fill the map. 0 = none, 1 = most")]
+    [SerializeField] float terrainDensity = 0.1f;
    
     public MerchantStock GetMerchantStock()
     {
@@ -123,6 +126,11 @@ public class MapData : ScriptableObject
 
         Debug.Log(startingMap.GetMapName());
         return startingMap;
+    }
+
+    public float GetTerrainDensity()
+    {
+        return terrainDensity;
     }
 
     

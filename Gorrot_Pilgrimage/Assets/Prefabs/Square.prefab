@@ -237,6 +237,7 @@ MonoBehaviour:
   merchantSprite: {fileID: 6532739362534656693}
   squareValue: {fileID: 8973297438059876071}
   squareValueText: {fileID: 6758965580617881374}
+  isSacred: 0
   sacredMarker: {fileID: 5681365793743862789}
 --- !u!1 &2079368541572557217
 GameObject:
@@ -565,8 +566,8 @@ Transform:
   m_GameObject: {fileID: 5681365793743862789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.21, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.23, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6822048057866452752}

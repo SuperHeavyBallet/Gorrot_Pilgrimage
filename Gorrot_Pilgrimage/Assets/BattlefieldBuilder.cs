@@ -53,6 +53,14 @@ public class BattlefieldBuilder : MonoBehaviour
 
     bool isLost = false;
 
+    [Header("Sacred Path Drunkenness")]
+    [Tooltip("0 = always best, 1 = very random")]
+    [SerializeField, Range(0f, 1f)] float drunkenness;
+    [Tooltip("higher = more greedy, lower = more meandery")]
+    [SerializeField, Range(0.1f, 10f)] float weightSharpness;
+
+
+
     void Awake()
     {
 
@@ -157,11 +165,14 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void SetContent(int mapSize)
     {
-        SetPlayerStartSquare(mapSize);
-        SetContentAmounts(mapSize);
+        
         
         BuildBattleFieldGrid(mapSize);
+        SetPlayerStartSquare(mapSize);
+        
         SetSacredPath(mapSize);
+
+        SetContentAmounts(mapSize);
         AssignContentSquares();
         CollectInitialEnemySquares();
 
@@ -225,9 +236,15 @@ public class BattlefieldBuilder : MonoBehaviour
 
         enemySquareCount = counts.enemy;
         treasureSquareCount = counts.treasure;
-        terrainSquareCount = counts.terrain;
+        //terrainSquareCount = counts.terrain;
         healthSquareCount = counts.health;
         potionSquareCount = counts.potion;
+
+        int area = currentMapSize * currentMapSize;
+
+        float terrainRatio = currentMap.GetTerrainDensity();
+
+        terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt( terrainRatio * area));
     }
 
     void SetPlayerStartSquare(int currentMapSize) { playerStartingPosition = UnityEngine.Random.Range(0, currentMapSize); }
@@ -421,29 +438,193 @@ public class BattlefieldBuilder : MonoBehaviour
         #endif
     }
 
+    Vector2 CheckNextStep(Vector2 currentSquarePosition)
+    {
+       Vector2 nextClosestSquarePosition = Vector2.zero;
+
+
+
+        return nextClosestSquarePosition;
+    }
+
+
     void SetSacredPath(int size)
     {
-        Vector2 currentSquarePosition = Vector2.zero;
 
-        for (int x = 0; x < size; x++)
+        // Start from the player start tile
+        Vector2Int current = new Vector2Int(playerStartingPosition, 0);
+
+        // Find the goal tile coordinate (cheaper would be to store it when you place it)
+        Vector2Int goal = FindGoalCoord(size);
+
+        // Safety: prevent infinite loops
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+        visited.Add(current);
+
+        int maxSteps = size * size;
+
+        for (int step = 0; step < maxSteps; step++)
         {
-            for (int y = 0; y < size; y++)
+            if (current == goal) break;
+
+            // Mark current as sacred if you want the path to include the start too
+            var currentSq = allSquares[current.x, current.y].GetComponent<SquareController>();
+            if (currentSq != null) currentSq.SetIsSacred(true);
+
+            // Vector2Int next = GetBestNeighborTowardsGoal(current, goal, size);
+
+            Vector2Int next = GetDrunkNeighborTowardsGoal(current, goal, size, visited);
+
+
+            // If we can't progress, give up (or you could fall back to a real pathfinding algorithm)
+            if (next == current) break;
+
+            // If we're looping, break
+            if (visited.Contains(next)) break;
+            visited.Add(next);
+
+            current = next;
+        }
+
+        // Also mark the goal as sacred (optional)
+        var goalSq = allSquares[goal.x, goal.y].GetComponent<SquareController>();
+        if (goalSq != null) goalSq.SetIsSacred(true);
+
+
+
+
+    }
+
+    Vector2Int FindGoalCoord(int size)
+    {
+        // You already store goalSquareLocation as a Vector2 world position.
+        // Convert it back to grid coords since your squares are placed at (x,y,0).
+        int gx = Mathf.RoundToInt(goalSquareLocation.x);
+        int gy = Mathf.RoundToInt(goalSquareLocation.y);
+        return new Vector2Int(gx, gy);
+    }
+
+    Vector2Int GetDrunkNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int size, HashSet<Vector2Int> visited)
+    {
+        // 4-neighbors
+        Vector2Int[] dirs =
+        {
+        new Vector2Int(1, 0),
+        new Vector2Int(-1, 0),
+        new Vector2Int(0, 1),
+        new Vector2Int(0, -1),
+    };
+
+        List<Vector2Int> candidates = new List<Vector2Int>();
+        List<float> weights = new List<float>();
+
+        float currentDist = Vector2.Distance(current, goal);
+
+        for (int i = 0; i < dirs.Length; i++)
+        {
+            Vector2Int n = current + dirs[i];
+
+            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
+
+            // If you want: avoid borders (since you mark them as edges)
+            // var sc = allSquares[n.x, n.y].GetComponent<SquareController>();
+            // if (sc != null && sc.IsEdgeSquare()) continue;
+
+            // Optional: strongly avoid revisiting
+            bool wasVisited = visited.Contains(n);
+
+            float dist = Vector2.Distance(n, goal);
+
+            // Improvement: positive if this step gets closer.
+            float improvement = currentDist - dist;
+
+            // Base desirability:
+            // - prefer getting closer (improvement > 0)
+            // - allow sideways/backwards a bit when drunk
+            float desirability = improvement;
+
+            // Penalize revisits heavily to avoid loops
+            if (wasVisited) desirability -= 999f;
+
+            // Convert desirability into a weight.
+            // We want weights > 0 even for "not great" moves.
+            // Use an exponential-ish curve controlled by weightSharpness.
+            float w = Mathf.Exp(desirability * weightSharpness);
+
+            candidates.Add(n);
+            weights.Add(w);
+        }
+
+        if (candidates.Count == 0) return current;
+
+        // Mix between greedy and random:
+        // - drunkenness 0 => almost always pick max weight
+        // - drunkenness 1 => pick by weights (still biased, but much wobblier)
+        if (UnityEngine.Random.value > drunkenness)
+        {
+            // Greedy pick
+            int bestIndex = 0;
+            float bestW = weights[0];
+            for (int i = 1; i < weights.Count; i++)
             {
-                GameObject currentSquare = allSquares[x, y];
-                currentSquarePosition = currentSquare.transform.position;
-
-                Debug.Log("CURRENT SQUARE: " + x + " , " + y + " AT " + currentSquarePosition);
-                SquareController squareController = allSquares[x, y].GetComponent<SquareController>();
-
-                if (squareController != null)
+                if (weights[i] > bestW)
                 {
-                    squareController.SetIsSacred(true);
+                    bestW = weights[i];
+                    bestIndex = i;
                 }
+            }
+            return candidates[bestIndex];
+        }
+
+        // Weighted random pick
+        float total = 0f;
+        for (int i = 0; i < weights.Count; i++) total += weights[i];
+
+        float roll = UnityEngine.Random.value * total;
+        float accum = 0f;
+
+        for (int i = 0; i < weights.Count; i++)
+        {
+            accum += weights[i];
+            if (roll <= accum) return candidates[i];
+        }
+
+        return candidates[candidates.Count - 1];
+    }
+
+
+    Vector2Int GetBestNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int size)
+    {
+        Vector2Int best = current;
+        float bestDist = Vector2.Distance(current, goal); // start with current distance
+
+        // 4-neighbors
+        Vector2Int[] dirs =
+        {
+        new Vector2Int(1, 0),
+        new Vector2Int(-1, 0),
+        new Vector2Int(0, 1),
+        new Vector2Int(0, -1),
+    };
+
+        foreach (var d in dirs)
+        {
+            Vector2Int n = current + d;
+
+            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
+
+            // Optional: avoid border squares if they're blocked/unwalkable
+            // var sq = allSquares[n.x, n.y].GetComponent<SquareController>();
+            // if (sq != null && sq.IsEdgeSquare()) continue;
+
+            float dist = Vector2.Distance(n, goal);
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                best = n;
             }
         }
 
-                
-
-
+        return best;
     }
 }
