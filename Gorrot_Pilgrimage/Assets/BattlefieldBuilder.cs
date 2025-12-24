@@ -171,13 +171,13 @@ public class BattlefieldBuilder : MonoBehaviour
         SetPlayerStartSquare(mapSize);
         
         SetSacredPath(mapSize);
-
+        CheckMerchantNeeded();
         SetContentAmounts(mapSize);
         AssignContentSquares();
         CollectInitialEnemySquares();
 
         PlacePlayer(mapSize);
-        CheckMerchantNeeded();
+        
     }
 
     void CheckMerchantNeeded()
@@ -357,40 +357,37 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void PlaceTypeSquares(int count, System.Action<SquareController> applyType)
     {
-        int placed = 0;
-        while (placed < count && freeSquares.Count > 0)
-        {
-            int index = UnityEngine.Random.Range(0, freeSquares.Count);
 
- 
+
+        int placed = 0;
+        int guard = 0;
+
+
+        while (placed < count && freeSquares.Count > 0 && guard < 100000)
+        {
+            guard++;
+
+            int index = UnityEngine.Random.Range(0, freeSquares.Count);
             Vector2Int coord = freeSquares[index];
-            freeSquares.RemoveAt(index);
 
             SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
+            if (sq == null) { freeSquares.RemoveAt(index); continue; }
 
-            bool isSacredSquare = sq.GetIsSacred();
-
-            if (sq != null && !isSacredSquare)
+            if (sq.GetIsSacred())
             {
-                applyType(sq);
-                placed++;
-     
-
-            }
-            else
-            {
-                Debug.Log("Sacred Square");
-
-
-
+                // Don't remove it; just try another.
+                continue;
             }
 
-
-
+            // Now we commit to using it
+            freeSquares.RemoveAt(index);
+            applyType(sq);
+            placed++;
         }
 
-        if (placed < count) { Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}."); }
-        
+        if (placed < count)
+            Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}.");
+
     }
 
     void PlacePlayer(int size)
@@ -418,8 +415,15 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void PlaceMerchant()
     {
+        if (freeSquares.Count == 0)
+        {
+            Debug.LogWarning("No free squares left to place Merchant.");
+            return;
+        }
+
         int index = Random.Range(0, freeSquares.Count);
         Vector2Int merchantPosition = freeSquares[index];
+        freeSquares.RemoveAt(index); // good idea to reserve it
 
         SquareController merchantSquareController = allSquares[merchantPosition.x, merchantPosition.y].GetComponent<SquareController>();
 
