@@ -35,6 +35,10 @@ public class BattlefieldBuilder : MonoBehaviour
     MapData currentMap;
     MapData mapToBuild;
 
+    MapData previousMap;
+    MapData thisMap;
+    MapData nextMap;
+
     bool canAdvanceDifficulty;
 
     [SerializeField] TextMeshProUGUI hasMerchantText;
@@ -94,7 +98,7 @@ public class BattlefieldBuilder : MonoBehaviour
         SetFirstMap();
         BuildNewBattlefield();
     }
-    void SetFirstMap() { currentMap = mapCatalogue.GetFirstMap(); }
+    void SetFirstMap() { previousMap = mapCatalogue.GetFirstMap(); }
 
     void DecideStartingLocation()
     {
@@ -114,9 +118,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
     MapData DecideMapToBuild()
     {
-        if (currentMap == null) 
+        if (previousMap == null) 
         { 
-            Debug.LogError("currentMap is null");
+            Debug.LogError("previous Map is null");
             isLost = false;
             canAdvanceDifficulty = false;
             return mapCatalogue.GetFirstMap();
@@ -125,38 +129,48 @@ public class BattlefieldBuilder : MonoBehaviour
         canAdvanceDifficulty = false;
         isLost = false; // default unless proven otherwise
 
-        if (currentMap.GetIsWildMap())
+        if (previousMap.GetIsWildMap())
         {
-            int wild = currentMap.GetWildLevel();
+            int wild = previousMap.GetWildLevel();
 
-            float escapeChance = currentMap.GetEscapeChance();
+            float escapeChance = previousMap.GetEscapeChance();
             bool escaped = UnityEngine.Random.value < escapeChance;
 
             isLost = !escaped;
-            mapToBuild = escaped ? currentMap.GetNextMap() : currentMap;
+            mapToBuild = escaped ? previousMap.GetNextMap() : previousMap;
             canAdvanceDifficulty = escaped;
 
         }
         else
         {
-            if (currentMap.GetIsFirstMap())
+            if (previousMap.GetIsFirstMap())
             {
                 DecideStartingLocation();
                 playerStatsController.SetStartingStats();
-                mapToBuild = currentMap.GetStartingMap(startLocation);
+                mapToBuild = previousMap.GetStartingMap(startLocation);
             }
             else
             {
-                mapToBuild = currentMap.GetNextMap();
+                mapToBuild = previousMap.GetNextMap();
                 canAdvanceDifficulty = true;
             }
         }
 
-        MapData nextMap = currentMap.GetNextMap();
+        MapData nextMap = mapToBuild.GetNextMap();
         MapData nextNextMap = nextMap.GetNextMap();
 
-        goalPhaseResolution.SetLostStatus(isLost, nextMap, nextNextMap);
+        DeclareThisMap(mapToBuild, nextMap, nextNextMap);
+
+        //goalPhaseResolution.SetLostStatus(isLost, nextMap, nextNextMap);
         return mapToBuild;
+    }
+
+    void DeclareThisMap(MapData thisMap, MapData nextMap, MapData nextNextMap)
+    {
+        Debug.Log("Current and Next Maps:");
+        Debug.Log(thisMap.GetMapName());
+        Debug.Log(nextMap.GetMapName());
+        Debug.Log(nextNextMap.GetMapName());
     }
 
     void UpdateMapDataUI() { uiController.UpdateMapDataText(currentMap.GetMapName(), currentMap.GetMapLocation()); }
@@ -201,9 +215,12 @@ public class BattlefieldBuilder : MonoBehaviour
     void IncrementMapCount() { if (canAdvanceDifficulty) { currentMapCount++; } }
     public void BuildNewBattlefield()
     {
-        currentMap = DecideMapToBuild();
+        MapData chosen = DecideMapToBuild();
+        thisMap = chosen;
 
-        UpdateMapDataUI();
+        uiController.UpdateMapDataText(chosen.GetMapName(), chosen.GetMapLocation());
+        Debug.Log($"[BattlefieldBuilder] UI set to: {currentMap.GetMapName()}  (isLost={isLost}, canAdvance={canAdvanceDifficulty})");
+
 
         CheckIfFinalMap();
 

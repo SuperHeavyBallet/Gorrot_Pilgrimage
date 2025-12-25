@@ -85,6 +85,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateMapDataText(string mapName, string mapLocation)
     {
+        Debug.Log($"[UIController] UpdateMapDataText called: {mapName} / {mapLocation}", this);
         currentMapNameText.text = mapName;
         currentMapLocationText.text = mapLocation;
     }
