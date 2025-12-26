@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hindruhn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: hindruhn
-  mapLocation: 0
+  mapLocation: 1
   mapName: Hindruhn
   mapSize: 30
   nextMaps:
@@ -28,3 +28,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

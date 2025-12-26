@@ -38,22 +38,22 @@ public class GoalPhaseResolution : MonoBehaviour
         
     }
 
-    public void SetLostStatus(bool value, MapData currentMap, MapData nextMap)
+    public void SetTransitionData(bool lostValue, MapData leavingMap, MapData goingToMap)
     {
 
-        isLost = value;
+        isLost = lostValue;
 
-        string currentMapName = currentMap.GetMapName();
-        string nextMapName = nextMap.GetMapName();
+        string leavingMapName = leavingMap.GetMapName();
+        string goingToMapName = goingToMap.GetMapName();
 
         if(isLost )
         {
 
-            transitionText.text = "You lost your way and remain in " + currentMapName + ".";
+            transitionText.text = "You lost your way and remain in " + leavingMapName + ".";
         }
         else
         {
-            transitionText.text = "You Move from " + currentMapName + " to " + nextMapName + ".";
+            transitionText.text = "You Move from " + leavingMapName + " to " + goingToMapName + ".";
         }
 
     }

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Halbegorn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: halbegorn
-  mapLocation: 0
+  mapLocation: 2
   mapName: Halbegorn
   mapSize: 25
   nextMaps:
   - {fileID: 11400000, guid: adc86f2cf5bbca9439b95a617990aa01, type: 2}
+  - {fileID: 11400000, guid: e9951c327b1731d448f23fa2679f4e77, type: 2}
   floorSprite: {fileID: 21300000, guid: 3e51ad7b00d63ce48a874802f251aa98, type: 3}
   isWildMap: 0
   wildLevel: 1

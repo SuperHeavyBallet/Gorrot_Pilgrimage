@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fahrnith
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: fahrnith
-  mapLocation: 3
+  mapLocation: 0
   mapName: Fahrnith
   mapSize: 5
   nextMaps:
-  - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
+  - {fileID: 11400000, guid: 184c5cc9909d46946a82c380aa83b824, type: 2}
   floorSprite: {fileID: 21300000, guid: db522bc867306b946b81c0c4c576c505, type: 3}
   isWildMap: 0
   wildLevel: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ritten
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: ritten
-  mapLocation: 0
+  mapLocation: 4
   mapName: Ritten
   mapSize: 15
   nextMaps:
@@ -26,3 +26,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 1
   merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}
+  terrainDensity: 0.1

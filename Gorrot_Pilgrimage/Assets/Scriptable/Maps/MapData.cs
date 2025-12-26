@@ -8,13 +8,16 @@ public class MapData : ScriptableObject
 
     [SerializeField] enum MapLocations
     {
-        InnerGorrot,
-        OuterGorrot,
-        Midworld,
-        Outworld
+        Outmost_Territories,
+        Outer_Ring,
+        Inner_Ring,
+        Swamp_Border,
+        Outer_Swamp,
+        Inner_Swamp,
+        Gorrot
     }
 
-    [SerializeField] MapLocations mapLocation = MapLocations.InnerGorrot;
+    [SerializeField] MapLocations mapLocation = MapLocations.Outmost_Territories;
 
     [SerializeField] string mapName;
     public string GetMapName() => mapName;
@@ -67,7 +70,7 @@ public class MapData : ScriptableObject
         return mapSize;
     }
 
-    public MapData GetNextMap()
+    public MapData RollNextMap()
     {
 
         int randomNumber = UnityEngine.Random.Range(0, nextMaps.Length);
@@ -104,8 +107,7 @@ public class MapData : ScriptableObject
 
     public MapData GetStartingMap(StartLocations startingLocation)
     {
-
-        Debug.Log("FINAL DECIDER: " + startingLocation.ToString());
+        Debug.Log("STARTING MAP: " + startingLocation.ToString());
 
         MapData startingMap = nextMaps[0];
 
@@ -114,13 +116,8 @@ public class MapData : ScriptableObject
 
             if (nextMaps[i].GetMapName() == startingLocation.ToString())
             {
-                Debug.Log("GOT A MATCH" + nextMaps[i].GetMapName());
                 startingMap = nextMaps[i];
                 break;
-            }
-            else
-            {
-                Debug.Log("NOT A MATCH: " + nextMaps[i].GetMapName());
             }
         }
 

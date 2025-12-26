@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI currentMapNameText;
     public TextMeshProUGUI currentMapLocationText;
 
+    public TextMeshProUGUI wildMapMarker;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -93,5 +95,18 @@ public class UIController : MonoBehaviour
     public void LoadCharacterCreationScene()
     {
         SceneManager.LoadScene("CharacterBuild");
+    }
+
+    public void UpdateWildMapMarker(bool value)
+    {
+        if(value == true)
+        {
+            wildMapMarker.text = "Wild Map";
+        }
+        else
+        {
+            wildMapMarker.text = "Not Wild";
+        }
+
     }
 }

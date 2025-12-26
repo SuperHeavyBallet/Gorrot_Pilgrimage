@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Katharn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: katharn
-  mapLocation: 0
+  mapLocation: 1
   mapName: Katharn
   mapSize: 30
   nextMaps:
-  - {fileID: 11400000, guid: 05aa80a72c3871948ade48b8b40c1d0a, type: 2}
-  - {fileID: 11400000, guid: e9951c327b1731d448f23fa2679f4e77, type: 2}
+  - {fileID: 11400000, guid: e35e92b6b0a875a4193b005188ff3640, type: 2}
   floorSprite: {fileID: 21300000, guid: df54c141bc784744ebc6eb49826068a4, type: 3}
   isWildMap: 0
   wildLevel: 0
@@ -27,3 +26,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fetsmeld
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: fetsmeld
-  mapLocation: 3
+  mapLocation: 0
   mapName: Fetsmeld
   mapSize: 10
   nextMaps:

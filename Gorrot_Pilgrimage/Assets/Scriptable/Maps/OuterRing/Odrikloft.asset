@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Odrikloft
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: odrikloft
-  mapLocation: 0
+  mapLocation: 1
   mapName: Odrikloft
   mapSize: 25
   nextMaps:
-  - {fileID: 11400000, guid: 0c0de31575bfb3c4fac2dbc005e9b0d5, type: 2}
   - {fileID: 11400000, guid: 05aa80a72c3871948ade48b8b40c1d0a, type: 2}
   - {fileID: 11400000, guid: e35e92b6b0a875a4193b005188ff3640, type: 2}
   floorSprite: {fileID: 21300000, guid: 9efbdecaa456330418147270df065b5f, type: 3}
@@ -28,3 +27,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

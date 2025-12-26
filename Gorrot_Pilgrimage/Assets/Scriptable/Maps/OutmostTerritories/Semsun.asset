@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Semsun
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: semsun
-  mapLocation: 3
+  mapLocation: 0
   mapName: Semsun
   mapSize: 12
   nextMaps:

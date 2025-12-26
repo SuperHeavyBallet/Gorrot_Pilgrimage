@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wyrsmet
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: wyrsmet
-  mapLocation: 0
+  mapLocation: 2
   mapName: Wyrsmet
   mapSize: 20
   nextMaps:
@@ -26,3 +26,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

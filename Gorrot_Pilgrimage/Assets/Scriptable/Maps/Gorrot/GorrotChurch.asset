@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GorrotChurch
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrot_church
-  mapLocation: 0
+  mapLocation: 6
   mapName: Gorrot Church
   mapSize: 10
   nextMaps:
@@ -26,3 +26,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

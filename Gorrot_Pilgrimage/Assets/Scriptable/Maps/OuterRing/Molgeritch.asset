@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Molgeritch
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: molgeritch
-  mapLocation: 0
+  mapLocation: 1
   mapName: Molgeritch
   mapSize: 15
   nextMaps:
@@ -26,3 +26,4 @@ MonoBehaviour:
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
+  terrainDensity: 0.1

@@ -54,8 +54,12 @@ public class BattlefieldBuilder : MonoBehaviour
     [SerializeField] GameObject transitionScreen;
 
     Vector2 goalSquareLocation;
+    bool isLost;
 
-    bool isLost = false;
+
+    private MapData plannedNextMap;
+    //private MapData plannedNextNextMap;
+    // bool isLost = false;
 
     [Header("Sacred Path Drunkenness")]
     [Tooltip("0 = always best, 1 = very random")]
@@ -102,7 +106,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void DecideStartingLocation()
     {
-
         if(playerStatReceiver != null)
         {
             startLocation = playerStatReceiver.GetPlayerStartingLocation();
@@ -110,131 +113,146 @@ public class BattlefieldBuilder : MonoBehaviour
         else { startLocation = StartLocations.Fetsmeld; }
     }
 
-    public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
-    
-    public void StartFadeFromBlack() { uiController.StartFadeFromBlack(); }
 
-    void CheckIfFinalMap() { isFinalMap = currentMap.GetIsFinalMap(); }
+    void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
 
     MapData DecideMapToBuild()
     {
+        isLost = false;
+        canAdvanceDifficulty = false;
+
+        // Check if there is a previous map to base the upcoming map from, if not get absolute start map
         if (previousMap == null) 
-        { 
-            Debug.LogError("previous Map is null");
-            isLost = false;
-            canAdvanceDifficulty = false;
+        {
+            Debug.Log("Previous Map is Null");
             return mapCatalogue.GetFirstMap();
         }
 
-        canAdvanceDifficulty = false;
-        isLost = false; // default unless proven otherwise
+        
 
+        // Check if the previous Map was a Wild Map with lost chance, then decide if the player gets lost, if so, repeat that map
         if (previousMap.GetIsWildMap())
         {
-            int wild = previousMap.GetWildLevel();
-
+            Debug.Log("Previous Map is Wild Map");
             float escapeChance = previousMap.GetEscapeChance();
             bool escaped = UnityEngine.Random.value < escapeChance;
 
-            isLost = !escaped;
-            mapToBuild = escaped ? previousMap.GetNextMap() : previousMap;
-            canAdvanceDifficulty = escaped;
-
+            if(escaped == false)
+            {
+                isLost = true;
+                mapToBuild = previousMap;
+                plannedNextMap = mapToBuild.RollNextMap();               // ONE roll for preview purposes
+                canAdvanceDifficulty = false;
+            }
         }
         else
         {
+            mapToBuild = previousMap.RollNextMap();
+            plannedNextMap = mapToBuild.RollNextMap();
+
+            // Check if previous Map is the absolute start Map, if so initialise player stats from that dataset
             if (previousMap.GetIsFirstMap())
             {
                 DecideStartingLocation();
                 playerStatsController.SetStartingStats();
-                mapToBuild = previousMap.GetStartingMap(startLocation);
+
             }
-            else
+            else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
             {
-                mapToBuild = previousMap.GetNextMap();
                 canAdvanceDifficulty = true;
             }
         }
 
-        MapData nextMap = mapToBuild.GetNextMap();
-        MapData nextNextMap = nextMap.GetNextMap();
+        previousMap = mapToBuild;
+        UpdateMapWildUI(isLost);
+        DeclareThisMap(mapToBuild, plannedNextMap);
+        goalPhaseResolution.SetTransitionData(isLost, mapToBuild, plannedNextMap);
 
-        DeclareThisMap(mapToBuild, nextMap, nextNextMap);
-
-        //goalPhaseResolution.SetLostStatus(isLost, nextMap, nextNextMap);
         return mapToBuild;
     }
 
-    void DeclareThisMap(MapData thisMap, MapData nextMap, MapData nextNextMap)
+    void DeclareThisMap(MapData thisMap, MapData nextMap)
     {
         Debug.Log("Current and Next Maps:");
+        Debug.Log(previousMap.GetMapName());
         Debug.Log(thisMap.GetMapName());
         Debug.Log(nextMap.GetMapName());
-        Debug.Log(nextNextMap.GetMapName());
+
     }
 
-    void UpdateMapDataUI() { uiController.UpdateMapDataText(currentMap.GetMapName(), currentMap.GetMapLocation()); }
+    void UpdateMapDataUI() { uiController.UpdateMapDataText(thisMap.GetMapName(), thisMap.GetMapLocation()); }
+
+    void UpdateMapWildUI( bool value ) {  uiController.UpdateWildMapMarker(value); }
 
     void ClearEnemySquares() { enemySquares.Clear(); }
 
     void SetContent(int mapSize)
     {
-        
-        
         BuildBattleFieldGrid(mapSize);
         SetPlayerStartSquare(mapSize);
-        
         SetSacredPath(mapSize);
         CheckMerchantNeeded();
         SetContentAmounts(mapSize);
         AssignContentSquares();
         CollectInitialEnemySquares();
-
         PlacePlayer(mapSize);
         
     }
 
     void CheckMerchantNeeded()
     {
-        if (currentMap.GetHasMerchant())
+        if (thisMap.GetHasMerchant())
         {
             hasMerchantText.text = "MERCHANT";
             PlaceMerchant();
-            merchantShopController.SetCurrentMap(currentMap);
+            merchantShopController.SetCurrentMap(thisMap);
         }
         else { hasMerchantText.text = "..."; }
     }
 
-    void BuildNewMap()
-    {
-        IncrementMapCount();
-        ClearOldBattlefield();
-        SetContent(currentMap.GetMapSize()); 
-    }
+ 
 
     void IncrementMapCount() { if (canAdvanceDifficulty) { currentMapCount++; } }
     public void BuildNewBattlefield()
     {
+        Debug.Log($"[BuildNewBattlefield] BEFORE Decide: previousMap={(previousMap != null ? previousMap.GetMapName() : "NULL")} thisMap={(thisMap != null ? thisMap.GetMapName() : "NULL")}");
+
         MapData chosen = DecideMapToBuild();
         thisMap = chosen;
+        previousMap = thisMap;
 
-        uiController.UpdateMapDataText(chosen.GetMapName(), chosen.GetMapLocation());
-        Debug.Log($"[BattlefieldBuilder] UI set to: {currentMap.GetMapName()}  (isLost={isLost}, canAdvance={canAdvanceDifficulty})");
+        UpdateMapDataUI();
+
+        Debug.Log($"[BuildNewBattlefield] AFTER Commit: previousMap={(previousMap != null ? previousMap.GetMapName() : "NULL")} thisMap={(thisMap != null ? thisMap.GetMapName() : "NULL")}");
+
+
+        //uiController.UpdateMapDataText(thisMap.GetMapName(), chosen.GetMapLocation());
+        // Debug.Log($"[BattlefieldBuilder] UI set to: {currentMap.GetMapName()}  (isLost={isLost}, canAdvance={canAdvanceDifficulty})");
 
 
         CheckIfFinalMap();
-
         ClearEnemySquares();
 
-        if(!isFinalMap) { BuildNewMap(); }
-        else { QuitGame(); }
+        if(!isFinalMap)
+        { 
+            BuildNewMap();
+        }
+        else 
+        { 
+            QuitGame(); 
+        }
 
         StartFadeFromBlack();
         transitionScreen.SetActive(false);
 
     }
+    void BuildNewMap()
+    {
+        IncrementMapCount();
+        ClearOldBattlefield();
+        SetContent(thisMap.GetMapSize());
+    }
 
-   
 
     void ClearOldBattlefield()
     {
@@ -259,7 +277,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         int area = currentMapSize * currentMapSize;
 
-        float terrainRatio = currentMap.GetTerrainDensity();
+        float terrainRatio = thisMap.GetTerrainDensity();
 
         terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt( terrainRatio * area));
     }
@@ -285,8 +303,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
                     SquareController newSquareController = newSquare.GetComponent<SquareController>();
                     if (newSquareController != null) { 
-                        newSquareController.SetSquareMapData(currentMap);
-                        newSquareController.SetupNewSquare(x, y, currentMap.GetMapLocation()); 
+                        newSquareController.SetSquareMapData(thisMap);
+                        newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation()); 
                     }
 
                     // Border Placement
@@ -648,4 +666,10 @@ public class BattlefieldBuilder : MonoBehaviour
 
         return best;
     }
+
+
+
+    public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
+
+    public void StartFadeFromBlack() { uiController.StartFadeFromBlack(); }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Garthun
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: garthun
-  mapLocation: 3
+  mapLocation: 0
   mapName: Garthun
   mapSize: 15
   nextMaps:
