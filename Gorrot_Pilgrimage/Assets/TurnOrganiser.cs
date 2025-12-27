@@ -37,7 +37,8 @@ public class TurnOrganiser : MonoBehaviour
         fate,
         goalReach,
         death,
-        merchant
+        merchant,
+        win
     }
 
     public ActivePhase currentPhase = ActivePhase.movement;
