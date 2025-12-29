@@ -67,6 +67,8 @@ public class BattlefieldBuilder : MonoBehaviour
     [Tooltip("higher = more greedy, lower = more meandery")]
     [SerializeField, Range(0.1f, 10f)] float weightSharpness;
 
+    [SerializeField] TurnOrganiser turnOrganiser;
+
 
 
     void Awake()
@@ -239,6 +241,7 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         else 
         { 
+            
             QuitGame(); 
         }
 
@@ -470,11 +473,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-        #else
-                Application.Quit();
-        #endif
+        turnOrganiser.StartWinPhase();
+
     }
 
     Vector2 CheckNextStep(Vector2 currentSquarePosition)

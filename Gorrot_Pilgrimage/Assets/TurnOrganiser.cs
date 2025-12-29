@@ -48,6 +48,7 @@ public class TurnOrganiser : MonoBehaviour
     [SerializeField] MovementPhaseResolution movementPhaseResolution;
     [SerializeField] DeathPhaseResolution deathPhaseResolution;
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
+    [SerializeField] WinPhaseResolution winPhaseResolution;
     [SerializeField] MerchantPhaseResolution merchantPhaseResolution;
 
     bool isInMerchant;
@@ -56,10 +57,15 @@ public class TurnOrganiser : MonoBehaviour
 
     bool playerIsAlive;
 
-    public SquareController landedSquare;
+    SquareController landedSquare;
     public void SetLandedSquare(SquareController sq)
     {
         landedSquare = sq;
+    }
+
+    public SquareController GetLandedSquare()
+    {
+        return landedSquare;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -261,6 +267,11 @@ public class TurnOrganiser : MonoBehaviour
     {
         playerIsAlive = false;
         deathPhaseResolution.EnterDeathPhase();
+    }
+
+    public void StartWinPhase()
+    {
+        winPhaseResolution.EnterWinPhase();
     }
 
 }

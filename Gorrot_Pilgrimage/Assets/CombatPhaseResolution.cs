@@ -5,7 +5,7 @@ using System.Collections;
 public class CombatPhaseResolution : MonoBehaviour
 {
 
-    TurnOrganiser turnOrganiser;
+    [SerializeField] TurnOrganiser turnOrganiser;
 
     public DiceController diceController;
     public TextMeshProUGUI DiceRollFormulaText;
@@ -37,7 +37,7 @@ public class CombatPhaseResolution : MonoBehaviour
     void Start()
     {
 
-        turnOrganiser = GetComponent<TurnOrganiser>();
+        
         combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
     }
@@ -59,7 +59,7 @@ public class CombatPhaseResolution : MonoBehaviour
     {
         playerCurrentAttackBoost = playerStatsController.getCurrentAttackBuff();
 
-        SquareController sq = turnOrganiser.landedSquare;
+        SquareController sq = turnOrganiser.GetLandedSquare();
 
         currentEnemyDamage = sq.square switch
         {
@@ -117,7 +117,7 @@ public class CombatPhaseResolution : MonoBehaviour
             // Win Results
             playerStatsController.resetSuffering();
             audioManager.playCombatWinSoundEffect();
-            turnOrganiser.landedSquare.MakeEmptySquare();
+            turnOrganiser.GetLandedSquare().MakeEmptySquare();
         }
 
         currentEnemyDamage = 0;
