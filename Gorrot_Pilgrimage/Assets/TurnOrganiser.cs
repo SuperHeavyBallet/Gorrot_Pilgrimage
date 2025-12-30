@@ -57,6 +57,9 @@ public class TurnOrganiser : MonoBehaviour
 
     bool playerIsAlive;
 
+    GameObject currentFly;
+    FlyMovementController currentFlyMovementController;
+
     SquareController landedSquare;
     public void SetLandedSquare(SquareController sq)
     {
@@ -66,6 +69,24 @@ public class TurnOrganiser : MonoBehaviour
     public SquareController GetLandedSquare()
     {
         return landedSquare;
+    }
+
+    public void ReceiveFly(GameObject newFly)
+    {
+        currentFly = newFly;
+        currentFlyMovementController = currentFly.GetComponent<FlyMovementController>();
+    }
+
+    void MoveFly()
+    {
+        if(currentFly != null && currentFlyMovementController != null)
+        {
+            currentFlyMovementController.RollNewDirection();
+        }
+        else
+        {
+            Debug.LogError("Null Fly");
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -171,6 +192,7 @@ public class TurnOrganiser : MonoBehaviour
         if(!isInMerchant)
         {
             disablePlayerTurn();
+            MoveFly();
             BuildNextPhase();
         }
 

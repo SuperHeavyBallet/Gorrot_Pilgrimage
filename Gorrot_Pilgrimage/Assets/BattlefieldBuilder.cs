@@ -70,6 +70,8 @@ public class BattlefieldBuilder : MonoBehaviour
     [SerializeField] TurnOrganiser turnOrganiser;
 
 
+    [SerializeField] GameObject fly;
+
 
     void Awake()
     {
@@ -117,6 +119,34 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
     void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
+
+    void PlaceFly(int size)
+    {
+        int randomIndex = UnityEngine.Random.Range(0, freeSquares.Count);
+
+        Vector2Int[] freeSqArray = freeSquares.ToArray();
+
+        Vector3 newPos = new Vector3(freeSqArray[randomIndex].x, freeSqArray[randomIndex].y, 1);
+        GameObject newFly = Instantiate(fly, newPos, Quaternion.identity);
+
+        FlyMovementController flyController = newFly.GetComponent<FlyMovementController>();
+
+        if(flyController != null)
+        {
+            flyController.SetBattleFieldSize(size, allSquares);
+        }
+        else
+        {
+            Debug.LogError("No Controller on Fly Available", this);
+        }
+
+        turnOrganiser.ReceiveFly(newFly);
+
+
+
+        
+
+    }
 
     MapData DecideMapToBuild()
     {
@@ -198,6 +228,7 @@ public class BattlefieldBuilder : MonoBehaviour
         AssignContentSquares();
         CollectInitialEnemySquares();
         PlacePlayer(mapSize);
+        PlaceFly(mapSize);
         
     }
 
