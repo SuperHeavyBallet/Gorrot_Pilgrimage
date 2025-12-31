@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FlyMovementController : MonoBehaviour
@@ -21,6 +22,25 @@ public class FlyMovementController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetPlayerStartSquare(int recX, int recY)
+    {
+        SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
+
+        this.transform.position = new Vector2(
+            newSquareController.GetSquareXPosition(),
+            newSquareController.GetSquareYPosition()
+        );
+
+        newSquareController.ActivateSquareVisited();
+
+        SetStartCurrentPosition(recX, recY);
+    }
+
+    void SetStartCurrentPosition(int startCurX, int startCurY)
+    {
+        currentPosition = new Vector2Int(startCurX, startCurY);
     }
 
     public void RollNewDirection()
@@ -78,9 +98,43 @@ public class FlyMovementController : MonoBehaviour
           newSquareController.GetSquareYPosition()
            );
 
-        this.transform.position = newPosition;
+        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController));
 
         ResetCanMove();
+
+
+    }
+
+    IEnumerator MoveRoutine(
+        SquareController targetSquare,
+        int newX,
+        int newY,
+        Vector2 worldTargetPos,
+        SquareController newSquareController)
+    {
+
+        Vector3 start = transform.position;
+        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
+
+        float duration = 0.25f; // tune feel
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
+
+            // Smoothstep-ish curve (feels nicer than linear)
+            u = u * u * (3f - 2f * u);
+
+            transform.position = Vector3.Lerp(start, end, u);
+            yield return null;
+        }
+
+        transform.position = end;
+
+        // Commit grid position *after* movement finishes
+        currentPosition = new Vector2Int(newX, newY);
 
 
     }

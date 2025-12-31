@@ -133,7 +133,11 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if(flyController != null)
         {
+            int testX = freeSqArray[randomIndex].x;
+            int testY = freeSqArray[randomIndex].y;
+
             flyController.SetBattleFieldSize(size, allSquares);
+            flyController.SetPlayerStartSquare(testX, testY);
         }
         else
         {
