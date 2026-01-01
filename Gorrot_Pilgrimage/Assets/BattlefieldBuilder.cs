@@ -152,6 +152,47 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
+    MapData GetMapToBuild()
+    {
+        MapData mapToBuild = null;
+        
+        if(previousMap == null)
+        {
+            Debug.LogError("Previous Map is Null");
+            mapToBuild = GetFirstMap();
+
+        }
+        else
+        {
+            if(previousMap.GetIsFirstMap())
+            {
+                DecideStartingLocation();
+                SetPlayerStartStats();
+
+            }
+
+            mapToBuild = previousMap.RollNextMap();
+
+
+        }
+
+
+
+
+        return mapToBuild;
+    }
+
+   
+
+    MapData GetFirstMap()
+    {
+        return mapCatalogue.GetFirstMap();
+    }
+
+    void SetPlayerStartStats()
+    {
+        playerStatsController.SetStartingStats();
+    }
     MapData DecideMapToBuild()
     {
         isLost = false;
