@@ -5818,11 +5818,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   allMaps: []
-  OutworldMaps:
-  - {fileID: 11400000, guid: d09f3323d5ce29c438fd16cf3b53ecc5, type: 2}
+  OutworldMaps: []
   InworldMaps: []
   OuterGorrotMaps: []
   InnterGorrotMaps: []
+  firstMap: {fileID: 11400000, guid: 8e4b093ddf6b6744bb74093165c88f34, type: 2}
 --- !u!4 &845666572
 Transform:
   m_ObjectHideFlags: 0
@@ -6651,6 +6651,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerNameText: {fileID: 928051201}
   playerHomeText: {fileID: 1162730851}
+  default_PlayerName: 
+  default_PlayerHome: 0
+  default_StartingHealth: 0
+  default_StartingMoney: 0
+  default_StartingSuffering: 0
 --- !u!1 &915202173
 GameObject:
   m_ObjectHideFlags: 0
@@ -7908,6 +7913,7 @@ MonoBehaviour:
   drunkenness: 0.33
   weightSharpness: 1.2
   turnOrganiser: {fileID: 542128493}
+  fly: {fileID: 3167611647591164979, guid: e256613520ad0514a82aa75fba39fd9e, type: 3}
 --- !u!4 &1131809995
 Transform:
   m_ObjectHideFlags: 0

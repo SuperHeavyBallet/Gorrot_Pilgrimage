@@ -4,10 +4,11 @@ using UnityEngine;
 public class CharacterStatSheet : MonoBehaviour
 {
 
-    public int startingHealth { get; private set; } = 10;
-    public int startingMoney { get; private set; } = 5;
+  
+    public int startingHealth { get; private set; } = 99;
+    public int startingMoney { get; private set; } = 99;
     public int startingSuffering { get; private set; } = 0;
-    public string characterName { get; private set; } = "Bob";
+    public string characterName { get; private set; } = "Bob99";
 
     public StartLocations startLocation { get; private set; } = StartLocations.Fetsmeld;
 

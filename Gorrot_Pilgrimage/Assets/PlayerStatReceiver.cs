@@ -14,6 +14,11 @@ public class PlayerStatReceiver : MonoBehaviour
     int startingMoney;
     int startingSuffering;
 
+    [SerializeField] string default_PlayerName;
+    [SerializeField] StartLocations default_PlayerHome;
+    [SerializeField] int default_StartingHealth;
+    [SerializeField] int default_StartingMoney;
+    [SerializeField] int default_StartingSuffering;
 
 
 
@@ -43,19 +48,17 @@ public class PlayerStatReceiver : MonoBehaviour
         {
             playerName = sheet.GetCharacterName();
             playerHome = sheet.GetCharacterStartLocation();
-            Debug.Log("GET PLAYER HOME: " + playerHome);
-
             startingHealth = sheet.GetStartingHealth();
             startingMoney = sheet.GetStartingMoney();
             startingSuffering = sheet.GetStartingSuffering();
         }
         else
         {
-            playerName = "Default";
-            playerHome = StartLocations.Fetsmeld; 
-            startingHealth = 10;
-            startingMoney = 5;
-            startingSuffering = 0;
+            playerName = default_PlayerName;
+            playerHome = default_PlayerHome;
+            startingHealth = default_StartingHealth;
+            startingMoney = default_StartingMoney;
+            startingSuffering = default_StartingSuffering;
         }
         
 

@@ -13,6 +13,8 @@ public class MapCatalogue : MonoBehaviour
 
     [SerializeField] MapData[] InnterGorrotMaps;
 
+    [SerializeField] MapData firstMap;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +29,6 @@ public class MapCatalogue : MonoBehaviour
 
    public MapData GetFirstMap()
     {
-        return OutworldMaps[0];
+        return firstMap;
     }
 }

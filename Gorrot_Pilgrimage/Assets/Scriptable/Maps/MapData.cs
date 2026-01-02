@@ -77,6 +77,24 @@ public class MapData : ScriptableObject
         return nextMaps[randomNumber];
     }
 
+    public MapData GetStartingMap(StartLocations startingLocation)
+    {
+        MapData startingMapName = nextMaps[0];
+
+        for (int i = 0; i < nextMaps.Length; i++)
+        {
+            if (startingLocation.ToString() == nextMaps[i].mapName)
+            {
+                startingMapName = nextMaps[i];
+                return startingMapName;
+            }
+        }
+
+
+
+        return startingMapName;
+    }
+
     public Sprite GetFloorSprite()
     {
         return floorSprite;
@@ -104,7 +122,7 @@ public class MapData : ScriptableObject
         return hasMerchant;
     }
 
-
+    /*
     public MapData GetStartingMap(StartLocations startingLocation)
     {
         Debug.Log("STARTING MAP: " + startingLocation.ToString());
@@ -123,7 +141,7 @@ public class MapData : ScriptableObject
 
         Debug.Log(startingMap.GetMapName());
         return startingMap;
-    }
+    }*/
 
     public float GetTerrainDensity()
     {

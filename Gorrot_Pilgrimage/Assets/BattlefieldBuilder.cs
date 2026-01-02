@@ -43,12 +43,12 @@ public class BattlefieldBuilder : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI hasMerchantText;
     [SerializeField] MerchantShopController merchantShopController;
-    StartLocations startLocation;
+   // StartLocations startLocation;
 
     PlayerCompassController playerCompassController;
     PlayerDistanceController playerDistanceController;
     PlayerMovementController playerMovementController;
-    PlayerStatsController playerStatsController;
+   // PlayerStatsController playerStatsController;
     PlayerStatReceiver playerStatReceiver;
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
     [SerializeField] GameObject transitionScreen;
@@ -88,13 +88,13 @@ public class BattlefieldBuilder : MonoBehaviour
             playerMovementController = player.GetComponent<PlayerMovementController>();
             playerCompassController = player.GetComponent<PlayerCompassController>();
             playerDistanceController = player.GetComponent<PlayerDistanceController>();
-            playerStatsController = player.GetComponent<PlayerStatsController>();
+           // playerStatsController = player.GetComponent<PlayerStatsController>();
             playerStatReceiver = player.GetComponent<PlayerStatReceiver>();
 
             if (playerMovementController == null) Debug.LogError("PlayerMovementController missing", player);
             if (playerCompassController == null) Debug.LogError("PlayerCompassController missing", player);
             if (playerDistanceController == null) Debug.LogError("PlayerDistanceController missing", player);
-            if (playerStatsController == null) Debug.LogError("PlayerStatsController missing", player);
+            //if (playerStatsController == null) Debug.LogError("PlayerStatsController missing", player);
             if (playerStatReceiver == null) Debug.LogError("PlayerStatReceiver missing", player);
         }
     }
@@ -112,9 +112,9 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         if(playerStatReceiver != null)
         {
-            startLocation = playerStatReceiver.GetPlayerStartingLocation();
+          // startLocation = playerStatReceiver.GetPlayerStartingLocation();
         }
-        else { startLocation = StartLocations.Fetsmeld; }
+       // else { startLocation = StartLocations.Fetsmeld; }
     }
 
 
@@ -158,20 +158,29 @@ public class BattlefieldBuilder : MonoBehaviour
         
         if(previousMap == null)
         {
-            Debug.LogError("Previous Map is Null");
             mapToBuild = GetFirstMap();
-
         }
         else
         {
             if(previousMap.GetIsFirstMap())
             {
-                DecideStartingLocation();
-                SetPlayerStartStats();
+
+                Debug.Log("INTO FIRST MAP");
+
+               // playerStatsController.SetStartingStats();
+                mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
+
+                Debug.Log("FIRST MAP NAME: " + mapToBuild.GetMapName());
 
             }
+            else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
+            {
+                Debug.Log("INTO PROPER MAPS");
+                canAdvanceDifficulty = true;
+                mapToBuild = previousMap.RollNextMap();
+            }
 
-            mapToBuild = previousMap.RollNextMap();
+            
 
 
         }
@@ -191,7 +200,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void SetPlayerStartStats()
     {
-        playerStatsController.SetStartingStats();
+       
     }
     MapData DecideMapToBuild()
     {
@@ -230,8 +239,8 @@ public class BattlefieldBuilder : MonoBehaviour
             // Check if previous Map is the absolute start Map, if so initialise player stats from that dataset
             if (previousMap.GetIsFirstMap())
             {
-                DecideStartingLocation();
-                playerStatsController.SetStartingStats();
+                //DecideStartingLocation();
+               // playerStatsController.SetStartingStats();
 
             }
             else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
@@ -242,19 +251,10 @@ public class BattlefieldBuilder : MonoBehaviour
 
         previousMap = mapToBuild;
         UpdateMapWildUI(isLost);
-        DeclareThisMap(mapToBuild, plannedNextMap);
+       // DeclareThisMap(mapToBuild, plannedNextMap);
         goalPhaseResolution.SetTransitionData(isLost, mapToBuild, plannedNextMap);
 
         return mapToBuild;
-    }
-
-    void DeclareThisMap(MapData thisMap, MapData nextMap)
-    {
-        Debug.Log("Current and Next Maps:");
-        Debug.Log(previousMap.GetMapName());
-        Debug.Log(thisMap.GetMapName());
-        Debug.Log(nextMap.GetMapName());
-
     }
 
     void UpdateMapDataUI() { uiController.UpdateMapDataText(thisMap.GetMapName(), thisMap.GetMapLocation()); }
@@ -293,27 +293,17 @@ public class BattlefieldBuilder : MonoBehaviour
     void IncrementMapCount() { if (canAdvanceDifficulty) { currentMapCount++; } }
     public void BuildNewBattlefield()
     {
-        Debug.Log($"[BuildNewBattlefield] BEFORE Decide: previousMap={(previousMap != null ? previousMap.GetMapName() : "NULL")} thisMap={(thisMap != null ? thisMap.GetMapName() : "NULL")}");
+        MapData chosen = GetMapToBuild();
 
-        MapData chosen = DecideMapToBuild();
         thisMap = chosen;
-        previousMap = thisMap;
-
         UpdateMapDataUI();
-
-        Debug.Log($"[BuildNewBattlefield] AFTER Commit: previousMap={(previousMap != null ? previousMap.GetMapName() : "NULL")} thisMap={(thisMap != null ? thisMap.GetMapName() : "NULL")}");
-
-
-        //uiController.UpdateMapDataText(thisMap.GetMapName(), chosen.GetMapLocation());
-        // Debug.Log($"[BattlefieldBuilder] UI set to: {currentMap.GetMapName()}  (isLost={isLost}, canAdvance={canAdvanceDifficulty})");
-
-
         CheckIfFinalMap();
         ClearEnemySquares();
 
         if(!isFinalMap)
         { 
             BuildNewMap();
+            previousMap = thisMap;
         }
         else 
         { 
