@@ -176,8 +176,12 @@ public class BattlefieldBuilder : MonoBehaviour
             else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
             {
                 Debug.Log("INTO PROPER MAPS");
+
+                
                 canAdvanceDifficulty = true;
                 mapToBuild = previousMap.RollNextMap();
+
+                Debug.Log("Map Progression: Prev: " + previousMap.GetMapName() + ", Current: " + mapToBuild.GetMapName());
             }
 
             
