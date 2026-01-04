@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TurnOrganiser : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class TurnOrganiser : MonoBehaviour
 
     GameObject currentFly;
     FlyMovementController currentFlyMovementController;
+    List<GameObject> currentFlies = new List<GameObject>();
+
 
     SquareController landedSquare;
     public void SetLandedSquare(SquareController sq)
@@ -71,21 +74,24 @@ public class TurnOrganiser : MonoBehaviour
         return landedSquare;
     }
 
+    public void ClearFlies()
+    {
+        currentFlies.Clear();
+    }
+
     public void ReceiveFly(GameObject newFly)
     {
-        currentFly = newFly;
-        currentFlyMovementController = currentFly.GetComponent<FlyMovementController>();
+        currentFlies.Add(newFly);
+        //currentFly = newFly;
+        //currentFlyMovementController = currentFly.GetComponent<FlyMovementController>();
     }
 
     void MoveFly()
     {
-        if(currentFly != null && currentFlyMovementController != null)
+        foreach(GameObject newFly in currentFlies)
         {
-            currentFlyMovementController.RollNewDirection();
-        }
-        else
-        {
-            Debug.LogError("Null Fly");
+            FlyMovementController newFlyMovement = newFly.GetComponent<FlyMovementController>();
+            newFlyMovement.RollNewDirection();
         }
     }
 

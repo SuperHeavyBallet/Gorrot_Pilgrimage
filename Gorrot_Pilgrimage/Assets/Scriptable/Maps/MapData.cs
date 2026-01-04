@@ -47,6 +47,8 @@ public class MapData : ScriptableObject
 
     [Tooltip("The amount of terrain to fill the map. 0 = none, 1 = most")]
     [SerializeField] float terrainDensity = 0.1f;
+
+    [SerializeField] bool hasFlies;
    
     public MerchantStock GetMerchantStock()
     {
@@ -68,6 +70,11 @@ public class MapData : ScriptableObject
     public int GetMapSize()
     {
         return mapSize;
+    }
+
+    public bool GetHasFlies()
+    {
+        return hasFlies;
     }
 
     public MapData RollNextMap()

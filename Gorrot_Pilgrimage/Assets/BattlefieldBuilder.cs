@@ -122,74 +122,108 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void PlaceFly(int size)
     {
-        int randomIndex = UnityEngine.Random.Range(0, freeSquares.Count);
-
+        turnOrganiser.ClearFlies();
         Vector2Int[] freeSqArray = freeSquares.ToArray();
 
-        Vector3 newPos = new Vector3(freeSqArray[randomIndex].x, freeSqArray[randomIndex].y, 1);
-        GameObject newFly = Instantiate(fly, newPos, Quaternion.identity);
+        int max = (int)(size * 0.8f); // size 30 => 24
+        float t = Random.value;
+        t = t * t; // bias toward 0
+        int randomFlyCount = (size / 6) + Mathf.RoundToInt(t * (max - (size / 6)));
 
-        FlyMovementController flyController = newFly.GetComponent<FlyMovementController>();
-
-        if(flyController != null)
+        for (int i = 0; i < randomFlyCount; i++)
         {
-            int testX = freeSqArray[randomIndex].x;
-            int testY = freeSqArray[randomIndex].y;
+            int randomIndex = UnityEngine.Random.Range(0, freeSquares.Count);
 
-            flyController.SetBattleFieldSize(size, allSquares);
-            flyController.SetPlayerStartSquare(testX, testY);
+            
+
+            Vector3 newPos = new Vector3(freeSqArray[randomIndex].x, freeSqArray[randomIndex].y, 1);
+            GameObject newFly = Instantiate(fly, transform);
+            newFly.transform.position = newPos;
+
+            FlyMovementController flyController = newFly.GetComponent<FlyMovementController>();
+
+            if (flyController != null)
+            {
+                int testX = freeSqArray[randomIndex].x;
+                int testY = freeSqArray[randomIndex].y;
+
+                flyController.SetBattleFieldSize(size, allSquares);
+                flyController.SetPlayerStartSquare(testX, testY);
+            }
+            else
+            {
+                Debug.LogError("No Controller on Fly Available", this);
+            }
+
+            turnOrganiser.ReceiveFly(newFly);
+
         }
-        else
-        {
-            Debug.LogError("No Controller on Fly Available", this);
-        }
-
-        turnOrganiser.ReceiveFly(newFly);
 
 
 
-        
+
 
     }
 
     MapData GetMapToBuild()
     {
         MapData mapToBuild = null;
-        
-        if(previousMap == null)
+        isLost = false;
+
+        if (previousMap == null)
         {
             mapToBuild = GetFirstMap();
         }
-        else
+        else if (previousMap.GetIsWildMap())
         {
-            if(previousMap.GetIsFirstMap())
+                Debug.Log("Previous Map is Wild Map");
+
+                float escapeChance = previousMap.GetEscapeChance();
+                bool escaped = UnityEngine.Random.value < escapeChance;
+
+                if (!escaped)
+                {
+                    isLost = true;
+                    canAdvanceDifficulty = false;
+                    mapToBuild = previousMap; // repeat
+                }
+                else
+                {
+                    // escaped successfully, proceed forward
+
+                    mapToBuild = previousMap.RollNextMap();
+                }
+        }
+            else if (previousMap.GetIsFirstMap())
             {
 
-                Debug.Log("INTO FIRST MAP");
+                    Debug.Log("INTO FIRST MAP");
 
-               // playerStatsController.SetStartingStats();
-                mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
+                    // playerStatsController.SetStartingStats();
+                    mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
 
-                Debug.Log("FIRST MAP NAME: " + mapToBuild.GetMapName());
+                    Debug.Log("FIRST MAP NAME: " + mapToBuild.GetMapName());
 
-            }
-            else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
-            {
-                Debug.Log("INTO PROPER MAPS");
+                }
+                else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
+                {
+                    Debug.Log("INTO PROPER MAPS");
 
-                
-                canAdvanceDifficulty = true;
-                mapToBuild = previousMap.RollNextMap();
 
-                Debug.Log("Map Progression: Prev: " + previousMap.GetMapName() + ", Current: " + mapToBuild.GetMapName());
-            }
+                    canAdvanceDifficulty = true;
+                    mapToBuild = previousMap.RollNextMap();
+
+                    Debug.Log("Map Progression: Prev: " + previousMap.GetMapName() + ", Current: " + mapToBuild.GetMapName());
+                }
+            
+            
 
             
 
 
-        }
+        
 
-
+        goalPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
 
 
         return mapToBuild;
@@ -201,7 +235,7 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         return mapCatalogue.GetFirstMap();
     }
-
+    
     void SetPlayerStartStats()
     {
        
@@ -277,8 +311,19 @@ public class BattlefieldBuilder : MonoBehaviour
         AssignContentSquares();
         CollectInitialEnemySquares();
         PlacePlayer(mapSize);
-        PlaceFly(mapSize);
+
+        CheckFlies(mapSize);
         
+        
+    }
+
+    void CheckFlies(int mapSize)
+    {
+        turnOrganiser.ClearFlies();
+        if (thisMap.GetHasFlies())
+        {
+            PlaceFly(mapSize);
+        }
     }
 
     void CheckMerchantNeeded()

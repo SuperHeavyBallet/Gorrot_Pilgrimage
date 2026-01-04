@@ -62,22 +62,28 @@ public class GoalPhaseResolution : MonoBehaviour
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.goalReach);
 
-        goalText.SetActive(true);
+
         goalScreen.SetActive(true);
-        transitionScreen.SetActive(true);
+        
         StartCoroutine(ArriveAtGoal());
 
     }
 
     IEnumerator ArriveAtGoal()
     {
-        playerStatsController.resetSuffering();
+        
 
         battlefieldBuilder.StartFadeToBlack();
-        yield return new WaitForSeconds(2);
-        
+        yield return new WaitForSeconds(1);
+
+        playerStatsController.resetSuffering();
         battlefieldBuilder.BuildNewBattlefield();
-        goalText.SetActive(false);
+
+        transitionScreen.SetActive(true);
+
+        yield return new WaitForSeconds(2);
+
         goalScreen.SetActive(false);
+        transitionScreen.SetActive(false);
     }
 }
