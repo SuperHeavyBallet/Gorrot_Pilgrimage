@@ -27,3 +27,4 @@ MonoBehaviour:
   hasMerchant: 0
   merchantStock: {fileID: 0}
   terrainDensity: 0.1
+  hasFlies: 1

@@ -84,6 +84,9 @@ public class SquareController : MonoBehaviour
     public bool isSacred;
     [SerializeField] GameObject sacredMarker;
 
+    public bool isWater;
+    [SerializeField] GameObject waterMarker;
+
     public void AddBorderSquare(int[] sides)
     {
 
@@ -131,14 +134,14 @@ public class SquareController : MonoBehaviour
     void MakeBorderSquareAtPosition(Vector3 position, string shadowSide)
     {
         GameObject newBorderSquare = UnityEngine.Object.Instantiate(
-            SquareSpriteLibrary.Instance.getBorderSquare(), 
-            position, 
-            Quaternion.identity, 
+            SquareSpriteLibrary.Instance.getBorderSquare(),
+            position,
+            Quaternion.identity,
             transform.parent
             );
 
         BorderSquareController borderSquareController = newBorderSquare.GetComponent<BorderSquareController>();
-        if(borderSquareController != null)
+        if (borderSquareController != null)
         {
             borderSquareController.PositionBorderShadow(shadowSide);
         }
@@ -148,11 +151,12 @@ public class SquareController : MonoBehaviour
     {
         squareValue.gameObject.SetActive(false);
         sacredMarker.gameObject.SetActive(false);
+        waterMarker.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        
+
     }
 
     void ChooseSquareSprite()
@@ -177,7 +181,7 @@ public class SquareController : MonoBehaviour
 
     public void ChooseSquareGroundSprite()
     {
-        if(thisSquareMapData != null)
+        if (thisSquareMapData != null)
         {
             groundSpriteRenderer.sprite = thisSquareMapData.GetFloorSprite();
         }
@@ -187,9 +191,9 @@ public class SquareController : MonoBehaviour
             Sprite chosenGroundSprite = SquareSpriteLibrary.Instance.GetRandomGroundSprite(mapLocation);
             groundSpriteRenderer.sprite = chosenGroundSprite;
         }
-            
 
-        
+
+
     }
     public void SetEntryDirection(Vector2Int currentPosition, Vector2Int thisPosition)
     {
@@ -202,21 +206,21 @@ public class SquareController : MonoBehaviour
 
         int angle = 0;
 
-        switch(enterDirection)
+        switch (enterDirection)
         {
             case directions.up:
                 angle = 0;
                 break;
-                case directions.down:
+            case directions.down:
                 angle = 180;
                 break;
-                case directions.left:
+            case directions.left:
                 angle = 90;
                 break;
-                case directions.right:
+            case directions.right:
                 angle = 270;
                 break;
-                default:
+            default:
                 angle = 0;
                 break;
         }
@@ -246,7 +250,7 @@ public class SquareController : MonoBehaviour
             case 0:
                 SetSquare(squareQuantity.small, 0.25f, "small");
                 break;
-           
+
             case 1:
                 SetSquare(squareQuantity.medium, 0.5f, "medium");
                 break;
@@ -262,6 +266,12 @@ public class SquareController : MonoBehaviour
         sacredMarker.SetActive(value);
     }
 
+    public void SetIsWater(bool value)
+    {
+        isWater = value;
+        waterMarker.SetActive(value);   
+    }
+        
     public bool GetIsSacred()
     {
         return isSacred;

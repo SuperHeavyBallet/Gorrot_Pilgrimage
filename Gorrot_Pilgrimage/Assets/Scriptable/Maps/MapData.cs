@@ -49,7 +49,12 @@ public class MapData : ScriptableObject
     [SerializeField] float terrainDensity = 0.1f;
 
     [SerializeField] bool hasFlies;
-   
+
+    [SerializeField, Range(0f, 1f)]
+    float waterAmount; // 0 = dry, 1 = very wet
+
+    public float GetWaterAmount() => waterAmount;
+
     public MerchantStock GetMerchantStock()
     {
         if(hasMerchant)
