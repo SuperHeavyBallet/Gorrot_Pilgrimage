@@ -86,6 +86,11 @@ public class SquareController : MonoBehaviour
 
     public bool isWater;
     [SerializeField] GameObject waterMarker;
+    public bool isWaterAdjacent;
+    public void SetIsWaterAdjacent(bool value) { isWaterAdjacent = value; }
+    public bool GetIsWaterAdjacent() => isWaterAdjacent;
+
+    public bool GetIsWater() => isWater;
 
     public void AddBorderSquare(int[] sides)
     {
@@ -331,14 +336,25 @@ public class SquareController : MonoBehaviour
             int randomInt = UnityEngine.Random.Range(0, itemCatalogueArray.Length);
             string randomID = "";
 
-            for(int i = 0; i < itemCatalogueArray.Length; i++)
+            if (isWaterAdjacent)
             {
-                if(i == randomInt)
+                randomID = itemCatalogue.GetFlowerItem().itemID;
+                itemSprite = itemCatalogue.GetFlowerItem().itemImage;
+            }
+
+            else
+            {
+                for (int i = 0; i < itemCatalogueArray.Length; i++)
                 {
-                    randomID = itemCatalogueArray[i].itemID;
-                    itemSprite = itemCatalogueArray[i].itemImage;
+                    if (i == randomInt)
+                    {
+                        randomID = itemCatalogueArray[i].itemID;
+                        itemSprite = itemCatalogueArray[i].itemImage;
+                    }
                 }
             }
+
+                
             squareContentsID = randomID;
 
         }
@@ -348,7 +364,50 @@ public class SquareController : MonoBehaviour
             squareItemSpriteRenderer.sprite = itemSprite;
         }
 
+        
+
         ActivateGameObject(itemSquareSprite);
+    }
+
+    public void MakeFlowerSquare()
+    {
+        isGoalSquare = false;
+        isEnemySquare = false;
+        isTreasureSquare = false;
+        isEmptySquare = false;
+        isHealthSquare = false;
+        isItemSquare = true;
+
+        squareType = "item";
+        ChooseSquareSprite();
+
+        ItemCatalogue itemCatalogue = ItemCatalogue.Instance;
+
+
+        if (itemCatalogue != null)
+        {
+  
+
+
+            string flowerID = itemCatalogue.GetFlowerItem().itemID; ;
+            Sprite flowerSprite = itemCatalogue.GetFlowerItem().itemImage;
+
+
+
+
+            squareItemSpriteRenderer.sprite = flowerSprite;
+
+            squareContentsID = flowerID;
+
+        }
+
+       
+
+
+
+        ActivateGameObject(itemSquareSprite);
+
+
     }
 
     public bool CheckIsEnemy()

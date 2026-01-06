@@ -269,6 +269,7 @@ public class PlayerMovementController : MonoBehaviour
         if(newSquareController.GetIsMerchantSquare())
         {
             turnOrganiser.LandedOnMerchantSquare();
+            fateCounter.resetFateCounter();
             return;
         }
 
@@ -297,6 +298,11 @@ public class PlayerMovementController : MonoBehaviour
             fateCounter.resetFateCounter();
             //newSquareController.MakeEmptySquare();
             return;
+        }
+
+        if(newSquareController.GetIsWater())
+        {
+            playerStatsController.alterSuffering(1);
         }
 
 
@@ -372,8 +378,9 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             playerStatsController.alterHealth(amount);
-            int sufferingAmount = Mathf.Clamp(amount, 0, amount - 2);
+            int sufferingAmount = 1;
 
+            
             playerStatsController.alterSuffering(sufferingAmount * -1);
             newSquareController.MakeEmptySquare();
         }

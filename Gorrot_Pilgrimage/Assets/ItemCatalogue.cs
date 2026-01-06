@@ -10,6 +10,9 @@ public class ItemCatalogue : MonoBehaviour
     public List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
     private Dictionary<string, InventoryItemTemplate> itemLookup = new Dictionary<string, InventoryItemTemplate>();
 
+    [SerializeField] InventoryItemTemplate flowerItem;
+    public InventoryItemTemplate GetFlowerItem() => flowerItem;
+
     private void Awake()
     {
 

@@ -72,6 +72,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
     [SerializeField] GameObject fly;
 
+    List<SquareController> waterAdjacentSquares = new List<SquareController>();
+
 
     void Awake()
     {
@@ -119,6 +121,15 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
     void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
+
+    void CheckWaterAdjacentSquares()
+    {
+        for(int i = 0; i < freeSquares.Count; i++)
+        {
+           
+        }
+       
+    }
 
     void PlaceFly(int size)
     {
@@ -307,6 +318,7 @@ public class BattlefieldBuilder : MonoBehaviour
         SetPlayerStartSquare(mapSize);
         SetSacredPath(mapSize);
         SetWater(mapSize, thisMap.GetWaterAmount());
+        MarkWaterAdjacentSquares(mapSize);
         CheckMerchantNeeded();
         SetContentAmounts(mapSize);
         AssignContentSquares();
@@ -317,6 +329,7 @@ public class BattlefieldBuilder : MonoBehaviour
         
         
     }
+
 
     void CheckFlies(int mapSize)
     {
@@ -507,6 +520,15 @@ public class BattlefieldBuilder : MonoBehaviour
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
         PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare());
+
+        if(thisMap.GetWaterAmount() > 0)
+        {
+
+            Debug.Log("HAS WATER: " +  thisMap.GetWaterAmount());
+            int waterLevel = Mathf.RoundToInt(thisMap.GetWaterAmount());
+            PlaceWaterFlowerSquares(waterLevel * thisMap.GetMapSize(), sq => sq.MakeFlowerSquare());
+        }
+        
     }
 
     void PlaceTypeSquares(int count, System.Action<SquareController> applyType)
@@ -542,6 +564,34 @@ public class BattlefieldBuilder : MonoBehaviour
         if (placed < count)
             Debug.LogWarning($"Could not place full quota ({count}) for type; only placed {placed}.");
 
+    }
+
+    void PlaceWaterFlowerSquares(int count, System.Action<SquareController> applyType)
+    {
+        int placed = 0;
+        int guard = 0;
+
+        while(placed < count && freeSquares.Count > 0 && guard < 100000)
+        {
+            guard++;
+
+            int index = UnityEngine.Random.Range(0, freeSquares.Count);
+            Vector2Int coord = freeSquares[index];
+
+            SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
+            if (sq == null) { freeSquares.RemoveAt(index); continue; }
+
+            if (!sq.GetIsWaterAdjacent())
+            {
+                // Don't remove it; just try another.
+                continue;
+            }
+
+            // Now we commit to using it
+            freeSquares.RemoveAt(index);
+            applyType(sq);
+            placed++;
+        }
     }
 
     void PlacePlayer(int size)
@@ -924,6 +974,54 @@ public class BattlefieldBuilder : MonoBehaviour
         return best;
     }
 
+    static readonly Vector2Int[] Neigh4 =
+    {
+        new Vector2Int(1, 0),
+        new Vector2Int(-1, 0),
+        new Vector2Int(0, 1),
+        new Vector2Int(0, -1),
+    };
+
+    bool IsWaterAdjacent(Vector2Int c, int size)
+    {
+        for (int i = 0; i < Neigh4.Length; i++)
+        {
+            Vector2Int n = c + Neigh4[i];
+            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
+
+            var sc = allSquares[n.x, n.y].GetComponent<SquareController>();
+            if (sc != null && sc.GetIsWater())  // assumes you have GetIsWater()
+                return true;
+        }
+        return false;
+    }
+
+    void MarkWaterAdjacentSquares(int size)
+    {
+        waterAdjacentSquares.Clear();
+
+        // Iterate backwards if you might remove from freeSquares. We won't remove here, but it's a good habit.
+        for (int i = 0; i < freeSquares.Count; i++)
+        {
+            Vector2Int c = freeSquares[i];
+
+            var sc = allSquares[c.x, c.y].GetComponent<SquareController>();
+            if (sc == null) continue;
+
+            // Optional: skip sacred squares, or allow them depending on design
+            if (sc.GetIsSacred()) continue;
+
+            if (IsWaterAdjacent(c, size))
+            {
+                sc.SetIsWaterAdjacent(true);   // you'll add this method/flag
+                waterAdjacentSquares.Add(sc);
+            }
+            else
+            {
+                sc.SetIsWaterAdjacent(false);
+            }
+        }
+    }
 
 
     public void StartFadeToBlack() { uiController.StartFadeToBlack(); }

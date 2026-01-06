@@ -28,3 +28,4 @@ MonoBehaviour:
   merchantStock: {fileID: 0}
   terrainDensity: 0.1
   hasFlies: 1
+  waterAmount: 0.7

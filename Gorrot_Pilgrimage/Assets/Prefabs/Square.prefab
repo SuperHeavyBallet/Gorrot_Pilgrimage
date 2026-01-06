@@ -242,6 +242,7 @@ MonoBehaviour:
   sacredMarker: {fileID: 5681365793743862789}
   isWater: 0
   waterMarker: {fileID: 8353820096994637104}
+  isWaterAdjacent: 0
 --- !u!1 &2079368541572557217
 GameObject:
   m_ObjectHideFlags: 0

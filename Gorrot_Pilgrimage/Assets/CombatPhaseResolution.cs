@@ -116,6 +116,7 @@ public class CombatPhaseResolution : MonoBehaviour
         {
             // Win Results
             playerStatsController.resetSuffering();
+            playerStatsController.AlterMoney(10);
             audioManager.playCombatWinSoundEffect();
             turnOrganiser.GetLandedSquare().MakeEmptySquare();
         }
