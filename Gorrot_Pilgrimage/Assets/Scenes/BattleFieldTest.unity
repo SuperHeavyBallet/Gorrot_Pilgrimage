@@ -7356,6 +7356,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a40bb9fd586dc364fa01619429a26be4, type: 2}
   - {fileID: 11400000, guid: c2896de042331484d9505b0798a63598, type: 2}
   - {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
+  flowerItem: {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
 --- !u!4 &964849348
 Transform:
   m_ObjectHideFlags: 0

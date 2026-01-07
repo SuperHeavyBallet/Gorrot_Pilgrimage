@@ -15,15 +15,17 @@ MonoBehaviour:
   mapID: gorrot_church
   mapLocation: 6
   mapName: Gorrot Church
-  mapSize: 10
+  mapSize: 50
   nextMaps:
   - {fileID: 11400000, guid: 4e9c10bbf1067ad49ac1295f4096904e, type: 2}
   floorSprite: {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
-  isWildMap: 0
-  wildLevel: 0
-  escapeChance: 1
+  isWildMap: 1
+  wildLevel: 5
+  escapeChance: 0.1
   isFirstMap: 0
   isFinalMap: 0
   hasMerchant: 0
   merchantStock: {fileID: 0}
-  terrainDensity: 0.1
+  terrainDensity: 0
+  hasFlies: 1
+  waterAmount: 0
