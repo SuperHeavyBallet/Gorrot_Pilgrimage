@@ -55,6 +55,10 @@ public class MapData : ScriptableObject
 
     public float GetWaterAmount() => waterAmount;
 
+    [SerializeField] Sprite[] smallEnemySprites;
+    [SerializeField] Sprite[] mediumEnemySprites;
+    [SerializeField] Sprite[] largeEnemySprites;
+
     public MerchantStock GetMerchantStock()
     {
         if(hasMerchant)
@@ -65,6 +69,19 @@ public class MapData : ScriptableObject
         {
             return null;
         }
+    }
+
+    public Sprite GetSmallEnemySprite()
+    { return smallEnemySprites[0]; }
+
+    public Sprite GetMediumEnemySprite()
+    {
+        return mediumEnemySprites[0];
+    }
+
+    public Sprite GetLargeEnemySprite()
+    {
+        return largeEnemySprites[0];
     }
 
     public string GetMapLocation()

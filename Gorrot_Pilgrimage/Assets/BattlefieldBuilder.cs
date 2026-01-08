@@ -516,7 +516,7 @@ public class BattlefieldBuilder : MonoBehaviour
     void AssignContentSquares()
     {
         PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare());
-        PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare());
+        PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare(thisMap));
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
         PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare());

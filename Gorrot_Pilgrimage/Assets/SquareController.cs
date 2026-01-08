@@ -22,6 +22,7 @@ public class SquareController : MonoBehaviour
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
     public GameObject enemySquareSprite;
+    [SerializeField]SpriteRenderer enemySquareSpriteRenderer;
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
@@ -487,7 +488,7 @@ public class SquareController : MonoBehaviour
         return isMerchantSquare;
     }
 
-    public void MakeEnemySquare()
+    public void MakeEnemySquare(MapData thisMap)
     {
         isGoalSquare= false;
         isEnemySquare = true;
@@ -505,12 +506,15 @@ public class SquareController : MonoBehaviour
         {
             case squareQuantity.small:
                 squareValueText.text = "3+";
+                enemySquareSpriteRenderer.sprite = thisMap.GetSmallEnemySprite();
                 break;
             case squareQuantity.medium:
                 squareValueText.text = "4+";
+                enemySquareSpriteRenderer.sprite = thisMap.GetMediumEnemySprite();
                 break;
             case squareQuantity.large:
                 squareValueText.text = "5+";
+                enemySquareSpriteRenderer.sprite = thisMap.GetLargeEnemySprite();
                 break;
             default:
                 break;
