@@ -8,6 +8,9 @@ public class PlayerMovementController : MonoBehaviour
     //int[,] battleFieldCoordinates;
     public GameObject square;
     int battleFieldSize = 0;
+    int gridWidth;
+    int gridHeight;
+
 
     GameObject[,] allSquares;
 
@@ -104,8 +107,8 @@ public class PlayerMovementController : MonoBehaviour
 
     bool IsInsideGrid(int x, int y)
     {
-        return x >= 0 && x < battleFieldSize &&
-               y >= 0 && y < battleFieldSize;
+        return x >= 0 && x < gridWidth &&
+         y >= 0 && y < gridHeight;
     }
 
 
@@ -402,11 +405,13 @@ public class PlayerMovementController : MonoBehaviour
         audioManager.playCannotMoveSoundEffect();
     }
 
-    public void ReceiveBattlefieldSize(int size, GameObject[,] receivedAllSquares)
+    public void ReceiveBattlefieldSize(GameObject[,] receivedAllSquares)
     {
-        battleFieldSize = size;
+        
 
         allSquares = receivedAllSquares;
+        gridWidth = allSquares.GetLength(0);
+        gridHeight = allSquares.GetLength(1);
     }
 
     public void SetPlayerStartSquare(int recX, int recY)

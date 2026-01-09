@@ -50,6 +50,10 @@ public class MapData : ScriptableObject
 
     [SerializeField] bool hasFlies;
 
+    [SerializeField] bool isFinalCorridoor;
+    int finalCorrWidth = 2;
+    int finalCorrLength = 50;
+
     [SerializeField, Range(0f, 1f)]
     float waterAmount; // 0 = dry, 1 = very wet
 
@@ -69,6 +73,17 @@ public class MapData : ScriptableObject
         {
             return null;
         }
+    }
+
+    public Vector2Int GetFinalCorrDimensions()
+    {
+        return new Vector2Int(finalCorrWidth, finalCorrLength);
+
+    }
+
+    public bool GetIsFinalCorridoor()
+    {
+        return isFinalCorridoor;
     }
 
     public Sprite GetSmallEnemySprite()

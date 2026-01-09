@@ -30,8 +30,8 @@ MonoBehaviour:
   hasFlies: 1
   waterAmount: 0.7
   smallEnemySprites:
-  - {fileID: 21300000, guid: 827f391b201b71742819453bac07f8ec, type: 3}
+  - {fileID: 21300000, guid: 08a30c48a711cdb46b1c310ea903d7f7, type: 3}
   mediumEnemySprites:
-  - {fileID: 21300000, guid: c8de493c23167994ab17a4e7592f9b74, type: 3}
+  - {fileID: 21300000, guid: 9dea42ab3c9250e4b8e5940875ab9ecf, type: 3}
   largeEnemySprites:
-  - {fileID: 21300000, guid: 8e0f84ddd74f2b641b63e106f46ba415, type: 3}
+  - {fileID: 21300000, guid: dd96a35b6fcea86459692da1588fa486, type: 3}

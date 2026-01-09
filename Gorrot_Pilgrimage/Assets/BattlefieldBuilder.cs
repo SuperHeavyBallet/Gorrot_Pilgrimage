@@ -56,6 +56,7 @@ public class BattlefieldBuilder : MonoBehaviour
     Vector2 goalSquareLocation;
     bool isLost;
 
+    bool isFinalCorridoor = false;
 
     private MapData plannedNextMap;
     //private MapData plannedNextNextMap;
@@ -121,6 +122,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
     void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
+
+    void CheckIfFinalCorridoor() { isFinalCorridoor = thisMap.GetIsFinalCorridoor(); }
 
     void CheckWaterAdjacentSquares()
     {
@@ -316,18 +319,42 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         BuildBattleFieldGrid(mapSize);
         SetPlayerStartSquare(mapSize);
-        SetSacredPath(mapSize);
-        SetWater(mapSize, thisMap.GetWaterAmount());
-        MarkWaterAdjacentSquares(mapSize);
-        CheckMerchantNeeded();
-        SetContentAmounts(mapSize);
-        AssignContentSquares();
-        CollectInitialEnemySquares();
-        PlacePlayer(mapSize);
+        SetSacredPath();
+
+        if (!thisMap.GetIsFinalCorridoor())
+        {
+            SetWater(thisMap.GetWaterAmount());
+            MarkWaterAdjacentSquares(mapSize);
+            CheckMerchantNeeded();
+            CheckGateKeeperNeeded();
+            SetContentAmounts(mapSize);
+            AssignContentSquares();
+            CollectInitialEnemySquares();
+        }
+        
+
+
+            PlacePlayer(mapSize);
 
         CheckFlies(mapSize);
         
         
+    }
+
+    void CheckGateKeeperNeeded()
+    {
+        PlayerStatsController playerStatController = player.GetComponent<PlayerStatsController>();
+
+        if(playerStatController != null)
+        {
+           int currentMoney = playerStatController.GetPlayerCurrentMoney();
+            int currentHealth = playerStatController.GetPlayerCurrentHealth();
+
+            if(currentMoney > 20 || currentHealth > 20)
+            {
+                Debug.Log("GateKeeper Should Appear...");
+            }
+        }
     }
 
 
@@ -361,6 +388,7 @@ public class BattlefieldBuilder : MonoBehaviour
         thisMap = chosen;
         UpdateMapDataUI();
         CheckIfFinalMap();
+        CheckIfFinalCorridoor();
         ClearEnemySquares();
 
         if(!isFinalMap)
@@ -378,6 +406,7 @@ public class BattlefieldBuilder : MonoBehaviour
         transitionScreen.SetActive(false);
 
     }
+
     void BuildNewMap()
     {
         IncrementMapCount();
@@ -409,58 +438,112 @@ public class BattlefieldBuilder : MonoBehaviour
 
         int area = currentMapSize * currentMapSize;
 
-        float terrainRatio = thisMap.GetTerrainDensity();
+        float terrainRatio = thisMap.GetTerrainDensity(); 
+        
+
 
         terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt( terrainRatio * area));
     }
 
-    void SetPlayerStartSquare(int currentMapSize) { playerStartingPosition = UnityEngine.Random.Range(0, currentMapSize); }
+    void SetPlayerStartSquare(int currentMapSize) {
+        playerStartingPosition = Random.Range(0, allSquares.GetLength(0));
+    }
 
     void BuildBattleFieldGrid(int size)
     {
-        allSquares = new GameObject[size, size];
-        freeSquares.Clear();
-
-        int randomGoalSquare = UnityEngine.Random.Range(0, size);
-
-        for (int x = 0; x < size; x++)
+        if(!isFinalCorridoor)
         {
-            for (int y = 0; y < size; y++)
+            allSquares = new GameObject[size, size];
+            freeSquares.Clear();
+
+            int randomGoalSquare = UnityEngine.Random.Range(0, size);
+
+            for (int x = 0; x < size; x++)
             {
-                GameObject newSquare = Instantiate(battleFieldSquare, transform);
-                if(newSquare != null)
+                for (int y = 0; y < size; y++)
                 {
+                    GameObject newSquare = Instantiate(battleFieldSquare, transform);
+                    if (newSquare != null)
+                    {
+                        newSquare.transform.position = new Vector3(x, y, 0);
+                        allSquares[x, y] = newSquare;
+
+                        SquareController newSquareController = newSquare.GetComponent<SquareController>();
+                        if (newSquareController != null)
+                        {
+                            newSquareController.SetSquareMapData(thisMap);
+                            newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation());
+                        }
+
+                        // Border Placement
+                        if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, size, newSquareController); }
+
+                        // Goal placement
+                        bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
+                        if (isGoalSpot)
+                        {
+                            MakeGoalSquare(newSquareController, newSquare);
+                            goalSquareLocation = newSquare.transform.position;
+                        }
+
+                        // Don't add the player start or goal tile to free list either
+                        bool isPlayerStart = (x == playerStartingPosition && y == 0);
+
+                        if (!isPlayerStart && !isGoalSpot) { freeSquares.Add(new Vector2Int(x, y)); }
+
+
+                    }
+                    else { Debug.LogError("Square prefab missing SquareController.", newSquare); return; }
+
+
+                }
+            }
+        }
+        else
+        {
+            Vector2Int corridoorSize = thisMap.GetFinalCorrDimensions();
+
+            int width = corridoorSize.x;
+            int height = corridoorSize.y;
+
+            allSquares = new GameObject[width, height];
+            freeSquares.Clear();
+
+            // pick a goal column within corridor width
+            int goalX = UnityEngine.Random.Range(0, width);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    GameObject newSquare = Instantiate(battleFieldSquare, transform);
                     newSquare.transform.position = new Vector3(x, y, 0);
                     allSquares[x, y] = newSquare;
 
-                    SquareController newSquareController = newSquare.GetComponent<SquareController>();
-                    if (newSquareController != null) { 
-                        newSquareController.SetSquareMapData(thisMap);
-                        newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation()); 
-                    }
+                    var sc = newSquare.GetComponent<SquareController>();
+                    sc.SetSquareMapData(thisMap);
+                    sc.SetupNewSquare(x, y, thisMap.GetMapLocation());
 
-                    // Border Placement
-                    if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, newSquareController); }
+                    // Border placement using corridor bounds
+                    if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+                        MakeBorderSquare(x, y, width, height, sc); // see note below
 
-                    // Goal placement
-                    bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
-                    if (isGoalSpot) {
-                        MakeGoalSquare(newSquareController, newSquare); 
+                    // Goal placement: top row of corridor
+                    bool isGoalSpot = (y == height - 1 && x == goalX);
+                    if (isGoalSpot)
+                    {
+                        MakeGoalSquare(sc, newSquare);
                         goalSquareLocation = newSquare.transform.position;
                     }
 
-                    // Don't add the player start or goal tile to free list either
                     bool isPlayerStart = (x == playerStartingPosition && y == 0);
-
-                    if (!isPlayerStart && !isGoalSpot) { freeSquares.Add(new Vector2Int(x, y)); }
-
-                   
+                    if (!isPlayerStart && !isGoalSpot)
+                        freeSquares.Add(new Vector2Int(x, y));
                 }
-                else { Debug.LogError("Square prefab missing SquareController.", newSquare); return; }
-
-               
             }
         }
+
+       
 
         
 
@@ -485,19 +568,19 @@ public class BattlefieldBuilder : MonoBehaviour
         }
     }
 
-    void MakeBorderSquare(int x, int y, int size, SquareController newSquareController)
+    void MakeBorderSquare(int x, int y, int width, int height, SquareController sc)
     {
-        newSquareController.MakeEdgeSquare();
+        sc.MakeEdgeSquare();
 
         int[] sidesEmpty =
         {
-            x == 0        ? 1 : 0,
-            y == size-1  ? 1 : 0,
-            x == size-1  ? 1 : 0,
-            y == 0       ? 1 : 0
-        };
+        x == 0          ? 1 : 0, // left
+        y == height - 1 ? 1 : 0, // top
+        x == width - 1  ? 1 : 0, // right
+        y == 0          ? 1 : 0, // bottom
+    };
 
-        newSquareController.AddBorderSquare(sidesEmpty);
+        sc.AddBorderSquare(sidesEmpty);
     }
 
     void CollectInitialEnemySquares()
@@ -605,7 +688,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
             if (playerMovementController != null)
             {
-                playerMovementController.ReceiveBattlefieldSize(size, allSquares);
+                playerMovementController.ReceiveBattlefieldSize(allSquares);
                 playerMovementController.SetPlayerStartSquare(testX, testY);
             }
             else { Debug.LogError("No Player Controller"); }
@@ -652,12 +735,16 @@ public class BattlefieldBuilder : MonoBehaviour
         return nextClosestSquarePosition;
     }
 
-    void SetWater(int size, float waterAmount)
+    void SetWater(float waterAmount)
     {
+        int width = allSquares.GetLength(0);
+        int height = allSquares.GetLength(1);
+        int area = width * height;
+
         waterAmount = Mathf.Clamp01(waterAmount);
         if (waterAmount <= 0f) return;
 
-        int area = size * size;
+        
 
         // Decide how much water total this map should have.
         // Tune these numbers to taste.
@@ -686,37 +773,32 @@ public class BattlefieldBuilder : MonoBehaviour
 
             int halfWidth = UnityEngine.Random.Range(baseHalfWidth, maxHalfWidth + 1);
 
-            GenerateRiver(size, dir, perRiverBudget, halfWidth, avoidSacred);
+            GenerateRiver(width, height, dir, perRiverBudget, halfWidth, avoidSacred);
         }
 
     }
 
-    void GenerateRiver(int size, int direction, int maxTiles, int halfWidth, bool avoidSacred)
+    void GenerateRiver(int width, int height, int direction, int maxTiles, int halfWidth, bool avoidSacred)
     {
-        // Choose start and end based on direction
         Vector2Int start, end;
 
         switch (direction)
         {
-            default:
             case 0: // left -> right
-                start = new Vector2Int(0, UnityEngine.Random.Range(0, size));
-                end = new Vector2Int(size - 1, UnityEngine.Random.Range(0, size));
+                start = new Vector2Int(0, Random.Range(0, height));
+                end = new Vector2Int(width - 1, Random.Range(0, height));
                 break;
-
             case 1: // bottom -> top
-                start = new Vector2Int(UnityEngine.Random.Range(0, size), 0);
-                end = new Vector2Int(UnityEngine.Random.Range(0, size), size - 1);
+                start = new Vector2Int(Random.Range(0, width), 0);
+                end = new Vector2Int(Random.Range(0, width), height - 1);
                 break;
-
             case 2: // right -> left
-                start = new Vector2Int(size - 1, UnityEngine.Random.Range(0, size));
-                end = new Vector2Int(0, UnityEngine.Random.Range(0, size));
+                start = new Vector2Int(width - 1, Random.Range(0, height));
+                end = new Vector2Int(0, Random.Range(0, height));
                 break;
-
-            case 3: // top -> bottom
-                start = new Vector2Int(UnityEngine.Random.Range(0, size), size - 1);
-                end = new Vector2Int(UnityEngine.Random.Range(0, size), 0);
+            default: // top -> bottom
+                start = new Vector2Int(Random.Range(0, width), height - 1);
+                end = new Vector2Int(Random.Range(0, width), 0);
                 break;
         }
 
@@ -726,17 +808,17 @@ public class BattlefieldBuilder : MonoBehaviour
         visited.Add(current);
 
         int placed = 0;
-        int maxSteps = size * size; // safety
+        int maxSteps = width * height; // safety
 
         for (int step = 0; step < maxSteps; step++)
         {
-            PaintWaterBlob(current, size, halfWidth, avoidSacred);
+            PaintWaterBlob(current, width, height, halfWidth, avoidSacred);
             placed++;
 
             if (current == end) break;
             if (placed >= maxTiles) break;
 
-            Vector2Int next = GetDrunkNeighborTowardsGoal(current, end, size, visited);
+            Vector2Int next = GetDrunkNeighborTowardsGoal(current, end, width, height, visited);
 
             if (next == current) break;
             if (visited.Contains(next)) break;
@@ -746,10 +828,10 @@ public class BattlefieldBuilder : MonoBehaviour
         }
 
         // Ensure the end gets painted too
-        PaintWaterBlob(end, size, halfWidth, avoidSacred);
+        PaintWaterBlob(current, width, height, halfWidth, avoidSacred);
     }
 
-    void PaintWaterBlob(Vector2Int center, int size, int halfWidth, bool avoidSacred)
+    void PaintWaterBlob(Vector2Int center, int width, int height, int halfWidth, bool avoidSacred)
     {
         // halfWidth 0 => just the center tile
         // halfWidth 1 => up to a 3x3 blob, etc.
@@ -760,7 +842,7 @@ public class BattlefieldBuilder : MonoBehaviour
                 int x = center.x + dx;
                 int y = center.y + dy;
 
-                if (x < 0 || x >= size || y < 0 || y >= size) continue;
+                if (x < 0 || x >= width || y < 0 || y >= height) continue;
 
                 // Optional: make edges of the blob less solid, more organic
                 // e.g. only paint corners sometimes
@@ -794,20 +876,22 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
-    void SetSacredPath(int size)
+    void SetSacredPath()
     {
+        int width = allSquares.GetLength(0);
+        int height = allSquares.GetLength(1);
 
         // Start from the player start tile
         Vector2Int current = new Vector2Int(playerStartingPosition, 0);
 
         // Find the goal tile coordinate (cheaper would be to store it when you place it)
-        Vector2Int goal = FindGoalCoord(size);
+        Vector2Int goal = FindGoalCoord();
 
         // Safety: prevent infinite loops
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
         visited.Add(current);
 
-        int maxSteps = size * size;
+        int maxSteps = width * height;
 
         for (int step = 0; step < maxSteps; step++)
         {
@@ -819,7 +903,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
             // Vector2Int next = GetBestNeighborTowardsGoal(current, goal, size);
 
-            Vector2Int next = GetDrunkNeighborTowardsGoal(current, goal, size, visited);
+            Vector2Int next = GetDrunkNeighborTowardsGoal(current, goal, width, height, visited);
 
 
             // If we can't progress, give up (or you could fall back to a real pathfinding algorithm)
@@ -841,7 +925,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
-    Vector2Int FindGoalCoord(int size)
+    Vector2Int FindGoalCoord()
     {
         // You already store goalSquareLocation as a Vector2 world position.
         // Convert it back to grid coords since your squares are placed at (x,y,0).
@@ -850,7 +934,9 @@ public class BattlefieldBuilder : MonoBehaviour
         return new Vector2Int(gx, gy);
     }
 
-    Vector2Int GetDrunkNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int size, HashSet<Vector2Int> visited)
+   
+
+    Vector2Int GetDrunkNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int width, int height, HashSet<Vector2Int> visited)
     {
         // 4-neighbors
         Vector2Int[] dirs =
@@ -859,7 +945,7 @@ public class BattlefieldBuilder : MonoBehaviour
         new Vector2Int(-1, 0),
         new Vector2Int(0, 1),
         new Vector2Int(0, -1),
-    };
+        };
 
         List<Vector2Int> candidates = new List<Vector2Int>();
         List<float> weights = new List<float>();
@@ -870,7 +956,7 @@ public class BattlefieldBuilder : MonoBehaviour
         {
             Vector2Int n = current + dirs[i];
 
-            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
+            if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height) continue;
 
             // If you want: avoid borders (since you mark them as edges)
             // var sc = allSquares[n.x, n.y].GetComponent<SquareController>();
