@@ -17,7 +17,7 @@ MonoBehaviour:
   mapName: Gorrot Church
   mapSize: 50
   nextMaps:
-  - {fileID: 11400000, guid: 4e9c10bbf1067ad49ac1295f4096904e, type: 2}
+  - {fileID: 11400000, guid: e9d7ace6d860c3d4588d5626c565e1a0, type: 2}
   floorSprite: {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
   isWildMap: 1
   wildLevel: 5
@@ -28,6 +28,7 @@ MonoBehaviour:
   merchantStock: {fileID: 0}
   terrainDensity: 0
   hasFlies: 1
+  isFinalCorridoor: 0
   waterAmount: 0
   smallEnemySprites:
   - {fileID: 21300000, guid: cd508edda067f4e42b79431a9facc3ba, type: 3}

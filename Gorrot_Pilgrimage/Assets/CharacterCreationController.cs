@@ -77,7 +77,7 @@ public class CharacterCreationController : MonoBehaviour
     {
         characterName = RollRandomName();
         characterStartLocation = RollRandomStartLocation();
-        characterStartHealth = RandomRoll(0, 20);
+        characterStartHealth = RandomRoll(1, 20);
         characterStartMoney = RandomRoll(0, 20);
         characterStartSuffering = RandomRoll(0, 10);
 

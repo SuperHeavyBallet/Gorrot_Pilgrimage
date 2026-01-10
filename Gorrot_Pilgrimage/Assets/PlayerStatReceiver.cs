@@ -14,11 +14,13 @@ public class PlayerStatReceiver : MonoBehaviour
     int startingMoney;
     int startingSuffering;
 
-    [SerializeField] string default_PlayerName;
-    [SerializeField] StartLocations default_PlayerHome;
-    [SerializeField] int default_StartingHealth;
-    [SerializeField] int default_StartingMoney;
-    [SerializeField] int default_StartingSuffering;
+    string default_PlayerName = "Brrrbb";
+    StartLocations default_PlayerHome = StartLocations.Semsun;
+    int default_StartingHealth = 15;
+    int default_StartingMoney = 3;
+    int default_StartingSuffering = 1;
+
+    [SerializeField] PlayerStatsController playerStatsController;
 
 
 
@@ -30,7 +32,7 @@ public class PlayerStatReceiver : MonoBehaviour
 
     private void OnEnable()
     {
-        GetCharacterStats();
+        SetCharacterStats();
         UpdateUI();
     }
 
@@ -40,25 +42,29 @@ public class PlayerStatReceiver : MonoBehaviour
         
     }
 
-    void GetCharacterStats()
+    void SetCharacterStats()
     {
         CharacterStatSheet sheet = CharacterStatSheet.Instance;
 
         if(sheet != null )
         {
+            Debug.Log("CUSTOM STATS");
             playerName = sheet.GetCharacterName();
             playerHome = sheet.GetCharacterStartLocation();
             startingHealth = sheet.GetStartingHealth();
             startingMoney = sheet.GetStartingMoney();
             startingSuffering = sheet.GetStartingSuffering();
+            Debug.Log("Name: " + playerName + ", HOME: " + playerHome.ToString() + ", HEALTH: " + startingHealth + ", MONEY: " + startingMoney + ", SUFFERING: " + startingSuffering);
         }
         else
         {
+            Debug.Log("DEFAULT STATS");
             playerName = default_PlayerName;
             playerHome = default_PlayerHome;
             startingHealth = default_StartingHealth;
             startingMoney = default_StartingMoney;
             startingSuffering = default_StartingSuffering;
+            Debug.Log("Name: " + playerName + ", HOME: " + playerHome.ToString() + ", HEALTH: " + startingHealth + ", MONEY: " + startingMoney + ", SUFFERING: " + startingSuffering);
         }
         
 

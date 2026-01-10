@@ -54,7 +54,7 @@ public class PlayerStatsController : MonoBehaviour
     void Start()
     {
         playerIsAlive = true;
-        UpdateNumbersDisplay();
+        
 
         healthPlus.SetActive(false);
         healthNeg.SetActive(false);
@@ -64,12 +64,11 @@ public class PlayerStatsController : MonoBehaviour
         sufferingNeg.SetActive(false);
         moneyPlus.SetActive(false);
         moneyNeg.SetActive(false);
+
+        SetStartingStats();
+        UpdateNumbersDisplay();
     }
 
-    private void OnEnable()
-    {
-        SetStartingStats();
-    }
 
     public void SetStartingStats()
     {
