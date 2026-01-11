@@ -36,47 +36,44 @@ public class FateOutcomes : MonoBehaviour
 
     public void PickFate()
     {
-        playerCurrentHealth = playerStatsController.GetPlayerCurrentHealth();
-        playerCurrentSuffering = playerStatsController.GetPlayerCurrentSuffering();
+        int currentHealth = playerStatsController.GetPlayerCurrentHealth();
+        int currentSuffering = playerStatsController.GetPlayerCurrentSuffering();
 
-        randomNumber = Random.Range(0, allFateOutcomes.Length);
-        PickFateOutcomeAtIndex(randomNumber);
-
-        // Reroll  to reduce damage when hurt
-        if (playerCurrentHealth < (playerMaxHealth / 2))
+        const int maxAttempts = 25; // safety cap
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            if (chosenFateStatEffected == "health" && chosenFateEffectDelta < 0)
-            {
-                randomNumber = Random.Range(0, allFateOutcomes.Length);
-                PickFateOutcomeAtIndex(randomNumber);
+            int index = Random.Range(0, allFateOutcomes.Length);
+            PickFateOutcomeAtIndex(index);
 
-            }
+            if (!CheckIfShouldReroll(currentHealth, currentSuffering))
+                return;
         }
 
-        // Reroll to reduce Excess Health
-        if (playerCurrentHealth > playerMaxHealth)
-        {
-            if (chosenFateStatEffected == "health" && chosenFateEffectDelta > 0)
-            {
-                randomNumber = Random.Range(0, allFateOutcomes.Length);
-                PickFateOutcomeAtIndex(randomNumber);
+        // If we got here, we kept rerolling into "bad" outcomes.
+        // Pick last roll as-is, or fall back to a neutral outcome.
+        Debug.LogWarning("PickFate hit max reroll attempts; keeping last outcome.");
 
-            }
+    }
+
+    bool CheckIfShouldReroll(int currentHealth, int currentSuffering)
+    {
+
+        // Prefer enums over strings long-term, but keeping your current approach.
+        if (chosenFateStatEffected == "health")
+        {
+            bool lowHealth = currentHealth * 2 < playerMaxHealth;
+            bool atMaxHealth = currentHealth == playerMaxHealth;
+
+            if (lowHealth && chosenFateEffectDelta < 0) return true;   // avoid more damage
+            if (atMaxHealth && chosenFateEffectDelta > 0) return true; // avoid wasted healing
+        }
+        else if (chosenFateStatEffected == "suffering")
+        {
+            bool highSuffering = currentSuffering > (playerMaxSuffering / 2);
+            if (highSuffering && chosenFateEffectDelta > 0) return true; // avoid more suffering
         }
 
-        if (playerCurrentSuffering > (playerMaxSuffering / 2))
-        {
-            if (chosenFateStatEffected == "suffering" && chosenFateEffectDelta > 0)
-            {
-                randomNumber = Random.Range(0, allFateOutcomes.Length);
-                PickFateOutcomeAtIndex(randomNumber);
-            }
-        }
-
-
-        
-
-     
+        return false;
     }
 
     public void ApplyFate()
