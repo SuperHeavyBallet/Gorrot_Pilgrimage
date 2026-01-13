@@ -66,6 +66,7 @@ public class FateOutcomes : MonoBehaviour
 
             if (lowHealth && chosenFateEffectDelta < 0) return true;   // avoid more damage
             if (atMaxHealth && chosenFateEffectDelta > 0) return true; // avoid wasted healing
+            if (currentHealth - chosenFateEffectDelta <= 1) return true; // Extra guard against KO fate
         }
         else if (chosenFateStatEffected == "suffering")
         {
