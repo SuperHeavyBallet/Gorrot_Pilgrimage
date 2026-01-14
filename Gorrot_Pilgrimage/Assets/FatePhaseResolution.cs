@@ -48,7 +48,7 @@ public class FatePhaseResolution : MonoBehaviour
     void UpdateFateOutcomeText()
     {
         fateOutcomeText.text = fateOutcome.fateName.ToString();
-        fateOutcomeStatText.text = fateOutcome.GetStatEffected();
+        fateOutcomeStatText.text = fateOutcome.GetStatEffectedString();
 
         int fateDelta = fateOutcome.GetEffectDelta();
         string deltaSign = "+";

@@ -22,10 +22,16 @@ public class FateOutcome : ScriptableObject
 
     public Vector2Int effectDirection;
 
-    public string GetStatEffected()
+    public string GetStatEffectedString()
     {
         return statToEffect.ToString();
     }
+
+    public statEffected GetStatEffected()
+    {
+        return statToEffect;
+    }
+
 
     public int GetEffectDelta()
     {

@@ -26,6 +26,15 @@ public class FateOutcomes : MonoBehaviour
     int chosenFateEffectDelta;
     int randomNumber;
 
+    public enum fateEffectTypes
+    {
+        none,
+        health,
+        suffering,
+        money,
+        attack
+    }
+
     private void Start()
     {
 
@@ -111,7 +120,8 @@ public class FateOutcomes : MonoBehaviour
     void PickFateOutcomeAtIndex(int index)
     {
         chosenFateOutcome = allFateOutcomes[index];
-        chosenFateStatEffected = chosenFateOutcome.GetStatEffected();
+
+        chosenFateStatEffected = chosenFateOutcome.GetStatEffectedString();
         chosenFateEffectDelta = chosenFateOutcome.GetEffectDelta();
 
     }
