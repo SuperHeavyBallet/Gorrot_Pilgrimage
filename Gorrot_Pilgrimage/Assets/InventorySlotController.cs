@@ -18,7 +18,9 @@ public class InventorySlotController : MonoBehaviour
 
     public string itemID = "Empty";
 
-
+    public Sprite itemSprite;
+    public Sprite itemSprite_Empty;
+    public Image itemSpriteRenderer;
 
 
 
@@ -26,8 +28,8 @@ public class InventorySlotController : MonoBehaviour
     void Start()
     {
         playerStatsController = GameObject.Find("Player").GetComponent<PlayerStatsController>();
-        UpdateItemID("Empty");
-
+        //UpdateItemID("Empty");
+        UpdateItemSprite(itemSprite_Empty);
   
 
     }
@@ -56,18 +58,24 @@ public class InventorySlotController : MonoBehaviour
         itemText.text = itemName;
     }
 
+    public void UpdateItemSprite(Sprite newItemSprite)
+    {
+        itemSpriteRenderer.sprite = newItemSprite;
+    }
+
     public void UpdateItemID(string newItemID)
     {
         itemID = newItemID;
     }
 
-    public void PlaceItemInSlot(string itemID)
+    public void PlaceItemInSlot(string itemID, Sprite itemSprite)
     {
         slotIsEmpty = false;
         itemQuantity += 1;
         itemQuantityText.text = itemQuantity.ToString();
         UpdateItemID(itemID);
-        UpdateItemText(itemID);
+        UpdateItemSprite(itemSprite);
+       // UpdateItemText(itemID);
     }
 
     public string GetCurrentItemID()
@@ -92,8 +100,9 @@ public class InventorySlotController : MonoBehaviour
         slotIsEmpty = true;
 
 
-        UpdateItemText("...");
+       // UpdateItemText("...");
         UpdateItemID("Empty");
+        UpdateItemSprite(itemSprite_Empty);
     }
 
     public bool CheckSlotEmpty()

@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (item.itemID == itemID)
             {
-                inventorySlotController.PlaceItemInSlot(itemID);
+                inventorySlotController.PlaceItemInSlot(itemID, item.itemImage);
                 return;
             }
 
