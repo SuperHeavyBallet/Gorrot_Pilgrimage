@@ -97,12 +97,16 @@ public class InventorySlotController : MonoBehaviour
 
     public void RemoveItemFromSlot()
     {
-        slotIsEmpty = true;
+        if(itemQuantity == 0)
+        {
+            slotIsEmpty = true;
 
 
-       // UpdateItemText("...");
-        UpdateItemID("Empty");
-        UpdateItemSprite(itemSprite_Empty);
+            // UpdateItemText("...");
+            UpdateItemID("Empty");
+            UpdateItemSprite(itemSprite_Empty);
+        }
+       
     }
 
     public bool CheckSlotEmpty()

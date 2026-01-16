@@ -14,13 +14,23 @@ public class PlayerInventory : MonoBehaviour
 
     public ItemCatalogue itemCatalogue;
 
+    public void BubbleSortEmptySlotsToEnd()
+    {
+
+        foreach(InventoryItemTemplate item in allItemsList)
+        {
+            Debug.Log(item.itemID + " , " + item.amountHeld);
+        }
+
+    }
+
 
     private void Start()
     {
         BuildItemsList();
     }
 
-    void TestItemAdd(string itemID, int slotIndex)
+    void AddNewItem(string itemID, int slotIndex)
     {
        InventorySlotController inventorySlotController = inventorySlots[slotIndex].GetComponent<InventorySlotController>();
 
@@ -34,6 +44,8 @@ public class PlayerInventory : MonoBehaviour
             }
 
         }
+
+     
         
     }
 
@@ -50,11 +62,17 @@ public class PlayerInventory : MonoBehaviour
 
     public bool TryToAddItem(string itemID)
     {
+
+
+        // Here Point of Entry
+        // Find a Free Slot, the items slots *should* be sorted before this (after previous update loop), but maybe pre-sort them to make sure too
+
         int freeSlotIndex = FindFreeSlot(itemID);
 
-        Debug.Log("Try To Add Item: " + itemID);
-
         // First, check if the Inventory already has this item:
+
+
+        /*
 
        for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -70,18 +88,17 @@ public class PlayerInventory : MonoBehaviour
             }
 
 
-        }
+        }*/
 
         // -2 Is the 'Add Duplicate' State - maybe find more elegant fix
 
         if (freeSlotIndex != -1 && freeSlotIndex != -2 && hasFreeSlot)
         {
-            TestItemAdd(itemID, freeSlotIndex);
+            AddNewItem(itemID, freeSlotIndex);
             return true;
         }
         else if(freeSlotIndex == -2)
         {
-            AddDuplicateItems(itemID, freeSlotIndex);
             return true;
         }
         else
@@ -94,7 +111,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
 
-    int FindFreeSlot(string itemName)
+    int FindFreeSlot(string newItemID)
     {
 
         hasFreeSlot = false;
@@ -105,9 +122,12 @@ public class PlayerInventory : MonoBehaviour
         {
             InventorySlotController inventorySlotController = inventorySlots[i].GetComponent<InventorySlotController>();
 
-            string currentItemName = inventorySlotController.GetCurrentItemID();
+            string heldItemID = inventorySlotController.GetCurrentItemID();
 
-            if(currentItemName != itemName)
+            Debug.Log("ITEM ID: " + newItemID + ", IN SLOT OF " + heldItemID);
+
+            // IF the existing itemID (Including Empty) does not match the new itemID, e.g. 'potion' vs 'empty' > Check if that slot IS Empty, if so, break the loop and return that slot index
+            if(heldItemID != newItemID)
             {
                 if (inventorySlotController.CheckSlotEmpty())
                 {
@@ -116,6 +136,7 @@ public class PlayerInventory : MonoBehaviour
                     break;
                 }
             }
+            // Else, if the existing itemID DOES match the new itemID > it is already held > Add a duplicate (increment quantity) and return -2 instead of an actual slot index
             else
             {
                 inventorySlotController.PlaceDuplcateItemInSlot();
