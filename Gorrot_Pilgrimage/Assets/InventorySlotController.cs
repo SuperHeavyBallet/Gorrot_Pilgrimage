@@ -113,4 +113,12 @@ public class InventorySlotController : MonoBehaviour
     {
         return slotIsEmpty;
     }
+
+    public int GetItemQuantity()
+    {
+        return (int)itemQuantity;
+    }
+
+
+  
 }
