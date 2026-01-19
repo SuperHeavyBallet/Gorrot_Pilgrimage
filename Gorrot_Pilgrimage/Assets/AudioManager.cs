@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip addMoneySoundEffect;
 
     [SerializeField] AudioClip playerMoveSoundEffect;
+    [SerializeField] AudioClip[] playerMoveWaterSoundEffects;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -102,7 +103,16 @@ public class AudioManager : MonoBehaviour
         soundEffectPlayer.PlayOneShot(addSufferingSoundEffect);
     }
 
-    public void playPlayerMoveSoundEffect() => soundEffectPlayer.PlayOneShot(playerMoveSoundEffect); 
+    public void playPlayerMoveSoundEffect() => soundEffectPlayer.PlayOneShot(playerMoveSoundEffect);
+
+    public void playPlayerMoveWaterSoundEffect()
+    {
+        if (playerMoveWaterSoundEffects.Length == 0)
+            return;
+
+        int index = UnityEngine.Random.Range(0, playerMoveWaterSoundEffects.Length);
+        soundEffectPlayer.PlayOneShot(playerMoveWaterSoundEffects[index]);
+    }
 
     public void playAddMoneySoundEffect() => soundEffectPlayer.PlayOneShot(addMoneySoundEffect);
 

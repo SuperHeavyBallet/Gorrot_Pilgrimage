@@ -29,7 +29,6 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         BuildItemsList();
-        ReSortInventory();
     }
 
     void AddNewItem(string itemID, int slotIndex)
@@ -67,7 +66,6 @@ public class PlayerInventory : MonoBehaviour
         else if(slotResult.SlotIndex >= 0)
         {
             AddNewItem(itemID, slotResult.SlotIndex);
-            ReSortInventory();
             return true;
         }
     
@@ -109,17 +107,6 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-    void ReSortInventory()
-    {
-        Debug.Log("Test Length: " + inventorySlots.Length);
-
-        foreach(GameObject inventorySlot in inventorySlots)
-        {
-
-            InventorySlotController slotController = inventorySlot.GetComponent<InventorySlotController>();
-            Debug.Log(slotController.GetCurrentItemID() + "x " + slotController.GetItemQuantity());
-        }
-    }
 
     void BuildItemsList()
     {

@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,8 @@ public class InventorySlotController : MonoBehaviour
     public Sprite itemSprite_Empty;
     public Image itemSpriteRenderer;
 
+    Coroutine scaleUpAndDown;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,11 +39,21 @@ public class InventorySlotController : MonoBehaviour
 
     public void UseItemClick()
     {
-        if(itemQuantity >= 1)
-        {
-            playerStatsController.UseItem(itemID);
 
+        if (itemQuantity < 1)
+            return;
+
+       playerStatsController.UseItem(itemID);
+
+
+
+        if (scaleUpAndDown != null)
+        {
+            StopCoroutine(scaleUpAndDown);
         }
+
+        scaleUpAndDown = StartCoroutine(ScaleUpThenDown());
+
 
         itemQuantity -= 1;
         UpdateItemQuantityText();
@@ -50,6 +63,14 @@ public class InventorySlotController : MonoBehaviour
             RemoveItemFromSlot();
         }
 
+    }
+
+    IEnumerator ScaleUpThenDown()
+    {
+        this.transform.localScale = Vector3.one * 1.05f;
+        yield return new WaitForSeconds(0.25f);
+        this.transform.localScale = Vector3.one;
+        scaleUpAndDown = null;
     }
 
     public void UpdateItemText(string newItemID)

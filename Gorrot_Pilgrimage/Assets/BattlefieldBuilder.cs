@@ -125,14 +125,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void CheckIfFinalCorridoor() { isFinalCorridoor = thisMap.GetIsFinalCorridoor(); }
 
-    void CheckWaterAdjacentSquares()
-    {
-        for(int i = 0; i < freeSquares.Count; i++)
-        {
-           
-        }
-       
-    }
 
     void PlaceFly(int size)
     {
@@ -249,65 +241,8 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         return mapCatalogue.GetFirstMap();
     }
-    
-    void SetPlayerStartStats()
-    {
-       
-    }
-    MapData DecideMapToBuild()
-    {
-        isLost = false;
-        canAdvanceDifficulty = false;
 
-        // Check if there is a previous map to base the upcoming map from, if not get absolute start map
-        if (previousMap == null) 
-        {
-            Debug.Log("Previous Map is Null");
-            return mapCatalogue.GetFirstMap();
-        }
 
-        
-
-        // Check if the previous Map was a Wild Map with lost chance, then decide if the player gets lost, if so, repeat that map
-        if (previousMap.GetIsWildMap())
-        {
-            Debug.Log("Previous Map is Wild Map");
-            float escapeChance = previousMap.GetEscapeChance();
-            bool escaped = UnityEngine.Random.value < escapeChance;
-
-            if(escaped == false)
-            {
-                isLost = true;
-                mapToBuild = previousMap;
-                plannedNextMap = mapToBuild.RollNextMap();               // ONE roll for preview purposes
-                canAdvanceDifficulty = false;
-            }
-        }
-        else
-        {
-            mapToBuild = previousMap.RollNextMap();
-            plannedNextMap = mapToBuild.RollNextMap();
-
-            // Check if previous Map is the absolute start Map, if so initialise player stats from that dataset
-            if (previousMap.GetIsFirstMap())
-            {
-                //DecideStartingLocation();
-               // playerStatsController.SetStartingStats();
-
-            }
-            else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
-            {
-                canAdvanceDifficulty = true;
-            }
-        }
-
-        previousMap = mapToBuild;
-        UpdateMapWildUI(isLost);
-       // DeclareThisMap(mapToBuild, plannedNextMap);
-        goalPhaseResolution.SetTransitionData(isLost, mapToBuild, plannedNextMap);
-
-        return mapToBuild;
-    }
 
     void UpdateMapDataUI() { uiController.UpdateMapDataText(thisMap.GetMapName(), thisMap.GetMapLocation()); }
 
@@ -404,7 +339,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         StartFadeFromBlack();
         transitionScreen.SetActive(false);
-
+        playerMovementController.SetReachedGoalSquare(false);
     }
 
     void BuildNewMap()
@@ -412,6 +347,7 @@ public class BattlefieldBuilder : MonoBehaviour
         IncrementMapCount();
         ClearOldBattlefield();
         SetContent(thisMap.GetMapSize());
+        
     }
 
 

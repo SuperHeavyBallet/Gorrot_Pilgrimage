@@ -33,7 +33,7 @@ public class FlyMovementController : MonoBehaviour
             newSquareController.GetSquareYPosition()
         );
 
-        newSquareController.ActivateSquareVisited();
+        //newSquareController.ActivateSquareVisited();
 
         SetStartCurrentPosition(recX, recY);
     }

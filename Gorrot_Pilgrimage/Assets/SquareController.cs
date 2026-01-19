@@ -548,6 +548,7 @@ public class SquareController : MonoBehaviour
         isGoalSquare = false;
         isEnemySquare = false;
         isTreasureSquare = false;
+        isItemSquare = false;
         isEmptySquare = true;
 
         squareValue.gameObject.SetActive(false);
@@ -567,7 +568,13 @@ public class SquareController : MonoBehaviour
     public void ActivateSquareVisited()
     {
         hasBeenVisited = true;
-        visitedSprite.gameObject.SetActive(true);
+
+        if (!isWater)
+        {
+            visitedSprite.gameObject.SetActive(true);
+        }
+        
+        
     }
 
     public void SetSquarePosition(int x, int y)

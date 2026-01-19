@@ -4623,7 +4623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   turnChangeSoundEffect_Player: {fileID: 8300000, guid: 558ac053b44612b498bf48bd3a6f4111, type: 3}
-  turnChangeSoundEffect_Enemy: {fileID: 8300000, guid: a011986cb7bc39a4385ed8d82f6f9c34, type: 3}
+  turnChangeSoundEffect_Enemy: {fileID: 8300000, guid: 6e276647e85b9ec46b13d6bf5901199f, type: 3}
   cannotMoveSoundEffect: {fileID: 8300000, guid: 5dfe55e8ef4b0884594d16e32be3f404, type: 3}
   soundEffectPlayer: {fileID: 2008823520}
   diceRollSoundEffectPlayer: {fileID: 1644316651}
@@ -4638,6 +4638,10 @@ MonoBehaviour:
   addSufferingSoundEffect: {fileID: 8300000, guid: 4ad627ae418dc5641a5cbac80543a602, type: 3}
   addMoneySoundEffect: {fileID: 8300000, guid: f3bc8acdc0b4d624191043e68f50482c, type: 3}
   playerMoveSoundEffect: {fileID: 8300000, guid: 558ac053b44612b498bf48bd3a6f4111, type: 3}
+  playerMoveWaterSoundEffects:
+  - {fileID: 8300000, guid: cea71da20e2e34f48bccad1a7b524d4b, type: 3}
+  - {fileID: 8300000, guid: e48e9897763e81841a88e9cd2df4629d, type: 3}
+  - {fileID: 8300000, guid: 1fad97a74842ede4782a85dc42688dd8, type: 3}
 --- !u!4 &709544913
 Transform:
   m_ObjectHideFlags: 0

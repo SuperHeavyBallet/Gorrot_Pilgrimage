@@ -36,6 +36,8 @@ public class PlayerMovementController : MonoBehaviour
 
     bool isMoving;
 
+    bool reachedGoalSquare;
+
     public GameObject playerSprite;
 
    [SerializeField] PlayerAnimationManager playerAnimationManager;
@@ -60,6 +62,11 @@ public class PlayerMovementController : MonoBehaviour
         playerInventory = this.GetComponent<PlayerInventory>();
     }
 
+    public void SetReachedGoalSquare(bool value)
+    {
+        reachedGoalSquare = value;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -76,32 +83,35 @@ public class PlayerMovementController : MonoBehaviour
     {
         
 
-
-        Vector2 normalizedMoveValue = receivedMoveValue;
-        if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1;}
-
-        if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
-
-        SetFacing(normalizedMoveValue.x, normalizedMoveValue.y);
-
-
-        if (isMoving) return;
-
-        if (turnOrganiser.GetIsInMerchant()) return;
-
-        if (turnOrganiser.GetLandedOnGoal()) return;
-
-
-
-        playerIsAlive = CheckPlayerAlive();
-
-    
-
-        if (isPlayerTurn && playerIsAlive)
+        if(!reachedGoalSquare)
         {
-            if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
-                MovePlayer(normalizedMoveValue);
+            Vector2 normalizedMoveValue = receivedMoveValue;
+            if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1; }
+
+            if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
+
+            SetFacing(normalizedMoveValue.x, normalizedMoveValue.y);
+
+
+            if (isMoving) return;
+
+            if (turnOrganiser.GetIsInMerchant()) return;
+
+            if (turnOrganiser.GetLandedOnGoal()) return;
+
+
+
+            playerIsAlive = CheckPlayerAlive();
+
+
+
+            if (isPlayerTurn && playerIsAlive)
+            {
+                if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
+                    MovePlayer(normalizedMoveValue);
+            }
         }
+       
 
     }
 
@@ -221,7 +231,15 @@ public class PlayerMovementController : MonoBehaviour
         isMoving = true;
         playerAnimationManager.SetIsWalking(true);
 
-        audioManager.playPlayerMoveSoundEffect();
+        if(newSquareController.isWater)
+        {
+            audioManager.playPlayerMoveWaterSoundEffect();
+        }
+        else
+        {
+            audioManager.playPlayerMoveSoundEffect();
+        }
+            
 
         Vector3 start = transform.position;
         Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
@@ -264,6 +282,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (newSquareController.isGoalSquare)
         {
+            SetReachedGoalSquare(true);
             turnOrganiser.LandedOnGoal();
             fateCounter.resetFateCounter();
             return;
