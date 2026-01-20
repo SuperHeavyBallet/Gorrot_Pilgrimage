@@ -29,6 +29,9 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioClip playerMoveSoundEffect;
     [SerializeField] AudioClip[] playerMoveWaterSoundEffects;
+
+    [SerializeField] AudioClip clickInventorySoundEffect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,11 +56,11 @@ public class AudioManager : MonoBehaviour
     {
         if (turnFor == "player")
         {
-            soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Player);
+           // soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Player);
         }
         else if (turnFor == "enemy")
         {
-            soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Enemy, 0.25f);
+            //soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Enemy, 0.25f);
         }
 
     }
@@ -115,6 +118,8 @@ public class AudioManager : MonoBehaviour
     }
 
     public void playAddMoneySoundEffect() => soundEffectPlayer.PlayOneShot(addMoneySoundEffect);
+
+    public void PlayClickSoundEffect() => soundEffectPlayer.PlayOneShot(clickInventorySoundEffect);
 
 
 }

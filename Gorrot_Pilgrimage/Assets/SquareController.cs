@@ -27,6 +27,7 @@ public class SquareController : MonoBehaviour
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
     public GameObject itemSquareSprite;
+    [SerializeField] GameObject waterAdjacentSprite;
 
 
     public int squareX = 0;
@@ -88,7 +89,11 @@ public class SquareController : MonoBehaviour
     public bool isWater;
     [SerializeField] GameObject waterMarker;
     public bool isWaterAdjacent;
-    public void SetIsWaterAdjacent(bool value) { isWaterAdjacent = value; }
+    public void SetIsWaterAdjacent(bool value)
+    { 
+        isWaterAdjacent = value; 
+        waterAdjacentSprite.SetActive(value);
+    }
     public bool GetIsWaterAdjacent() => isWaterAdjacent;
 
     public bool GetIsWater() => isWater;

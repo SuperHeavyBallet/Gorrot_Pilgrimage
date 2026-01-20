@@ -25,6 +25,8 @@ public class InventorySlotController : MonoBehaviour
 
     Coroutine scaleUpAndDown;
 
+    [SerializeField] AudioManager audioManager;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,8 +43,13 @@ public class InventorySlotController : MonoBehaviour
     {
 
         if (itemQuantity < 1)
+        {
+            audioManager.playCannotMoveSoundEffect();
             return;
+        }
+            
 
+        audioManager.PlayClickSoundEffect();
        playerStatsController.UseItem(itemID);
 
 

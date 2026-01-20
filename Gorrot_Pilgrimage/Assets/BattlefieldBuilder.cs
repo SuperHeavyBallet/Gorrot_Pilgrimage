@@ -74,6 +74,7 @@ public class BattlefieldBuilder : MonoBehaviour
     [SerializeField] GameObject fly;
 
     List<SquareController> waterAdjacentSquares = new List<SquareController>();
+    List<SquareController> waterAdjacentSquaresForSprites = new List<SquareController>();
 
 
     void Awake()
@@ -259,7 +260,7 @@ public class BattlefieldBuilder : MonoBehaviour
         if (!thisMap.GetIsFinalCorridoor())
         {
             SetWater(thisMap.GetWaterAmount());
-            MarkWaterAdjacentSquares(mapSize);
+            MarkWaterAdjacentSquares();
             CheckMerchantNeeded();
             CheckGateKeeperNeeded();
             SetContentAmounts(mapSize);
@@ -961,41 +962,6 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
-    Vector2Int GetBestNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int size)
-    {
-        Vector2Int best = current;
-        float bestDist = Vector2.Distance(current, goal); // start with current distance
-
-        // 4-neighbors
-        Vector2Int[] dirs =
-        {
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0),
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1),
-    };
-
-        foreach (var d in dirs)
-        {
-            Vector2Int n = current + d;
-
-            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
-
-            // Optional: avoid border squares if they're blocked/unwalkable
-            // var sq = allSquares[n.x, n.y].GetComponent<SquareController>();
-            // if (sq != null && sq.IsEdgeSquare()) continue;
-
-            float dist = Vector2.Distance(n, goal);
-            if (dist < bestDist)
-            {
-                bestDist = dist;
-                best = n;
-            }
-        }
-
-        return best;
-    }
-
     static readonly Vector2Int[] Neigh4 =
     {
         new Vector2Int(1, 0),
@@ -1018,9 +984,13 @@ public class BattlefieldBuilder : MonoBehaviour
         return false;
     }
 
+
+    /*
     void MarkWaterAdjacentSquares(int size)
     {
         waterAdjacentSquares.Clear();
+
+
 
         // Iterate backwards if you might remove from freeSquares. We won't remove here, but it's a good habit.
         for (int i = 0; i < freeSquares.Count; i++)
@@ -1031,7 +1001,7 @@ public class BattlefieldBuilder : MonoBehaviour
             if (sc == null) continue;
 
             // Optional: skip sacred squares, or allow them depending on design
-            if (sc.GetIsSacred()) continue;
+            //if (sc.GetIsSacred()) continue;
 
             if (IsWaterAdjacent(c, size))
             {
@@ -1043,7 +1013,44 @@ public class BattlefieldBuilder : MonoBehaviour
                 sc.SetIsWaterAdjacent(false);
             }
         }
+    }*/
+
+    void MarkWaterAdjacentSquares()
+    {
+        waterAdjacentSquares.Clear();
+
+        int width = allSquares.GetLength(0);
+        int height = allSquares.GetLength(1);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                var sc = allSquares[x, y].GetComponent<SquareController>();
+                if (sc == null) continue;
+
+                bool adjacent = false;
+
+                for (int i = 0; i < Neigh4.Length; i++)
+                {
+                    Vector2Int n = new Vector2Int(x, y) + Neigh4[i];
+                    if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height) continue;
+
+                    var nsc = allSquares[n.x, n.y].GetComponent<SquareController>();
+                    if (nsc != null && nsc.GetIsWater())
+                    {
+                        adjacent = true;
+                        break;
+                    }
+                }
+
+                sc.SetIsWaterAdjacent(adjacent);
+
+                if (adjacent) waterAdjacentSquares.Add(sc);
+            }
+        }
     }
+
 
 
     public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
