@@ -41,9 +41,11 @@ public class BattlefieldBuilder : MonoBehaviour
 
     bool canAdvanceDifficulty;
 
-    [SerializeField] TextMeshProUGUI hasMerchantText;
+   // [SerializeField] TextMeshProUGUI hasMerchantText;
+    [SerializeField] GameObject hasMerchantIcon;
     [SerializeField] MerchantShopController merchantShopController;
-   // StartLocations startLocation;
+    // StartLocations startLocation;
+    [SerializeField] GameObject wildMapIcon;
 
     PlayerCompassController playerCompassController;
     PlayerDistanceController playerDistanceController;
@@ -84,7 +86,8 @@ public class BattlefieldBuilder : MonoBehaviour
         if (player == null) Debug.LogError("Player not set", this);
         if (uiController == null) Debug.LogError("UIController not set", this);
         if (mapCatalogue == null) Debug.LogError("MapCatalogue not set", this);
-        if (hasMerchantText == null) Debug.LogError("Merchant text not set", this);
+       // if (hasMerchantText == null) Debug.LogError("Merchant text not set", this);
+        if (hasMerchantIcon == null) Debug.LogError("Merchant icon not set", this);
         if (merchantShopController == null) Debug.LogError("Merchant Shop Controller not set", this);
 
         if (player != null)
@@ -172,6 +175,18 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
+    void CheckMapisWild()
+    {
+        if(thisMap.GetIsWildMap())
+        {
+            
+            wildMapIcon.SetActive(true);
+        }
+        else
+        {
+            wildMapIcon.SetActive(false);
+        }
+    }
     MapData GetMapToBuild()
     {
         MapData mapToBuild = null;
@@ -183,7 +198,7 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         else if (previousMap.GetIsWildMap())
         {
-                Debug.Log("Previous Map is Wild Map");
+                
 
                 float escapeChance = previousMap.GetEscapeChance();
                 bool escaped = UnityEngine.Random.value < escapeChance;
@@ -204,23 +219,20 @@ public class BattlefieldBuilder : MonoBehaviour
             else if (previousMap.GetIsFirstMap())
             {
 
-                    Debug.Log("INTO FIRST MAP");
-
-                    // playerStatsController.SetStartingStats();
+                 
                     mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
 
-                    Debug.Log("FIRST MAP NAME: " + mapToBuild.GetMapName());
+                  
 
                 }
                 else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
                 {
-                    Debug.Log("INTO PROPER MAPS");
+                 
 
 
                     canAdvanceDifficulty = true;
                     mapToBuild = previousMap.RollNextMap();
 
-                    Debug.Log("Map Progression: Prev: " + previousMap.GetMapName() + ", Current: " + mapToBuild.GetMapName());
                 }
             
             
@@ -245,7 +257,13 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
-    void UpdateMapDataUI() { uiController.UpdateMapDataText(thisMap.GetMapName(), thisMap.GetMapLocation()); }
+    void UpdateMapDataUI() 
+    { 
+        string mapLocation = thisMap.GetMapLocation();
+        mapLocation = mapLocation.Replace("_", " ");
+
+        uiController.UpdateMapDataText(thisMap.GetMapName(), mapLocation); 
+    }
 
     void UpdateMapWildUI( bool value ) {  uiController.UpdateWildMapMarker(value); }
 
@@ -307,11 +325,16 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         if (thisMap.GetHasMerchant())
         {
-            hasMerchantText.text = "MERCHANT";
+           // hasMerchantText.text = "MERCHANT";
+            hasMerchantIcon.SetActive(true);
             PlaceMerchant();
             merchantShopController.SetCurrentMap(thisMap);
         }
-        else { hasMerchantText.text = "..."; }
+        else 
+        { 
+            //hasMerchantText.text = "...";
+            hasMerchantIcon.SetActive(false);
+        }
     }
 
  
@@ -324,6 +347,7 @@ public class BattlefieldBuilder : MonoBehaviour
         thisMap = chosen;
         UpdateMapDataUI();
         CheckIfFinalMap();
+        CheckMapisWild();
         CheckIfFinalCorridoor();
         ClearEnemySquares();
 
@@ -970,50 +994,10 @@ public class BattlefieldBuilder : MonoBehaviour
         new Vector2Int(0, -1),
     };
 
-    bool IsWaterAdjacent(Vector2Int c, int size)
-    {
-        for (int i = 0; i < Neigh4.Length; i++)
-        {
-            Vector2Int n = c + Neigh4[i];
-            if (n.x < 0 || n.x >= size || n.y < 0 || n.y >= size) continue;
-
-            var sc = allSquares[n.x, n.y].GetComponent<SquareController>();
-            if (sc != null && sc.GetIsWater())  // assumes you have GetIsWater()
-                return true;
-        }
-        return false;
-    }
-
-
-    /*
-    void MarkWaterAdjacentSquares(int size)
-    {
-        waterAdjacentSquares.Clear();
 
 
 
-        // Iterate backwards if you might remove from freeSquares. We won't remove here, but it's a good habit.
-        for (int i = 0; i < freeSquares.Count; i++)
-        {
-            Vector2Int c = freeSquares[i];
-
-            var sc = allSquares[c.x, c.y].GetComponent<SquareController>();
-            if (sc == null) continue;
-
-            // Optional: skip sacred squares, or allow them depending on design
-            //if (sc.GetIsSacred()) continue;
-
-            if (IsWaterAdjacent(c, size))
-            {
-                sc.SetIsWaterAdjacent(true);   // you'll add this method/flag
-                waterAdjacentSquares.Add(sc);
-            }
-            else
-            {
-                sc.SetIsWaterAdjacent(false);
-            }
-        }
-    }*/
+ 
 
     void MarkWaterAdjacentSquares()
     {

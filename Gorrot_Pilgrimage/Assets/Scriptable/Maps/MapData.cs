@@ -63,6 +63,8 @@ public class MapData : ScriptableObject
     [SerializeField] Sprite[] mediumEnemySprites;
     [SerializeField] Sprite[] largeEnemySprites;
 
+    [SerializeField] Sprite[] floorSprites;
+
     public MerchantStock GetMerchantStock()
     {
         if(hasMerchant)
@@ -141,7 +143,15 @@ public class MapData : ScriptableObject
 
     public Sprite GetFloorSprite()
     {
-        return floorSprite;
+        if (floorSprites != null && floorSprites.Length > 0)
+        {
+            return floorSprites[UnityEngine.Random.Range(0, floorSprites.Length)];
+        }
+        else
+        {
+            return floorSprite;
+        }
+            
     }
 
     public bool GetIsWildMap()

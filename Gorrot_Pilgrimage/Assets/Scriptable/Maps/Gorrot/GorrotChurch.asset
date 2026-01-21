@@ -28,6 +28,7 @@ MonoBehaviour:
   merchantStock: {fileID: 0}
   terrainDensity: 0.1
   hasFlies: 0
+  isFinalCorridoor: 0
   waterAmount: 0
   smallEnemySprites:
   - {fileID: 21300000, guid: 4a6ea873da0c24e45887b2bd8b92a97e, type: 3}
@@ -35,3 +36,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9ccbd1823014ab64f9130e7d4982ce1c, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: 0bb4932d409930842aa258b18e50c181, type: 3}
+  floorSprites:
+  - {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
+  - {fileID: 21300000, guid: 0ada16eaae97ccf4982768717b3826bd, type: 3}
+  - {fileID: 21300000, guid: d508ba4ae47ca6e4ab3ad025cc859e5c, type: 3}
+  - {fileID: 21300000, guid: e820de7e9104649468d2449af80dc3e7, type: 3}
+  - {fileID: 21300000, guid: 6b33656fd694b7a428e0fc449c2d5f0d, type: 3}
+  - {fileID: 21300000, guid: 5a4bd479445a95b419c4a5633e0e7b2e, type: 3}
+  - {fileID: 21300000, guid: c02b01621195957499ef03c88388f94c, type: 3}
+  - {fileID: 21300000, guid: 235417b7b6280184a96785a2694a8de0, type: 3}
+  - {fileID: 21300000, guid: 3011b362335fcb946a69a53d9ad3ac6a, type: 3}

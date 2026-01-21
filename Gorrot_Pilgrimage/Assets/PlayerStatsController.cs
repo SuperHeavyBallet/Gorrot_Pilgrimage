@@ -41,11 +41,12 @@ public class PlayerStatsController : MonoBehaviour
     public GameObject moneyNeg;
 
 
-
+    
 
     Coroutine activateSign;
 
     [SerializeField] TurnOrganiser turnOrganiser;
+    [SerializeField] CombatPhaseResolution combatPhaseController;
     [SerializeField] PlayerStatReceiver playerStatReceiver;
 
 
@@ -105,6 +106,10 @@ public class PlayerStatsController : MonoBehaviour
                 break;
             case "attack":
                 alterAttack(effectDelta);
+                if(turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.combat)
+                {
+                    combatPhaseController.UpdateCombatRoll();
+                }
                 break;
             default:
                 alterHealth(3);
@@ -116,7 +121,7 @@ public class PlayerStatsController : MonoBehaviour
 
     public void alterAttack(int alterAmount)
     {
-        Debug.Log("ATTACK BOOST BY: " + alterAmount);
+
 
         int before = playerCurrentAttack;
         int raw = before + alterAmount;
@@ -221,19 +226,38 @@ public class PlayerStatsController : MonoBehaviour
         if (playerCurrentHealth > playerMinHealth)
         {
             playerIsAlive = true;
-            healthDisplay.text = "Health: " + playerCurrentHealth.ToString();
-            sufferingDisplay.text = "Suffering: " + playerCurrentSuffering.ToString();
-            attackDisplay.text = "Attack: +" + playerCurrentAttack.ToString();
-            moneyDisplay.text = "Money: " + playerCurrentMoney.ToString();
+            healthDisplay.text = playerCurrentHealth.ToString();
+            if(playerCurrentHealth <= 10)
+            {
+                healthDisplay.color = Color.red;
+            }
+            else
+            {
+                healthDisplay.color = Color.white; 
+            }
+                sufferingDisplay.text = playerCurrentSuffering.ToString();
+            if(playerCurrentSuffering >= 8)
+            {
+                sufferingDisplay.color = Color.red;
+            }
+            else
+            {
+                sufferingDisplay.color= Color.white;
+            }
+
+                attackDisplay.text = playerCurrentAttack.ToString();
+            moneyDisplay.text = playerCurrentMoney.ToString();
             
         }
         else
         {
             playerIsAlive = false ;
-            healthDisplay.text = "Health: " + "Dead";
-            sufferingDisplay.text = "Suffering: " + "None";
+            healthDisplay.text = "00";
+            healthDisplay.color = Color.red;
+            sufferingDisplay.text = "00";
+            sufferingDisplay.color = Color.white;
 
-            if(!playerHasDied )
+            if (!playerHasDied )
             {
                 SendPlayerDeath();
             }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CombatPhaseResolution : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
     bool waitingForPressRoll;
     bool hasPressedRoll;
+    bool hasPressedPay;
 
     public GameObject combatScreen;
     public GameObject diceDisplay;
@@ -31,6 +33,13 @@ public class CombatPhaseResolution : MonoBehaviour
     [SerializeField] PlayerMovementController playerMovementController;
 
     int requiredToWin;
+
+    [SerializeField] TextMeshProUGUI payButtonText;
+
+    public enum CombatChoice { None, Roll, Pay, Flee }
+
+    CombatChoice choice = CombatChoice.None;
+    Coroutine combatRoll;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,9 +57,8 @@ public class CombatPhaseResolution : MonoBehaviour
 
         battlefieldBuilder.StartFadeToBlack();
 
-        
 
-        StartCoroutine(CombatRollScreen());
+        StartCombatRoutine();
     }
 
 
@@ -75,11 +83,26 @@ public class CombatPhaseResolution : MonoBehaviour
         UpdateDiceRollFormulaText();
     }
 
+    public void UpdateCombatRoll()
+    {
+        if (!waitingForPressRoll) return;
+        StartCombatRoutine();
+    }
+
+    void StartCombatRoutine()
+    {
+        if (combatRoll != null)
+        {
+            StopCoroutine(combatRoll);
+        }
+        combatRoll = StartCoroutine(CombatRollScreen());
+    }
+
 
     IEnumerator CombatRollScreen()
     {
         CalculateDiceStats();
-        Debug.Log($"EnemySize: {currentEnemyDamage}, AttackBoost: {playerCurrentAttackBoost}, RequiredToWin: {requiredToWin}");
+        payButtonText.text = "Pay: " + (currentEnemyDamage * 2).ToString();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -88,57 +111,102 @@ public class CombatPhaseResolution : MonoBehaviour
 
 
 
-        hasPressedRoll = false;
+
         waitingForPressRoll = true;
+        choice = CombatChoice.None;
 
         // Wait for UI button
-        yield return new WaitUntil(() => hasPressedRoll);
+        yield return new WaitUntil(() => choice != CombatChoice.None);
 
         waitingForPressRoll = false;
-        diceController.RollDice();
 
-        // Wait for dice finish
-        yield return new WaitUntil(() => !diceController.isRolling);
-        yield return new WaitForSeconds(0.25f);
-
-
-        result = diceController.getDiceResult();
-
-        if (result < requiredToWin)
+        if (choice == CombatChoice.Pay)
         {
-            // Lose Results
-            playerStatsController.alterHealth(currentEnemyDamage * -1);
-            playerStatsController.resetSuffering();
-            playerMovementController.MovePlayerBackOneSquare();
+            // resolve pay route
             
+            playerStatsController.AlterMoney((currentEnemyDamage * 2) * -1);
+            playerStatsController.alterSuffering(currentEnemyDamage * -1);
+            audioManager.PlayPayOffChuckle();
+
+            CloseCombatScene();
+            combatRoll = null;
+
+            yield break;
+        }
+        else if(choice == CombatChoice.Flee)
+        {
+            playerMovementController.MovePlayerBackOneSquare();
+            playerStatsController.alterSuffering(1);
+            CloseCombatScene();
+            combatRoll = null;
+
+            yield break;
         }
         else
         {
-            // Win Results
-            playerStatsController.resetSuffering();
-            playerStatsController.AlterMoney(10);
-            audioManager.playCombatWinSoundEffect();
-            turnOrganiser.GetLandedSquare().MakeEmptySquare();
+            diceController.RollDice();
+
+            // Wait for dice finish
+            yield return new WaitUntil(() => !diceController.isRolling);
+            yield return new WaitForSeconds(0.25f);
+
+
+            result = diceController.getDiceResult();
+
+            if (result < requiredToWin)
+            {
+                // Lose Results
+                playerStatsController.alterHealth(currentEnemyDamage * -1);
+                playerStatsController.resetSuffering();
+                playerMovementController.MovePlayerBackOneSquare();
+
+            }
+            else
+            {
+                // Win Results
+                playerStatsController.resetSuffering();
+                playerStatsController.AlterMoney(10);
+                audioManager.playCombatWinSoundEffect();
+                turnOrganiser.GetLandedSquare().MakeEmptySquare();
+            }
+
+            currentEnemyDamage = 0;
+
+            combatRoll = null;
+            CloseCombatScene();
+
         }
+            
 
-        currentEnemyDamage = 0;
-
-
-        CloseCombatScene();
 
 
     }
 
+    public void PlayerPressedPay()
+    {
+        if (!waitingForPressRoll) return;
+        if (playerStatsController.GetPlayerCurrentMoney() >= currentEnemyDamage * 2)
+        { 
+            choice = CombatChoice.Pay;
+        }
+           
+    }
 
+    public void PlayerPressedFlee()
+    {
+        if (!waitingForPressRoll) return;
+        choice = CombatChoice.Flee;
+    }
 
     public void PlayerPressedRoll()
     {
 
-        if(waitingForPressRoll)
-        {
-            hasPressedRoll = true;
-            waitingForPressRoll = false;
-        }
+        if (!waitingForPressRoll) return;
+
+       
+            choice = CombatChoice.Roll;
+
+        
     }
 
 
@@ -153,7 +221,7 @@ public class CombatPhaseResolution : MonoBehaviour
         else if (requiredRoll >= 7)
             displayText = "Impossible Roll";
         else
-            displayText = "Need " + requiredRoll + "+ to Win";
+            displayText = requiredRoll + "+ to Win";
 
         DiceRollFormulaText.text = displayText;
     }

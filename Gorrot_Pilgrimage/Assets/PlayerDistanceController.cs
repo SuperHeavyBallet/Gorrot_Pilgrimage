@@ -29,10 +29,14 @@ public class PlayerDistanceController : MonoBehaviour
 
     void calculateDistanceToGoal()
     {
-        float newDistanceToGoal = Vector2.Distance(this.transform.position, goalPosition.position);
-        distanceToGoal = Mathf.RoundToInt(newDistanceToGoal);
+        if(goalPosition != null)
+        {
+            float newDistanceToGoal = Vector2.Distance(this.transform.position, goalPosition.position);
+            distanceToGoal = Mathf.RoundToInt(newDistanceToGoal);
 
-        UpdateDistanceText();
+            UpdateDistanceText();
+        }
+       
 
 
     }
