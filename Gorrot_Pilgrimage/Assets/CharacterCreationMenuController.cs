@@ -16,6 +16,6 @@ public class CharacterCreationMenuController : MonoBehaviour
 
     public void ClickStart(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 }
