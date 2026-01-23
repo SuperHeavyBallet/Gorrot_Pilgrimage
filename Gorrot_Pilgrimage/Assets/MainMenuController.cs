@@ -60,4 +60,30 @@ public class MainMenuController : MonoBehaviour
         op.allowSceneActivation = true;
     }
 
+
+    
+
+    public void PressedQuitButton()
+    {
+        StartCoroutine(QuitAfterTime());
+    }
+
+
+
+    IEnumerator QuitAfterTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        QuitGame();
+    }
+
+    void QuitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
+                            Application.Quit();
+    #endif
+    }
+
 }

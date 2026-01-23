@@ -1,7 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 public class CharacterCreationMenuController : MonoBehaviour
 {
+    Coroutine loadProcess;
+    [SerializeField] float minLoadTime = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,8 +19,43 @@ public class CharacterCreationMenuController : MonoBehaviour
         
     }
 
-    public void ClickStart(string sceneName)
+    public void ClickStart(string sceneString)
     {
-        SceneManager.LoadSceneAsync(sceneName);
+        if (loadProcess != null)
+        {
+            StopCoroutine(loadProcess);
+        }
+        loadProcess = StartCoroutine(LoadWithMinimumTime(sceneString, minLoadTime));
+    }
+
+    IEnumerator LoadWithMinimumTime(string sceneName, float minimumTime)
+    {
+        float timer = 0f;
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+
+            // Scene is loaded when progress reaches ~0.9
+            bool loadReady = op.progress >= 0.9f;
+            bool timeReady = timer >= minimumTime;
+
+            // Update UI here:
+            // - progress bar
+            // - spinner
+            // - text
+            // You can combine op.progress and timer however you want
+
+            if (loadReady && timeReady)
+                break;
+
+            yield return null;
+        }
+
+        // Optional: small fade-out here
+        op.allowSceneActivation = true;
     }
 }
