@@ -291,7 +291,7 @@ public class PlayerMovementController : MonoBehaviour
         if(newSquareController.GetIsMerchantSquare())
         {
             turnOrganiser.LandedOnMerchantSquare();
-            fateCounter.resetFateCounter();
+           // fateCounter.resetFateCounter();
             return;
         }
 
@@ -317,7 +317,7 @@ public class PlayerMovementController : MonoBehaviour
 
             turnOrganiser.UpdateCurrentEnemySize(amount);
             turnOrganiser.SetLandedOnEnemySquare(true, newSquareController);
-            fateCounter.resetFateCounter();
+           // fateCounter.resetFateCounter();
             //newSquareController.MakeEmptySquare();
             return;
         }

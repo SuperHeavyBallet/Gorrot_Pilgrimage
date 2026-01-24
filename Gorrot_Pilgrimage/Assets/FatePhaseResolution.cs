@@ -17,6 +17,8 @@ public class FatePhaseResolution : MonoBehaviour
 
     FateOutcome fateOutcome;
 
+    [SerializeField] FateCounter fateCounter;
+
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,7 +34,7 @@ public class FatePhaseResolution : MonoBehaviour
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.fate);
         UpdateFateOutComeText("...");
-        fateScreen.SetActive(true);
+        //fateScreen.SetActive(true);
         fateDisplay.SetActive(true);
 
         StartCoroutine(FateRollScreen());
@@ -52,6 +54,7 @@ public class FatePhaseResolution : MonoBehaviour
 
         int fateDelta = fateOutcome.GetEffectDelta();
         string deltaSign = "+";
+
         if(fateDelta < 0)
         {
             deltaSign = "-";
@@ -64,12 +67,14 @@ public class FatePhaseResolution : MonoBehaviour
         fateOutcomes.PickFate();
 
         UpdateFateOutcome();
+        fateOutcomes.ApplyFate();
+        turnOrganiser.FinishFate();
+        turnOrganiser.BuildNextTurn();
+
+        
+       
 
         yield return new WaitForSeconds(1f);
-
-        fateOutcomes.ApplyFate();
-
-        yield return new WaitForSeconds(2f);
 
 
 
@@ -86,8 +91,7 @@ public class FatePhaseResolution : MonoBehaviour
        fateScreen.SetActive(false);
         fateDisplay.SetActive(false);
         UpdateFateOutComeText("...");
-        turnOrganiser.FinishFate();
-        turnOrganiser.BuildNextTurn();
+        
     }
 
 

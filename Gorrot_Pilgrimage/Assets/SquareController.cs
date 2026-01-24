@@ -79,6 +79,23 @@ public class SquareController : MonoBehaviour
 
     MapData thisSquareMapData;
 
+    int waterAdjacencyMask;
+
+    public bool waterNorth;
+    public bool waterEast;
+    public bool waterSouth;
+    public bool waterWest;
+
+    const int N = 1;
+    const int E = 2;
+    const int S = 4;
+    const int W = 8;
+
+    public GameObject waterBorderNorth;
+    public GameObject waterBorderEast;
+    public GameObject waterBorderSouth;
+    public GameObject waterBorderWest;
+
     public void MakeEdgeSquare() { isEdgeSquare = true; }
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
@@ -88,12 +105,37 @@ public class SquareController : MonoBehaviour
 
     public bool isWater;
     [SerializeField] GameObject waterMarker;
+
+    [SerializeField] Sprite waterEdgeSprite;
+
     public bool isWaterAdjacent;
     public void SetIsWaterAdjacent(bool value)
     { 
         isWaterAdjacent = value; 
         waterAdjacentSprite.SetActive(value);
     }
+
+
+    public void SetWaterAdjacencyMask(int mask)
+    {
+        waterAdjacencyMask = mask;
+
+
+        waterNorth = (mask & N) != 0;
+        waterEast = (mask & E) != 0;
+        waterSouth = (mask & S) != 0;
+        waterWest = (mask & W) != 0;
+
+       
+
+
+        waterBorderNorth.SetActive(waterNorth);
+        waterBorderEast.SetActive(waterEast);
+        waterBorderSouth.SetActive(waterSouth);
+        waterBorderWest.SetActive(waterWest);
+   
+    }
+
     public bool GetIsWaterAdjacent() => isWaterAdjacent;
 
     public bool GetIsWater() => isWater;
@@ -163,11 +205,22 @@ public class SquareController : MonoBehaviour
         squareValue.gameObject.SetActive(false);
         sacredMarker.gameObject.SetActive(false);
         waterMarker.gameObject.SetActive(false);
+
+        
     }
 
     private void OnEnable()
     {
+        waterNorth = false;
+        waterEast = false;
+        waterSouth = false;
+        waterWest = false;
 
+
+        waterBorderNorth.SetActive(false);
+        waterBorderEast.SetActive(false);
+        waterBorderSouth.SetActive(false);
+        waterBorderWest.SetActive(false);
     }
 
     void ChooseSquareSprite()

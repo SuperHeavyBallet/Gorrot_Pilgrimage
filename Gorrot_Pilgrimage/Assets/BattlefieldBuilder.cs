@@ -986,18 +986,18 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
-    static readonly Vector2Int[] Neigh4 =
-    {
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0),
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1),
-    };
+    static readonly Vector2Int[] Neigh4 = new[]
+ {
+    new Vector2Int(0, 1),  // N
+    new Vector2Int(1, 0),  // E
+    new Vector2Int(0, -1), // S
+    new Vector2Int(-1, 0), // W
+};
 
 
 
 
- 
+
 
     void MarkWaterAdjacentSquares()
     {
@@ -1007,32 +1007,38 @@ public class BattlefieldBuilder : MonoBehaviour
         int height = allSquares.GetLength(1);
 
         for (int x = 0; x < width; x++)
-        {
             for (int y = 0; y < height; y++)
             {
                 var sc = allSquares[x, y].GetComponent<SquareController>();
                 if (sc == null) continue;
 
-                bool adjacent = false;
+                int mask = 0;
 
                 for (int i = 0; i < Neigh4.Length; i++)
                 {
                     Vector2Int n = new Vector2Int(x, y) + Neigh4[i];
-                    if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height) continue;
+                    if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height)
+                        continue;
 
                     var nsc = allSquares[n.x, n.y].GetComponent<SquareController>();
                     if (nsc != null && nsc.GetIsWater())
-                    {
-                        adjacent = true;
-                        break;
-                    }
+                        mask |= (1 << i);
+                }
+
+                bool adjacent = mask != 0;
+
+                if (sc.GetIsWater())
+                {
+                    sc.SetIsWaterAdjacent(false);
+                    sc.SetWaterAdjacencyMask(0);
+                    continue;
                 }
 
                 sc.SetIsWaterAdjacent(adjacent);
+                sc.SetWaterAdjacencyMask(mask); // <- add this method/field
 
                 if (adjacent) waterAdjacentSquares.Add(sc);
             }
-        }
     }
 
 
