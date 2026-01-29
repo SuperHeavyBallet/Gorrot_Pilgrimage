@@ -96,9 +96,24 @@ public class SquareController : MonoBehaviour
     public GameObject waterBorderSouth;
     public GameObject waterBorderWest;
 
+    [SerializeField] GameObject shadow;
+    public bool isInShadow;
+
+    public void SetIsInShadow(bool value)
+    {
+        isInShadow = value;
+        shadow.SetActive(value);
+    }
+
+    public bool GetIsInShadow()
+    {
+        return isInShadow;
+    }
+
     public void MakeEdgeSquare() { isEdgeSquare = true; }
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
+
 
     public bool isSacred;
     [SerializeField] GameObject sacredMarker;
