@@ -283,7 +283,12 @@ public class BattlefieldBuilder : MonoBehaviour
             CheckGateKeeperNeeded();
             SetContentAmounts(mapSize);
             AssignContentSquares();
-            CollectInitialEnemySquares();
+
+            if(thisMap.GetHasEnemies() == true)
+            {
+                CollectInitialEnemySquares();
+            }
+            
         }
         
 
@@ -436,6 +441,8 @@ public class BattlefieldBuilder : MonoBehaviour
                             newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation());
                         }
 
+                        newSquareController.SetIsInShadow(false);
+
                         // Border Placement
                         if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, size, newSquareController); }
 
@@ -560,7 +567,12 @@ public class BattlefieldBuilder : MonoBehaviour
     void AssignContentSquares()
     {
         PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare());
-        PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare(thisMap));
+
+        if(thisMap.GetHasEnemies() == true)
+        {
+            PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare(thisMap));
+        }
+        
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
         PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare());

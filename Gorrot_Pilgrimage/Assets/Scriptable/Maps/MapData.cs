@@ -65,6 +65,11 @@ public class MapData : ScriptableObject
 
     [SerializeField] Sprite[] floorSprites;
 
+    [SerializeField] bool hasEnemies;
+    [SerializeField] bool hasShadows;
+
+    public bool GetHasEnemies() => hasEnemies;
+
     public MerchantStock GetMerchantStock()
     {
         if(hasMerchant)

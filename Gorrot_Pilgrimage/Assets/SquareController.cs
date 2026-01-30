@@ -99,6 +99,8 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject shadow;
     public bool isInShadow;
 
+   
+
     public void SetIsInShadow(bool value)
     {
         isInShadow = value;
