@@ -41,6 +41,10 @@ public class CombatPhaseResolution : MonoBehaviour
     CombatChoice choice = CombatChoice.None;
     Coroutine combatRoll;
 
+    MapData currentMap;
+    int bribeMultiplier;
+    int thisCombatBribeMultiplerMax = 1;
+    int totalBribeAmount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,9 +60,18 @@ public class CombatPhaseResolution : MonoBehaviour
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
 
         battlefieldBuilder.StartFadeToBlack();
+        currentMap = battlefieldBuilder.GetThisMap();
+        if(currentMap != null)
+        {
+            bribeMultiplier = currentMap.GetBribeMultiplier();
+        }
+        else
+        {
+            bribeMultiplier = 1;
+        }
 
 
-        StartCombatRoutine();
+            StartCombatRoutine();
     }
 
 
@@ -102,7 +115,11 @@ public class CombatPhaseResolution : MonoBehaviour
     IEnumerator CombatRollScreen()
     {
         CalculateDiceStats();
-        payButtonText.text = "Pay: " + (currentEnemyDamage * 2).ToString();
+
+        thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
+        totalBribeAmount = thisCombatBribeMultiplerMax * bribeMultiplier;
+
+        payButtonText.text = "Pay: " + (totalBribeAmount).ToString();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -124,7 +141,7 @@ public class CombatPhaseResolution : MonoBehaviour
         {
             // resolve pay route
             
-            playerStatsController.AlterMoney((currentEnemyDamage * 2) * -1);
+            playerStatsController.AlterMoney((totalBribeAmount) * -1);
             playerStatsController.alterSuffering(currentEnemyDamage * -1);
             audioManager.PlayPayOffChuckle();
 
@@ -185,7 +202,7 @@ public class CombatPhaseResolution : MonoBehaviour
     public void PlayerPressedPay()
     {
         if (!waitingForPressRoll) return;
-        if (playerStatsController.GetPlayerCurrentMoney() >= currentEnemyDamage * 2)
+        if (playerStatsController.GetPlayerCurrentMoney() >= totalBribeAmount)
         { 
             choice = CombatChoice.Pay;
         }

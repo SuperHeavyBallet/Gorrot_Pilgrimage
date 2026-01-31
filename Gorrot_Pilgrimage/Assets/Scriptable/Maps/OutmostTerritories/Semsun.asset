@@ -37,3 +37,7 @@ MonoBehaviour:
   largeEnemySprites:
   - {fileID: 21300000, guid: 8e0f84ddd74f2b641b63e106f46ba415, type: 3}
   floorSprites: []
+  hasEnemies: 1
+  hasShadows: 0
+  bribeMultiplier: 2
+  treasureDensity: 1

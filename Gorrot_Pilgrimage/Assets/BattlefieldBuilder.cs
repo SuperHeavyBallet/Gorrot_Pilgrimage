@@ -397,7 +397,7 @@ public class BattlefieldBuilder : MonoBehaviour
         var counts = difficultyTuning.ComputeCounts(currentMapSize, currentMapCount, isFinalMap);
 
         enemySquareCount = counts.enemy;
-        treasureSquareCount = counts.treasure;
+        treasureSquareCount = counts.treasure * thisMap.GetTreasureDensity();
         //terrainSquareCount = counts.terrain;
         healthSquareCount = counts.health;
         potionSquareCount = counts.potion;
@@ -441,7 +441,7 @@ public class BattlefieldBuilder : MonoBehaviour
                             newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation());
                         }
 
-                        newSquareController.SetIsInShadow(false);
+                            newSquareController.SetIsInShadow(thisMap.GetHasShadows());
 
                         // Border Placement
                         if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, size, newSquareController); }
@@ -491,6 +491,8 @@ public class BattlefieldBuilder : MonoBehaviour
                     var sc = newSquare.GetComponent<SquareController>();
                     sc.SetSquareMapData(thisMap);
                     sc.SetupNewSquare(x, y, thisMap.GetMapLocation());
+
+                    sc.SetIsInShadow(thisMap.GetHasShadows());
 
                     // Border placement using corridor bounds
                     if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
@@ -1058,4 +1060,6 @@ public class BattlefieldBuilder : MonoBehaviour
     public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
 
     public void StartFadeFromBlack() { uiController.StartFadeFromBlack(); }
+
+    public MapData GetThisMap() => thisMap;
 }

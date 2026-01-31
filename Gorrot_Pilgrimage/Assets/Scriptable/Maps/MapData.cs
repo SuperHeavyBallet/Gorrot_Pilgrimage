@@ -70,6 +70,18 @@ public class MapData : ScriptableObject
 
     public bool GetHasEnemies() => hasEnemies;
 
+    public bool GetHasShadows() => hasShadows;
+
+    [SerializeField] int bribeMultiplier = 2;
+
+    public int GetBribeMultiplier() => bribeMultiplier;
+
+    [Tooltip("The amount of treasure in the map. 0 = none, 1 = most")]
+    [SerializeField, Range(0f, 10f)]
+    int treasureDensity; // 0 = none, 10 = rich
+
+    public int GetTreasureDensity() => treasureDensity;
+
     public MerchantStock GetMerchantStock()
     {
         if(hasMerchant)

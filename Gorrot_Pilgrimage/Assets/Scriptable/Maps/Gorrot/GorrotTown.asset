@@ -28,6 +28,7 @@ MonoBehaviour:
   merchantStock: {fileID: 0}
   terrainDensity: 0.1
   hasFlies: 0
+  isFinalCorridoor: 0
   waterAmount: 0.6
   smallEnemySprites:
   - {fileID: 21300000, guid: 4a6ea873da0c24e45887b2bd8b92a97e, type: 3}
@@ -35,3 +36,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9ccbd1823014ab64f9130e7d4982ce1c, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: 0bb4932d409930842aa258b18e50c181, type: 3}
+  floorSprites: []
+  hasEnemies: 0
+  hasShadows: 0
+  bribeMultiplier: 0
+  treasureDensity: 0
