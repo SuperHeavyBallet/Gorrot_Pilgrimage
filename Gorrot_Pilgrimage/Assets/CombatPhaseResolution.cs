@@ -116,12 +116,21 @@ public class CombatPhaseResolution : MonoBehaviour
     {
         CalculateDiceStats();
 
-        thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
-        totalBribeAmount = thisCombatBribeMultiplerMax * bribeMultiplier;
+        if(currentMap.GetCanBeBribed() == true)
+        {
+            thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
+            totalBribeAmount = thisCombatBribeMultiplerMax * bribeMultiplier;
 
-        payButtonText.text = "Pay: " + (totalBribeAmount).ToString();
+            payButtonText.text = "Pay: " + (totalBribeAmount).ToString();
+        }
+        else
+        {
+            totalBribeAmount = 9999;
+            payButtonText.text = "No Pay.";
+        }
 
-        yield return new WaitForSeconds(0.5f);
+
+            yield return new WaitForSeconds(0.5f);
 
         combatScreen.SetActive(true);
         diceDisplay.SetActive(true);

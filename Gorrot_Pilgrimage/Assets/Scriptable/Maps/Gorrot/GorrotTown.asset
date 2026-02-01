@@ -40,4 +40,5 @@ MonoBehaviour:
   hasEnemies: 0
   hasShadows: 0
   bribeMultiplier: 0
+  canBeBribed: 1
   treasureDensity: 0

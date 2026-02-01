@@ -73,6 +73,9 @@ public class MapData : ScriptableObject
     public bool GetHasShadows() => hasShadows;
 
     [SerializeField] int bribeMultiplier = 2;
+    [SerializeField] bool canBeBribed = true;
+
+    public bool GetCanBeBribed() => canBeBribed;
 
     public int GetBribeMultiplier() => bribeMultiplier;
 
