@@ -62,6 +62,13 @@ public class TurnOrganiser : MonoBehaviour
     FlyMovementController currentFlyMovementController;
     List<GameObject> currentFlies = new List<GameObject>();
 
+    [SerializeField] BattlefieldBuilder battlefieldBuilder;
+
+    void SpawnNewEnemy()
+    {
+        battlefieldBuilder.SpawnNewEnemy();
+    }
+
 
     SquareController landedSquare;
     public void SetLandedSquare(SquareController sq)
@@ -199,6 +206,7 @@ public class TurnOrganiser : MonoBehaviour
         {
             disablePlayerTurn();
             MoveFly();
+            //SpawnNewEnemy();
             BuildNextPhase();
         }
 

@@ -99,7 +99,29 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject shadow;
     public bool isInShadow;
 
-   
+    [SerializeField] GameObject trapSprite;
+    [SerializeField] GameObject hiddenTrapSprite;
+    bool trapActivated = false;
+   // bool isTrapSquare;
+
+    public void MakeTrapSquare(MapData thisMap)
+    {
+        
+        type = SquareType.Trap;
+        hiddenTrapSprite.SetActive(true);
+        
+    }
+    public void ActivateTrap()
+    {
+
+        trapActivated = true;
+        hiddenTrapSprite.SetActive(false);
+        trapSprite.SetActive(true);
+    }
+
+    public bool GetTrapActivated => trapActivated;
+
+   // public bool GetIsTrapSquare => isTrapSquare;
 
     public void SetIsInShadow(bool value)
     {
@@ -115,6 +137,24 @@ public class SquareController : MonoBehaviour
     public void MakeEdgeSquare() { isEdgeSquare = true; }
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
+
+    public enum SquareType
+    {
+        Empty, 
+        Goal, 
+        Treasure, 
+        Enemy, 
+        Terrain,
+        Health, 
+        Item, 
+        Trap, 
+        Merchant, 
+        Water
+    }
+
+    [SerializeField] private SquareType type;
+    public SquareType Type => type;
+    public bool isTrapSquare => type == SquareType.Trap;
 
 
     public bool isSacred;
@@ -497,7 +537,7 @@ public class SquareController : MonoBehaviour
         isEnemySquare = false;
         isTreasureSquare = false;
         isEmptySquare = false;
-        isHealthSquare = true;
+        isHealthSquare = false;
 
         squareType = "goal";
         ChooseSquareSprite();
@@ -624,6 +664,7 @@ public class SquareController : MonoBehaviour
         isEnemySquare = false;
         isTreasureSquare = false;
         isItemSquare = false;
+
         isEmptySquare = true;
 
         squareValue.gameObject.SetActive(false);

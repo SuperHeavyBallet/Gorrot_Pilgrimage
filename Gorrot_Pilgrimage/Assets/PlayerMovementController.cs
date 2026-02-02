@@ -108,7 +108,7 @@ public class PlayerMovementController : MonoBehaviour
             if (isPlayerTurn && playerIsAlive)
             {
                 if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
-                    MovePlayer(normalizedMoveValue);
+                    MovePlayer(normalizedMoveValue, false);
             }
         }
        
@@ -161,7 +161,7 @@ public class PlayerMovementController : MonoBehaviour
     
     }
 
-    public void MovePlayer(Vector2 newMoveValue)
+    public void MovePlayer(Vector2 newMoveValue, bool freeMove)
     {
         
         previousPosition = currentPosition;
@@ -209,7 +209,7 @@ public class PlayerMovementController : MonoBehaviour
             );
 
 
-        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController));
+        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController, freeMove));
 
        
 
@@ -225,7 +225,8 @@ public class PlayerMovementController : MonoBehaviour
     int newX,
     int newY,
     Vector2 worldTargetPos,
-    SquareController newSquareController
+    SquareController newSquareController,
+    bool freeMove
     )
     {
         isMoving = true;
@@ -268,13 +269,13 @@ public class PlayerMovementController : MonoBehaviour
 
         isMoving = false;
         playerAnimationManager.SetIsWalking(false);
-        ApplyMoveResults(newSquareController);
+        ApplyMoveResults(newSquareController, freeMove);
 
         // Now the turn can progress
         turnOrganiser.BuildNextTurn();
     }
 
-    void ApplyMoveResults(SquareController newSquareController)
+    void ApplyMoveResults(SquareController newSquareController, bool freeMove)
     {
         newSquareController.ActivateSquareVisited();
 
@@ -286,6 +287,17 @@ public class PlayerMovementController : MonoBehaviour
             turnOrganiser.LandedOnGoal();
             fateCounter.resetFateCounter();
             return;
+        }
+
+        if(newSquareController.Type == SquareController.SquareType.Trap)
+        {
+            if(newSquareController.GetTrapActivated == false)
+            {
+                newSquareController.ActivateTrap();
+                playerStatsController.alterHealth(-1);
+                MovePlayerBackOneSquare();
+            }
+            
         }
 
         if(newSquareController.GetIsMerchantSquare())
@@ -324,16 +336,30 @@ public class PlayerMovementController : MonoBehaviour
 
         if(newSquareController.GetIsWater())
         {
-            playerStatsController.alterSuffering(1);
+            if (!freeMove)
+            {
+                playerStatsController.alterSuffering(1);
+            }
         }
 
-
-        fateCounter.alterFateCounter(1);
-
-        if (newSquareController.isEmptySquare)
+        if (!freeMove)
         {
-            addMovementSuffering();
+            fateCounter.alterFateCounter(1);
+
+            if (newSquareController.GetIsWater())
+            {
+
+               playerStatsController.alterSuffering(1);
+                
+            }
+
+            if (newSquareController.isEmptySquare)
+            {
+                playerStatsController.alterSuffering(1);
+            }
+
         }
+
 
         if (newSquareController.isItemSquare)
         {
@@ -417,7 +443,7 @@ public class PlayerMovementController : MonoBehaviour
     public void MovePlayerBackOneSquare()
     {
        Vector2Int delta = previousPosition - currentPosition;   // e.g. (-1,0)
-    MovePlayer(new Vector2(delta.x, delta.y));
+        MovePlayer(new Vector2(delta.x, delta.y), true);
     }
     void BlockedSquare()
     {

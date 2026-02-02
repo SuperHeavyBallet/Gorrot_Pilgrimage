@@ -66,11 +66,25 @@ public class MapData : ScriptableObject
     [SerializeField] Sprite[] floorSprites;
 
     [SerializeField] bool hasEnemies;
+    [Tooltip("The amount of hidden traps in the map. 0 = none, 1 = most")]
+    [SerializeField, Range(1f, 2f)]
+    float enemyDensity; // 1 = min, 2 = max
+    public float GetEnemyDensity => enemyDensity;
+
     [SerializeField] bool hasShadows;
 
-    public bool GetHasEnemies() => hasEnemies;
+    public bool GetHasEnemies => hasEnemies;
 
     public bool GetHasShadows() => hasShadows;
+
+    [SerializeField] bool hasHiddenTraps;
+    public bool GetHasHiddenTraps => hasHiddenTraps;
+
+    [Tooltip("The amount of hidden traps in the map. 0 = none, 1 = most")]
+    [SerializeField, Range(1f, 2f)]
+    float hiddenTrapDensity; // 1 = min, 2 = max
+
+    public float GetHiddenTrapDensity => hiddenTrapDensity;
 
     [SerializeField] int bribeMultiplier = 2;
     [SerializeField] bool canBeBribed = true;
@@ -82,6 +96,8 @@ public class MapData : ScriptableObject
     [Tooltip("The amount of treasure in the map. 0 = none, 1 = most")]
     [SerializeField, Range(0f, 10f)]
     int treasureDensity; // 0 = none, 10 = rich
+
+
 
     public int GetTreasureDensity() => treasureDensity;
 

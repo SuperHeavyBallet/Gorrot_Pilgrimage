@@ -17,7 +17,8 @@ MonoBehaviour:
   mapName: Semsun
   mapSize: 10
   nextMaps:
-  - {fileID: 11400000, guid: 6b187aea332e4dd46a36533376a049d8, type: 2}
+  - {fileID: 11400000, guid: 184c5cc9909d46946a82c380aa83b824, type: 2}
+  - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
   floorSprite: {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
   isWildMap: 0
   wildLevel: 0
@@ -33,12 +34,15 @@ MonoBehaviour:
   smallEnemySprites:
   - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
   mediumEnemySprites:
-  - {fileID: 21300000, guid: b687726a45b8ff745931ae71abc2caa4, type: 3}
-  largeEnemySprites:
   - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
+  largeEnemySprites:
+  - {fileID: 21300000, guid: b687726a45b8ff745931ae71abc2caa4, type: 3}
   floorSprites: []
   hasEnemies: 1
+  enemyDensity: 1
   hasShadows: 0
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 1
   bribeMultiplier: 2
   canBeBribed: 1
   treasureDensity: 1

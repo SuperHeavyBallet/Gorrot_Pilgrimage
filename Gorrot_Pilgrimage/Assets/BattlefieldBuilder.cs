@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
@@ -115,14 +116,7 @@ public class BattlefieldBuilder : MonoBehaviour
     }
     void SetFirstMap() { previousMap = mapCatalogue.GetFirstMap(); }
 
-    void DecideStartingLocation()
-    {
-        if(playerStatReceiver != null)
-        {
-          // startLocation = playerStatReceiver.GetPlayerStartingLocation();
-        }
-       // else { startLocation = StartLocations.Fetsmeld; }
-    }
+
 
 
     void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
@@ -136,7 +130,7 @@ public class BattlefieldBuilder : MonoBehaviour
         Vector2Int[] freeSqArray = freeSquares.ToArray();
 
         int max = (int)(size * 0.8f); // size 30 => 24
-        float t = Random.value;
+        float t = UnityEngine.Random.value;
         t = t * t; // bias toward 0
         int randomFlyCount = (size / 6) + Mathf.RoundToInt(t * (max - (size / 6)));
 
@@ -284,7 +278,7 @@ public class BattlefieldBuilder : MonoBehaviour
             SetContentAmounts(mapSize);
             AssignContentSquares();
 
-            if(thisMap.GetHasEnemies() == true)
+            if(thisMap.GetHasEnemies == true)
             {
                 CollectInitialEnemySquares();
             }
@@ -386,6 +380,37 @@ public class BattlefieldBuilder : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--) { Destroy(transform.GetChild(i).gameObject); }
     }
 
+    public void SpawnNewEnemy()
+    {
+        Debug.Log("Should Spawn New Enemy");
+
+        int randomNumber = UnityEngine.Random.Range(0, freeSquares.Count);
+
+        int currentIndex = 0;
+
+        Vector2Int[] arrayOfSquares = freeSquares.ToArray();
+
+        for(int i = 0; i < arrayOfSquares.Length; i++)
+        {
+            if(i == randomNumber)
+            {
+                Debug.Log("Matching Index: " + freeSquares[i] + currentIndex);
+
+                Vector2Int coord = freeSquares[i];
+
+                SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
+                sq.MakeEnemySquare(thisMap);
+
+
+                break;
+            }
+
+
+            currentIndex++;
+        }
+
+    }
+
     void SetContentAmounts(int currentMapSize)
     {
         if (difficultyTuning == null)
@@ -412,7 +437,7 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
     void SetPlayerStartSquare(int currentMapSize) {
-        playerStartingPosition = Random.Range(0, allSquares.GetLength(0));
+        playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
     }
 
     void BuildBattleFieldGrid(int size)
@@ -570,8 +595,13 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare());
 
-        if(thisMap.GetHasEnemies() == true)
+        if(thisMap.GetHasEnemies == true)
         {
+            PlaceTypeSquares(
+               Mathf.CeilToInt(thisMap.GetMapSize() * thisMap.GetEnemyDensity),
+               sq => sq.MakeEnemySquare(thisMap)
+           );
+
             PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare(thisMap));
         }
         
@@ -579,10 +609,18 @@ public class BattlefieldBuilder : MonoBehaviour
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare());
         PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare());
 
-        if(thisMap.GetWaterAmount() > 0)
+        if(thisMap.GetHasHiddenTraps == true)
+        {
+            PlaceTypeSquares(
+                Mathf.CeilToInt(thisMap.GetMapSize() * thisMap.GetHiddenTrapDensity),
+                sq => sq.MakeTrapSquare(thisMap)
+            );
+        }
+        
+
+        if (thisMap.GetWaterAmount() > 0)
         {
 
-            Debug.Log("HAS WATER: " +  thisMap.GetWaterAmount());
             int waterLevel = Mathf.RoundToInt(thisMap.GetWaterAmount());
             PlaceWaterFlowerSquares(waterLevel * thisMap.GetMapSize(), sq => sq.MakeFlowerSquare());
         }
@@ -683,7 +721,7 @@ public class BattlefieldBuilder : MonoBehaviour
             return;
         }
 
-        int index = Random.Range(0, freeSquares.Count);
+        int index = UnityEngine.Random.Range(0, freeSquares.Count);
         Vector2Int merchantPosition = freeSquares[index];
         freeSquares.RemoveAt(index); // good idea to reserve it
 
@@ -760,20 +798,20 @@ public class BattlefieldBuilder : MonoBehaviour
         switch (direction)
         {
             case 0: // left -> right
-                start = new Vector2Int(0, Random.Range(0, height));
-                end = new Vector2Int(width - 1, Random.Range(0, height));
+                start = new Vector2Int(0, UnityEngine.Random.Range(0, height));
+                end = new Vector2Int(width - 1, UnityEngine.Random.Range(0, height));
                 break;
             case 1: // bottom -> top
-                start = new Vector2Int(Random.Range(0, width), 0);
-                end = new Vector2Int(Random.Range(0, width), height - 1);
+                start = new Vector2Int(UnityEngine.Random.Range(0, width), 0);
+                end = new Vector2Int(UnityEngine.Random.Range(0, width), height - 1);
                 break;
             case 2: // right -> left
-                start = new Vector2Int(width - 1, Random.Range(0, height));
-                end = new Vector2Int(0, Random.Range(0, height));
+                start = new Vector2Int(width - 1, UnityEngine.Random.Range(0, height));
+                end = new Vector2Int(0, UnityEngine.Random.Range(0, height));
                 break;
             default: // top -> bottom
-                start = new Vector2Int(Random.Range(0, width), height - 1);
-                end = new Vector2Int(Random.Range(0, width), 0);
+                start = new Vector2Int(UnityEngine.Random.Range(0, width), height - 1);
+                end = new Vector2Int(UnityEngine.Random.Range(0, width), 0);
                 break;
         }
 
@@ -838,17 +876,6 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
-    void MarkWater(Vector2Int c)
-    {
-        var sc = allSquares[c.x, c.y].GetComponent<SquareController>();
-        if (sc != null)
-        {
-            sc.SetIsWater(true);
-
-            // Optional but recommended: prevent other content spawning on the river
-            freeSquares.Remove(c);
-        }
-    }
 
 
     void SetSacredPath()
