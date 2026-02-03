@@ -79,6 +79,8 @@ public class BattlefieldBuilder : MonoBehaviour
     List<SquareController> waterAdjacentSquares = new List<SquareController>();
     List<SquareController> waterAdjacentSquaresForSprites = new List<SquareController>();
 
+    [SerializeField] GameObject pottardReference;
+
 
     void Awake()
     {
@@ -123,7 +125,16 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void CheckIfFinalCorridoor() { isFinalCorridoor = thisMap.GetIsFinalCorridoor(); }
 
+    void PlacePottard(int size)
+    {
+        Vector2Int[] freeSqArray = freeSquares.ToArray();
 
+        int randomInt = UnityEngine.Random.Range(0, freeSqArray.Length);
+
+        GameObject newPottard = Instantiate(pottardReference, transform);
+
+        newPottard.transform.position = new Vector2(freeSqArray[randomInt].x, freeSqArray[randomInt].y);
+    }
     void PlaceFly(int size)
     {
         turnOrganiser.ClearFlies();
@@ -290,6 +301,8 @@ public class BattlefieldBuilder : MonoBehaviour
             PlacePlayer(mapSize);
 
         CheckFlies(mapSize);
+
+        PlacePottard(mapSize);
         
         
     }

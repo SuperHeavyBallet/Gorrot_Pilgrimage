@@ -27,7 +27,7 @@ public class InventorySlotController : MonoBehaviour
 
     [SerializeField] AudioManager audioManager;
 
-
+    [SerializeField] ItemCatalogue itemCatalogue;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -67,6 +67,11 @@ public class InventorySlotController : MonoBehaviour
 
         if (itemQuantity < 1)
         {
+
+            if(itemID == "carrion_rose")
+            {
+                playerStatsController.SetPlayerHasCarrionRose(false);
+            }
             RemoveItemFromSlot();
         }
 
@@ -99,11 +104,23 @@ public class InventorySlotController : MonoBehaviour
     public void PlaceItemInSlot(string itemID, Sprite itemSprite)
     {
         slotIsEmpty = false;
-        itemQuantity += 1;
-        itemQuantityText.text = itemQuantity.ToString();
+
+        if(itemCatalogue.CheckItemIDInUniqueItems(itemID) == false)
+        {
+            itemQuantity += 1;
+            itemQuantityText.text = itemQuantity.ToString();
+        }
+        
+        
         UpdateItemID(itemID);
         UpdateItemSprite(itemSprite);
-       // UpdateItemText(itemID);
+
+        if(itemID == "carrion_rose")
+        {
+            playerStatsController.SetPlayerHasCarrionRose(true);
+            Debug.Log("Player Has Carrion Rose");
+        }
+       
     }
 
     public string GetCurrentItemID()

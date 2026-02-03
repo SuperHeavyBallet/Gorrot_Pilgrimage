@@ -13,6 +13,8 @@ public class ItemCatalogue : MonoBehaviour
     [SerializeField] InventoryItemTemplate flowerItem;
     public InventoryItemTemplate GetFlowerItem() => flowerItem;
 
+    public InventoryItemTemplate[] uniqueItems;
+
     private void Awake()
     {
 
@@ -37,6 +39,17 @@ public class ItemCatalogue : MonoBehaviour
         }
     }
 
+    public bool CheckItemIDInUniqueItems(string itemID)
+    {
+        for (int i = 0; i < uniqueItems.Length; i++)
+        {
+            if(uniqueItems[i].itemID == itemID) return true;
+            Debug.Log("TRY TO PICK DUPLICATE: " +  itemID + uniqueItems[i]);
+        }
+
+        return false;
+
+    }
 
     public List<InventoryItemTemplate> GetAllItems()
     {

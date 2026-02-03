@@ -365,6 +365,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             string squareContentsID = newSquareController.GetContentsID();
 
+            Debug.Log("PICKUP: " + squareContentsID);
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
             if (canAddItem)
@@ -434,11 +435,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    void addMovementSuffering()
-    {
 
-        playerStatsController.alterSuffering(1);
-    }
 
     public void MovePlayerBackOneSquare()
     {

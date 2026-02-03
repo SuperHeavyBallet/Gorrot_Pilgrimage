@@ -41,7 +41,9 @@ public class PlayerStatsController : MonoBehaviour
     public GameObject moneyNeg;
 
 
-    
+    bool playerHasCarrionRose = false;
+    public bool GetPlayerHasCarrionRose => playerHasCarrionRose;
+    public void SetPlayerHasCarrionRose(bool value) { playerHasCarrionRose = value; }
 
     Coroutine activateSign;
 
@@ -227,6 +229,7 @@ public class PlayerStatsController : MonoBehaviour
         {
             playerIsAlive = true;
             healthDisplay.text = playerCurrentHealth.ToString();
+
             if(playerCurrentHealth <= 10)
             {
                 healthDisplay.color = Color.red;
@@ -249,7 +252,7 @@ public class PlayerStatsController : MonoBehaviour
             moneyDisplay.text = playerCurrentMoney.ToString();
             
         }
-        else
+        else if(!playerHasCarrionRose)
         {
             playerIsAlive = false ;
             healthDisplay.text = "00";
@@ -262,6 +265,11 @@ public class PlayerStatsController : MonoBehaviour
                 SendPlayerDeath();
             }
 
+        }
+        else if(playerHasCarrionRose)
+        {
+            healthDisplay.text = "00";
+            healthDisplay.color = Color.red;
         }
 
         

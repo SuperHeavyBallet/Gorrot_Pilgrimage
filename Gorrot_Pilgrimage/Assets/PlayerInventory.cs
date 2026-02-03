@@ -64,7 +64,11 @@ public class PlayerInventory : MonoBehaviour
 
         if (slotResult.SlotIndex == DuplicateItem)
         {
+
             if (slotResult.SlotController == null) return false;
+
+            
+
             slotResult.SlotController.PlaceDuplcateItemInSlot();
             return true;
         }
