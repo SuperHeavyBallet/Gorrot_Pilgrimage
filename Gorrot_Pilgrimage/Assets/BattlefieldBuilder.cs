@@ -133,7 +133,17 @@ public class BattlefieldBuilder : MonoBehaviour
 
         GameObject newPottard = Instantiate(pottardReference, transform);
 
-        newPottard.transform.position = new Vector2(freeSqArray[randomInt].x, freeSqArray[randomInt].y);
+        PottardController pottardController = newPottard.GetComponent<PottardController>();
+        Vector2 startPos = new Vector2(freeSqArray[randomInt].x, freeSqArray[randomInt].y);
+
+        if (pottardController != null)
+        {
+            pottardController.GetCurrentBattlefield(freeSqArray, allSquares);
+            pottardController.SetStartPosition(startPos);
+        }
+
+
+       
     }
     void PlaceFly(int size)
     {
