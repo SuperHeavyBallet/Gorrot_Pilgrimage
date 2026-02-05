@@ -125,7 +125,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void CheckIfFinalCorridoor() { isFinalCorridoor = thisMap.GetIsFinalCorridoor(); }
 
-    void PlacePottard(int size)
+    void PlacePottard()
     {
         Vector2Int[] freeSqArray = freeSquares.ToArray();
 
@@ -312,8 +312,20 @@ public class BattlefieldBuilder : MonoBehaviour
 
         CheckFlies(mapSize);
 
-        PlacePottard(mapSize);
+        CheckPottardPlacement();
         
+        
+        
+    }
+
+    void CheckPottardPlacement()
+    {
+
+        if(thisMap.CanHavePottard)
+        {
+            PlacePottard();
+        }
+
         
     }
 

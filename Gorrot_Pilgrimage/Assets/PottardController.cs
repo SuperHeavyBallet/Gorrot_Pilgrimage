@@ -8,13 +8,16 @@ public class PottardController : MonoBehaviour
     GameObject[,] allSquares;
 
     Vector2Int currentPosition;
+    Vector2Int prevDirection;
 
     bool landOnGoal;
+
+    [SerializeField, Range(0f, 1f)] float keepGoingChance = 0.65f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+       prevDirection = Vector2Int.zero;
     }
 
     // Update is called once per frame
@@ -63,7 +66,7 @@ public class PottardController : MonoBehaviour
                 continue;
 
             var sq = allSquares[p.x, p.y]?.GetComponent<SquareController>();
-            if (sq != null && sq.isEmptySquare || sq.isGoalSquare)
+            if (sq != null && (sq.isEmptySquare || sq.isGoalSquare || sq.isTreasureSquare))
             {
                 candidates.Add(p);
             }
@@ -79,19 +82,50 @@ public class PottardController : MonoBehaviour
             return;
         }
 
+
         Vector2Int next = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+
+        Vector2Int chosenDir = next - current;
+        prevDirection = chosenDir;
+
+        Vector2Int forwardPos = current + prevDirection;
+
+        bool canGoForward = prevDirection != Vector2Int.zero && candidates.Contains(forwardPos);
+
+        if (canGoForward && UnityEngine.Random.value < keepGoingChance)
+        {
+            next = forwardPos;
+        }
+        else
+        {
+            next = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        }
+
+        // Store heading as a direction, not a position
+        prevDirection = next - current;
 
         SquareController squareController = allSquares[next.x, next.y].GetComponent<SquareController>();
         if (squareController != null)
         {
-            {
+           
                 if (squareController.isGoalSquare)
                 {
                     landOnGoal = true;
                 }
+
+                if(squareController.isTreasureSquare)
+                {
+                pottardMoveRoutine = StartCoroutine(PottardMovement(next, squareController));
+            }
+            else
+            {
+                pottardMoveRoutine = StartCoroutine(PottardMovement(next, null));
             }
 
-            pottardMoveRoutine = StartCoroutine(PottardMovement(next));
+
+
+
+                
         }
     }
 
@@ -103,7 +137,7 @@ public class PottardController : MonoBehaviour
 
 
 
-        IEnumerator PottardMovement(Vector2Int newPosition)
+        IEnumerator PottardMovement(Vector2Int newPosition, SquareController squareToLoot)
         {
 
 
@@ -129,12 +163,17 @@ public class PottardController : MonoBehaviour
 
             this.transform.position = new Vector2(newPosition.x, newPosition.y);
 
+        if( squareToLoot != null)
+        {
+            squareToLoot.MakeEmptySquare();
+        }
+
             currentPosition = new Vector2Int(newPosition.x, newPosition.y);
 
             if(landOnGoal)
             {
-                Destroy(this);
-            }
+            Destroy(gameObject);
+        }
 
             else
             {

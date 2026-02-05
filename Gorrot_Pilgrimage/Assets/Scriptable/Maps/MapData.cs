@@ -73,6 +73,9 @@ public class MapData : ScriptableObject
 
     [SerializeField] bool hasShadows;
 
+    [SerializeField] bool canHavePottard = true;
+
+    public bool CanHavePottard => canHavePottard;
     public bool GetHasEnemies => hasEnemies;
 
     public bool GetHasShadows() => hasShadows;
