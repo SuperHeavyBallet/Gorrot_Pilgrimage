@@ -40,6 +40,7 @@ MonoBehaviour:
   hasEnemies: 1
   enemyDensity: 1
   hasShadows: 0
+  canHavePottard: 0
   hasHiddenTraps: 0
   hiddenTrapDensity: 1
   bribeMultiplier: 2

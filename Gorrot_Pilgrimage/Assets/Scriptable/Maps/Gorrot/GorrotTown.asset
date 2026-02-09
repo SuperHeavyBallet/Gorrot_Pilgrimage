@@ -38,7 +38,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0bb4932d409930842aa258b18e50c181, type: 3}
   floorSprites: []
   hasEnemies: 0
+  enemyDensity: 0
   hasShadows: 0
+  canHavePottard: 0
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 0
   bribeMultiplier: 0
   canBeBribed: 1
   treasureDensity: 0

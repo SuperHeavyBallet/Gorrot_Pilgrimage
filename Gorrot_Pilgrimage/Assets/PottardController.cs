@@ -14,6 +14,8 @@ public class PottardController : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)] float keepGoingChance = 0.65f;
 
+    SquareController currentSquareController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -137,7 +139,7 @@ public class PottardController : MonoBehaviour
 
 
 
-        IEnumerator PottardMovement(Vector2Int newPosition, SquareController squareToLoot)
+        IEnumerator PottardMovement(Vector2Int newPosition, SquareController squareToLand)
         {
 
 
@@ -149,8 +151,16 @@ public class PottardController : MonoBehaviour
             float duration = 0.25f;
             float t = 0f;
 
+            if(currentSquareController != null)
+            {
+            Debug.LogError("Square Cont Not Null");
+                currentSquareController.MakePottardSquare(false);
+            }
+        
+
             while (t < duration)
             {
+                
                 t += Time.deltaTime;
                 float u = Mathf.Clamp01(t / duration);
 
@@ -162,10 +172,13 @@ public class PottardController : MonoBehaviour
             }
 
             this.transform.position = new Vector2(newPosition.x, newPosition.y);
+            yield return null;
 
-        if( squareToLoot != null)
+        if( squareToLand != null)
         {
-            squareToLoot.MakeEmptySquare();
+            squareToLand.MakeEmptySquare();
+            squareToLand.MakePottardSquare(true);
+            currentSquareController = squareToLand;
         }
 
             currentPosition = new Vector2Int(newPosition.x, newPosition.y);

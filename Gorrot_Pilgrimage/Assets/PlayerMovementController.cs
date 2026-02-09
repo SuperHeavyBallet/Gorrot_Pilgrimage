@@ -289,6 +289,12 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
+        if(newSquareController.ThisSquareHoldsPottard == true)
+        {
+            Debug.LogError("POTTARD SQUARE");
+            MovePlayerBackOneSquare();
+        }
+
         if(newSquareController.Type == SquareController.SquareType.Trap)
         {
             if(newSquareController.GetTrapActivated == false)

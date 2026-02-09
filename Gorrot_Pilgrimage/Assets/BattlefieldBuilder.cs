@@ -33,25 +33,23 @@ public class BattlefieldBuilder : MonoBehaviour
     List<GameObject> enemySquares = new List<GameObject>();
 
     [SerializeField] MapCatalogue mapCatalogue;
-    MapData currentMap;
-    MapData mapToBuild;
+
 
     MapData previousMap;
     MapData thisMap;
-    MapData nextMap;
+
 
     bool canAdvanceDifficulty;
 
-   // [SerializeField] TextMeshProUGUI hasMerchantText;
+
     [SerializeField] GameObject hasMerchantIcon;
     [SerializeField] MerchantShopController merchantShopController;
-    // StartLocations startLocation;
+
     [SerializeField] GameObject wildMapIcon;
 
     PlayerCompassController playerCompassController;
     PlayerDistanceController playerDistanceController;
     PlayerMovementController playerMovementController;
-   // PlayerStatsController playerStatsController;
     PlayerStatReceiver playerStatReceiver;
     [SerializeField] GoalPhaseResolution goalPhaseResolution;
     [SerializeField] GameObject transitionScreen;
@@ -61,9 +59,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
     bool isFinalCorridoor = false;
 
-    private MapData plannedNextMap;
-    //private MapData plannedNextNextMap;
-    // bool isLost = false;
 
     [Header("Sacred Path Drunkenness")]
     [Tooltip("0 = always best, 1 = very random")]
@@ -89,7 +84,6 @@ public class BattlefieldBuilder : MonoBehaviour
         if (player == null) Debug.LogError("Player not set", this);
         if (uiController == null) Debug.LogError("UIController not set", this);
         if (mapCatalogue == null) Debug.LogError("MapCatalogue not set", this);
-       // if (hasMerchantText == null) Debug.LogError("Merchant text not set", this);
         if (hasMerchantIcon == null) Debug.LogError("Merchant icon not set", this);
         if (merchantShopController == null) Debug.LogError("Merchant Shop Controller not set", this);
 
@@ -98,13 +92,11 @@ public class BattlefieldBuilder : MonoBehaviour
             playerMovementController = player.GetComponent<PlayerMovementController>();
             playerCompassController = player.GetComponent<PlayerCompassController>();
             playerDistanceController = player.GetComponent<PlayerDistanceController>();
-           // playerStatsController = player.GetComponent<PlayerStatsController>();
             playerStatReceiver = player.GetComponent<PlayerStatReceiver>();
 
             if (playerMovementController == null) Debug.LogError("PlayerMovementController missing", player);
             if (playerCompassController == null) Debug.LogError("PlayerCompassController missing", player);
             if (playerDistanceController == null) Debug.LogError("PlayerDistanceController missing", player);
-            //if (playerStatsController == null) Debug.LogError("PlayerStatsController missing", player);
             if (playerStatReceiver == null) Debug.LogError("PlayerStatReceiver missing", player);
         }
     }
@@ -321,12 +313,27 @@ public class BattlefieldBuilder : MonoBehaviour
     void CheckPottardPlacement()
     {
 
-        if(thisMap.CanHavePottard)
+        if(thisMap.CanHavePottard && RollPottardPresentRNG())
         {
-            PlacePottard();
+            
+        }
+        PlacePottard();
+
+    }
+
+    bool RollPottardPresentRNG()
+    {
+        bool finalChoice = false;
+
+        int randomNumber = UnityEngine.Random.Range(0, 2);
+
+        if(randomNumber == 0)
+        {
+            finalChoice = true;
         }
 
-        
+
+        return finalChoice;
     }
 
     void CheckGateKeeperNeeded()

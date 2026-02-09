@@ -102,7 +102,9 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject trapSprite;
     [SerializeField] GameObject hiddenTrapSprite;
     bool trapActivated = false;
-   // bool isTrapSquare;
+    // bool isTrapSquare;
+
+    public bool thisSquareHoldsPottard = false;
 
     public void MakeTrapSquare(MapData thisMap)
     {
@@ -657,7 +659,13 @@ public class SquareController : MonoBehaviour
         ActivateGameObject(terrainSquareSprite);
     }
 
+    public void MakePottardSquare(bool value)
+    {
+        Debug.Log(this + "This Square Holds Pottard: " + value);
+        thisSquareHoldsPottard = value;
+    }
 
+    public bool ThisSquareHoldsPottard => thisSquareHoldsPottard;
     public void MakeEmptySquare()
     {
         isGoalSquare = false;

@@ -47,6 +47,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 235417b7b6280184a96785a2694a8de0, type: 3}
   - {fileID: 21300000, guid: 3011b362335fcb946a69a53d9ad3ac6a, type: 3}
   hasEnemies: 0
+  enemyDensity: 0
   hasShadows: 0
+  canHavePottard: 0
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 0
   bribeMultiplier: 10
+  canBeBribed: 1
   treasureDensity: 0
