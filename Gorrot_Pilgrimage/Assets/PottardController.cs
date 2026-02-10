@@ -8,6 +8,7 @@ public class PottardController : MonoBehaviour
     GameObject[,] allSquares;
 
     Vector2Int currentPosition;
+    Vector2Int previousPosition;
     Vector2Int prevDirection;
 
     bool landOnGoal;
@@ -15,6 +16,8 @@ public class PottardController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] float keepGoingChance = 0.65f;
 
     SquareController currentSquareController;
+
+ 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,10 +43,10 @@ public class PottardController : MonoBehaviour
     {
         this.transform.position = startPos;
 
-        StartNewMoveRoutine();
+        StartNewMoveRoutine(Vector2Int.zero);
     }
 
-    void StartNewMoveRoutine()
+    void StartNewMoveRoutine(Vector2Int overrideDelta)
     {
         if (pottardMoveRoutine != null)
         {
@@ -55,56 +58,72 @@ public class PottardController : MonoBehaviour
 
         Vector2Int current = Vector2Int.RoundToInt(transform.position);
 
-        Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
-        var candidates = new System.Collections.Generic.List<Vector2Int>();
+        currentPosition = current;
 
-        foreach (var d in dirs)
+        Vector2Int next;
+
+        // If we are forced to move (back one square), treat it as a DELTA
+        if (overrideDelta != Vector2Int.zero)
         {
-            Vector2Int p = current + d;
+            next = current + overrideDelta;
 
-            if (p.x < 0 || p.y < 0 ||
-                p.x >= allSquares.GetLength(0) ||
-                p.y >= allSquares.GetLength(1))
-                continue;
-
-            var sq = allSquares[p.x, p.y]?.GetComponent<SquareController>();
-            if (sq != null && (sq.isEmptySquare || sq.isGoalSquare || sq.isTreasureSquare))
+            // Validate bounds
+            if (next.x < 0 || next.y < 0 ||
+                next.x >= allSquares.GetLength(0) ||
+                next.y >= allSquares.GetLength(1))
             {
-                candidates.Add(p);
+                // Can't move there; just retry normal movement
+                pottardMoveRoutine = StartCoroutine(PottardWaitThenRetry());
+                return;
             }
 
-
-
-        }
-
-        if (candidates.Count == 0)
-        {
-            // No valid moves: either wait, or try again later
-            pottardMoveRoutine = StartCoroutine(PottardWaitThenRetry());
-            return;
-        }
-
-
-        Vector2Int next = candidates[UnityEngine.Random.Range(0, candidates.Count)];
-
-        Vector2Int chosenDir = next - current;
-        prevDirection = chosenDir;
-
-        Vector2Int forwardPos = current + prevDirection;
-
-        bool canGoForward = prevDirection != Vector2Int.zero && candidates.Contains(forwardPos);
-
-        if (canGoForward && UnityEngine.Random.value < keepGoingChance)
-        {
-            next = forwardPos;
+            var sq = allSquares[next.x, next.y]?.GetComponent<SquareController>();
+            if (!IsCandidateSquare(sq))
+            {
+                pottardMoveRoutine = StartCoroutine(PottardWaitThenRetry());
+                return;
+            }
         }
         else
         {
-            next = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+            // Normal wandering: build candidates from current
+            Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+            var candidates = new System.Collections.Generic.List<Vector2Int>();
+
+            foreach (var d in dirs)
+            {
+                Vector2Int p = current + d;
+
+                if (p.x < 0 || p.y < 0 ||
+                    p.x >= allSquares.GetLength(0) ||
+                    p.y >= allSquares.GetLength(1))
+                    continue;
+
+                var sq = allSquares[p.x, p.y]?.GetComponent<SquareController>();
+                if (IsCandidateSquare(sq))
+                    candidates.Add(p);
+            }
+
+            if (candidates.Count == 0)
+            {
+                pottardMoveRoutine = StartCoroutine(PottardWaitThenRetry());
+                return;
+            }
+
+            // Forward bias
+            Vector2Int forwardPos = current + prevDirection;
+            bool canGoForward = prevDirection != Vector2Int.zero && candidates.Contains(forwardPos);
+
+            if (canGoForward && UnityEngine.Random.value < keepGoingChance)
+                next = forwardPos;
+            else
+                next = candidates[UnityEngine.Random.Range(0, candidates.Count)];
         }
 
-        // Store heading as a direction, not a position
+        // Now we have a valid 'next'
         prevDirection = next - current;
+
+        previousPosition = current;
 
         SquareController squareController = allSquares[next.x, next.y].GetComponent<SquareController>();
         if (squareController != null)
@@ -115,14 +134,9 @@ public class PottardController : MonoBehaviour
                     landOnGoal = true;
                 }
 
-                if(squareController.isTreasureSquare)
-                {
+         
                 pottardMoveRoutine = StartCoroutine(PottardMovement(next, squareController));
-            }
-            else
-            {
-                pottardMoveRoutine = StartCoroutine(PottardMovement(next, null));
-            }
+           
 
 
 
@@ -131,10 +145,22 @@ public class PottardController : MonoBehaviour
         }
     }
 
-        IEnumerator PottardWaitThenRetry()
+    
+
+    static bool IsCandidateSquare(SquareController sq)
+    {
+        if (sq is null) return false;
+
+        bool isMoveableType = sq.isEmptySquare || sq.isGoalSquare || sq.isTreasureSquare;
+        bool squareValid = isMoveableType && !sq.ThisSquareHoldsPlayer && !sq.IsWater;
+
+        return squareValid;
+    }
+
+    IEnumerator PottardWaitThenRetry()
         {
             yield return new WaitForSeconds(1f);
-            StartNewMoveRoutine();
+            StartNewMoveRoutine(Vector2Int.zero);
         }
 
 
@@ -151,16 +177,24 @@ public class PottardController : MonoBehaviour
             float duration = 0.25f;
             float t = 0f;
 
-            if(currentSquareController != null)
-            {
-            Debug.LogError("Square Cont Not Null");
-                currentSquareController.MakePottardSquare(false);
-            }
+        if(currentSquareController != null)
+        {
+            currentSquareController.MakePottardSquare(false);
+        }
+
+
+        
         
 
             while (t < duration)
             {
                 
+                if(squareToLand.ThisSquareHoldsPlayer)
+                {
+                    MovePottardBackOneSquare();
+                    yield break;
+            }
+
                 t += Time.deltaTime;
                 float u = Mathf.Clamp01(t / duration);
 
@@ -174,16 +208,26 @@ public class PottardController : MonoBehaviour
             this.transform.position = new Vector2(newPosition.x, newPosition.y);
             yield return null;
 
-        if( squareToLand != null)
+        
+
+            currentPosition = new Vector2Int(newPosition.x, newPosition.y);
+
+        if (squareToLand != null)
         {
-            squareToLand.MakeEmptySquare();
+
+            if(squareToLand.isTreasureSquare)
+            {
+                squareToLand.MakeEmptySquare();
+            }
+            
+
+ 
+
             squareToLand.MakePottardSquare(true);
             currentSquareController = squareToLand;
         }
 
-            currentPosition = new Vector2Int(newPosition.x, newPosition.y);
-
-            if(landOnGoal)
+        if (landOnGoal)
             {
             Destroy(gameObject);
         }
@@ -192,9 +236,16 @@ public class PottardController : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
 
-                StartNewMoveRoutine();
+                StartNewMoveRoutine(Vector2Int.zero);
             }
             
         }
+
+    void MovePottardBackOneSquare()
+    {
+        Vector2Int current = Vector2Int.RoundToInt(transform.position);
+        Vector2Int delta = previousPosition - current;
+        StartNewMoveRoutine(delta);
+    }
     
 }

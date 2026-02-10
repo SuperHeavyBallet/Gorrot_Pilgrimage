@@ -285,7 +285,8 @@ public class BattlefieldBuilder : MonoBehaviour
         if (!thisMap.GetIsFinalCorridoor())
         {
             SetWater(thisMap.GetWaterAmount());
-            MarkWaterAdjacentSquares();
+           MarkWaterAndShore();
+           //MarkWaterAdjacentSquares();
             CheckMerchantNeeded();
             CheckGateKeeperNeeded();
             SetContentAmounts(mapSize);
@@ -1079,8 +1080,84 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
+    void MarkWaterAndShore()
+    {
+        int width = allSquares.GetLength(0);
+        int height = allSquares.GetLength(1);
+
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+            {
+                var sc = allSquares[x, y]?.GetComponent<SquareController>();
+                if (sc == null) continue;
+
+                int waterNeighborMask = 0; // land: which cardinals are water
+                int waterEdgeMask = 0;     // water: which sides touch NON-water (open edges)
+                int diagWaterMask = 0;     // water: which diagonals ARE water
+
+                // ---- Cardial neighbors (N/E/S/W) ----
+                for (int i = 0; i < Neigh4.Length; i++)
+                {
+                    Vector2Int n = new Vector2Int(x, y) + Neigh4[i];
+
+                    bool inBounds = (n.x >= 0 && n.x < width && n.y >= 0 && n.y < height);
+                    bool neighborIsWater = false;
+
+                    if (inBounds)
+                    {
+                        var nsc = allSquares[n.x, n.y]?.GetComponent<SquareController>();
+                        neighborIsWater = (nsc != null && nsc.GetIsWater());
+                    }
+
+                    // Land: record water adjacency
+                    if (neighborIsWater)
+                        waterNeighborMask |= (1 << i);
+
+                    // Water: record OPEN edges where neighbor is not water (or out of bounds)
+                    if (sc.GetIsWater() && !neighborIsWater)
+                        waterEdgeMask |= (1 << i);
+                }
+
+                // ---- Diagonal neighbors (NE/NW/SE/SW) ----
+                if (sc.GetIsWater())
+                {
+                    for (int i = 0; i < NeighDiag.Length; i++)
+                    {
+                        Vector2Int d = new Vector2Int(x, y) + NeighDiag[i];
+                        if (d.x < 0 || d.x >= width || d.y < 0 || d.y >= height)
+                            continue;
+
+                        var dsc = allSquares[d.x, d.y]?.GetComponent<SquareController>();
+                        if (dsc != null && dsc.GetIsWater())
+                            diagWaterMask |= (1 << i); // bit 1,2,4,8 for NE,NW,SE,SW
+                    }
+                }
+
+                if (sc.GetIsWater())
+                {
+                    sc.SetIsWaterAdjacent(false);
+                    sc.SetWaterAdjacencyMask(waterEdgeMask);
+                    sc.SetWaterDiagonalMask(diagWaterMask); // <-- NEW
+                }
+                else
+                {
+                    bool adjacentToWater = (waterNeighborMask != 0);
+                    sc.SetIsWaterAdjacent(adjacentToWater);
+
+                    // optional: if you want land visuals to know which side water is on:
+                    // sc.SetLandWaterNeighborMask(waterNeighborMask);
+                }
+            }
+    }
 
 
+    static readonly Vector2Int[] NeighDiag = new[]
+{
+    new Vector2Int(1, 1),   // NE  bit 1
+    new Vector2Int(-1, 1),  // NW  bit 2
+    new Vector2Int(1, -1),  // SE  bit 4
+    new Vector2Int(-1, -1), // SW  bit 8
+};
 
     void MarkWaterAdjacentSquares()
     {
@@ -1092,7 +1169,7 @@ public class BattlefieldBuilder : MonoBehaviour
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)
             {
-                var sc = allSquares[x, y].GetComponent<SquareController>();
+                var sc = allSquares[x, y]?.GetComponent<SquareController>();
                 if (sc == null) continue;
 
                 int mask = 0;

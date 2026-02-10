@@ -42,6 +42,8 @@ public class PlayerMovementController : MonoBehaviour
 
    [SerializeField] PlayerAnimationManager playerAnimationManager;
 
+    SquareController currentSquareController;
+
     enum facingPositions
     {
         up, down, left, right
@@ -232,6 +234,8 @@ public class PlayerMovementController : MonoBehaviour
         isMoving = true;
         playerAnimationManager.SetIsWalking(true);
 
+     
+
         if(newSquareController.isWater)
         {
             audioManager.playPlayerMoveWaterSoundEffect();
@@ -247,6 +251,12 @@ public class PlayerMovementController : MonoBehaviour
 
         float duration = 0.25f; // tune feel
         float t = 0f;
+
+
+        if (currentSquareController != null)
+        {
+            currentSquareController.MakeThisSquareHoldPlayer(false);
+        }
 
         while (t < duration)
         {
@@ -264,6 +274,12 @@ public class PlayerMovementController : MonoBehaviour
 
         // Commit grid position *after* movement finishes
         currentPosition = new Vector2Int(newX, newY);
+
+        if(newSquareController != null)
+        {
+            newSquareController.MakeThisSquareHoldPlayer(true);
+            currentSquareController = newSquareController;
+        }
 
         
 
@@ -291,7 +307,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if(newSquareController.ThisSquareHoldsPottard == true)
         {
-            Debug.LogError("POTTARD SQUARE");
+            playerStatsController.resetSuffering();
             MovePlayerBackOneSquare();
         }
 
@@ -335,8 +351,6 @@ public class PlayerMovementController : MonoBehaviour
 
             turnOrganiser.UpdateCurrentEnemySize(amount);
             turnOrganiser.SetLandedOnEnemySquare(true, newSquareController);
-           // fateCounter.resetFateCounter();
-            //newSquareController.MakeEmptySquare();
             return;
         }
 
@@ -370,8 +384,6 @@ public class PlayerMovementController : MonoBehaviour
         if (newSquareController.isItemSquare)
         {
             string squareContentsID = newSquareController.GetContentsID();
-
-            Debug.Log("PICKUP: " + squareContentsID);
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
             if (canAddItem)

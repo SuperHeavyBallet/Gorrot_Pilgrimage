@@ -54,7 +54,9 @@ public class SquareController : MonoBehaviour
 
     public SpriteRenderer squareTerrainSpriteRenderer;
     public SpriteRenderer squareItemSpriteRenderer;
+    [SerializeField] GameObject groundSprite;
     [SerializeField] SpriteRenderer groundSpriteRenderer;
+    [SerializeField] SpriteRenderer waterSpriteRenderer;
 
     //BattlefieldBuilder battlefieldBuilder;
 
@@ -105,6 +107,11 @@ public class SquareController : MonoBehaviour
     // bool isTrapSquare;
 
     public bool thisSquareHoldsPottard = false;
+
+    [SerializeField] GameObject waterFoamCorner_NE;
+    [SerializeField] GameObject waterFoamCorner_SE;
+    [SerializeField] GameObject waterFoamCorner_SW;
+    [SerializeField] GameObject waterFoamCorner_NW;
 
     public void MakeTrapSquare(MapData thisMap)
     {
@@ -172,6 +179,71 @@ public class SquareController : MonoBehaviour
     { 
         isWaterAdjacent = value; 
         waterAdjacentSprite.SetActive(value);
+
+      
+            
+     
+    }
+
+    static readonly int TimeOffset = Shader.PropertyToID("_TimeOffset");
+
+    void ApplyTimeOffset()
+    {
+        if (waterSpriteRenderer == null) return;
+
+        mpb ??= new MaterialPropertyBlock();
+        waterSpriteRenderer.GetPropertyBlock(mpb);
+
+        // Stable-ish random per tile: based on grid coords, or transform position
+        float seed = (squareX * 73856093) ^ (squareY * 19349663);
+        float offset = Mathf.Abs(seed % 1000) * 0.01f; // 0..10-ish seconds
+
+        mpb.SetFloat(TimeOffset, offset);
+        waterSpriteRenderer.SetPropertyBlock(mpb);
+    }
+
+    static readonly int EdgeN = Shader.PropertyToID("_EdgeN");
+    static readonly int EdgeE = Shader.PropertyToID("_EdgeE");
+    static readonly int EdgeS = Shader.PropertyToID("_EdgeS");
+    static readonly int EdgeW = Shader.PropertyToID("_EdgeW");
+    static MaterialPropertyBlock mpb;
+
+    void ApplyWaterEdgesToRenderer(int mask)
+    {
+        if (waterSpriteRenderer == null) return;
+
+        mpb ??= new MaterialPropertyBlock();
+        waterSpriteRenderer.GetPropertyBlock(mpb);
+
+        mpb.SetFloat(EdgeN, (mask & 1) != 0 ? 1f : 0f);
+        mpb.SetFloat(EdgeE, (mask & 2) != 0 ? 1f : 0f);
+        mpb.SetFloat(EdgeS, (mask & 4) != 0 ? 1f : 0f);
+        mpb.SetFloat(EdgeW, (mask & 8) != 0 ? 1f : 0f);
+
+        waterSpriteRenderer.SetPropertyBlock(mpb);
+    }
+
+
+    static readonly int DiagNE = Shader.PropertyToID("_DiagNE");
+    static readonly int DiagNW = Shader.PropertyToID("_DiagNW");
+    static readonly int DiagSE = Shader.PropertyToID("_DiagSE");
+    static readonly int DiagSW = Shader.PropertyToID("_DiagSW");
+
+    public void SetWaterDiagonalMask(int diagMask)
+    {
+        // diagMask bits: 1=NE, 2=NW, 4=SE, 8=SW
+
+        if (waterSpriteRenderer == null) return;
+
+        mpb ??= new MaterialPropertyBlock();
+        waterSpriteRenderer.GetPropertyBlock(mpb);
+
+        mpb.SetFloat(DiagNE, (diagMask & 1) != 0 ? 1f : 0f);
+        mpb.SetFloat(DiagNW, (diagMask & 2) != 0 ? 1f : 0f);
+        mpb.SetFloat(DiagSE, (diagMask & 4) != 0 ? 1f : 0f);
+        mpb.SetFloat(DiagSW, (diagMask & 8) != 0 ? 1f : 0f);
+
+        waterSpriteRenderer.SetPropertyBlock(mpb);
     }
 
 
@@ -192,12 +264,36 @@ public class SquareController : MonoBehaviour
         waterBorderEast.SetActive(waterEast);
         waterBorderSouth.SetActive(waterSouth);
         waterBorderWest.SetActive(waterWest);
-   
+
+        if(waterNorth && waterEast)
+        {
+            waterFoamCorner_NE.SetActive(true);
+        }
+
+        if(waterEast && waterSouth)
+        {
+            waterFoamCorner_SE.SetActive(true);
+        }
+
+        if(waterSouth && waterWest)
+        {
+            waterFoamCorner_SW.SetActive(true);
+        }
+
+        if(waterWest && waterNorth)
+        {
+            waterFoamCorner_NW.SetActive(true);
+        }
+
+        ApplyWaterEdgesToRenderer(mask);
+
     }
 
     public bool GetIsWaterAdjacent() => isWaterAdjacent;
 
     public bool GetIsWater() => isWater;
+
+    public bool IsWater => isWater;
 
     public void AddBorderSquare(int[] sides)
     {
@@ -264,6 +360,7 @@ public class SquareController : MonoBehaviour
         squareValue.gameObject.SetActive(false);
         sacredMarker.gameObject.SetActive(false);
         waterMarker.gameObject.SetActive(false);
+        groundSprite.SetActive(true);
 
         
     }
@@ -275,11 +372,18 @@ public class SquareController : MonoBehaviour
         waterSouth = false;
         waterWest = false;
 
+        groundSprite.SetActive(true);
 
         waterBorderNorth.SetActive(false);
         waterBorderEast.SetActive(false);
         waterBorderSouth.SetActive(false);
         waterBorderWest.SetActive(false);
+
+
+        waterFoamCorner_NE.SetActive(false);
+        waterFoamCorner_SE.SetActive(false);
+        waterFoamCorner_SW.SetActive(false);
+        waterFoamCorner_NW.SetActive(false);
     }
 
     void ChooseSquareSprite()
@@ -393,6 +497,12 @@ public class SquareController : MonoBehaviour
     {
         isWater = value;
         waterMarker.SetActive(value);   
+
+        if(value == true)
+        {
+            groundSprite.SetActive(false);
+            
+        }
     }
         
     public bool GetIsSacred()
@@ -646,7 +756,7 @@ public class SquareController : MonoBehaviour
 
     public void MakeTerrainSquare()
     {
-        isGoalSquare= false;
+        isGoalSquare = false;
         isEnemySquare = false;
         isTreasureSquare = false;
         isTerrainSquare = true;
@@ -659,9 +769,17 @@ public class SquareController : MonoBehaviour
         ActivateGameObject(terrainSquareSprite);
     }
 
+    public bool thisSquareHoldsPlayer;
+
+    public void MakeThisSquareHoldPlayer(bool value)
+    {
+        thisSquareHoldsPlayer = value;
+    }
+
+    public bool ThisSquareHoldsPlayer => thisSquareHoldsPlayer;
+
     public void MakePottardSquare(bool value)
     {
-        Debug.Log(this + "This Square Holds Pottard: " + value);
         thisSquareHoldsPottard = value;
     }
 
