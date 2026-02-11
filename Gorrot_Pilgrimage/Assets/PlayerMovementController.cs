@@ -256,7 +256,14 @@ public class PlayerMovementController : MonoBehaviour
         if (currentSquareController != null)
         {
             currentSquareController.MakeThisSquareHoldPlayer(false);
+
+            if(currentSquareController.isWater)
+            {
+                currentSquareController.ActivateStepInWaterSprite(false);
+            }
         }
+
+        
 
         while (t < duration)
         {
@@ -268,6 +275,11 @@ public class PlayerMovementController : MonoBehaviour
 
             transform.position = Vector3.Lerp(start, end, u);
             yield return null;
+        }
+
+        if(newSquareController.isWater)
+        {
+            newSquareController.ActivateStepInWaterSprite(true);
         }
 
         transform.position = end;

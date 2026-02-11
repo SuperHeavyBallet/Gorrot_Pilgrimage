@@ -102,6 +102,7 @@
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\FlyMovementController.cs" />
     <Compile Include="Assets\FlyAnimationPicker.cs" />
+    <Compile Include="Assets\PickRandomSpriteFromCollection.cs" />
     <Compile Include="Assets\Scriptable\DifficultyTuning.cs" />
     <Compile Include="Assets\Scriptable\MerchantStocks\MerchantStock.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />

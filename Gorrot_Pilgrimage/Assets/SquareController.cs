@@ -218,7 +218,9 @@ public class SquareController : MonoBehaviour
         mpb.SetFloat(EdgeN, (mask & 1) != 0 ? 1f : 0f);
         mpb.SetFloat(EdgeE, (mask & 2) != 0 ? 1f : 0f);
         mpb.SetFloat(EdgeS, (mask & 4) != 0 ? 1f : 0f);
-        mpb.SetFloat(EdgeW, (mask & 8) != 0 ? 1f : 0f);
+        //mpb.SetFloat(EdgeW, (mask & 8) != 0 ? 1f : 0f);
+        mpb.SetFloat(EdgeW, 0f);
+
 
         waterSpriteRenderer.SetPropertyBlock(mpb);
     }
@@ -360,6 +362,7 @@ public class SquareController : MonoBehaviour
         squareValue.gameObject.SetActive(false);
         sacredMarker.gameObject.SetActive(false);
         waterMarker.gameObject.SetActive(false);
+        ActivateStepInWaterSprite(false);
         groundSprite.SetActive(true);
 
         
@@ -504,7 +507,14 @@ public class SquareController : MonoBehaviour
             
         }
     }
-        
+
+
+    [SerializeField] GameObject stepInWaterSprite;
+
+    public void ActivateStepInWaterSprite(bool value)
+    {
+        stepInWaterSprite.SetActive(value);
+    }
     public bool GetIsSacred()
     {
         return isSacred;
