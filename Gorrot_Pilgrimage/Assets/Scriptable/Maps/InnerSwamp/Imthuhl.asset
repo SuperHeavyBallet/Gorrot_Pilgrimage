@@ -36,9 +36,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dea42ab3c9250e4b8e5940875ab9ecf, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: dd96a35b6fcea86459692da1588fa486, type: 3}
-  floorSprites: []
+  floorSprites:
+  - {fileID: 21300000, guid: 2189c061780e6bd4d8e3c9572d40609b, type: 3}
+  - {fileID: 21300000, guid: 74ddba01405e5f140ac8506a72f227b4, type: 3}
   hasEnemies: 1
+  enemyDensity: 0
   hasShadows: 0
+  canHavePottard: 1
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 1
   bribeMultiplier: 3
   canBeBribed: 1
+  waterShader: {fileID: 2100000, guid: b2e3fc1189e3870409fcc292e25d90f1, type: 2}
+  waterFoamShader: {fileID: 2100000, guid: b5b90870ee7395b428e80353c1962ddb, type: 2}
   treasureDensity: 0
+  waterBorderSprites:
+  - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}
+  - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}
+  - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}

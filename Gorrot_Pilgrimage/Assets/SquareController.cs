@@ -98,6 +98,102 @@ public class SquareController : MonoBehaviour
     public GameObject waterBorderSouth;
     public GameObject waterBorderWest;
 
+    [SerializeField] SpriteRenderer waterBorderNorthSpriteRenderer;
+    [SerializeField] SpriteRenderer waterBorderEastSpriteRenderer;
+    [SerializeField] SpriteRenderer waterBorderSouthSpriteRenderer;
+    [SerializeField] SpriteRenderer waterBorderWestSpriteRenderer;
+
+    [SerializeField] SpriteRenderer waterFoamNorthSpriteRenderer;
+    [SerializeField] SpriteRenderer waterFoamEastSpriteRenderer;
+    [SerializeField] SpriteRenderer waterFoamSouthSpriteRenderer;
+    [SerializeField] SpriteRenderer waterFoamWestSpriteRenderer;
+
+    [SerializeField] SpriteRenderer[] foamObjects;
+
+    [SerializeField] Sprite defaultWaterBorderSprite;
+
+    void AssignWaterBorderSprites()
+    {
+        if (thisSquareMapData.GetWaterBorderSpritesArrayLength > 0)
+        {
+            
+
+            if (waterBorderNorthSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Border North Sprite Renderer Assigned", this);
+                return;
+            }
+
+
+            if (waterBorderEastSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Border East Sprite Renderer Assigned", this);
+                return;
+            }
+            if (waterBorderSouthSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Border South Sprite Renderer Assigned", this);
+                return;
+            }
+
+            if (waterBorderWestSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Border West Sprite Renderer Assigned", this);
+                return;
+            }
+
+            if (waterFoamNorthSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Foam North Sprite Renderer Assigned", this);
+                return;
+            }
+
+
+            if (waterFoamEastSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Foam East Sprite Renderer Assigned", this);
+                return;
+            }
+            if (waterFoamSouthSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Foam South Sprite Renderer Assigned", this);
+                return;
+            }
+
+            if (waterFoamWestSpriteRenderer == null)
+            {
+                Debug.LogError("No Water Foam West Sprite Renderer Assigned", this);
+                return;
+            }
+
+
+
+            waterBorderNorthSpriteRenderer.sprite = thisSquareMapData.GetRandomWaterBorderSprite();
+            waterBorderEastSpriteRenderer.sprite = thisSquareMapData.GetRandomWaterBorderSprite();
+            waterBorderSouthSpriteRenderer.sprite = thisSquareMapData.GetRandomWaterBorderSprite();
+            waterBorderWestSpriteRenderer.sprite = thisSquareMapData.GetRandomWaterBorderSprite();
+
+            foreach(SpriteRenderer sr in foamObjects)
+            {
+                sr.material = thisSquareMapData.WaterFoamShader;
+            }
+        }
+        else
+        {
+            if(defaultWaterBorderSprite == null)
+            {
+                Debug.LogError("Default Water Border Sprite Not Assigned", this);
+                return;
+            }
+
+            waterBorderNorthSpriteRenderer.sprite = defaultWaterBorderSprite;
+            waterBorderEastSpriteRenderer.sprite = defaultWaterBorderSprite;
+            waterBorderSouthSpriteRenderer.sprite = defaultWaterBorderSprite;
+            waterBorderWestSpriteRenderer.sprite = defaultWaterBorderSprite;
+        }
+        
+    }
+
     [SerializeField] GameObject shadow;
     public bool isInShadow;
 
@@ -200,6 +296,7 @@ public class SquareController : MonoBehaviour
 
         mpb.SetFloat(TimeOffset, offset);
         waterSpriteRenderer.SetPropertyBlock(mpb);
+        waterSpriteRenderer.SetPropertyBlock(mpb);
     }
 
     static readonly int EdgeN = Shader.PropertyToID("_EdgeN");
@@ -218,8 +315,8 @@ public class SquareController : MonoBehaviour
         mpb.SetFloat(EdgeN, (mask & 1) != 0 ? 1f : 0f);
         mpb.SetFloat(EdgeE, (mask & 2) != 0 ? 1f : 0f);
         mpb.SetFloat(EdgeS, (mask & 4) != 0 ? 1f : 0f);
-        //mpb.SetFloat(EdgeW, (mask & 8) != 0 ? 1f : 0f);
-        mpb.SetFloat(EdgeW, 0f);
+        mpb.SetFloat(EdgeW, (mask & 8) != 0 ? 1f : 0f);
+        
 
 
         waterSpriteRenderer.SetPropertyBlock(mpb);
@@ -365,7 +462,14 @@ public class SquareController : MonoBehaviour
         ActivateStepInWaterSprite(false);
         groundSprite.SetActive(true);
 
+       
+
         
+    }
+
+    private void Start()
+    {
+        AssignWaterBorderSprites();
     }
 
     private void OnEnable()
@@ -500,6 +604,8 @@ public class SquareController : MonoBehaviour
     {
         isWater = value;
         waterMarker.SetActive(value);   
+        SpriteRenderer waterSR = waterMarker.GetComponent<SpriteRenderer>();
+        waterSR.material = thisSquareMapData.WaterShader;
 
         if(value == true)
         {
@@ -510,10 +616,14 @@ public class SquareController : MonoBehaviour
 
 
     [SerializeField] GameObject stepInWaterSprite;
+    Transform stepInWaterOriginalScale;
 
     public void ActivateStepInWaterSprite(bool value)
     {
         stepInWaterSprite.SetActive(value);
+
+
+
     }
     public bool GetIsSacred()
     {

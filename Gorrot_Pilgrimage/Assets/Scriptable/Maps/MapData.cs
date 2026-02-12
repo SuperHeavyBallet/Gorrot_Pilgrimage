@@ -66,10 +66,10 @@ public class MapData : ScriptableObject
     [SerializeField] Sprite[] floorSprites;
 
     [SerializeField] bool hasEnemies;
-    [Tooltip("The amount of hidden traps in the map. 0 = none, 1 = most")]
-    [SerializeField, Range(1f, 2f)]
-    float enemyDensity; // 1 = min, 2 = max
-    public float GetEnemyDensity => enemyDensity;
+    [Tooltip("Fraction of tiles that become enemies. 0.05 = 5% of map area.")]
+    [SerializeField, Range(0f, 1f)]
+    float enemyDensity = 0.5f;
+    public float EnemyDensity => enemyDensity;
 
     [SerializeField] bool hasShadows;
 
@@ -96,12 +96,33 @@ public class MapData : ScriptableObject
 
     public int GetBribeMultiplier() => bribeMultiplier;
 
+    [SerializeField] Material waterShader;
+    [SerializeField] Material waterFoamShader;
+    public Material WaterShader => waterShader;
+    public Material WaterFoamShader => waterFoamShader;
+
+
+
+
     [Tooltip("The amount of treasure in the map. 0 = none, 1 = most")]
     [SerializeField, Range(0f, 10f)]
     int treasureDensity; // 0 = none, 10 = rich
 
 
+    [SerializeField] Sprite[] waterBorderSprites;
 
+    public int GetWaterBorderSpritesArrayLength => waterBorderSprites.Length;    
+
+    public Sprite GetRandomWaterBorderSprite()
+    {
+        int randomNumber = ReturnRandomNumberInRange(0, waterBorderSprites.Length);
+        return waterBorderSprites[randomNumber];
+    }
+
+    int ReturnRandomNumberInRange(int bottomRange, int topRange)
+    {
+        return UnityEngine.Random.Range(bottomRange, topRange);
+    }
     public int GetTreasureDensity() => treasureDensity;
 
     public MerchantStock GetMerchantStock()

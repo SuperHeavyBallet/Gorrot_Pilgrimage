@@ -28,22 +28,34 @@ MonoBehaviour:
   hasMerchant: 1
   merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}
   terrainDensity: 0.1
-  hasFlies: 1
+  hasFlies: 0
   isFinalCorridoor: 0
-  waterAmount: 0.2
+  waterAmount: 0.045
   smallEnemySprites:
   - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
   mediumEnemySprites:
   - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: b687726a45b8ff745931ae71abc2caa4, type: 3}
-  floorSprites: []
+  floorSprites:
+  - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
+  - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}
+  - {fileID: 21300000, guid: fcd7d67502f9e504e89a8aeb03a288dd, type: 3}
+  - {fileID: 21300000, guid: d040aba948cd94746bf014911f482cc3, type: 3}
+  - {fileID: 21300000, guid: f86b1729e368c794193c1e2915abd08e, type: 3}
+  - {fileID: 21300000, guid: 9b67138d5bda5634793db9042ec3346d, type: 3}
   hasEnemies: 1
-  enemyDensity: 1
+  enemyDensity: 0
   hasShadows: 0
   canHavePottard: 0
   hasHiddenTraps: 0
   hiddenTrapDensity: 1
   bribeMultiplier: 2
   canBeBribed: 1
-  treasureDensity: 1
+  waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}
+  waterFoamShader: {fileID: 2100000, guid: 6f5f5ec5aeb03b844b94708f1e11f72e, type: 2}
+  treasureDensity: 0
+  waterBorderSprites:
+  - {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
+  - {fileID: 21300000, guid: 85d9fc5e2e05d5249afbe6c708d4cc12, type: 3}
+  - {fileID: 21300000, guid: 6841c163e3006eb40b5b7ddd2423b899, type: 3}

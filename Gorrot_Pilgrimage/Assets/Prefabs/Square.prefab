@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688532861614172428}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 827bd47f6778c1743b8c2fa5c0a95486, type: 3}
   m_Name: 
@@ -580,6 +580,25 @@ MonoBehaviour:
   waterBorderEast: {fileID: 688532861614172428}
   waterBorderSouth: {fileID: 3290842870744729990}
   waterBorderWest: {fileID: 3284330074802392226}
+  waterBorderNorthSpriteRenderer: {fileID: 972083830093619149}
+  waterBorderEastSpriteRenderer: {fileID: 2463990577534042411}
+  waterBorderSouthSpriteRenderer: {fileID: 2171181855505291843}
+  waterBorderWestSpriteRenderer: {fileID: 8047826086785911962}
+  waterFoamNorthSpriteRenderer: {fileID: 6732928129581725158}
+  waterFoamEastSpriteRenderer: {fileID: 8592224350327888100}
+  waterFoamSouthSpriteRenderer: {fileID: 3901809683688319638}
+  waterFoamWestSpriteRenderer: {fileID: 5101651837876053230}
+  foamObjects:
+  - {fileID: 3386152248537713519}
+  - {fileID: 294175190818994313}
+  - {fileID: 2457494766533172347}
+  - {fileID: 4982094321173499831}
+  - {fileID: 6732928129581725158}
+  - {fileID: 8592224350327888100}
+  - {fileID: 3901809683688319638}
+  - {fileID: 5101651837876053230}
+  - {fileID: 3599322016635401077}
+  defaultWaterBorderSprite: {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
   shadow: {fileID: 1283844947944636068}
   isInShadow: 0
   trapSprite: {fileID: 3301858116727321509}
@@ -909,7 +928,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3284330074802392226}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 827bd47f6778c1743b8c2fa5c0a95486, type: 3}
   m_Name: 
@@ -960,7 +979,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3290842870744729990}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 827bd47f6778c1743b8c2fa5c0a95486, type: 3}
   m_Name: 
@@ -1492,7 +1511,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464764953878023360}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 827bd47f6778c1743b8c2fa5c0a95486, type: 3}
   m_Name: 
@@ -1602,6 +1621,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7149602713837763015}
   - component: {fileID: 3599322016635401077}
+  - component: {fileID: 6625346141784609075}
+  - component: {fileID: 2312293820436224956}
   m_Layer: 0
   m_Name: WaterStep
   m_TagString: Untagged
@@ -1682,6 +1703,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6625346141784609075
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577986145404178863}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6524e0a56b927c2459cf2d74862556d0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &2312293820436224956
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5577986145404178863}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &5664507232081810877
 GameObject:
   m_ObjectHideFlags: 0

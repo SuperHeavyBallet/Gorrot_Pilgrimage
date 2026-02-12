@@ -263,24 +263,26 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        
+
+        bool waterSplashTriggered = false;
 
         while (t < duration)
         {
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / duration);
 
-            // Smoothstep-ish curve (feels nicer than linear)
-            u = u * u * (3f - 2f * u);
+            if (!waterSplashTriggered && u >= 0.5f && newSquareController.isWater)
+            {
+                newSquareController.ActivateStepInWaterSprite(true);
+                waterSplashTriggered = true;
+            }
 
+            u = u * u * (3f - 2f * u);
             transform.position = Vector3.Lerp(start, end, u);
             yield return null;
         }
 
-        if(newSquareController.isWater)
-        {
-            newSquareController.ActivateStepInWaterSprite(true);
-        }
+
 
         transform.position = end;
 

@@ -286,10 +286,10 @@ public class BattlefieldBuilder : MonoBehaviour
         {
             SetWater(thisMap.GetWaterAmount());
            MarkWaterAndShore();
-           //MarkWaterAdjacentSquares();
+         
             CheckMerchantNeeded();
             CheckGateKeeperNeeded();
-            SetContentAmounts(mapSize);
+         
             AssignContentSquares();
 
             if(thisMap.GetHasEnemies == true)
@@ -316,9 +316,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if(thisMap.CanHavePottard && RollPottardPresentRNG())
         {
-            
+            PlacePottard();
         }
-        PlacePottard();
+        
 
     }
 
@@ -367,14 +367,13 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         if (thisMap.GetHasMerchant())
         {
-           // hasMerchantText.text = "MERCHANT";
             hasMerchantIcon.SetActive(true);
             PlaceMerchant();
             merchantShopController.SetCurrentMap(thisMap);
         }
         else 
         { 
-            //hasMerchantText.text = "...";
+    
             hasMerchantIcon.SetActive(false);
         }
     }
@@ -454,30 +453,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
-    void SetContentAmounts(int currentMapSize)
-    {
-        if (difficultyTuning == null)
-        {
-            Debug.LogError("Difficulty Tuning not assigned.", this);
-            return;
-        }
-
-        var counts = difficultyTuning.ComputeCounts(currentMapSize, currentMapCount, isFinalMap);
-
-        enemySquareCount = counts.enemy;
-        treasureSquareCount = counts.treasure * thisMap.GetTreasureDensity();
-        //terrainSquareCount = counts.terrain;
-        healthSquareCount = counts.health;
-        potionSquareCount = counts.potion;
-
-        int area = currentMapSize * currentMapSize;
-
-        float terrainRatio = thisMap.GetTerrainDensity(); 
-        
-
-
-        terrainSquareCount = Mathf.Max(1, Mathf.RoundToInt( terrainRatio * area));
-    }
 
     void SetPlayerStartSquare(int currentMapSize) {
         playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
@@ -640,12 +615,13 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if(thisMap.GetHasEnemies == true)
         {
-            PlaceTypeSquares(
-               Mathf.CeilToInt(thisMap.GetMapSize() * thisMap.GetEnemyDensity),
-               sq => sq.MakeEnemySquare(thisMap)
-           );
+            int size = thisMap.GetMapSize();
+           //int area = size * size;
 
-            PlaceTypeSquares(enemySquareCount, sq => sq.MakeEnemySquare(thisMap));
+            int enemyCount = Mathf.RoundToInt(size * thisMap.EnemyDensity); // EnemyDensity in 0..1
+            PlaceTypeSquares(enemyCount, sq => sq.MakeEnemySquare(thisMap));
+
+
         }
         
         PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare());
@@ -1159,47 +1135,7 @@ public class BattlefieldBuilder : MonoBehaviour
     new Vector2Int(-1, -1), // SW  bit 8
 };
 
-    void MarkWaterAdjacentSquares()
-    {
-        waterAdjacentSquares.Clear();
-
-        int width = allSquares.GetLength(0);
-        int height = allSquares.GetLength(1);
-
-        for (int x = 0; x < width; x++)
-            for (int y = 0; y < height; y++)
-            {
-                var sc = allSquares[x, y]?.GetComponent<SquareController>();
-                if (sc == null) continue;
-
-                int mask = 0;
-
-                for (int i = 0; i < Neigh4.Length; i++)
-                {
-                    Vector2Int n = new Vector2Int(x, y) + Neigh4[i];
-                    if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height)
-                        continue;
-
-                    var nsc = allSquares[n.x, n.y].GetComponent<SquareController>();
-                    if (nsc != null && nsc.GetIsWater())
-                        mask |= (1 << i);
-                }
-
-                bool adjacent = mask != 0;
-
-                if (sc.GetIsWater())
-                {
-                    sc.SetIsWaterAdjacent(false);
-                    sc.SetWaterAdjacencyMask(0);
-                    continue;
-                }
-
-                sc.SetIsWaterAdjacent(adjacent);
-                sc.SetWaterAdjacencyMask(mask); // <- add this method/field
-
-                if (adjacent) waterAdjacentSquares.Add(sc);
-            }
-    }
+ 
 
 
 
