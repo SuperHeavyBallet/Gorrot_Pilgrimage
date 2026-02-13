@@ -36,7 +36,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: b687726a45b8ff745931ae71abc2caa4, type: 3}
-  floorSprites: []
+  floorSprites:
+  - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
+  - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}
   hasEnemies: 1
   enemyDensity: 0
   hasShadows: 0
@@ -49,6 +51,4 @@ MonoBehaviour:
   waterFoamShader: {fileID: 2100000, guid: 6f5f5ec5aeb03b844b94708f1e11f72e, type: 2}
   treasureDensity: 1
   waterBorderSprites:
-  - {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
-  - {fileID: 21300000, guid: 85d9fc5e2e05d5249afbe6c708d4cc12, type: 3}
-  - {fileID: 21300000, guid: 6841c163e3006eb40b5b7ddd2423b899, type: 3}
+  - {fileID: 21300000, guid: 83f5995ba4843ef4bbf2b8dd758c47eb, type: 3}
