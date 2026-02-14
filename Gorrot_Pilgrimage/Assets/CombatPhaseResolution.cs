@@ -9,6 +9,7 @@ public class CombatPhaseResolution : MonoBehaviour
     [SerializeField] TurnOrganiser turnOrganiser;
 
     public DiceController diceController;
+    public DiceController enemyDiceController;
     public TextMeshProUGUI DiceRollFormulaText;
 
     
@@ -26,8 +27,9 @@ public class CombatPhaseResolution : MonoBehaviour
     bool hasPressedRoll;
     bool hasPressedPay;
 
-    public GameObject combatScreen;
-    public GameObject diceDisplay;
+    //public GameObject combatScreen;
+    [SerializeField] GameObject diceDisplay;
+    [SerializeField]  GameObject enemyDiceDisplay;
 
     [SerializeField] BattlefieldBuilder battlefieldBuilder;
     [SerializeField] PlayerMovementController playerMovementController;
@@ -51,8 +53,15 @@ public class CombatPhaseResolution : MonoBehaviour
     {
 
         
-        combatScreen.SetActive(false);
+       // combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
+        enemyDiceDisplay.SetActive(false);
+    }
+
+    public void RollEnemyDice()
+    {
+        enemyDiceController.RollDice();
+
     }
 
     public void EnterCombatPhase()
@@ -70,7 +79,7 @@ public class CombatPhaseResolution : MonoBehaviour
             bribeMultiplier = 1;
         }
 
-
+        RollEnemyDice();
             StartCombatRoutine();
     }
 
@@ -132,8 +141,9 @@ public class CombatPhaseResolution : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
 
-        combatScreen.SetActive(true);
+        //combatScreen.SetActive(true);
         diceDisplay.SetActive(true);
+        enemyDiceDisplay.SetActive(true);
 
 
 
@@ -257,8 +267,9 @@ public class CombatPhaseResolution : MonoBehaviour
     void CloseCombatScene()
     {
         battlefieldBuilder.StartFadeFromBlack();
-        combatScreen.SetActive(false);
+        //combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
+        enemyDiceDisplay.SetActive(false);
         turnOrganiser.SetLandedOnEnemySquare(false, null);
         turnOrganiser.BuildNextTurn();
     }
