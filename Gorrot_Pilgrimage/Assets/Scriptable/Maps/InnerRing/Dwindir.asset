@@ -18,7 +18,7 @@ MonoBehaviour:
   mapSize: 30
   nextMaps:
   - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
-  floorSprite: {fileID: 21300000, guid: 24ff047d198546743bfb129d10d8508b, type: 3}
+  floorSprite: {fileID: 21300000, guid: c2637dbdd247ae247b3d1b39b31fef19, type: 3}
   isWildMap: 1
   wildLevel: 2
   escapeChance: 0.5
@@ -42,7 +42,7 @@ MonoBehaviour:
   hasShadows: 0
   canHavePottard: 1
   hasHiddenTraps: 0
-  hiddenTrapDensity: 0
+  hiddenTrapDensity: 1
   bribeMultiplier: 3
   canBeBribed: 1
   waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}

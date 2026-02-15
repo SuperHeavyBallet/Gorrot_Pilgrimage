@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
         return playerStatsController.playerIsAlive;
     }
 
-    public void ReceiveMoveInput(Vector2 receivedMoveValue)
+    public void ReceiveMoveInput(Vector2 receivedMoveValue, bool freeMove, bool isWaiting)
     {
         
 
@@ -110,7 +110,14 @@ public class PlayerMovementController : MonoBehaviour
             if (isPlayerTurn && playerIsAlive)
             {
                 if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
-                    MovePlayer(normalizedMoveValue, false);
+                {
+                   
+                        MovePlayer(normalizedMoveValue, freeMove, isWaiting);
+                    
+
+                   
+                }
+                    
             }
         }
        
@@ -163,7 +170,7 @@ public class PlayerMovementController : MonoBehaviour
     
     }
 
-    public void MovePlayer(Vector2 newMoveValue, bool freeMove)
+    public void MovePlayer(Vector2 newMoveValue, bool freeMove, bool isWaiting)
     {
         
         previousPosition = currentPosition;
@@ -211,14 +218,15 @@ public class PlayerMovementController : MonoBehaviour
             );
 
 
-        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController, freeMove));
-
-       
-
-
-       
-
-
+        StartCoroutine(MoveRoutine(
+            newSquareController, 
+            newPositionX, 
+            newPositionY, 
+            newPosition, 
+            newSquareController, 
+            freeMove,
+            isWaiting
+            ));
 
     }
 
@@ -228,7 +236,8 @@ public class PlayerMovementController : MonoBehaviour
     int newY,
     Vector2 worldTargetPos,
     SquareController newSquareController,
-    bool freeMove
+    bool freeMove,
+    bool isWaiting
     )
     {
         isMoving = true;
@@ -299,13 +308,13 @@ public class PlayerMovementController : MonoBehaviour
 
         isMoving = false;
         playerAnimationManager.SetIsWalking(false);
-        ApplyMoveResults(newSquareController, freeMove);
+        ApplyMoveResults(newSquareController, freeMove, isWaiting);
 
         // Now the turn can progress
         turnOrganiser.BuildNextTurn();
     }
 
-    void ApplyMoveResults(SquareController newSquareController, bool freeMove)
+    void ApplyMoveResults(SquareController newSquareController, bool freeMove, bool isWaiting)
     {
         newSquareController.ActivateSquareVisited();
 
@@ -378,7 +387,17 @@ public class PlayerMovementController : MonoBehaviour
 
         if (!freeMove)
         {
-            fateCounter.alterFateCounter(1);
+           if(!isWaiting)
+            {
+                fateCounter.alterFateCounter(1);
+            }
+            else
+            {
+                fateCounter.alterFateCounter(2);
+            }
+               
+            
+           
 
             if (newSquareController.GetIsWater())
             {
@@ -387,12 +406,14 @@ public class PlayerMovementController : MonoBehaviour
                 
             }
 
-            if (newSquareController.isEmptySquare)
+            if (newSquareController.isEmptySquare && !isWaiting)
             {
                 playerStatsController.alterSuffering(1);
             }
 
         }
+        
+
 
 
         if (newSquareController.isItemSquare)
@@ -472,7 +493,7 @@ public class PlayerMovementController : MonoBehaviour
     public void MovePlayerBackOneSquare()
     {
        Vector2Int delta = previousPosition - currentPosition;   // e.g. (-1,0)
-        MovePlayer(new Vector2(delta.x, delta.y), true);
+        MovePlayer(new Vector2(delta.x, delta.y), true, false);
     }
     void BlockedSquare()
     {

@@ -972,13 +972,13 @@ public class SquareController : MonoBehaviour
         MakeEmptySquare();
     }
 
-    public int GetEnemyBaseRequiredToWin()
+    public int GetEnemyBaseBuff()
     {
         return square switch
         {
-            squareQuantity.small => 3,
-            squareQuantity.medium => 4,
-            squareQuantity.large => 5,
+            squareQuantity.small => 0,
+            squareQuantity.medium => 1,
+            squareQuantity.large => 2,
             _ => 4
         };
     }

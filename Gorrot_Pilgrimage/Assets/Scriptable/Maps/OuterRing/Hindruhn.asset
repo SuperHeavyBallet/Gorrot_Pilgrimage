@@ -40,7 +40,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd96a35b6fcea86459692da1588fa486, type: 3}
   floorSprites: []
   hasEnemies: 1
-  enemyDensity: 1
+  enemyDensity: 0.5
   hasShadows: 0
   canHavePottard: 1
   hasHiddenTraps: 0

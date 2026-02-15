@@ -39,12 +39,12 @@ MonoBehaviour:
   floorSprites:
   - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
   - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}
-  hasEnemies: 1
+  hasEnemies: 0
   enemyDensity: 0
   hasShadows: 0
   canHavePottard: 0
-  hasHiddenTraps: 0
-  hiddenTrapDensity: 1
+  hasHiddenTraps: 1
+  hiddenTrapDensity: 2
   bribeMultiplier: 2
   canBeBribed: 1
   waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}

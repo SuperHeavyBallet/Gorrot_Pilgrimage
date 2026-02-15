@@ -19,7 +19,7 @@ MonoBehaviour:
   nextMaps:
   - {fileID: 11400000, guid: 05aa80a72c3871948ade48b8b40c1d0a, type: 2}
   - {fileID: 11400000, guid: e35e92b6b0a875a4193b005188ff3640, type: 2}
-  floorSprite: {fileID: 21300000, guid: 9efbdecaa456330418147270df065b5f, type: 3}
+  floorSprite: {fileID: 21300000, guid: 5787469d7ff857645a702e07b8ed9710, type: 3}
   isWildMap: 0
   wildLevel: 0
   escapeChance: 0.7
@@ -39,7 +39,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dd96a35b6fcea86459692da1588fa486, type: 3}
   floorSprites: []
   hasEnemies: 1
-  enemyDensity: 0.25
+  enemyDensity: 0.5
   hasShadows: 0
   canHavePottard: 1
   hasHiddenTraps: 0

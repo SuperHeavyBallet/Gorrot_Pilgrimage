@@ -32,6 +32,22 @@ public class PlayerInputReceiver : MonoBehaviour
         }
     }
 
+    public void CaptureWaitInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && !hasPressedMove)
+        {
+            Debug.Log("INPUT WAIT");
+            hasPressedMove = true;
+            playerMovementController.ReceiveMoveInput(Vector2.zero, false, true);
+            
+        }
+        if (context.canceled)
+        {
+            hasPressedMove = false;
+            moveValue = Vector2.zero;
+        }
+    }
+
     public void CaptureMovementInput(InputAction.CallbackContext context)
     {
         if (context.performed && !hasPressedMove)
@@ -62,7 +78,7 @@ public class PlayerInputReceiver : MonoBehaviour
                 moveValue = Vector2.zero;
             }
 
-            playerMovementController.ReceiveMoveInput(moveValue);
+            playerMovementController.ReceiveMoveInput(moveValue, false, false);
         }
 
         if (context.canceled)
