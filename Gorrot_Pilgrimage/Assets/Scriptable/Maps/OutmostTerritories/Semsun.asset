@@ -40,7 +40,7 @@ MonoBehaviour:
   floorSprites:
   - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
   - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}
-  hasEnemies: 0
+  hasEnemies: 1
   enemyDensity: 1
   hasShadows: 0
   canHavePottard: 0
@@ -53,3 +53,4 @@ MonoBehaviour:
   treasureDensity: 0
   waterBorderSprites:
   - {fileID: 21300000, guid: 83f5995ba4843ef4bbf2b8dd758c47eb, type: 3}
+  enemyDialogue: {fileID: 4900000, guid: f517c1692fbe1334d8e57e4ea0d99467, type: 3}

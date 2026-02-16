@@ -42,64 +42,161 @@ public class CombatPhaseResolution : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI payButtonText;
 
-    public enum CombatChoice { None, Roll, Pay, Talk, Flee }
+    [SerializeField] GameObject textBox;
+    [SerializeField] TextMeshProUGUI textBoxText;
+
+    public enum CombatChoice { None, Fight, Roll, Pay, Talk, Flee }
 
     CombatChoice choice = CombatChoice.None;
+    Coroutine waitForInput;
     Coroutine combatRoll;
     Coroutine enemyCombatRoll;
+    Coroutine processInput;
 
     MapData currentMap;
     int bribeMultiplier;
     int thisCombatBribeMultiplerMax = 1;
     int totalBribeAmount;
+    int enemyRerolls = 0;
+
+    public bool textBoxOpen = false;
+
+    public GameObject rollDiceButton;
+
+    public TextMeshProUGUI fightButtonText;
+    public GameObject talkButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        textBox.SetActive(false);
+        ActivateDiceDisplays(false);
+    }
 
-        diceDisplay.SetActive(false);
-        enemyDiceDisplay.SetActive(false);
+
+
+    void ActivateDiceDisplays(bool value)
+    {
+        diceDisplay.SetActive(value);
+        enemyDiceDisplay.SetActive(value);
+       
     }
 
 
     public void EnterCombatPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
-
+        fightButtonText.text = "Fight";
+        talkButton.SetActive(true);
         battlefieldBuilder.StartFadeToBlack();
         currentMap = battlefieldBuilder.GetThisMap();
-
-
-        if(currentMap != null)
-        {
-            bribeMultiplier = currentMap.GetBribeMultiplier();
-        }
-        else
-        {
-            bribeMultiplier = 1;
-        }
-
-        diceDisplay.SetActive(true);
-        enemyDiceDisplay.SetActive(true);
-
+        rollDiceButton.SetActive(false);
+        ActivateDiceDisplays(true);
+        enemyRerolls = 0;
         SetupEnemyStart();
     }
 
     void SetupEnemyStart()
     {
-        CalculateThisBribe();
-
+        CalculateThisBribe(1);
         SquareController sq = turnOrganiser.GetLandedSquare();
         currentEnemyBuff = sq.GetEnemyBaseBuff();
-
         UpdateDiceRollFormulaText(currentEnemyBuff, 0, -1);
+
+        if(waitForInput != null)
+        {
+            waitForInput = null;
+        }
+
+        waitForInput = StartCoroutine(WaitForInput());
+
+    }
+
+    IEnumerator WaitForInput()
+    {
+        waitingForPressRoll = true;
+        choice = CombatChoice.None;
+
+        // Wait for UI button Press
+        yield return new WaitUntil(() => choice != CombatChoice.None);
+        waitingForPressRoll = false;
+
+        if(processInput != null)
+        {
+            processInput = null;
+        }
+        processInput = StartCoroutine(ProcessInput());
+    }
+
+    IEnumerator ProcessInput()
+    {
+        if (choice == CombatChoice.Pay)
+        {
+            playerStatsController.AlterMoney((totalBribeAmount) * -1);
+            playerStatsController.alterSuffering(currentEnemyDamage * -1);
+            audioManager.PlayPayOffChuckle();
+
+            CloseCombatScene();
+
+
+            yield break;
+        }
+        else if (choice == CombatChoice.Flee)
+        {
+            playerMovementController.MovePlayerBackOneSquare();
+            playerStatsController.alterSuffering(1);
+            CloseCombatScene();
+
+            yield break;
+        }
+        else if (choice == CombatChoice.Talk)
+        {
+
+            audioManager.PlayPayOffChuckle();
+
+            SquareController sq = turnOrganiser.GetLandedSquare();
+            string enemyWeight = sq.getSquareQuantity();
+
+            string enemyMood = sq.EnemyMood.ToString();  
+
+            string newDialogue = currentMap.GetRandomLine(enemyWeight, enemyMood);
+
+            textBoxText.text = newDialogue;
+
+            textBox.SetActive(true);
+            textBoxOpen = true;
+
+            yield return new WaitUntil(() => textBoxOpen == false);
+
+            if (waitForInput != null)
+            {
+                waitForInput = null;
+            }
+
+            waitForInput = StartCoroutine(WaitForInput());
+
+       
+        }
+        else if(choice == CombatChoice.Fight)
+        {
+            audioManager.PlayPayOffChuckle();
+
+            if (enemyCombatRoll != null)
+            {
+                enemyCombatRoll = null;
+            }
+            CalculateThisBribe(2);
+            talkButton.SetActive(false);
+            enemyCombatRoll = StartCoroutine(EnemyRollRoutine());
+        }
+    
     }
 
     IEnumerator EnemyRollRoutine()
     {
-        
 
         
+        choice = CombatChoice.None;
 
 
         enemyDiceController.RollDice();
@@ -107,38 +204,60 @@ public class CombatPhaseResolution : MonoBehaviour
         // Wait for dice finish
         yield return new WaitUntil(() => !enemyDiceController.isRolling);
         yield return new WaitForSeconds(0.25f);
-
+       
 
         currentEnemyRoll = enemyDiceController.getDiceResult();
 
         UpdateDiceRollFormulaText(currentEnemyBuff, currentEnemyRoll, -1);
 
+        rollDiceButton.SetActive(true);
+        fightButtonText.text = "Roll Again?";
+
+        yield return new WaitUntil(() => choice != CombatChoice.None);
+
+
 
         // Now Hand Over To Player
-        StartCombatRoutine();
+
+        if (choice == CombatChoice.Fight)
+        {
+            audioManager.PlayPayOffChuckle();
+
+            if (enemyCombatRoll != null)
+            {
+                enemyCombatRoll = null;
+            }
+            enemyRerolls++;
+            CalculateThisBribe(2 + enemyRerolls);
+            enemyCombatRoll = StartCoroutine(EnemyRollRoutine());
+
+
+        }
+        else if(choice == CombatChoice.Pay)
+        {
+            audioManager.PlayPayOffChuckle();
+
+            playerStatsController.AlterMoney((totalBribeAmount) * -1);
+            playerStatsController.alterSuffering(currentEnemyDamage * -1);
+            audioManager.PlayPayOffChuckle();
+
+            CloseCombatScene();
+
+
+            yield break;
+
+
+        }
+        
+        else if (choice == CombatChoice.Roll)
+        {
+            StartCombatRoutine();
+        }
+            
     }
 
 
-    /*
-    void CalculateDiceStats()
-    {
-        playerCurrentAttackBoost = playerStatsController.getCurrentAttackBuff();
 
-        SquareController sq = turnOrganiser.GetLandedSquare();
-
-        currentEnemyDamage = sq.square switch
-        {
-            SquareController.squareQuantity.small => 1,
-            SquareController.squareQuantity.medium => 2,
-            SquareController.squareQuantity.large => 3,
-            _ => 2
-        };
-
-        int baseRequiredToWin = sq.GetEnemyBaseRequiredToWin();
-        requiredToWin = Mathf.Clamp(baseRequiredToWin - playerCurrentAttackBoost, 2, 6);
-
-        UpdateDiceRollFormulaText();
-    }*/
 
     
     public void UpdateCombatRoll()
@@ -147,9 +266,15 @@ public class CombatPhaseResolution : MonoBehaviour
         UpdateDiceRollFormulaText(currentEnemyBuff, currentEnemyRoll, -1);
     }
 
+    public void CloseTextBox()
+    {
+        textBox.SetActive(false);
+        textBoxOpen = false;
+    }
+
     void StartCombatRoutine()
     {
-
+       
 
         if (combatRoll != null)
         {
@@ -158,8 +283,17 @@ public class CombatPhaseResolution : MonoBehaviour
         combatRoll = StartCoroutine(CombatRollScreen());
     }
 
-    void CalculateThisBribe()
+    void CalculateThisBribe(int excessBribe)
     {
+        if (currentMap != null)
+        {
+            bribeMultiplier = currentMap.GetBribeMultiplier() * excessBribe;
+        }
+        else
+        {
+            bribeMultiplier = 1 * excessBribe;
+        }
+
         if (currentMap.GetCanBeBribed() == true)
         {
             thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
@@ -178,63 +312,13 @@ public class CombatPhaseResolution : MonoBehaviour
 
     IEnumerator CombatRollScreen()
     {
-
-       yield return new WaitForSeconds(0.5f);
-
-        waitingForPressRoll = true;
-        choice = CombatChoice.None;
-
-        // Wait for UI button Press
-        yield return new WaitUntil(() => choice != CombatChoice.None);
-        waitingForPressRoll = false;
-
-
-
-        if (choice == CombatChoice.Pay)
-        {
-            playerStatsController.AlterMoney((totalBribeAmount) * -1);
-            playerStatsController.alterSuffering(currentEnemyDamage * -1);
-            audioManager.PlayPayOffChuckle();
-
-            CloseCombatScene();
-            combatRoll = null;
-
-            yield break;
-        }
-        else if(choice == CombatChoice.Flee)
-        {
-            playerMovementController.MovePlayerBackOneSquare();
-            playerStatsController.alterSuffering(1);
-            CloseCombatScene();
-            combatRoll = null;
-
-            yield break;
-        }
-        else if (choice == CombatChoice.Talk)
-        {
-
-            Debug.Log("Pressed Talk");
-
-            audioManager.PlayPayOffChuckle();
-
-            CloseCombatScene();
-            combatRoll = null;
-
-            yield break;
-        }
-        else
-        {
+        
             diceController.RollDice();
-
+        
             yield return new WaitUntil(() => !diceController.isRolling);
             yield return new WaitForSeconds(0.25f);
 
             ResolveCombat();
-
-        }
-            
-
-
 
     }
 
@@ -253,6 +337,7 @@ public class CombatPhaseResolution : MonoBehaviour
         {
             // Lose Results
             playerStatsController.alterHealth(currentEnemyDamage * -1);
+            audioManager.playTakeDamageSoundEffect();
             playerStatsController.resetSuffering();
             playerMovementController.MovePlayerBackOneSquare();
 
@@ -311,6 +396,10 @@ public class CombatPhaseResolution : MonoBehaviour
     {
         Debug.Log("Player Pressed Fight");
 
+        choice = CombatChoice.Fight;
+
+
+        /*
         if (enemyCombatRoll != null)
         {
             StopCoroutine(enemyCombatRoll);
@@ -319,7 +408,7 @@ public class CombatPhaseResolution : MonoBehaviour
         currentEnemyRoll = -1;
         currentEnemyBuff = -1;
 
-        enemyCombatRoll = StartCoroutine(EnemyRollRoutine());
+        enemyCombatRoll = StartCoroutine(EnemyRollRoutine());*/
 
     }
 
@@ -368,12 +457,12 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void CloseCombatScene()
     {
-
+        StopAllCoroutines();
         battlefieldBuilder.StartFadeFromBlack();
-        //combatScreen.SetActive(false);
         diceDisplay.SetActive(false);
         enemyDiceDisplay.SetActive(false);
         currentEnemyRoll = -1;
+        enemyRerolls = 0;
         currentEnemyBuff = -1;
         turnOrganiser.SetLandedOnEnemySquare(false, null);
         turnOrganiser.BuildNextTurn();

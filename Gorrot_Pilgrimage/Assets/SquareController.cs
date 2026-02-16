@@ -491,6 +491,8 @@ public class SquareController : MonoBehaviour
         waterFoamCorner_SE.SetActive(false);
         waterFoamCorner_SW.SetActive(false);
         waterFoamCorner_NW.SetActive(false);
+
+        moodIndicator.SetActive(false);
     }
 
     void ChooseSquareSprite()
@@ -640,6 +642,24 @@ public class SquareController : MonoBehaviour
     public string getSquareQuantity()
     {
         return squareQuantityString;
+    }
+
+    public enum enemyMoods { positive, negative };
+    enemyMoods thisEnemyMood = enemyMoods.positive;
+
+    public enemyMoods EnemyMood => thisEnemyMood;
+    public void SetEnemyMood(enemyMoods newMood)
+    {
+        thisEnemyMood = newMood;
+
+        if(newMood == enemyMoods.positive)
+        {
+            moodIndicatorText.text = "+";
+        }
+        else
+        {
+            moodIndicatorText.text = "-";
+        }
     }
 
     public void MakeHealthSquare()
@@ -835,6 +855,8 @@ public class SquareController : MonoBehaviour
         return isMerchantSquare;
     }
 
+    [SerializeField] TextMeshProUGUI moodIndicatorText;
+    [SerializeField] GameObject moodIndicator;
     public void MakeEnemySquare(MapData thisMap)
     {
         isGoalSquare= false;
@@ -848,6 +870,8 @@ public class SquareController : MonoBehaviour
         ChooseSquareSprite();
 
         squareValue.gameObject.SetActive(true );
+        moodIndicator.SetActive(true);
+
 
         switch (square)
         {
@@ -868,11 +892,23 @@ public class SquareController : MonoBehaviour
 
         }
 
-        ActivateGameObject(enemySquareSprite);
+        int roll = Random.Range(0, 2);
+
+        if(roll < 1)
+        {
+            SetEnemyMood(enemyMoods.negative);
+        }
+        else
+        {
+            SetEnemyMood(enemyMoods.positive);
+        }
+
+            ActivateGameObject(enemySquareSprite);
 
         
 
     }
+
 
     public void MakeTerrainSquare()
     {

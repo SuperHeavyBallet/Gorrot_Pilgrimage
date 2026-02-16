@@ -386,6 +386,7 @@ public class BattlefieldBuilder : MonoBehaviour
         MapData chosen = GetMapToBuild();
 
         thisMap = chosen;
+        thisMap.ParseDialogue();
         UpdateMapDataUI();
         CheckIfFinalMap();
         CheckMapisWild();
@@ -424,7 +425,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void SpawnNewEnemy()
     {
-        Debug.Log("Should Spawn New Enemy");
+
 
         int randomNumber = UnityEngine.Random.Range(0, freeSquares.Count);
 

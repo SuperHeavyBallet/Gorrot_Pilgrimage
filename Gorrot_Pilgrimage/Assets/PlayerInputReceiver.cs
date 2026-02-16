@@ -48,6 +48,7 @@ public class PlayerInputReceiver : MonoBehaviour
         }
     }
 
+ 
     public void CaptureMovementInput(InputAction.CallbackContext context)
     {
         if (context.performed && !hasPressedMove)

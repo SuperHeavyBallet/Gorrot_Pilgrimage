@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MapData", menuName = "Scriptable Objects/MapData")]
@@ -110,6 +111,97 @@ public class MapData : ScriptableObject
 
 
     [SerializeField] Sprite[] waterBorderSprites;
+
+    [SerializeField] TextAsset enemyDialogue;
+    EnemyDialogueData dialogueData;
+
+    public void ParseDialogue()
+    {
+        if (enemyDialogue != null)
+        {
+            Debug.Log("Ennemy Dialogue Assigned");
+            dialogueData = JsonUtility.FromJson<EnemyDialogueData>(enemyDialogue.text);
+        }
+        else
+        {
+            Debug.Log("Ennemy Dialogue Null");
+        }
+    }
+
+    [System.Serializable]
+    public class EnemyDialogueData
+    {
+        public string mapId;
+        public DialogueCategories categories;
+    }
+
+    [System.Serializable]
+    public class DialogueCategories
+    {
+        public DialogueSet small;
+        public DialogueSet medium;
+        public DialogueSet large;
+    }
+
+    [System.Serializable]
+    public class DialogueSet
+    {
+        public string[] positive;
+        public string[] negative;
+    }
+
+
+    public string GetRandomLine(string tier, string mood)
+    {
+
+        if (dialogueData == null)
+        {
+            return "...";
+        }
+
+
+
+        if (mood == "positive")
+        {
+            string[] pool = tier switch
+            {
+                "small" => dialogueData.categories.small.positive,
+                "medium" => dialogueData.categories.medium.positive,
+                "large" => dialogueData.categories.large.positive,
+                _ => null
+            };
+
+
+
+            if (pool == null || pool.Length == 0)
+            {
+                return "...";
+            }
+
+            return pool[UnityEngine.Random.Range(0, pool.Length)];
+        }
+        else
+        {
+            string[] pool = tier switch
+            {
+                "small" => dialogueData.categories.small.negative,
+                "medium" => dialogueData.categories.medium.negative,
+                "large" => dialogueData.categories.large.negative,
+                _ => null
+            };
+
+            if (pool == null || pool.Length == 0)
+            {
+                return "...";
+            }
+
+            return pool[UnityEngine.Random.Range(0, pool.Length)];
+        }
+
+
+
+    }
+
 
     public int GetWaterBorderSpritesArrayLength => waterBorderSprites.Length;    
 
