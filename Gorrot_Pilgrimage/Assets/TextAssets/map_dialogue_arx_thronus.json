@@ -1,0 +1,71 @@
+{
+  "mapId": "arx_thronus",
+  "categories": {
+    "small": {
+      "positive": [
+        "The wind carries the Light still.",
+        "Stand straight. You are seen.",
+        "Parahedra endures.",
+        "We do not forget our charge.",
+        "Dust does not dim Solus.",
+        "Keep your purpose clear.",
+        "Even ruins reflect light.",
+        "Walk in clarity."
+      ],
+      "negative": [
+        "State your alignment.",
+        "We do not barter.",
+        "Your shadow is long.",
+        "Do not profane this ground.",
+        "Coin is not devotion.",
+        "Turn back if you waver.",
+        "We suffer no corruption.",
+        "Lower your voice."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Arx Thronus may be fallen, but the Light stands.",
+        "We guard what remains.",
+        "Parahedra is not empty. It waits.",
+        "Purity is discipline.",
+        "The throne is ash. The Light is not.",
+        "Stand with us and stand unshadowed.",
+        "We rebuild in spirit first.",
+        "Solus Altus was fractured, not extinguished."
+      ],
+      "negative": [
+        "Bribes are confessions of weakness.",
+        "You will not sway us.",
+        "We answer to Solus alone.",
+        "Do not test our clarity.",
+        "This ground rejects the impure.",
+        "We have burned worse.",
+        "You speak too loosely of Gorrot.",
+        "We are not for hire."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I stand where the throne once stood.",
+        "My oath did not fall with these walls.",
+        "The Light needs no roof.",
+        "Strength is obedience to Solus.",
+        "I do not kneel to coin.",
+        "If you are aligned, I will stand beside you.",
+        "We are fragments, not failures.",
+        "Shadow flees the steadfast."
+      ],
+      "negative": [
+        "You will not defile Parahedra.",
+        "Step back from the sacred stone.",
+        "Your doubt offends.",
+        "We cleanse what resists.",
+        "I will not repeat myself.",
+        "You are measured and found wanting.",
+        "Gorrot is not yours to claim.",
+        "Leave before we purify you."
+      ]
+    }
+  }
+}

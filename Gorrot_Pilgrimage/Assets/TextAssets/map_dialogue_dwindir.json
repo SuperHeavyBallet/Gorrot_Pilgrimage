@@ -1,0 +1,71 @@
+{
+  "mapId": "dwindir",
+  "categories": {
+    "small": {
+      "positive": [
+        "There’s still green if you look close.",
+        "Some trees hold on.",
+        "The air’s thinner, but it’s honest.",
+        "Mind the brittle branches.",
+        "Not all roots have given up.",
+        "Walk gently. They’re tired.",
+        "The border shifts, but we stay.",
+        "Even fading woods give shade."
+      ],
+      "negative": [
+        "Don’t snap what’s left.",
+        "You’re too loud for this place.",
+        "It’s dying. Show respect.",
+        "The trees remember axes.",
+        "Keep your blade sheathed.",
+        "Nothing grows for strangers.",
+        "You tread on the last of it.",
+        "Leave before it darkens."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Dwindir recedes, but it resists.",
+        "We guard what still stands.",
+        "Every fallen trunk is counted.",
+        "Borders thin. We do not.",
+        "Trade lightly here.",
+        "There’s life yet in these roots.",
+        "The forest whispers softer now.",
+        "Care keeps it breathing."
+      ],
+      "negative": [
+        "You walk like the end.",
+        "This isn’t timber for your fires.",
+        "We’ve buried too many saplings.",
+        "The edge creeps closer each year.",
+        "Don’t mistake decay for weakness.",
+        "You bring the wrong season.",
+        "Step back from the heartwood.",
+        "State your reason quickly."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I’ll hold this line.",
+        "The woods won’t fall quietly.",
+        "Stand firm. So will I.",
+        "I break those who break trees.",
+        "There’s strength in what remains.",
+        "I’ve planted more than I’ve felled.",
+        "We fight for shade.",
+        "Decay is not surrender."
+      ],
+      "negative": [
+        "Touch that trunk and lose a hand.",
+        "I’ve no mercy for burners.",
+        "You reek of smoke.",
+        "This border ends with me.",
+        "I will not watch it die.",
+        "One more step.",
+        "You stand where roots still live.",
+        "Turn back before I make you."
+      ]
+    }
+  }
+}

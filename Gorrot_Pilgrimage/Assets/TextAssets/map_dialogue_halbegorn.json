@@ -1,0 +1,71 @@
+{
+  "mapId": "halbegorn",
+  "categories": {
+    "small": {
+      "positive": [
+        "Watch your footing. The stone’s older than you.",
+        "Terraces hold better than they look.",
+        "Wind’s sharp up here.",
+        "We farm the sky.",
+        "Step slow. Cliffs don’t forgive.",
+        "Stone keeps its own counsel.",
+        "Even steep ground bears fruit.",
+        "If you’ve balance, you’ll do fine."
+      ],
+      "negative": [
+        "Stay back from the edge.",
+        "Loose stones travel far.",
+        "You’re too near the drop.",
+        "Don’t shout. It echoes badly.",
+        "This height isn’t for fools.",
+        "Mind the ledge.",
+        "One slip’s enough.",
+        "Keep your hands visible."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Halbegorn was carved with patience.",
+        "These terraces outlast empires.",
+        "We grow from rock.",
+        "High places clear the mind.",
+        "Cliffs teach discipline.",
+        "Our walls are the earth itself.",
+        "Trade climbs slowly here.",
+        "Balance is everything."
+      ],
+      "negative": [
+        "You won’t push me from this ledge.",
+        "Stone falls faster than men.",
+        "I’ve seen worse tumble.",
+        "This ground isn’t yours.",
+        "Careful where you stand.",
+        "Wind’s stronger than pride.",
+        "Don’t test the edge.",
+        "One shove ends debates."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I was raised on these heights.",
+        "Stone steadies the heart.",
+        "I don’t fear the drop.",
+        "Stand firm and I’ll respect you.",
+        "We shape cliffs to our will.",
+        "My footing’s sure.",
+        "High ground favors the calm.",
+        "Strength climbs."
+      ],
+      "negative": [
+        "Step away from my edge.",
+        "I’ll send you over.",
+        "This terrace holds only one of us.",
+        "You sway too much.",
+        "I don’t miss when I push.",
+        "The fall’s final.",
+        "Don’t crowd me here.",
+        "Cliffs settle disputes."
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "mapId": "semsun",
+  "categories": {
+    "small": {
+      "positive": [
+        "Dust keeps us humble.",
+        "Water’s thin, but it’s honest.",
+        "We share shade when we can.",
+        "Road’s long. Sit a spell.",
+        "No banners here. Just roofs.",
+        "If you’ve coin, spend it gently.",
+        "Wind’s kinder than most folk.",
+        "Stay quiet and we’ll get along."
+      ],
+      "negative": [
+        "We’ve nothing worth taking.",
+        "Don’t stare at the wells.",
+        "Keep your boots outside.",
+        "Coin first. Words later.",
+        "Trouble doesn’t root here.",
+        "You look like drought.",
+        "Don’t test our patience.",
+        "Move on before the sun sets."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Semsun stands because we do.",
+        "Work’s scarce, but hands are steady.",
+        "If you trade fair, we trade fair.",
+        "Walls are mud, but they hold.",
+        "I’ve seen worse places thrive.",
+        "Keep your blade sheathed and we’re friends.",
+        "We mend more than we break.",
+        "Dust teaches resilience."
+      ],
+      "negative": [
+        "This town’s poor, not blind.",
+        "You measure us wrong.",
+        "Toll’s small. Refusal’s costly.",
+        "We bury strangers quick.",
+        "I don’t like hungry eyes.",
+        "You’re not the first to try.",
+        "Respect’s cheaper than regret.",
+        "Speak straight or leave."
+      ]
+    },
+    "large": {
+      "positive": [
+        "Stone cracks. We don’t.",
+        "I lift beams, not threats.",
+        "Sun’s harsh. So am I.",
+        "You walk steady. Good.",
+        "If you’re honest, I’ll listen.",
+        "We keep what’s ours together.",
+        "Break bread, not bones.",
+        "I stand for this dust."
+      ],
+      "negative": [
+        "Step back from the well.",
+        "I’ve buried bigger men.",
+        "You won’t outlast this heat.",
+        "Leave before I decide.",
+        "I don’t warn twice.",
+        "Your shadow’s too long here.",
+        "Touch nothing.",
+        "Semsun isn’t for plunder."
+      ]
+    }
+  }
+}

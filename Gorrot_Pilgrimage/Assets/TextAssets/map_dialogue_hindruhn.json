@@ -1,0 +1,71 @@
+{
+  "mapId": "hindruhn",
+  "categories": {
+    "small": {
+      "positive": [
+        "Wind keeps me company.",
+        "You hear that too, don’t you?",
+        "Tracks fade fast out here.",
+        "Best keep moving.",
+        "Sky’s wide. Eyes wider.",
+        "Nothing wrong with caution.",
+        "If you’re not prey, walk steady.",
+        "The grass hides more than it shows."
+      ],
+      "negative": [
+        "You shouldn’t stand still here.",
+        "They watch the slow ones.",
+        "I wouldn’t light a fire.",
+        "Wrong place to wander.",
+        "You smell like fear.",
+        "Keep your head down.",
+        "The wind carries screams.",
+        "Turn back while you can."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Hindruhn tests the careful.",
+        "Hunters prefer the careless.",
+        "If you’ve sense, you’ll live.",
+        "I move when the wind shifts.",
+        "Eyes on the horizon.",
+        "The land teaches silence.",
+        "I’ve walked these barrens before.",
+        "Better to be unseen than bold."
+      ],
+      "negative": [
+        "You’re marked already.",
+        "Every step’s a signal.",
+        "Don’t mistake quiet for safe.",
+        "Something’s pacing you.",
+        "I’d not camp here twice.",
+        "You walk like prey.",
+        "The ridge isn’t empty.",
+        "Run if the birds lift."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I’ve hunted worse winds.",
+        "Stand close. Move together.",
+        "I fear nothing I can see.",
+        "Better hunter than hunted.",
+        "We make no easy trail.",
+        "Steel’s louder than wind.",
+        "I’ll watch your back if you watch mine.",
+        "Strength keeps distance."
+      ],
+      "negative": [
+        "You’re already in someone’s sights.",
+        "I won’t be the slow one.",
+        "Keep up or fall.",
+        "If they come, I won’t warn you.",
+        "The wind knows your name.",
+        "I smell the hunt.",
+        "Don’t trip.",
+        "Stay sharp. Or don’t stay."
+      ]
+    }
+  }
+}

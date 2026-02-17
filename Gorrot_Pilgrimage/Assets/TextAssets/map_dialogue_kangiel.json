@@ -1,0 +1,71 @@
+{
+  "mapId": "kangiel",
+  "categories": {
+    "small": {
+      "positive": [
+        "Keep your steps soft.",
+        "It’s quieter than it looks.",
+        "The wood still holds. Mostly.",
+        "Fog’s thin today.",
+        "Stay near the fence posts.",
+        "Nothing moves fast here.",
+        "We don’t speak loud in Kangiel.",
+        "Lantern’s low for a reason."
+      ],
+      "negative": [
+        "Don’t stir the water.",
+        "You’re making too much noise.",
+        "Boards rot from the inside.",
+        "I wouldn’t stand there.",
+        "The reeds shift at night.",
+        "Keep your blade close.",
+        "You don’t belong past the line.",
+        "Turn back before the mist thickens."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Kangiel lingers between dry and drowned.",
+        "We patch what the swamp chews.",
+        "Trade’s scarce but steady.",
+        "Stay still long enough and it forgets you.",
+        "Decay’s slow here.",
+        "We’ve learned to listen to rot.",
+        "The border hasn’t moved this week.",
+        "Calm keeps you breathing."
+      ],
+      "negative": [
+        "This ground won’t hold you.",
+        "The wood’s weaker than it looks.",
+        "Don’t trust the silence.",
+        "Something feeds beneath.",
+        "I’ve seen planks split under less.",
+        "You smell too clean for this place.",
+        "Keep your purpose short.",
+        "We don’t rescue fools."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I’ve walked this mire for years.",
+        "Stand steady and I’ll stand with you.",
+        "Rot’s predictable if you watch it.",
+        "I know where it’s safe.",
+        "You keep calm. Good.",
+        "I’ve hauled worse from the reeds.",
+        "Strength doesn’t shout here.",
+        "Stay close."
+      ],
+      "negative": [
+        "One shove and you’re swallowed.",
+        "I won’t pull you out twice.",
+        "Don’t crowd the edge.",
+        "The mire’s hungry today.",
+        "You’re too loud.",
+        "Step back from the water.",
+        "I’ll let the swamp take you.",
+        "You’re standing on soft ground."
+      ]
+    }
+  }
+}

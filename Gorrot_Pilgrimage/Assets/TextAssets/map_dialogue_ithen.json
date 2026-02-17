@@ -1,0 +1,71 @@
+{
+  "mapId": "ithen",
+  "categories": {
+    "small": {
+      "positive": [
+        "Step where I step.",
+        "The water hides more than it drowns.",
+        "Keep your lantern low.",
+        "Some paths prefer the dark.",
+        "Listen before you move.",
+        "Not all depths are hostile.",
+        "Boards sag, but they speak first.",
+        "Shade keeps secrets well."
+      ],
+      "negative": [
+        "Too much light draws attention.",
+        "Don’t ask what lies beneath.",
+        "You’re standing on a memory.",
+        "Keep your questions short.",
+        "The marsh watches back.",
+        "Not every door wants opening.",
+        "Lower your voice.",
+        "Turn away while you still can."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Ithen feeds from what sinks.",
+        "Roots grow strongest in shadow.",
+        "We study what others fear.",
+        "The river buries more than silt.",
+        "Darkness is patient.",
+        "There are entrances for those who see them.",
+        "Meaning ferments below.",
+        "Light reveals. Shadow understands."
+      ],
+      "negative": [
+        "You shine too brightly.",
+        "We do not answer to coin.",
+        "Curiosity without discipline is rot.",
+        "The platforms won’t hold you long.",
+        "Do not pry where you cannot descend.",
+        "You are not ready for what waits.",
+        "Some knowledge rejects you.",
+        "Step back from that hollow."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I fear no depth.",
+        "Shadow is not weakness.",
+        "Stand still and you’ll hear it breathe.",
+        "We guard what grows unseen.",
+        "Strength lies beneath.",
+        "If you seek truth, tread softly.",
+        "I have walked the lower paths.",
+        "Dark nurtures the worthy."
+      ],
+      "negative": [
+        "You would not survive below.",
+        "One shove and you vanish.",
+        "This entrance is not yours.",
+        "Do not mistake silence for safety.",
+        "I will not let you defile it.",
+        "The marsh will close over you.",
+        "You glare too loud.",
+        "Leave before we dim you."
+      ]
+    }
+  }
+}

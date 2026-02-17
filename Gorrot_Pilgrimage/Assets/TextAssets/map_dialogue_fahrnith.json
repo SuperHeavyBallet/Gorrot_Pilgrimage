@@ -1,0 +1,71 @@
+{
+  "mapId": "fahrnith",
+  "categories": {
+    "small": {
+      "positive": [
+        "The river runs softer today.",
+        "Green suits you. It suits most.",
+        "Mind the reeds. They listen.",
+        "We grow slow things here.",
+        "The current carries no grudges.",
+        "Shade is shared freely.",
+        "Step lightly. Roots remember.",
+        "You’ve the look of someone who hears water."
+      ],
+      "negative": [
+        "Don’t muddy the banks.",
+        "The river keeps what it’s given.",
+        "Watch your hands.",
+        "Not every path is yours.",
+        "You tread too heavy.",
+        "This isn’t driftwood country.",
+        "Turn back before dusk.",
+        "The trees lean away from you."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Fahrnith bends, but does not break.",
+        "Trade flows like water, if you’re patient.",
+        "We plant what we mean to keep.",
+        "Steel rusts faster than roots grow.",
+        "Speak plain. The river dislikes riddles.",
+        "We’ve room for calm company.",
+        "The banks hold steady this season.",
+        "You carry yourself well. That matters here."
+      ],
+      "negative": [
+        "This green was earned, not taken.",
+        "We’ve seen axes before.",
+        "Your boots leave harsh prints.",
+        "The river can rise quickly.",
+        "We guard what grows.",
+        "Strangers who shout rarely stay.",
+        "You’ll find no easy harvest here.",
+        "State your purpose, clearly."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I pull nets, not blades.",
+        "Water teaches patience.",
+        "Stand firm and I’ll respect you.",
+        "I’ve fought floods. You’re smaller.",
+        "We keep watch in quiet ways.",
+        "Strength’s best used sparingly.",
+        "If you mean peace, so do I.",
+        "The river and I understand each other."
+      ],
+      "negative": [
+        "Step from the bank.",
+        "I’ve drowned worse.",
+        "You test more than my temper.",
+        "The current would take you easy.",
+        "Leave the grove untouched.",
+        "I don’t miss twice.",
+        "Roots can trip the careless.",
+        "You’re not welcome past this line."
+      ]
+    }
+  }
+}

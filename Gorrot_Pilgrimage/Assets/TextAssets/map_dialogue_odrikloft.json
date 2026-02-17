@@ -1,0 +1,71 @@
+{
+  "mapId": "odrikloft",
+  "categories": {
+    "small": {
+      "positive": [
+        "Mind your step. The boards remember weight.",
+        "Wind sings through the rigs.",
+        "Old iron still stands.",
+        "Echoes travel far up here.",
+        "Keep your balance.",
+        "Nothing wrong with careful feet.",
+        "These platforms held worse than us.",
+        "If it creaks, pause."
+      ],
+      "negative": [
+        "Don’t lean on that rail.",
+        "You’ll fall before you fight.",
+        "Not every plank forgives.",
+        "Watch the gaps.",
+        "That edge’s closer than it looks.",
+        "Wind’ll take you.",
+        "Wrong step, long drop.",
+        "Keep off the cables."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Odrikloft was carved by stubborn hands.",
+        "Ore’s gone, but steel remains.",
+        "We salvage what we can.",
+        "High ground keeps you honest.",
+        "The lifts haven’t run in years.",
+        "Sound carries. Choose words well.",
+        "Careful routes lead far.",
+        "Even broken places have use."
+      ],
+      "negative": [
+        "You’re too close to the edge.",
+        "This height isn’t for the careless.",
+        "Planks snap without warning.",
+        "The shafts still breathe.",
+        "One shove’s enough.",
+        "I’ve seen men vanish here.",
+        "Don’t test rotten beams.",
+        "You don’t belong on the rig."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I’ve hauled ore in worse wind.",
+        "Stand firm and I’ll respect you.",
+        "High ground favors the steady.",
+        "I know these platforms blind.",
+        "Steel’s stronger than fear.",
+        "If you fall, I won’t.",
+        "I prefer solid footing.",
+        "We built this once."
+      ],
+      "negative": [
+        "Step back from the drop.",
+        "I’ll throw you clean.",
+        "This rig won’t hold us both.",
+        "One push ends it.",
+        "You’re swaying.",
+        "I’ve no fear of heights.",
+        "The fall’s quick.",
+        "Don’t crowd me."
+      ]
+    }
+  }
+}

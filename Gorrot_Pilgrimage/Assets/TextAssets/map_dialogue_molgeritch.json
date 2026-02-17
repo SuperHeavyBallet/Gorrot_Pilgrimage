@@ -1,0 +1,71 @@
+{
+  "mapId": "molgeritch",
+  "categories": {
+    "small": {
+      "positive": [
+        "It’s quieter than it looks.",
+        "Don’t touch the walls.",
+        "The ground’s softer here.",
+        "I try not to breathe too deep.",
+        "Stay close. Closer.",
+        "Nothing moves. That’s good.",
+        "The smell fades if you ignore it.",
+        "We won’t stay long."
+      ],
+      "negative": [
+        "It’s not empty.",
+        "Did you hear that?",
+        "Don’t step in that.",
+        "Something nested here.",
+        "The earth’s wrong.",
+        "Keep your voice down.",
+        "It watches from somewhere.",
+        "Leave. Now."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Molgeritch was hollowed from inside.",
+        "Whatever lived here is gone. I think.",
+        "Walls don’t rot like this naturally.",
+        "Keep your blade ready.",
+        "I’ve seen worse scars.",
+        "The air tastes old.",
+        "We pass through. We don’t linger.",
+        "Nothing grows straight here."
+      ],
+      "negative": [
+        "The ground still breathes.",
+        "You feel that tremor?",
+        "It shed something here.",
+        "Don’t look too long at the dark.",
+        "This place remembers teeth.",
+        "We’re not alone in this silence.",
+        "If it returns, run.",
+        "I don’t trust the stillness."
+      ]
+    },
+    "large": {
+      "positive": [
+        "If it comes back, I’ll face it.",
+        "I’ve crushed worse.",
+        "Stay behind me.",
+        "Fear keeps you sharp.",
+        "I don’t scare easy.",
+        "Let it try.",
+        "We leave no bones.",
+        "I’ve stood in fouler pits."
+      ],
+      "negative": [
+        "Something fed well here.",
+        "I smell old blood.",
+        "Back away from that hollow.",
+        "I won’t fight what I can’t see.",
+        "The walls pulse.",
+        "You’re standing on something.",
+        "If it moves, I break it.",
+        "Don’t wake it."
+      ]
+    }
+  }
+}

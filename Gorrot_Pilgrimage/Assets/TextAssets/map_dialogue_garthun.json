@@ -1,0 +1,71 @@
+{
+  "mapId": "garthun",
+  "categories": {
+    "small": {
+      "positive": [
+        "Wind’s sharp today. Keeps us awake.",
+        "If you’ve hands, there’s work.",
+        "Bread’s coarse, but it’s warm.",
+        "Cold makes honest folk.",
+        "Sit by the fire, if you’re quiet.",
+        "Fields don’t judge. They just grow.",
+        "We mend what breaks.",
+        "Storm’ll pass. It always does."
+      ],
+      "negative": [
+        "Shut the door. Heat’s dear.",
+        "Don’t track snow inside.",
+        "We’ve little and guard it close.",
+        "Keep your voice down.",
+        "You smell of trouble.",
+        "No coin, no kindness.",
+        "Wind carries words. Choose them.",
+        "Move on before dark."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Garthun stands because we do.",
+        "Frost bites, but we bite back.",
+        "Trade fair, leave fair.",
+        "Axes are for wood, mostly.",
+        "We plant in stone and reap in patience.",
+        "Storms teach stubbornness.",
+        "If you’re steady, you’ll fit.",
+        "Ale’s thin, but it’s shared."
+      ],
+      "negative": [
+        "You won’t last the winter.",
+        "We’ve buried stronger.",
+        "This land owes you nothing.",
+        "Speak straight or not at all.",
+        "Cold finds the weak.",
+        "Don’t test our storehouses.",
+        "We’ve no love for wanderers with sharp smiles.",
+        "Turn back while you’ve toes."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I split logs and skulls, in that order.",
+        "Stand firm. I respect that.",
+        "Frost’s no excuse for cruelty.",
+        "I’d rather lift grain than blades.",
+        "Snow listens. Tread steady.",
+        "Strength’s for the village first.",
+        "If you work, you eat.",
+        "I’ve weathered worse than you."
+      ],
+      "negative": [
+        "Step away from the barns.",
+        "I don’t warn twice.",
+        "Wind howls louder than you.",
+        "Your bones would freeze quick.",
+        "Leave before I grow bored.",
+        "We break ice. We can break you.",
+        "You’ve thin blood for this place.",
+        "Test me and regret it."
+      ]
+    }
+  }
+}

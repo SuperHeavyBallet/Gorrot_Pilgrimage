@@ -1,0 +1,71 @@
+{
+  "mapId": "wyrsmet",
+  "categories": {
+    "small": {
+      "positive": [
+        "Mind the slick stones.",
+        "Water keeps the mills honest.",
+        "Keep clear of the wheels.",
+        "Steam’s lighter today.",
+        "We work with the current.",
+        "If you’re trading, speak up.",
+        "The docks hold steady.",
+        "Stay out of the sluice."
+      ],
+      "negative": [
+        "Don’t block the channel.",
+        "You’ll lose a hand in there.",
+        "This isn’t a sightseeing path.",
+        "Keep off the cranes.",
+        "Water takes what slips.",
+        "Watch your step, stranger.",
+        "You’re in the way.",
+        "Move before the horn sounds."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Wyrsmet runs on water and iron.",
+        "Current’s strong this season.",
+        "We forge by flow.",
+        "Trade moves faster than carts here.",
+        "Keep your footing and your word.",
+        "The locks are holding.",
+        "River brings coin and trouble.",
+        "Work’s loud, but honest."
+      ],
+      "negative": [
+        "You don’t look dock-born.",
+        "Don’t meddle with the valves.",
+        "That whistle means clear out.",
+        "We’ve no patience for loiterers.",
+        "Water hides more than it shows.",
+        "You’ll drown before you bargain.",
+        "Stay out of the foundry yard.",
+        "State your business quick."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I haul steel and secrets.",
+        "Stand clear of the gears.",
+        "River’s loud, but I’m louder.",
+        "I’ve worked worse currents.",
+        "Keep steady and we’re fine.",
+        "I don’t scare easy.",
+        "Iron bends. I don’t.",
+        "Stay sharp near the cranes."
+      ],
+      "negative": [
+        "One shove and you’re under.",
+        "I’ll drop you in the sluice.",
+        "Don’t test me on the dock.",
+        "Water’s cold this time of year.",
+        "You won’t float long.",
+        "I’ve thrown heavier.",
+        "Back off the platform.",
+        "You’re in my lane."
+      ]
+    }
+  }
+}

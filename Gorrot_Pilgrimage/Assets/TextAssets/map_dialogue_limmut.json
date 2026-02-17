@@ -1,0 +1,71 @@
+{
+  "mapId": "limmut",
+  "categories": {
+    "small": {
+      "positive": [
+        "Mind the boards. They float some days.",
+        "Water’s high again.",
+        "Keep your boots tight.",
+        "Fog rolls gentle this morning.",
+        "We live with the damp.",
+        "Lantern’s yours if you need it.",
+        "Don’t mind the smell.",
+        "Stay on the planks."
+      ],
+      "negative": [
+        "Don’t step off the path.",
+        "Marsh keeps what it takes.",
+        "You’ll sink fast.",
+        "Keep your hands visible.",
+        "Leeches like strangers.",
+        "This isn’t dry land.",
+        "Watch the waterline.",
+        "Turn back before dusk."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Limmut stands because it floats.",
+        "We’ve learned the tides.",
+        "Swamp feeds those who listen.",
+        "Trade’s slow but steady.",
+        "Keep your fire low.",
+        "Fog hides more than it harms.",
+        "We patch what rots.",
+        "Stay close and you’ll be fine."
+      ],
+      "negative": [
+        "You’re not built for this mire.",
+        "Don’t test the reeds.",
+        "Water remembers footprints.",
+        "You won’t see what takes you.",
+        "We’ve buried boots and bones alike.",
+        "That cough won’t last long here.",
+        "State your business quick.",
+        "The marsh doesn’t forgive noise."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I know every plank.",
+        "Stand steady and I’ll respect you.",
+        "Mud’s no match for me.",
+        "I pull boats and bodies.",
+        "If you’re honest, we’re square.",
+        "Swamp’s harsh but fair.",
+        "I don’t fear the fog.",
+        "Stay near the lantern."
+      ],
+      "negative": [
+        "Step wrong and you’re gone.",
+        "I’ll leave you to the leeches.",
+        "Don’t crowd the walkway.",
+        "You won’t last a night.",
+        "Marsh’ll swallow you whole.",
+        "Back off the dock.",
+        "I won’t drag you out.",
+        "Keep moving."
+      ]
+    }
+  }
+}

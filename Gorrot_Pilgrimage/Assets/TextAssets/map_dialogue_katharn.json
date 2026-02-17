@@ -1,0 +1,71 @@
+{
+  "mapId": "katharn",
+  "categories": {
+    "small": {
+      "positive": [
+        "Shade’s thin, but it’s honest.",
+        "Keep your water close.",
+        "Sun bleaches everything equal.",
+        "Step light. Stone bites back.",
+        "Heat keeps fools away.",
+        "I’ve walked worse ground.",
+        "No clouds today. Good.",
+        "Dry air clears the head."
+      ],
+      "negative": [
+        "You’ll burn before you bleed.",
+        "Don’t waste breath here.",
+        "No mercy in this light.",
+        "Your skin won’t last.",
+        "Water’s not for strangers.",
+        "You glare too bright.",
+        "Turn back before noon.",
+        "The sun finds the weak."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Katharn hardens what survives it.",
+        "Stone teaches patience.",
+        "Move slow. Live longer.",
+        "Trade’s quick in this heat.",
+        "I trust clear skies.",
+        "Heat shows true colors.",
+        "We endure. That’s enough.",
+        "No rot in dry places."
+      ],
+      "negative": [
+        "You won’t outlast the day.",
+        "This ground cracks men open.",
+        "I’ve seen bones turn white here.",
+        "Don’t test the horizon.",
+        "Heat makes tempers short.",
+        "Your shadow’s shrinking.",
+        "You’re not built for this.",
+        "Leave before the glare blinds you."
+      ]
+    },
+    "large": {
+      "positive": [
+        "Sun’s harsh. So am I.",
+        "I break stone, not promises.",
+        "Stand firm and you’ll stand long.",
+        "I’ve carried water farther.",
+        "Heat’s a fair judge.",
+        "Strength thrives in dry air.",
+        "I don’t wilt.",
+        "Walk steady. No panic."
+      ],
+      "negative": [
+        "Step aside from my shade.",
+        "I’ll leave you to the sun.",
+        "Your bones will bleach.",
+        "I’ve no patience for weakness.",
+        "Move, or dry where you stand.",
+        "I won’t share water.",
+        "You won’t see dusk.",
+        "Test me and crack."
+      ]
+    }
+  }
+}

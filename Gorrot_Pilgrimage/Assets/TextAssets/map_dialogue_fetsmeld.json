@@ -1,0 +1,71 @@
+{
+  "mapId": "fetsmeld",
+  "categories": {
+    "small": {
+      "positive": [
+        "Road meets river here. Folk do too.",
+        "If you’re passing through, pass kindly.",
+        "We keep things balanced.",
+        "Two paths, same dust.",
+        "Sit where wood meets stone.",
+        "Trade’s simple if words are.",
+        "No side taken without reason.",
+        "Stay steady. Cross clean."
+      ],
+      "negative": [
+        "Choose a side or leave.",
+        "We don’t like divided tongues.",
+        "Mind the crossing.",
+        "Nothing’s free at a meeting point.",
+        "Don’t block the road.",
+        "You look undecided. That’s dangerous here.",
+        "State your business.",
+        "Step careful or step away."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Fetsmeld stands where things join.",
+        "River to road, field to forge.",
+        "We settle disputes before they root.",
+        "A fair word carries far.",
+        "What meets here leaves changed.",
+        "Bring coin or bring sense.",
+        "We mend what others split.",
+        "Two streams run stronger together."
+      ],
+      "negative": [
+        "Cross us and you’ll feel both ends.",
+        "We’ve no patience for double-dealers.",
+        "This ground remembers quarrels.",
+        "You tread a narrow line.",
+        "We’ve broken worse bargains.",
+        "Don’t make us choose.",
+        "This isn’t neutral ground for fools.",
+        "Speak clearly. Now."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I keep the crossing clear.",
+        "Stand firm and I’ll do the same.",
+        "We hold both sides steady.",
+        "If you’re honest, I’ll listen.",
+        "Work’s heavier where roads meet.",
+        "I’d rather build than brawl.",
+        "Two hands are better than one.",
+        "I guard the join."
+      ],
+      "negative": [
+        "Step aside from the bridge.",
+        "I’ll push you back where you came from.",
+        "This crossing’s not yours.",
+        "Don’t test the middle ground.",
+        "I break stalemates.",
+        "You’re crowding the line.",
+        "We don’t suffer meddlers.",
+        "Choose fast."
+      ]
+    }
+  }
+}

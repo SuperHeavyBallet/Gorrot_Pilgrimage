@@ -26,6 +26,8 @@ public class PlayerStatsController : MonoBehaviour
     public TextMeshProUGUI attackDisplay;
     public TextMeshProUGUI moneyDisplay;
 
+    [SerializeField] StatBoxAnimationController statBoxAnimationController;
+
     public bool playerIsAlive;
     bool playerHasDied;
 
@@ -123,7 +125,7 @@ public class PlayerStatsController : MonoBehaviour
 
     public void alterAttack(int alterAmount)
     {
-
+       // statBoxAnimationController.ShakeAttackAnimator();
 
         int before = playerCurrentAttack;
         int raw = before + alterAmount;
