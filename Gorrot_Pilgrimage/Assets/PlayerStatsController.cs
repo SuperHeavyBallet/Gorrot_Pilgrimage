@@ -6,15 +6,15 @@ public class PlayerStatsController : MonoBehaviour
 {
 
     int playerCurrentHealth = 10;
-    int playerMaxHealth = 10;
+    int playerMaxHealth = 10; // Not actual Max, but a threshold for 'Stop giving free health via fate'
     int playerMinHealth = 0;
 
     int playerCurrentSuffering = 0;
-    int playerMaxSuffering = 10;
+    [SerializeField] int playerMaxSuffering = 10;
     int playerMinSuffering = 0;
 
     int playerCurrentAttack = 0;
-    int playerMaxAttack = 6;
+    [SerializeField] int playerMaxAttack = 4;
     int playerMinAttack = 0;
 
     int playerCurrentMoney = 0;

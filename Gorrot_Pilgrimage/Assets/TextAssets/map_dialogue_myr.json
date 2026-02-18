@@ -1,0 +1,71 @@
+{
+  "mapId": "myr",
+  "categories": {
+    "small": {
+      "positive": [
+        "Water moves. We do not.",
+        "Stand on stone. Not silt.",
+        "Unhi sinks. Sathi stays.",
+        "Sa int’ deep current.",
+        "Do not rush crossing.",
+        "Bol is safer than Ren here.",
+        "Myr holds quiet.",
+        "You step correct. Good."
+      ],
+      "negative": [
+        "You stand on Len-kan.",
+        "Ground is not ground.",
+        "Ren blinds in mist.",
+        "Do not shout.",
+        "Water will take you.",
+        "You speak too much.",
+        "Step again and sink.",
+        "Turn back. Len."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Myr is Arilen un Sathi.",
+        "Path shifts. We learn.",
+        "Sni’mo Effar in wet place.",
+        "You carry little light. Good.",
+        "We do not fear depth.",
+        "Mal ih movement.",
+        "Bog and river agree here.",
+        "Stay still and see."
+      ],
+      "negative": [
+        "You glare too bright.",
+        "Mak-ta drown easy.",
+        "Do not name this ruin.",
+        "Yathren spreads on dry tongues.",
+        "You cut wrong path.",
+        "Water hears you.",
+        "Leave before tide turns.",
+        "You are not Unhen."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I walk where others sink.",
+        "Unhmaka. I do not drown.",
+        "Sa int’ Sathi-en Bol.",
+        "Stand behind me.",
+        "River bends. I do not.",
+        "We keep root in water.",
+        "You do not lie. Good.",
+        "We persist. Amo kint’ Effar."
+      ],
+      "negative": [
+        "I Krabah’ bright fools.",
+        "Step close and vanish.",
+        "Mak-sa hold this path.",
+        "You are Yath.",
+        "Do not test current.",
+        "Your bones feed mire.",
+        "Turn. Or sink.",
+        "Myr keeps you."
+      ]
+    }
+  }
+}

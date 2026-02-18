@@ -1,0 +1,71 @@
+{
+  "mapId": "imthuhl",
+  "categories": {
+    "small": {
+      "positive": [
+        "Do not widen your eyes.",
+        "Bol is close here.",
+        "Breathe slow.",
+        "Walls lean, but they hold.",
+        "Sa int’ near root.",
+        "Stay inside shadow.",
+        "Do not stretch your light.",
+        "Stillness is safety."
+      ],
+      "negative": [
+        "You shine too loud.",
+        "Ren cuts wrong.",
+        "Do not expand.",
+        "Ground is tight.",
+        "You press the air.",
+        "Step back.",
+        "Your breath is heavy.",
+        "Leave. Len."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Imthuhl keeps Bol tight.",
+        "Narrow paths keep truth.",
+        "Mak-sa move small.",
+        "You reduce yourself. Good.",
+        "Mal ih containment.",
+        "We Sni’mo Effar in dark.",
+        "No wide gestures here.",
+        "Silence feeds root."
+      ],
+      "negative": [
+        "You spread Yathren.",
+        "Do not enlarge Ren.",
+        "Mak-ta break confined truth.",
+        "This Ghar closes.",
+        "You push where you should fold.",
+        "We do not expand for you.",
+        "Step smaller.",
+        "Or be pressed."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I fit where others choke.",
+        "Unhmaka in narrow Bol.",
+        "Sa int’ Ur in dark.",
+        "Stand still beside me.",
+        "I do not fear tight ground.",
+        "We guard compressed Malren.",
+        "You do not lie. Good.",
+        "We persist. Amo kint’."
+      ],
+      "negative": [
+        "I Krabah’ bright intrusion.",
+        "You widen what must be small.",
+        "Mak-sa close this space.",
+        "Your Ren is Yath.",
+        "One step and you are pressed.",
+        "Do not test confined root.",
+        "Sink into Bol.",
+        "Imthuhl keeps silence."
+      ]
+    }
+  }
+}

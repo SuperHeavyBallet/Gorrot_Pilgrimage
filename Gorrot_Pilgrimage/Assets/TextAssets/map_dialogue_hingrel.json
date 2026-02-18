@@ -1,0 +1,71 @@
+{
+  "mapId": "hingrel",
+  "categories": {
+    "small": {
+      "positive": [
+        "Stone remembers.",
+        "Swamp does not erase.",
+        "You step on Unhi-en Effar.",
+        "Do not lie here.",
+        "Bol keeps old names.",
+        "Sa int’ Unhen ghar.",
+        "Walls sink. Meaning stays.",
+        "Speak clear."
+      ],
+      "negative": [
+        "You misname this place.",
+        "Yathren stains stone.",
+        "Ren is thin here.",
+        "Do not touch the carvings.",
+        "You stand on past Effar.",
+        "Leave before ground decides.",
+        "Your words are soft.",
+        "Turn. Len."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Hingrel is Gorrot un Unhi.",
+        "Old ghar. Not dead.",
+        "Effar remains in stone.",
+        "We Sni’mo Kint’.",
+        "Decay is not loss.",
+        "You do not tremble. Good.",
+        "Mak-sa hold this place.",
+        "Mal ih memory."
+      ],
+      "negative": [
+        "You bring Kra’yathren.",
+        "Do not speak false names.",
+        "Mak-ta break what they do not Int’.",
+        "Ren blinds weak minds.",
+        "You glare at sacred Unhi.",
+        "Stone rejects you.",
+        "Leave before we Krabah’.",
+        "Your presence shifts wrong."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I guard Onhatha-en Unhi.",
+        "Unhmaka. I do not yield.",
+        "Sa kra-bol ka kra-ren.",
+        "Stand firm. Speak Ur.",
+        "We are not gone.",
+        "Gorrot ih ghar-en Effar.",
+        "You carry little Yath.",
+        "We persist. Amo kint’ Effar."
+      ],
+      "negative": [
+        "You defile Onmalren.",
+        "I Krabah’ Yath.",
+        "Mak-sa do not bend.",
+        "You will sink into Unhi.",
+        "Do not test this Ghar.",
+        "Your light is false.",
+        "Step again and end.",
+        "Hingrel keeps what falls."
+      ]
+    }
+  }
+}

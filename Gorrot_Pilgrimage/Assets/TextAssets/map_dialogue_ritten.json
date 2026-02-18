@@ -1,0 +1,71 @@
+{
+  "mapId": "ritten",
+  "categories": {
+    "small": {
+      "positive": [
+        "Rot feeds root.",
+        "Unhi ek Sathi. That is law.",
+        "Do not fear decay.",
+        "Effar comes from Bahn’.",
+        "Stand where wood still holds.",
+        "Sa int’ Unhen.",
+        "Water births and takes.",
+        "Stay. Watch."
+      ],
+      "negative": [
+        "You call this death. Yath.",
+        "Do not cut what grows.",
+        "Step soft. Ground shifts.",
+        "Ren is thin here.",
+        "You speak without Int’.",
+        "Bahn’ is not empty.",
+        "Do not name what you do not know.",
+        "Turn. Len-kan."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Ritten is Kraffar and rot.",
+        "Effarot returns to Unhi.",
+        "We do not waste decay.",
+        "Mal ih cycle.",
+        "Shadow keeps seed.",
+        "You see only surface.",
+        "Sni’mo Effar. That is survival.",
+        "Birth smells of rot."
+      ],
+      "negative": [
+        "You fear what feeds you.",
+        "Yathren spreads with fire.",
+        "You burn before you understand.",
+        "Mak-ta break balance.",
+        "Ren without Bol blinds.",
+        "Do not disturb root.",
+        "You bring wrong season.",
+        "Leave before growth turns."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I stand in rot and live.",
+        "Unhmaka. I do not fall.",
+        "Effar grows from Bahn’.",
+        "Sa kra-bol ka kra-ren.",
+        "You keep truth. Good.",
+        "Roots hold me.",
+        "Decay is not end.",
+        "We persist. Amo kint’."
+      ],
+      "negative": [
+        "You would cut new growth.",
+        "I Krabah’ false light.",
+        "Do not test root and mire.",
+        "Your bones will feed soil.",
+        "Mak-sa do not yield.",
+        "Step closer and sink.",
+        "You are Yath.",
+        "Ritten keeps what falls."
+      ]
+    }
+  }
+}

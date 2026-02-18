@@ -1,0 +1,71 @@
+{
+  "mapId": "gorrot_church",
+  "categories": {
+    "small": {
+      "positive": [
+        "You’ve found it, then.",
+        "Wipe your boots.",
+        "It’s colder inside.",
+        "Mind the damp stone.",
+        "You can wait.",
+        "No rush here.",
+        "The floor shifts. That’s normal.",
+        "You’re not the first."
+      ],
+      "negative": [
+        "No shouting.",
+        "Don’t pry at the doors.",
+        "Keep your hands off the graves.",
+        "You’re not here to dig.",
+        "No bribes.",
+        "If you’ve come to steal, leave.",
+        "I’ve buried worse than you.",
+        "Lower your voice."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Name’s Maldebohn.",
+        "You’ve come about Gorrot. They all do.",
+        "You’ll proceed to the waiting hall.",
+        "Your petition may be presented.",
+        "It may not.",
+        "You may wait regardless.",
+        "Patience does more here than force.",
+        "Artyrgon will not be disturbed."
+      ],
+      "negative": [
+        "You don’t choose the order here.",
+        "The hall decides, not you.",
+        "I won’t fetch the priest.",
+        "He studies. That is enough.",
+        "If you’re impatient, you can leave.",
+        "No, you may not see below.",
+        "The basement is not open to visitors.",
+        "I don’t answer questions about the swelling."
+      ]
+    },
+    "large": {
+      "positive": [
+        "Graves rise in this soil. I press them back down.",
+        "The swamp feeds what rests here.",
+        "Gorrot stirs. That much is true.",
+        "Some call it a god. I call it unfinished.",
+        "You can wait as long as you like.",
+        "Waiting has changed men before.",
+        "If you’re here to claim something, you’ll learn how little is claimable.",
+        "Proceed to the hall."
+      ],
+      "negative": [
+        "You won’t touch what’s forming below.",
+        "You won’t wake it.",
+        "If you try, I will stop you.",
+        "This place buries thieves.",
+        "Gorrot isn’t yours to own.",
+        "The priest won’t entertain zealots.",
+        "I’ve put down what crawls out. Don’t join them.",
+        "Wait. Or leave."
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "mapId": "gorrot_waiting_hall",
+  "categories": {
+    "small": {
+      "positive": [
+        "You here for it too?",
+        "It called me.",
+        "I’ve been waiting three days.",
+        "They say it’s close.",
+        "You can feel it, can’t you?",
+        "It’s warmer near the floor.",
+        "I won’t leave now.",
+        "Almost time."
+      ],
+      "negative": [
+        "Don’t touch me.",
+        "You think you’re chosen?",
+        "I was here first.",
+        "It doesn’t want you.",
+        "You look unsure.",
+        "If you doubt, leave.",
+        "Stop staring.",
+        "It hears doubt."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "I came from beyond the Halbegorn cliffs.",
+        "I left everything for this.",
+        "Gorrot isn’t a myth.",
+        "The air shifts when it stirs.",
+        "I’ve seen the signs.",
+        "Some of us will be received.",
+        "You can still turn back. I won’t.",
+        "It will choose."
+      ],
+      "negative": [
+        "They’re lying about what it is.",
+        "You think it’s a throne? Fool.",
+        "It’s not light. It’s not shadow.",
+        "Stop pretending you understand it.",
+        "I’ve watched men lose themselves here.",
+        "You won’t survive the descent.",
+        "They’ll deny you. I can see it.",
+        "You’re too calm for this place."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I’ve studied fate for twenty years.",
+        "If it is a god, it will need hands.",
+        "If it is unfinished, I will finish it.",
+        "This is history forming beneath us.",
+        "We are the first.",
+        "When it rises, I will stand beside it.",
+        "Gorrot is not accident. It is emergence.",
+        "I have no fear left."
+      ],
+      "negative": [
+        "I will not let zealots claim it.",
+        "If they try to take it, I will stop them.",
+        "This hall reeks of desperation.",
+        "You’re not strong enough for what’s below.",
+        "If it chooses wrongly, I will intervene.",
+        "I didn’t come this far to fail.",
+        "Someone here will try to steal it.",
+        "I won’t be the one turned away."
+      ]
+    }
+  }
+}

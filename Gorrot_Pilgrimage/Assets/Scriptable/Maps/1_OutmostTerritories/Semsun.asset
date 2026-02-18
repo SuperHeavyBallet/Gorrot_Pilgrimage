@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
+  m_Name: Semsun
+  m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapID: semsun
+  mapLocation: 0
+  mapName: Semsun
+  mapSize: 10
+  nextMaps:
+  - {fileID: 11400000, guid: 184c5cc9909d46946a82c380aa83b824, type: 2}
+  - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
+  floorSprite: {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
+  isWildMap: 0
+  wildLevel: 0
+  escapeChance: 1
+  isFirstMap: 0
+  isFinalMap: 0
+  hasMerchant: 1
+  merchantStock: {fileID: 11400000, guid: fdd9e00821515414899b2049bee0422d, type: 2}
+  terrainDensity: 0.1
+  hasFlies: 0
+  isFinalCorridoor: 0
+  waterAmount: 0.045
+  smallEnemySprites:
+  - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
+  mediumEnemySprites:
+  - {fileID: 21300000, guid: e1fc584b0bd71e749a5b21b855a6a28c, type: 3}
+  largeEnemySprites:
+  - {fileID: 21300000, guid: b687726a45b8ff745931ae71abc2caa4, type: 3}
+  floorSprites:
+  - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
+  - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}
+  hasEnemies: 1
+  enemyDensity: 0.2
+  hasShadows: 0
+  canHavePottard: 0
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 1
+  bribeMultiplier: 2
+  canBeBribed: 1
+  waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}
+  waterFoamShader: {fileID: 2100000, guid: 6f5f5ec5aeb03b844b94708f1e11f72e, type: 2}
+  treasureDensity: 1
+  waterBorderSprites:
+  - {fileID: 21300000, guid: 83f5995ba4843ef4bbf2b8dd758c47eb, type: 3}
+  enemyDialogue: {fileID: 4900000, guid: 1fa8f4cff448b6a4baa4bcd1621c0c65, type: 3}

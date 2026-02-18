@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
+  m_Name: Molgeritch
+  m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapID: molgeritch
+  mapLocation: 1
+  mapName: Molgeritch
+  mapSize: 15
+  nextMaps:
+  - {fileID: 11400000, guid: 3527bf4480d51ba4797be1e5fa91ad92, type: 2}
+  floorSprite: {fileID: 21300000, guid: 5787469d7ff857645a702e07b8ed9710, type: 3}
+  isWildMap: 1
+  wildLevel: 2
+  escapeChance: 0.7
+  isFirstMap: 0
+  isFinalMap: 0
+  hasMerchant: 0
+  merchantStock: {fileID: 0}
+  terrainDensity: 0.1
+  hasFlies: 1
+  isFinalCorridoor: 0
+  waterAmount: 0.03
+  smallEnemySprites:
+  - {fileID: 21300000, guid: 08a30c48a711cdb46b1c310ea903d7f7, type: 3}
+  mediumEnemySprites:
+  - {fileID: 21300000, guid: 9dea42ab3c9250e4b8e5940875ab9ecf, type: 3}
+  largeEnemySprites:
+  - {fileID: 21300000, guid: dd96a35b6fcea86459692da1588fa486, type: 3}
+  floorSprites: []
+  hasEnemies: 1
+  enemyDensity: 0.2
+  hasShadows: 0
+  canHavePottard: 1
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 1
+  bribeMultiplier: 2
+  canBeBribed: 1
+  waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}
+  waterFoamShader: {fileID: 2100000, guid: 6f5f5ec5aeb03b844b94708f1e11f72e, type: 2}
+  treasureDensity: 5
+  waterBorderSprites:
+  - {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
+  - {fileID: 21300000, guid: 85d9fc5e2e05d5249afbe6c708d4cc12, type: 3}
+  - {fileID: 21300000, guid: 6841c163e3006eb40b5b7ddd2423b899, type: 3}
+  enemyDialogue: {fileID: 4900000, guid: 8d95783ca6b61da4486129f14c3abe77, type: 3}

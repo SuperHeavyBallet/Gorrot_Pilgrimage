@@ -1,0 +1,71 @@
+{
+  "mapId": "gorrot_town",
+  "categories": {
+    "small": {
+      "positive": [
+        "Gorrot calls. We come.",
+        "Sa int’ Malren.",
+        "No walls speak. Ground does.",
+        "Animals do not argue.",
+        "Ren is thin. Good.",
+        "Bol feeds root here.",
+        "We walk where Effar left.",
+        "Listen. Do not name."
+      ],
+      "negative": [
+        "Do not shout in Gorrot.",
+        "You glare wrong.",
+        "This is not your ghar.",
+        "Yathren rots fast here.",
+        "Stop speaking.",
+        "Ground hears you.",
+        "Leave before it answers.",
+        "You are not called."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "Gorrot ih ghar-en Effar.",
+        "We are drawn. That is truth.",
+        "Stone empty. Soil full.",
+        "Mak-sa follow root.",
+        "Mal ih Bol un Ren.",
+        "Decay is teaching.",
+        "We Sni’mo Effar near Gorrot.",
+        "Do not resist the pull."
+      ],
+      "negative": [
+        "You seek throne. There is none.",
+        "Onmalren is not yours.",
+        "Do not profane soil.",
+        "Mak-ta glare with false Ren.",
+        "Kra’yathren and we end you.",
+        "This town is not abandoned.",
+        "Gorrot keeps count.",
+        "Turn away if you fear truth."
+      ]
+    },
+    "large": {
+      "positive": [
+        "I stand where root thickens.",
+        "Unhmaka near Gorrot.",
+        "Sa int’ deep call.",
+        "We do not take. We come.",
+        "Gorrot ih Unhi-en Malren.",
+        "Bol births meaning.",
+        "You feel it too. Good.",
+        "We persist. Amo kint’ Effar."
+      ],
+      "negative": [
+        "I Krabah’ false claim.",
+        "You are not aligned.",
+        "Mak-sa close around Gorrot.",
+        "Your light is Yath.",
+        "Step deeper and be unmade.",
+        "Do not name what calls you.",
+        "Gorrot will not answer twice.",
+        "Leave before soil decides."
+      ]
+    }
+  }
+}

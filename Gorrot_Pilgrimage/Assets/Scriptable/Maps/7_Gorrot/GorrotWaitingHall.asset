@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a8ecf28962a714982eff4ee96abf0f, type: 3}
+  m_Name: GorrotWaitingHall
+  m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapID: gorrot_waiting_hall
+  mapLocation: 6
+  mapName: Gorrot Waiting Hall
+  mapSize: 50
+  nextMaps:
+  - {fileID: 11400000, guid: e9d7ace6d860c3d4588d5626c565e1a0, type: 2}
+  floorSprite: {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
+  isWildMap: 1
+  wildLevel: 5
+  escapeChance: 0.3
+  isFirstMap: 0
+  isFinalMap: 0
+  hasMerchant: 0
+  merchantStock: {fileID: 0}
+  terrainDensity: 0
+  hasFlies: 1
+  isFinalCorridoor: 0
+  waterAmount: 0
+  smallEnemySprites:
+  - {fileID: 21300000, guid: cd508edda067f4e42b79431a9facc3ba, type: 3}
+  mediumEnemySprites:
+  - {fileID: 21300000, guid: cd508edda067f4e42b79431a9facc3ba, type: 3}
+  largeEnemySprites:
+  - {fileID: 21300000, guid: cd508edda067f4e42b79431a9facc3ba, type: 3}
+  floorSprites:
+  - {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
+  - {fileID: 21300000, guid: 0ada16eaae97ccf4982768717b3826bd, type: 3}
+  - {fileID: 21300000, guid: d508ba4ae47ca6e4ab3ad025cc859e5c, type: 3}
+  - {fileID: 21300000, guid: e820de7e9104649468d2449af80dc3e7, type: 3}
+  - {fileID: 21300000, guid: 6b33656fd694b7a428e0fc449c2d5f0d, type: 3}
+  - {fileID: 21300000, guid: 5a4bd479445a95b419c4a5633e0e7b2e, type: 3}
+  - {fileID: 21300000, guid: c02b01621195957499ef03c88388f94c, type: 3}
+  - {fileID: 21300000, guid: 235417b7b6280184a96785a2694a8de0, type: 3}
+  - {fileID: 21300000, guid: 3011b362335fcb946a69a53d9ad3ac6a, type: 3}
+  hasEnemies: 1
+  enemyDensity: 1
+  hasShadows: 0
+  canHavePottard: 0
+  hasHiddenTraps: 0
+  hiddenTrapDensity: 1
+  bribeMultiplier: 5
+  canBeBribed: 1
+  waterShader: {fileID: 2100000, guid: b2e3fc1189e3870409fcc292e25d90f1, type: 2}
+  waterFoamShader: {fileID: 2100000, guid: b5b90870ee7395b428e80353c1962ddb, type: 2}
+  treasureDensity: 2
+  waterBorderSprites:
+  - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}
+  - {fileID: 21300000, guid: dd75bf964486d0f41ac113e074ea1399, type: 3}
+  enemyDialogue: {fileID: 4900000, guid: eda2b4e55bafeb74683e142fccebd030, type: 3}
