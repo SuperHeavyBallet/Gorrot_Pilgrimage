@@ -218,7 +218,7 @@ public class SquareController : MonoBehaviour
     }
     public void ActivateTrap()
     {
-
+        
         trapActivated = true;
         hiddenTrapSprite.SetActive(false);
         trapSprite.SetActive(true);

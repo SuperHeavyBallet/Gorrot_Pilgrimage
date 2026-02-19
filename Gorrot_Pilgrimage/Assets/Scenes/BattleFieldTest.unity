@@ -10389,6 +10389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767f51378fa56ae439d673851a7388ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  playerMaxSuffering: 10
+  playerMaxAttack: 4
   healthDisplay: {fileID: 303018553}
   sufferingDisplay: {fileID: 479257085}
   attackDisplay: {fileID: 228397271}
@@ -23409,6 +23411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7418038190939454929, guid: d19b28d4c84417540a478a7d75e0dc54, type: 3}
+      propertyPath: trapTriggerSoundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 6147304fc6144a144a77d716042a47ca, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

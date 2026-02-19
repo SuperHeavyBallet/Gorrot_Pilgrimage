@@ -32,6 +32,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioClip clickInventorySoundEffect;
     [SerializeField] AudioClip payOffChuckleSoundEffect;
+    [SerializeField] AudioClip trapTriggerSoundEffect;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -123,6 +124,8 @@ public class AudioManager : MonoBehaviour
     public void PlayClickSoundEffect() => soundEffectPlayer.PlayOneShot(clickInventorySoundEffect);
 
     public void PlayPayOffChuckle() => soundEffectPlayer.PlayOneShot(payOffChuckleSoundEffect);
+
+    public void PlayTrapTriggerSoundEffect() => soundEffectPlayer.PlayOneShot(trapTriggerSoundEffect);
 
 
 }

@@ -230,6 +230,52 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
+    void PlayFootStepSound(SquareController squareController)
+    {
+        if (squareController.isWater)
+        {
+            audioManager.playPlayerMoveWaterSoundEffect();
+        }
+        else
+        {
+            audioManager.playPlayerMoveSoundEffect();
+        }
+    }
+
+    void MakeSquareHoldPlayer(SquareController squareController, bool value)
+    {
+        if (squareController != null)
+        {
+            squareController.MakeThisSquareHoldPlayer(value);
+
+            
+        }
+    }
+
+    void ActivateWaterStep(SquareController squareController, bool value)
+    {
+        if (squareController != null)
+        {
+            if (squareController.isWater)
+            {
+                squareController.ActivateStepInWaterSprite(value);
+            }
+        }
+    }
+
+    public void UpdateCurrentSquareController(SquareController squareController)
+    {
+        if (squareController != null)
+        {
+            currentSquareController = squareController;
+        }
+    }
+
+    void UpdateCurrentPosition(int newPosX, int newPosY)
+    {
+        currentPosition = new Vector2Int(newPosX, newPosY);
+    }
+
     IEnumerator MoveRoutine(
         SquareController targetSquare,
     int newX,
@@ -243,17 +289,7 @@ public class PlayerMovementController : MonoBehaviour
         isMoving = true;
         playerAnimationManager.SetIsWalking(true);
 
-     
-
-        if(newSquareController.isWater)
-        {
-            audioManager.playPlayerMoveWaterSoundEffect();
-        }
-        else
-        {
-            audioManager.playPlayerMoveSoundEffect();
-        }
-            
+        PlayFootStepSound(newSquareController);
 
         Vector3 start = transform.position;
         Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
@@ -261,18 +297,8 @@ public class PlayerMovementController : MonoBehaviour
         float duration = 0.25f; // tune feel
         float t = 0f;
 
-
-        if (currentSquareController != null)
-        {
-            currentSquareController.MakeThisSquareHoldPlayer(false);
-
-            if(currentSquareController.isWater)
-            {
-                currentSquareController.ActivateStepInWaterSprite(false);
-            }
-        }
-
-
+        MakeSquareHoldPlayer(currentSquareController, false);
+        ActivateWaterStep(currentSquareController, false);
         bool waterSplashTriggered = false;
 
         while (t < duration)
@@ -290,35 +316,23 @@ public class PlayerMovementController : MonoBehaviour
             transform.position = Vector3.Lerp(start, end, u);
             yield return null;
         }
-
-
-
         transform.position = end;
 
         // Commit grid position *after* movement finishes
-        currentPosition = new Vector2Int(newX, newY);
-
-        if(newSquareController != null)
-        {
-            newSquareController.MakeThisSquareHoldPlayer(true);
-            currentSquareController = newSquareController;
-        }
-
+        UpdateCurrentPosition(newX, newY);
+        MakeSquareHoldPlayer(newSquareController, true);
+        UpdateCurrentSquareController(newSquareController);
         
 
         isMoving = false;
         playerAnimationManager.SetIsWalking(false);
         ApplyMoveResults(newSquareController, freeMove, isWaiting);
-
-        // Now the turn can progress
         turnOrganiser.BuildNextTurn();
     }
 
     void ApplyMoveResults(SquareController newSquareController, bool freeMove, bool isWaiting)
     {
         newSquareController.ActivateSquareVisited();
-
-
 
         if (newSquareController.isGoalSquare)
         {
@@ -328,7 +342,7 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        if(newSquareController.ThisSquareHoldsPottard == true)
+        if(newSquareController.ThisSquareHoldsPottard)
         {
             playerStatsController.resetSuffering();
             MovePlayerBackOneSquare();
@@ -338,6 +352,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             if(newSquareController.GetTrapActivated == false)
             {
+                audioManager.PlayTrapTriggerSoundEffect();
                 newSquareController.ActivateTrap();
                 playerStatsController.alterHealth(-1);
                 MovePlayerBackOneSquare();
@@ -348,7 +363,6 @@ public class PlayerMovementController : MonoBehaviour
         if(newSquareController.GetIsMerchantSquare())
         {
             turnOrganiser.LandedOnMerchantSquare();
-           // fateCounter.resetFateCounter();
             return;
         }
 
