@@ -20,7 +20,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
     int currentEnemyDamage;
 
-    public AudioManager audioManager;
+    //public AudioManager audioManager;
 
     int currentPlayerRoll;
     int enemyResult;
@@ -134,7 +134,7 @@ public class CombatPhaseResolution : MonoBehaviour
         {
             playerStatsController.AlterMoney((totalBribeAmount) * -1);
             playerStatsController.alterSuffering(currentEnemyDamage * -1);
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             CloseCombatScene();
 
@@ -152,7 +152,7 @@ public class CombatPhaseResolution : MonoBehaviour
         else if (choice == CombatChoice.Talk)
         {
 
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             SquareController sq = turnOrganiser.GetLandedSquare();
             string enemyWeight = sq.getSquareQuantity();
@@ -179,7 +179,7 @@ public class CombatPhaseResolution : MonoBehaviour
         }
         else if(choice == CombatChoice.Fight)
         {
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             if (enemyCombatRoll != null)
             {
@@ -221,7 +221,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
         if (choice == CombatChoice.Fight)
         {
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             if (enemyCombatRoll != null)
             {
@@ -235,11 +235,11 @@ public class CombatPhaseResolution : MonoBehaviour
         }
         else if(choice == CombatChoice.Pay)
         {
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             playerStatsController.AlterMoney((totalBribeAmount) * -1);
             playerStatsController.alterSuffering(currentEnemyDamage * -1);
-            audioManager.PlayPayOffChuckle();
+            AudioManager.Instance.PlayPayOffChuckle();
 
             CloseCombatScene();
 
@@ -337,7 +337,7 @@ public class CombatPhaseResolution : MonoBehaviour
         {
             // Lose Results
             playerStatsController.alterHealth(currentEnemyDamage * -1);
-            audioManager.playTakeDamageSoundEffect();
+            AudioManager.Instance.playTakeDamageSoundEffect();
             playerStatsController.resetSuffering();
             playerMovementController.MovePlayerBackOneSquare();
 
@@ -347,7 +347,7 @@ public class CombatPhaseResolution : MonoBehaviour
             // Win Results
             playerStatsController.resetSuffering();
             playerStatsController.AlterMoney(10);
-            audioManager.playCombatWinSoundEffect();
+            AudioManager.Instance.playCombatWinSoundEffect();
             turnOrganiser.GetLandedSquare().MakeEmptySquare();
         }
 

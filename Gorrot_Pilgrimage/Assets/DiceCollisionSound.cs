@@ -6,7 +6,7 @@ public class DiceCollisionSound : MonoBehaviour
     public float minImpactVelocity = 1f;   // ignore tiny bumps
     public float cooldown = 0.02f;           // prevent spam
 
-    public AudioManager audioManager;
+
 
     private float lastPlayTime = -999f;
 
@@ -21,7 +21,7 @@ public class DiceCollisionSound : MonoBehaviour
         if (impact > minImpactVelocity)
         {
             float pitch =  Random.Range(0.9f, 1.1f); // slight pitch variation
-            audioManager.playDiceHitSoundEffect(pitch);
+            AudioManager.Instance.playDiceHitSoundEffect(pitch);
             lastPlayTime = Time.time;
         }
     }

@@ -21,7 +21,7 @@ public class PlayerMovementController : MonoBehaviour
     public bool isPlayerTurn;
     public TurnOrganiser turnOrganiser;
 
-    public AudioManager audioManager;
+   // public AudioManager audioManager;
 
     PlayerStatsController playerStatsController;
 
@@ -234,11 +234,11 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (squareController.isWater)
         {
-            audioManager.playPlayerMoveWaterSoundEffect();
+            AudioManager.Instance.playPlayerMoveWaterSoundEffect();
         }
         else
         {
-            audioManager.playPlayerMoveSoundEffect();
+            AudioManager.Instance.playPlayerMoveSoundEffect();
         }
     }
 
@@ -352,7 +352,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             if(newSquareController.GetTrapActivated == false)
             {
-                audioManager.PlayTrapTriggerSoundEffect();
+                AudioManager.Instance.PlayTrapTriggerSoundEffect();
                 newSquareController.ActivateTrap();
                 playerStatsController.alterHealth(-1);
                 MovePlayerBackOneSquare();
@@ -441,7 +441,7 @@ public class PlayerMovementController : MonoBehaviour
             }
             else
             {
-                audioManager.playCannotMoveSoundEffect();
+                AudioManager.Instance.playCannotMoveSoundEffect();
             }
 
         }
@@ -511,7 +511,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     void BlockedSquare()
     {
-        audioManager.playCannotMoveSoundEffect();
+        AudioManager.Instance.playCannotMoveSoundEffect();
     }
 
     public void ReceiveBattlefieldSize(GameObject[,] receivedAllSquares)

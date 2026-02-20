@@ -5,12 +5,13 @@ using System.Collections;
 public class MainMenuController : MonoBehaviour
 {
 
+
     Coroutine loadProcess;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+   
     }
 
     // Update is called once per frame

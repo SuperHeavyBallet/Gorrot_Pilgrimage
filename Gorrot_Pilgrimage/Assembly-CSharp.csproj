@@ -95,6 +95,7 @@
     <Compile Include="Assets\MapCatalogue.cs" />
     <Compile Include="Assets\Scriptable\CharacterSprites\CharacterSpriteSet.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
+    <Compile Include="Assets\PlaySoundOnClick.cs" />
     <Compile Include="Assets\UIController.cs" />
     <Compile Include="Assets\Scriptable\Maps\MapData.cs" />
     <Compile Include="Assets\SquareSpriteLibrary.cs" />

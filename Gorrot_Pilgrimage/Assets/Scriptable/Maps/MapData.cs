@@ -68,7 +68,7 @@ public class MapData : ScriptableObject
 
     [SerializeField] bool hasEnemies;
     [Tooltip("Fraction of tiles that become enemies. 0.05 = 5% of map area.")]
-    [SerializeField, Range(0f, 1f)]
+    [SerializeField, Range(0f, 5f)]
     float enemyDensity = 0.5f;
     public float EnemyDensity => enemyDensity;
 
@@ -235,10 +235,8 @@ public class MapData : ScriptableObject
 
     }
 
-    public bool GetIsFinalCorridoor()
-    {
-        return isFinalCorridoor;
-    }
+    public bool IsFinalCorridoor => isFinalCorridoor;
+    
 
     public Sprite GetSmallEnemySprite()
     { return smallEnemySprites[0]; }

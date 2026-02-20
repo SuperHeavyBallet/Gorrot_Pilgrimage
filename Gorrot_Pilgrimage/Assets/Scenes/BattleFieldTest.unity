@@ -5847,7 +5847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f217e1be597184684e67dc6b41672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnOrganiser
-  audioManager: {fileID: 709544912}
   turnDisplay: {fileID: 1777430317}
   diceController: {fileID: 1310552305}
   playerStatsController: {fileID: 914908672}
@@ -5895,7 +5894,6 @@ MonoBehaviour:
   enemyDiceController: {fileID: 939275789}
   DiceRollFormulaText: {fileID: 1309800280}
   playerStatsController: {fileID: 914908672}
-  audioManager: {fileID: 709544912}
   playerTotal: {fileID: 1945026341}
   enemyTotal: {fileID: 1703782178}
   diceDisplay: {fileID: 873989929}
@@ -10148,31 +10146,7 @@ MonoBehaviour:
     m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
     m_ActionName: 'Player/Crouch[/DualShock4GamepadHID/buttonEast,/Keyboard/c]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 542128495}
-        m_TargetAssemblyTypeName: CombatPhaseResolution, Assembly-CSharp
-        m_MethodName: PlayerPressedRoll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 542128498}
-        m_TargetAssemblyTypeName: DeathPhaseResolution, Assembly-CSharp
-        m_MethodName: LoadCharacterCreation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
     m_ActionName: 'Player/Jump[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]'
   - m_PersistentCalls:
@@ -10268,7 +10242,6 @@ MonoBehaviour:
   currentPosition: {x: 0, y: 0}
   isPlayerTurn: 0
   turnOrganiser: {fileID: 542128493}
-  audioManager: {fileID: 709544912}
   playerIsAlive: 0
   battlefieldBuilder: {fileID: 1131809994}
   nextSquareQuantity: medium
@@ -10397,7 +10370,6 @@ MonoBehaviour:
   moneyDisplay: {fileID: 345129630}
   statBoxAnimationController: {fileID: 86282820}
   playerIsAlive: 0
-  audioManager: {fileID: 709544912}
   healthPlus: {fileID: 1949229540}
   healthNeg: {fileID: 391823431}
   attackPlus: {fileID: 432423636}

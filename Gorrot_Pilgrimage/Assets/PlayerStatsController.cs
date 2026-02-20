@@ -31,7 +31,7 @@ public class PlayerStatsController : MonoBehaviour
     public bool playerIsAlive;
     bool playerHasDied;
 
-    public AudioManager audioManager;
+    //public AudioManager audioManager;
 
     public GameObject healthPlus;
     public GameObject healthNeg;
@@ -159,12 +159,12 @@ public class PlayerStatsController : MonoBehaviour
 
             if(alterAmount > 0)
             {
-                audioManager.playHealthBoostSoundEffect();
+                AudioManager.Instance.playHealthBoostSoundEffect();
                 ActivateSignForTime(healthPlus);
             }
             else if (alterAmount < 0)
             {
-                audioManager.playTakeDamageSoundEffect();
+                AudioManager.Instance.playTakeDamageSoundEffect();
                 ActivateSignForTime(healthNeg);
             }
 
@@ -193,7 +193,7 @@ public class PlayerStatsController : MonoBehaviour
         {
             if (alterAmount > 0)
             {
-                audioManager.playAddSufferingSoundEffect();
+                AudioManager.Instance.playAddSufferingSoundEffect();
                 ActivateSignForTime(sufferingPlus);
             }
             else if (alterAmount < 0)
@@ -346,7 +346,7 @@ public class PlayerStatsController : MonoBehaviour
 
         if (alterAmount > 0)
         {
-            audioManager.playAddMoneySoundEffect();
+            AudioManager.Instance.playAddMoneySoundEffect();
             ActivateSignForTime(moneyPlus);
         }
         else if (alterAmount < 0)

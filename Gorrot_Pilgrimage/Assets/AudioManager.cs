@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance { get; private set; }
 
-   public AudioClip turnChangeSoundEffect_Player;
+    public AudioClip turnChangeSoundEffect_Player;
     public AudioClip turnChangeSoundEffect_Enemy;
     public AudioClip cannotMoveSoundEffect;
     public AudioSource soundEffectPlayer;
@@ -33,6 +34,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip clickInventorySoundEffect;
     [SerializeField] AudioClip payOffChuckleSoundEffect;
     [SerializeField] AudioClip trapTriggerSoundEffect;
+
+
+    private void Awake()
+    {
+        // Singleton enforcement
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,7 +84,7 @@ public class AudioManager : MonoBehaviour
 
     void playBackgroundMusic(AudioClip newMusic)
     {
-       // backgroundMusicPlayer.Play();
+       backgroundMusicPlayer.Play();
     }
 
     void playSoundEffect(AudioClip newClip)

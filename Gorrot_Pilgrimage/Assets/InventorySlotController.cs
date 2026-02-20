@@ -25,7 +25,7 @@ public class InventorySlotController : MonoBehaviour
 
     Coroutine scaleUpAndDown;
 
-    [SerializeField] AudioManager audioManager;
+    //[SerializeField] AudioManager audioManager;
 
     [SerializeField] ItemCatalogue itemCatalogue;
 
@@ -33,7 +33,6 @@ public class InventorySlotController : MonoBehaviour
     void Start()
     {
         playerStatsController = GameObject.Find("Player").GetComponent<PlayerStatsController>();
-        //UpdateItemID("Empty");
         UpdateItemSprite(itemSprite_Empty);
   
 
@@ -44,12 +43,12 @@ public class InventorySlotController : MonoBehaviour
 
         if (itemQuantity < 1)
         {
-            audioManager.playCannotMoveSoundEffect();
+            AudioManager.Instance.playCannotMoveSoundEffect();
             return;
         }
-            
 
-        audioManager.PlayClickSoundEffect();
+
+        AudioManager.Instance.PlayClickSoundEffect();
        playerStatsController.UseItem(itemID);
 
 

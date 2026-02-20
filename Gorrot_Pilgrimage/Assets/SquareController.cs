@@ -16,6 +16,7 @@ public class SquareController : MonoBehaviour
     public bool isEnemySquare;
     public bool isTerrainSquare;
     public bool isEmptySquare;
+    public bool IsEmptySquare => type == SquareType.Empty;
     public bool isHealthSquare;
     public bool isItemSquare;
 
@@ -59,6 +60,12 @@ public class SquareController : MonoBehaviour
     [SerializeField] SpriteRenderer waterSpriteRenderer;
 
     //BattlefieldBuilder battlefieldBuilder;
+
+    [SerializeField] GameObject largeTerrainSprite;
+    public void ActivateLargeTerrainSprite() => largeTerrainSprite.SetActive(true);
+
+    [SerializeField] GameObject freeMarker;
+    public void MarkAsFree() => freeMarker.SetActive(true);
 
     public string squareType = "empty";
     bool isEdgeSquare;
@@ -461,6 +468,7 @@ public class SquareController : MonoBehaviour
         waterMarker.gameObject.SetActive(false);
         ActivateStepInWaterSprite(false);
         groundSprite.SetActive(true);
+       SetReservedWalkway(false);
 
        
 
@@ -614,6 +622,28 @@ public class SquareController : MonoBehaviour
             groundSprite.SetActive(false);
             
         }
+
+        type = SquareType.Water;
+    }
+
+    void ClearLegacyFlags()
+    {
+        isGoalSquare = false;
+        isTreasureSquare = false;
+        isEnemySquare = false;
+        isTerrainSquare = false;
+        isEmptySquare = false;
+        isHealthSquare = false;
+        isItemSquare = false;
+
+        isMerchantSquare = false;
+
+        // water & trap visuals / state
+        isWater = false;
+        trapActivated = false;
+        if (trapSprite) trapSprite.SetActive(false);
+        if (hiddenTrapSprite) hiddenTrapSprite.SetActive(false);
+        if (merchantSprite) merchantSprite.SetActive(false);
     }
 
 
@@ -627,9 +657,14 @@ public class SquareController : MonoBehaviour
 
 
     }
-    public bool GetIsSacred()
+    public bool IsSacred => isSacred;
+
+    bool isReservedWalkway = false;
+    public bool IsReservedWalkway => isReservedWalkway;
+    
+    public void SetReservedWalkway(bool value)
     {
-        return isSacred;
+        isReservedWalkway = value;
     }
 
     void SetSquare(squareQuantity sq, float scale, string name)
@@ -664,12 +699,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeHealthSquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
-        isTreasureSquare = false;
-        isEmptySquare = false;
+        ClearLegacyFlags();
+        type = SquareType.Health;
         isHealthSquare = true;
-
         squareType = "health";
         ChooseSquareSprite();
 
@@ -682,13 +714,9 @@ public class SquareController : MonoBehaviour
     }
     public void MakeItemSquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
-        isTreasureSquare = false;
-        isEmptySquare = false;
-        isHealthSquare = false;
+        ClearLegacyFlags();
+        type = SquareType.Item;
         isItemSquare = true;
-
         squareType = "item";
         ChooseSquareSprite();
 
@@ -739,13 +767,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeFlowerSquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
-        isTreasureSquare = false;
-        isEmptySquare = false;
-        isHealthSquare = false;
+        ClearLegacyFlags();
+        type = SquareType.Item;
         isItemSquare = true;
-
         squareType = "item";
         ChooseSquareSprite();
 
@@ -785,12 +809,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeGoalSquare()
     {
+        ClearLegacyFlags();
+        type = SquareType.Goal;
         isGoalSquare = true;
-        isEnemySquare = false;
-        isTreasureSquare = false;
-        isEmptySquare = false;
-        isHealthSquare = false;
-
         squareType = "goal";
         ChooseSquareSprite();
 
@@ -799,11 +820,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeTreasureSquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
+        ClearLegacyFlags();
+        type = SquareType.Treasure;
         isTreasureSquare = true;
-        isEmptySquare = false;
-
         squareType = "treasure";
         ChooseSquareSprite();
 
@@ -846,6 +865,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeMerchantSquare()
     {
+        ClearLegacyFlags();
+        type = SquareType.Merchant;
+
         merchantSprite.SetActive(true);
         isMerchantSquare = true;
     }
@@ -859,12 +881,9 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject moodIndicator;
     public void MakeEnemySquare(MapData thisMap)
     {
-        isGoalSquare= false;
+        ClearLegacyFlags();
+        type = SquareType.Enemy;
         isEnemySquare = true;
-        isTreasureSquare = false;
-        isEmptySquare = false;
-
-        
 
         squareType = "enemy";
         ChooseSquareSprite();
@@ -912,14 +931,9 @@ public class SquareController : MonoBehaviour
 
     public void MakeTerrainSquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
-        isTreasureSquare = false;
+        ClearLegacyFlags();
+        type = SquareType.Terrain;
         isTerrainSquare = true;
-        isEmptySquare = false;
-
-        squareValue.gameObject.SetActive(false);
-
         squareType = "terrain";
         ChooseSquareSprite();
         ActivateGameObject(terrainSquareSprite);
@@ -929,6 +943,7 @@ public class SquareController : MonoBehaviour
 
     public void MakeThisSquareHoldPlayer(bool value)
     {
+    
         thisSquareHoldsPlayer = value;
     }
 
@@ -942,13 +957,9 @@ public class SquareController : MonoBehaviour
     public bool ThisSquareHoldsPottard => thisSquareHoldsPottard;
     public void MakeEmptySquare()
     {
-        isGoalSquare = false;
-        isEnemySquare = false;
-        isTreasureSquare = false;
-        isItemSquare = false;
-
+        ClearLegacyFlags();
+        type = SquareType.Empty;
         isEmptySquare = true;
-
         squareValue.gameObject.SetActive(false);
         squareType = "empty";
         ChooseSquareSprite();

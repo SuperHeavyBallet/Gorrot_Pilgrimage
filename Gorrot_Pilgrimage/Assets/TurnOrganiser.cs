@@ -9,7 +9,6 @@ public class TurnOrganiser : MonoBehaviour
 
     bool isPlayerTurn;
 
-    [SerializeField] AudioManager audioManager;
 
     [SerializeField] TextMeshProUGUI turnDisplay;
 
@@ -64,10 +63,6 @@ public class TurnOrganiser : MonoBehaviour
 
     [SerializeField] BattlefieldBuilder battlefieldBuilder;
 
-    void SpawnNewEnemy()
-    {
-        battlefieldBuilder.SpawnNewEnemy();
-    }
 
 
     SquareController landedSquare;
@@ -89,8 +84,6 @@ public class TurnOrganiser : MonoBehaviour
     public void ReceiveFly(GameObject newFly)
     {
         currentFlies.Add(newFly);
-        //currentFly = newFly;
-        //currentFlyMovementController = currentFly.GetComponent<FlyMovementController>();
     }
 
     void MoveFly()
@@ -151,7 +144,7 @@ public class TurnOrganiser : MonoBehaviour
 
     public void disablePlayerTurn()
     {
-        audioManager.changeTurnSound("enemy");
+        AudioManager.Instance.changeTurnSound("enemy");
         isPlayerTurn = false;
         turnDisplay.text = "Turn: Building Next";   
     }
@@ -287,7 +280,7 @@ public class TurnOrganiser : MonoBehaviour
 
     public void enablePlayerTurn()
     {
-        audioManager.changeTurnSound("player");
+        AudioManager.Instance.changeTurnSound("player");
         isPlayerTurn = true;
         hasLandedOnEnemy = false;
         turnDisplay.text = "Turn: Player";
