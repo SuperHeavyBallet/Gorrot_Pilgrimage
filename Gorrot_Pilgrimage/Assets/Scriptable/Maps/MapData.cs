@@ -47,7 +47,8 @@ public class MapData : ScriptableObject
     [SerializeField] MerchantStock merchantStock;
 
     [Tooltip("The amount of terrain to fill the map. 0 = none, 1 = most")]
-    [SerializeField] float terrainDensity = 0.1f;
+    [SerializeField, Range(0f, 1f)]
+    float terrainDensity = 0.5f;
 
     [SerializeField] bool hasFlies;
 
@@ -84,9 +85,9 @@ public class MapData : ScriptableObject
     [SerializeField] bool hasHiddenTraps;
     public bool GetHasHiddenTraps => hasHiddenTraps;
 
-    [Tooltip("The amount of hidden traps in the map. 0 = none, 1 = most")]
-    [SerializeField, Range(1f, 2f)]
-    float hiddenTrapDensity; // 1 = min, 2 = max
+    [Tooltip("The amount of hidden traps in the map. 0 = none, 2 = most")]
+    [SerializeField, Range(0f, 1f)]
+    float hiddenTrapDensity; // 0 = min, 1 = max
 
     public float GetHiddenTrapDensity => hiddenTrapDensity;
 
@@ -102,7 +103,50 @@ public class MapData : ScriptableObject
     public Material WaterShader => waterShader;
     public Material WaterFoamShader => waterFoamShader;
 
+    [SerializeField] bool hasFourBlockTerrain = true;
+    public bool HasFourBlockTerrain => hasFourBlockTerrain;
 
+    [Tooltip("The amount of four block terrain in the map. 0 = none, 2 = most")]
+    [SerializeField, Range(0f, 1f)]
+    float fourBlockTerrainDensity = 0.5f; // 0 = min, 1 = max
+    public float GetFourBlockTerrainDensity() => fourBlockTerrainDensity;
+
+    [SerializeField]
+    Sprite[] terrainSprites;
+    Sprite blankTerrainSprite;
+
+    public Sprite GetRandomTerrainSprite() => RandomSpriteFromArray(terrainSprites);
+
+    Sprite RandomSpriteFromArray(Sprite[] spriteArrray)
+    {
+        if(spriteArrray.Length > 0)
+        {
+            int ranInt = UnityEngine.Random.Range(0, spriteArrray.Length);
+            return spriteArrray[ranInt];
+        }
+        else
+        {
+            return null;
+        }
+        
+
+    }
+
+    [SerializeField] Sprite[] fourBlockTerrainSprites;
+    public Sprite GetRandomFourBlockTerrainSprite()
+    {
+        if(fourBlockTerrainSprites.Length > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, fourBlockTerrainSprites.Length);
+            return fourBlockTerrainSprites[randomIndex];
+        }
+        else
+        {
+            Debug.LogError("No Four Block Terrain Sprite Assigned", this);
+            return null;
+        }
+       
+    }
 
 
     [Tooltip("The amount of treasure in the map. 0 = none, 1 = most")]

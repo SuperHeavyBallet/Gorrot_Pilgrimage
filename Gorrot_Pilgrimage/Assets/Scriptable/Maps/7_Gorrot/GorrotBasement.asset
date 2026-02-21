@@ -31,11 +31,11 @@ MonoBehaviour:
   isFinalCorridoor: 0
   waterAmount: 1
   smallEnemySprites:
-  - {fileID: 21300000, guid: 827f391b201b71742819453bac07f8ec, type: 3}
+  - {fileID: 21300000, guid: 789dc32d995fde7489fadec69dc267c5, type: 3}
   mediumEnemySprites:
-  - {fileID: 21300000, guid: c8de493c23167994ab17a4e7592f9b74, type: 3}
+  - {fileID: 21300000, guid: 789dc32d995fde7489fadec69dc267c5, type: 3}
   largeEnemySprites:
-  - {fileID: 21300000, guid: 8e0f84ddd74f2b641b63e106f46ba415, type: 3}
+  - {fileID: 21300000, guid: 789dc32d995fde7489fadec69dc267c5, type: 3}
   floorSprites:
   - {fileID: 21300000, guid: f1ad6c287cc72eb438a756d670afc0eb, type: 3}
   - {fileID: 21300000, guid: 0ada16eaae97ccf4982768717b3826bd, type: 3}
@@ -56,6 +56,9 @@ MonoBehaviour:
   canBeBribed: 0
   waterShader: {fileID: 2100000, guid: b2e3fc1189e3870409fcc292e25d90f1, type: 2}
   waterFoamShader: {fileID: 2100000, guid: b5b90870ee7395b428e80353c1962ddb, type: 2}
+  fourBlockTerrainSprites:
+  - {fileID: 21300000, guid: 0f798421031649946868c61cb1f0d171, type: 3}
+  - {fileID: 21300000, guid: 4c7dc8090ed388e41a2ce52171b35d7f, type: 3}
   treasureDensity: 0
   waterBorderSprites:
   - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}

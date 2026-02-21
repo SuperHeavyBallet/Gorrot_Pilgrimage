@@ -560,6 +560,7 @@ MonoBehaviour:
   healthSquareSprite: {fileID: 7235329973958619227}
   itemSquareSprite: {fileID: 3835939806479357633}
   waterAdjacentSprite: {fileID: 1978849301010216467}
+  fourBlockTerrainSpriteRenderer: {fileID: 7465943482354965486}
   squareX: 0
   squareY: 0
   square: 1
@@ -1344,10 +1345,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1047856605
-  m_SortingLayer: 3
-  m_SortingOrder: 69
-  m_Sprite: {fileID: 21300000, guid: 6f9d03a30f533b34d8e1cab46b06d961, type: 3}
+  m_SortingLayerID: -353128095
+  m_SortingLayer: 6
+  m_SortingOrder: 40
+  m_Sprite: {fileID: 21300000, guid: 3ca17b71504287748a81fc8d0be9cf70, type: 3}
   m_Color: {r: 0.57382214, g: 0.5849056, b: 0.5545567, a: 1}
   m_FlipX: 0
   m_FlipY: 0

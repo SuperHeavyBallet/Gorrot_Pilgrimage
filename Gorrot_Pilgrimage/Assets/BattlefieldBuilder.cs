@@ -114,7 +114,16 @@ public class BattlefieldBuilder : MonoBehaviour
     void TestSpaceForBigPieces()
     {
         candidateBaseSquaresforLargeItems.Clear();
+
+        // 0..1 where 0 = none, 1 = "as many as possible"
+        float density = Mathf.Clamp01(thisMap.GetFourBlockTerrainDensity());
+
+        List<Vector2Int> candidates = new List<Vector2Int>();
         Vector2Int[] freeSquaresArray = freeSquares.ToArray();
+
+
+
+
 
         for (int i = 0; i < freeSquaresArray.Length; i++)
         {
@@ -122,91 +131,115 @@ public class BattlefieldBuilder : MonoBehaviour
             int y = freeSquaresArray[i].y;
 
             // quick bounds guard: since we need x+1 and y+1, base must not be on top/right edge
+            if (y == 0) continue;
             if (x < 0 || y < 0 || x + 1 >= thisMap.GetMapSize() || y + 1 >= thisMap.GetMapSize())
                 continue;
 
-
-            // Keep the first row clear entirely
-            if(y == 0) 
-                continue;
            
 
             SquareController baseSq = allSquares[x, y].GetComponent<SquareController>();
-            if (!baseSq.IsEmptySquare)
-                continue;
+            if (baseSq == null) continue;
+            if (!baseSq.IsEmptySquare) continue;
+            if (baseSq.IsSacred) continue;
 
-            if (baseSq.IsSacred)
-                continue;
 
-            // N, E, NE
+            // Check the other 3 tiles of the 2x2 are empty & not sacred
             Vector2Int[] dirs =
             {
-                new Vector2Int(0, 1),  // N
-                new Vector2Int(1, 0),  // E
-                new Vector2Int(1, 1),  // NE
-            };
+            new Vector2Int(0, 1),  // N
+            new Vector2Int(1, 0),  // E
+            new Vector2Int(1, 1),  // NE
+        };
 
             bool allFree = true;
-
             for (int j = 0; j < dirs.Length; j++)
             {
                 int nx = x + dirs[j].x;
                 int ny = y + dirs[j].y;
 
                 SquareController nSq = allSquares[nx, ny].GetComponent<SquareController>();
-
-                if (nSq.IsSacred)     
-                {
-                    allFree = false;
-                    break;
-                }
-
-                if (!nSq.IsEmptySquare)
+                if (nSq == null || nSq.IsSacred || !nSq.IsEmptySquare)
                 {
                     allFree = false;
                     break;
                 }
             }
 
-            if (allFree && HaloIsClearForBigTerrain(x, y, 1))
-            {
-                // At this point you have a valid 2x2 placement starting at (x,y).
-                // I'd recommend storing the candidate rather than immediately marking squares.
+            if (!allFree) continue;
 
-                candidateBaseSquaresforLargeItems.Add(allSquares[x,y]);
+            // IMPORTANT: at this stage only require the halo to be clear based on CURRENT state
+            if (!HaloIsClearForBigTerrain(x, y, 1)) continue;
 
-                // Reserve halo FIRST so later placements can't steal it
-                ReserveHaloAroundBigTerrain(x, y, 1);
-                // Place the 2x2 terrain
-                baseSq.MakeTerrainSquare();
-                allSquares[x, y + 1].GetComponent<SquareController>().MakeTerrainSquare();
-                allSquares[x + 1, y].GetComponent<SquareController>().MakeTerrainSquare();
-                allSquares[x + 1, y + 1].GetComponent<SquareController>().MakeTerrainSquare();
-
-                // Also remove the 2x2 from freeSquares explicitly (ReserveHalo already did, but no harm)
-                freeSquares.Remove(new Vector2Int(x, y));
-                freeSquares.Remove(new Vector2Int(x, y + 1));
-                freeSquares.Remove(new Vector2Int(x + 1, y));
-                freeSquares.Remove(new Vector2Int(x + 1, y + 1));
-
-            }
-
-
-
-
-
+            candidates.Add(new Vector2Int(x, y));
 
         }
 
-        for(int i = 0; i < candidateBaseSquaresforLargeItems.Count; i++)
+        if (candidates.Count == 0 || density <= 0f)
+            return;
+
+        int targetCount = Mathf.RoundToInt(candidates.Count * density);
+
+        // Optional: add a bit of RNG wobble so maps don't feel "samey"
+        // e.g. density 0.5 gives ~0.4..0.6
+       // targetCount = Mathf.Clamp(Mathf.RoundToInt(candidates.Count * Mathf.Clamp01(density + UnityEngine.Random.Range(-0.1f, 0.1f))), 0, candidates.Count);
+
+        // 3) Place up to targetCount, re-checking halo each time because earlier placements changed the board
+        Shuffle(candidates);
+
+        int placed = 0;
+        int guard = 0;
+
+        for (int i = 0; i < candidates.Count && placed < targetCount && guard < 50000; i++)
         {
-            SquareController candSC = candidateBaseSquaresforLargeItems[i].GetComponent<SquareController>();
-            candSC.ActivateLargeTerrainSprite();
-           // candSC.MarkAsFree();
+            guard++;
+
+            int x = candidates[i].x;
+            int y = candidates[i].y;
+
+            // Re-check after previous placements
+            if (!HaloIsClearForBigTerrain(x, y, 1)) continue;
+
+            var baseSq = allSquares[x, y].GetComponent<SquareController>();
+            if (baseSq == null || !baseSq.IsEmptySquare || baseSq.IsSacred) continue;
+
+            // Reserve halo so later ones can't steal it
+            ReserveHaloAroundBigTerrain(x, y, 1);
+
+            // Place 2x2
+            baseSq.MakeEmptyTerrainSquare();
+            allSquares[x, y + 1].GetComponent<SquareController>().MakeEmptyTerrainSquare();
+            allSquares[x + 1, y].GetComponent<SquareController>().MakeEmptyTerrainSquare();
+            allSquares[x + 1, y + 1].GetComponent<SquareController>().MakeEmptyTerrainSquare();
+
+            // Reserve base for sprite activation
+            candidateBaseSquaresforLargeItems.Add(allSquares[x, y]);
+
+            // Remove these from freeSquares
+            freeSquares.Remove(new Vector2Int(x, y));
+            freeSquares.Remove(new Vector2Int(x, y + 1));
+            freeSquares.Remove(new Vector2Int(x + 1, y));
+            freeSquares.Remove(new Vector2Int(x + 1, y + 1));
+
+            placed++;
         }
 
-        Debug.Log("Free Squares = " + freeSquaresArray.Length);
+        // Activate sprites for bases placed
+        for (int i = 0; i < candidateBaseSquaresforLargeItems.Count; i++)
+        {
+            var candSC = candidateBaseSquaresforLargeItems[i].GetComponent<SquareController>();
+            candSC.ActivateLargeTerrainSprite();
+        }
 
+    }
+
+    // Fisher–Yates shuffle
+    void Shuffle<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
     }
 
     bool InBounds(int x, int y)
@@ -276,8 +309,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
     void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
-
-    //void CheckIfFinalCorridoor() { isFinalCorridoor = thisMap.IsFinalCorridoor; }
 
     void PlacePottard()
     {
@@ -367,55 +398,46 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         else if (previousMap.GetIsWildMap())
         {
-                
-
-                float escapeChance = previousMap.GetEscapeChance();
-                bool escaped = UnityEngine.Random.value < escapeChance;
-
-                if (!escaped)
-                {
-                    isLost = true;
-                    canAdvanceDifficulty = false;
-                    mapToBuild = previousMap; // repeat
-                }
-                else
-                {
-                    // escaped successfully, proceed forward
-
-                    mapToBuild = previousMap.RollNextMap();
-                }
+            mapToBuild = CalculateLostOrProgress();
         }
-            else if (previousMap.GetIsFirstMap())
-            {
-
-                 
-                    mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
-
-                  
-
-                }
-                else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
-                {
-                 
-
-
-                    canAdvanceDifficulty = true;
-                    mapToBuild = previousMap.RollNextMap();
-
-                }
-            
-            
-
-            
-
-
-        
+        else if (previousMap.GetIsFirstMap())
+        {             
+            mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
+        }
+        else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
+        {
+            canAdvanceDifficulty = true;
+            mapToBuild = previousMap.RollNextMap();
+        }
 
         goalPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
 
-
         return mapToBuild;
     }
+
+
+    MapData CalculateLostOrProgress()
+    {
+
+        MapData chosenMap = null; 
+
+        float escapeChance = previousMap.GetEscapeChance();
+        bool escaped = UnityEngine.Random.value < escapeChance;
+
+        if (!escaped)
+        {
+            isLost = true;
+            canAdvanceDifficulty = false;
+           chosenMap = previousMap; // repeat
+        }
+        else
+        {
+            chosenMap = previousMap.RollNextMap();
+        }
+
+        return chosenMap;
+    }
+
 
    
 
@@ -434,7 +456,6 @@ public class BattlefieldBuilder : MonoBehaviour
         uiController.UpdateMapDataText(thisMap.GetMapName(), mapLocation); 
     }
 
-   // void UpdateMapWildUI( bool value ) {  uiController.UpdateWildMapMarker(value); }
 
     void ClearEnemySquares() { enemySquares.Clear(); }
 
@@ -447,15 +468,13 @@ public class BattlefieldBuilder : MonoBehaviour
         if (!thisMap.IsFinalCorridoor)
         {
             SetWater(thisMap.GetWaterAmount());
-           MarkWaterAndShore();
-         
+            MarkWaterAndShore();
             CheckMerchantNeeded();
             CheckGateKeeperNeeded();
-            TestSpaceForBigPieces();
+
+            if(thisMap.HasFourBlockTerrain) TestSpaceForBigPieces();
 
             AssignContentSquares();
-
-            
 
             if (thisMap.GetHasEnemies == true)
             {
@@ -463,22 +482,11 @@ public class BattlefieldBuilder : MonoBehaviour
             }
 
             CheckFlies(mapSize);
-
             CheckPottardPlacement();
-
-
         }
-        
-        
 
             PlacePlayer(mapSize);
-
-       
-
-        
-        
-        
-        
+   
     }
 
     void CheckPottardPlacement()
@@ -548,9 +556,6 @@ public class BattlefieldBuilder : MonoBehaviour
         }
     }
 
- 
-
-    //void IncrementMapCount() { if (canAdvanceDifficulty) { currentMapCount++; } }
     public void BuildNewBattlefield()
     {
         MapData chosen = GetMapToBuild();
@@ -558,12 +563,11 @@ public class BattlefieldBuilder : MonoBehaviour
         thisMap = chosen;
         thisMap.ParseDialogue();
         UpdateMapDataUI();
-        CheckIfFinalMap();
         CheckMapisWild();
         
         ClearEnemySquares();
 
-        if(!isFinalMap)
+        if(!thisMap.GetIsFinalMap())
         { 
             BuildNewMap();
             previousMap = thisMap;

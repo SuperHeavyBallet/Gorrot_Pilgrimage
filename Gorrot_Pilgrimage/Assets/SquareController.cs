@@ -23,13 +23,28 @@ public class SquareController : MonoBehaviour
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
     public GameObject enemySquareSprite;
-    [SerializeField]SpriteRenderer enemySquareSpriteRenderer;
+    [SerializeField] SpriteRenderer enemySquareSpriteRenderer;
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
     public GameObject itemSquareSprite;
     [SerializeField] GameObject waterAdjacentSprite;
 
+   
+    [SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
+    void SetFourBlockTerrainSprite()
+    {
+        Sprite randomSprite = thisSquareMapData.GetRandomFourBlockTerrainSprite();
+        if(randomSprite != null )
+        {
+            fourBlockTerrainSpriteRenderer.sprite = randomSprite;
+        }
+        else
+        {
+            Debug.LogError("Random Four Block Terrain Sprite is null", this);
+        }
+        
+    }
 
     public int squareX = 0;
     public int squareY = 0;
@@ -62,7 +77,12 @@ public class SquareController : MonoBehaviour
     //BattlefieldBuilder battlefieldBuilder;
 
     [SerializeField] GameObject largeTerrainSprite;
-    public void ActivateLargeTerrainSprite() => largeTerrainSprite.SetActive(true);
+    public void ActivateLargeTerrainSprite()
+    {
+        SetFourBlockTerrainSprite();
+        largeTerrainSprite.SetActive(true);
+        
+    }
 
     [SerializeField] GameObject freeMarker;
     public void MarkAsFree() => freeMarker.SetActive(true);
@@ -468,7 +488,10 @@ public class SquareController : MonoBehaviour
         waterMarker.gameObject.SetActive(false);
         ActivateStepInWaterSprite(false);
         groundSprite.SetActive(true);
+        largeTerrainSprite.SetActive(false);
        SetReservedWalkway(false);
+
+        
 
        
 
@@ -505,7 +528,16 @@ public class SquareController : MonoBehaviour
 
     void ChooseSquareSprite()
     {
-        Sprite chosenSprite = SquareSpriteLibrary.Instance.GetRandomSprite(squareType);
+        //Sprite chosenSprite = SquareSpriteLibrary.Instance.GetRandomSprite(squareType);
+        //squareTerrainSpriteRenderer.sprite = chosenSprite;
+
+        Sprite chosenSprite = thisSquareMapData.GetRandomTerrainSprite();
+
+        if(chosenSprite == null)
+        {
+            chosenSprite = SquareSpriteLibrary.Instance.GetRandomSprite(squareType);
+        }
+
         squareTerrainSpriteRenderer.sprite = chosenSprite;
     }
 
@@ -937,6 +969,15 @@ public class SquareController : MonoBehaviour
         squareType = "terrain";
         ChooseSquareSprite();
         ActivateGameObject(terrainSquareSprite);
+    }
+
+    public void MakeEmptyTerrainSquare()
+    {
+        ClearLegacyFlags();
+        type = SquareType.Terrain;
+        isTerrainSquare = true;
+        squareType = "terrain";
+    
     }
 
     public bool thisSquareHoldsPlayer;
