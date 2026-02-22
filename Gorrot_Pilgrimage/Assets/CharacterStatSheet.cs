@@ -52,5 +52,7 @@ public class CharacterStatSheet : MonoBehaviour
     }
     public StartLocations GetCharacterStartLocation() => startLocation;
 
+    public string GetCharacterHome() => startLocation.ToString();
+
 
 }

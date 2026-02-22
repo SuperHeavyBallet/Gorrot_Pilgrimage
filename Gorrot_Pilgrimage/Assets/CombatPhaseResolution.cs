@@ -1,6 +1,7 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using System.IO;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CombatPhaseResolution : MonoBehaviour
@@ -48,6 +49,10 @@ public class CombatPhaseResolution : MonoBehaviour
     public enum CombatChoice { None, Fight, Roll, Pay, Talk, Flee }
 
     CombatChoice choice = CombatChoice.None;
+
+    public enum CombatState { None, AwaitingStartChoice, AwaitingEnemyRolledChoice, AwaitingPlayerRoll, Resolving, InDialogue }
+    CombatState state;
+
     Coroutine waitForInput;
     Coroutine combatRoll;
     Coroutine enemyCombatRoll;
@@ -65,6 +70,8 @@ public class CombatPhaseResolution : MonoBehaviour
 
     public TextMeshProUGUI fightButtonText;
     public GameObject talkButton;
+
+    bool canReroll;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -86,6 +93,7 @@ public class CombatPhaseResolution : MonoBehaviour
     public void EnterCombatPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
+        state = CombatState.AwaitingStartChoice;
         fightButtonText.text = "Fight";
         talkButton.SetActive(true);
         battlefieldBuilder.StartFadeToBlack();
@@ -94,6 +102,7 @@ public class CombatPhaseResolution : MonoBehaviour
         ActivateDiceDisplays(true);
         enemyRerolls = 0;
         SetupEnemyStart();
+        
     }
 
     void SetupEnemyStart()
@@ -118,7 +127,13 @@ public class CombatPhaseResolution : MonoBehaviour
         choice = CombatChoice.None;
 
         // Wait for UI button Press
-        yield return new WaitUntil(() => choice != CombatChoice.None);
+        yield return new WaitUntil(() =>
+         choice == CombatChoice.Fight ||
+         choice == CombatChoice.Pay ||
+         choice == CombatChoice.Roll ||
+         choice == CombatChoice.Talk ||
+         choice == CombatChoice.Flee);
+
         waitingForPressRoll = false;
 
         if(processInput != null)
@@ -151,6 +166,7 @@ public class CombatPhaseResolution : MonoBehaviour
         }
         else if (choice == CombatChoice.Talk)
         {
+            state = CombatState.InDialogue;
 
             AudioManager.Instance.PlayPayOffChuckle();
 
@@ -172,7 +188,7 @@ public class CombatPhaseResolution : MonoBehaviour
             {
                 waitForInput = null;
             }
-
+            state = CombatState.AwaitingStartChoice;
             waitForInput = StartCoroutine(WaitForInput());
 
        
@@ -197,11 +213,15 @@ public class CombatPhaseResolution : MonoBehaviour
 
         
         choice = CombatChoice.None;
+        canReroll = false;
 
+       
+
+        state = CombatState.Resolving;
+        rollDiceButton.SetActive(false); // don't allow player roll yet
 
         enemyDiceController.RollDice();
-
-        // Wait for dice finish
+        fightButtonText.text = "Rolling...";
         yield return new WaitUntil(() => !enemyDiceController.isRolling);
         yield return new WaitForSeconds(0.25f);
        
@@ -210,8 +230,15 @@ public class CombatPhaseResolution : MonoBehaviour
 
         UpdateDiceRollFormulaText(currentEnemyBuff, currentEnemyRoll, -1);
 
+        // Now player can choose what to do
+        state = CombatState.AwaitingEnemyRolledChoice;
         rollDiceButton.SetActive(true);
-        fightButtonText.text = "Roll Again?";
+        
+
+        int rerollCost = (totalBribeAmount / 2) + enemyRerolls; // compute BEFORE increment or after, but consistently
+        canReroll = playerStatsController.GetPlayerCurrentMoney() >= rerollCost;
+
+        fightButtonText.text = canReroll ? $"Reroll: {rerollCost}" : $"Need: {rerollCost}";
 
         yield return new WaitUntil(() => choice != CombatChoice.None);
 
@@ -221,39 +248,53 @@ public class CombatPhaseResolution : MonoBehaviour
 
         if (choice == CombatChoice.Fight)
         {
+           
+
             AudioManager.Instance.PlayPayOffChuckle();
 
-            if (enemyCombatRoll != null)
-            {
-                enemyCombatRoll = null;
-            }
+            playerStatsController.AlterMoney(-rerollCost);
+
             enemyRerolls++;
             CalculateThisBribe(2 + enemyRerolls);
-            enemyCombatRoll = StartCoroutine(EnemyRollRoutine());
 
+            // Loop again
+            enemyCombatRoll = StartCoroutine(EnemyRollRoutine());
+            yield break;
 
         }
         else if(choice == CombatChoice.Pay)
         {
             AudioManager.Instance.PlayPayOffChuckle();
 
-            playerStatsController.AlterMoney((totalBribeAmount) * -1);
+            playerStatsController.AlterMoney(-totalBribeAmount);
             playerStatsController.alterSuffering(currentEnemyDamage * -1);
-            AudioManager.Instance.PlayPayOffChuckle();
 
             CloseCombatScene();
-
-
             yield break;
-
 
         }
         
         else if (choice == CombatChoice.Roll)
         {
+            state = CombatState.AwaitingPlayerRoll;
             StartCombatRoutine();
+            yield break;
+
         }
-            
+        else if (choice == CombatChoice.Flee)
+        {
+            // “Flee after committing” penalty
+            // Example: take damage + suffering + move back, then close.
+            playerMovementController.MovePlayerBackOneSquare();
+
+            // Your choice: either direct health damage, or “suffering”, or both.
+            playerStatsController.alterHealth(-1);         // or -currentEnemyDamage, tuned to taste
+            playerStatsController.alterSuffering(2);                // e.g. panic/trauma tax
+
+            CloseCombatScene();
+            yield break;
+        }
+
     }
 
 
@@ -274,7 +315,8 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void StartCombatRoutine()
     {
-       
+
+        canReroll = false;
 
         if (combatRoll != null)
         {
@@ -359,56 +401,55 @@ public class CombatPhaseResolution : MonoBehaviour
 
     public void PlayerPressedPay()
     {
-     //   if (!waitingForPressRoll) return;
-        if (playerStatsController.GetPlayerCurrentMoney() >= totalBribeAmount)
-        { 
-            choice = CombatChoice.Pay;
+        if (state == CombatState.AwaitingStartChoice || state == CombatState.AwaitingEnemyRolledChoice)
+        {
+            if (playerStatsController.GetPlayerCurrentMoney() >= totalBribeAmount)
+                choice = CombatChoice.Pay;
         }
-           
+
     }
 
     public void PlayerPressedFlee()
     {
-      //  if (!waitingForPressRoll) return;
-        choice = CombatChoice.Flee;
+        if (state == CombatState.AwaitingStartChoice ||
+         state == CombatState.AwaitingEnemyRolledChoice)
+        {
+            choice = CombatChoice.Flee;
+        }
     }
 
     public void PlayerPressedRoll()
     {
 
-       // if (!waitingForPressRoll) return;
-
-       
+        if (state == CombatState.AwaitingEnemyRolledChoice)
             choice = CombatChoice.Roll;
 
-        
+
     }
 
     public void PlayerPressedTalk()
     {
-       // if (!waitingForPressRoll) return;
-
-
-        choice = CombatChoice.Talk;
+        if (state == CombatState.AwaitingStartChoice)
+            choice = CombatChoice.Talk;
     }
 
     public void PlayerPressedFight()
     {
-        Debug.Log("Player Pressed Fight");
-
-        choice = CombatChoice.Fight;
-
-
-        /*
-        if (enemyCombatRoll != null)
+        // "Fight" on the first screen means "start combat / make enemy roll"
+        if (state == CombatState.AwaitingStartChoice)
         {
-            StopCoroutine(enemyCombatRoll);
+            choice = CombatChoice.Fight;
+            return;
         }
 
-        currentEnemyRoll = -1;
-        currentEnemyBuff = -1;
+        // "Fight" after enemy rolled means "reroll enemy" (only if allowed)
+        if (state == CombatState.AwaitingEnemyRolledChoice && canReroll)
+        {
+            choice = CombatChoice.Fight;
+            return;
+        }
 
-        enemyCombatRoll = StartCoroutine(EnemyRollRoutine());*/
+        // Otherwise ignore (or play a denied click sound)
 
     }
 
@@ -457,7 +498,17 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void CloseCombatScene()
     {
-        StopAllCoroutines();
+        if (waitForInput != null) StopCoroutine(waitForInput);
+        if (combatRoll != null) StopCoroutine(combatRoll);
+        if (enemyCombatRoll != null) StopCoroutine(enemyCombatRoll);
+        if (processInput != null) StopCoroutine(processInput);
+
+        waitForInput = combatRoll = enemyCombatRoll = processInput = null;
+
+        state = CombatState.None;
+        choice = CombatChoice.None;
+
+        canReroll = false;
         battlefieldBuilder.StartFadeFromBlack();
         diceDisplay.SetActive(false);
         enemyDiceDisplay.SetActive(false);

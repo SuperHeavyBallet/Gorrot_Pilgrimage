@@ -75,6 +75,7 @@
     <Compile Include="Assets\DeathPhaseResolution.cs" />
     <Compile Include="Assets\CombatPhaseResolution.cs" />
     <Compile Include="Assets\CharacterSpriteLibrary.cs" />
+    <Compile Include="Assets\DeathPushNameToLedger.cs" />
     <Compile Include="Assets\FateOutcomes.cs" />
     <Compile Include="Assets\InventorySlotController.cs" />
     <Compile Include="Assets\PlayerInputReceiver.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets\Scriptable\DifficultyTuning.cs" />
     <Compile Include="Assets\Scriptable\MerchantStocks\MerchantStock.cs" />
     <Compile Include="Assets\Scriptable\InventoryItemTemplate.cs" />
+    <Compile Include="Assets\DeathLedgerSQLite.cs" />
     <Compile Include="Assets\MerchantShopController.cs" />
     <Compile Include="Assets\MovementPhaseResolution.cs" />
     <Compile Include="Assets\BorderSquareController.cs" />

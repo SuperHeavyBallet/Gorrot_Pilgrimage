@@ -14,8 +14,11 @@ public class DeathPhaseResolution : MonoBehaviour
     bool playerIsDead;
 
     string playerName;
+    string playerHome;
 
     [SerializeField] UIController uiController;
+
+    [SerializeField] DeathPushNameToLedger deathPushNameToLedger;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,10 +46,12 @@ public class DeathPhaseResolution : MonoBehaviour
         if (sheet != null)
         {
             playerName = CharacterStatSheet.Instance.GetCharacterName();
+            playerHome = CharacterStatSheet.Instance.GetCharacterHome();
         }
         else
         {
             playerName = "Default Bob";
+            playerHome = "Avbarnia";
         }
 
             deathNameText.text = playerName;   
@@ -58,8 +63,37 @@ public class DeathPhaseResolution : MonoBehaviour
         deathScreen.SetActive(true);
        deathUI.SetActive(true);
         playerIsDead=true;
-       
 
+
+        PushDataToDeathLedger();
+
+    }
+
+    public void PushDataToDeathLedger()
+    {
+        CharacterStatSheet sheet = CharacterStatSheet.Instance;
+
+        if (sheet != null)
+        {
+            playerName = CharacterStatSheet.Instance.GetCharacterName();
+            playerHome = CharacterStatSheet.Instance.GetCharacterHome();
+        }
+        else
+        {
+            playerName = "Default Bob";
+            playerHome = "Avbarnia";
+        }
+
+        string deathLocation = battlefieldBuilder.GetThisMap().name;
+        if (deathLocation == null)
+        {
+            deathLocation = "Bibbety Bop";
+        }
+
+        deathPushNameToLedger.FormPlayerInfo(
+            playerName,
+            playerHome,
+            deathLocation);
     }
 
     public void LoadCharacterCreation()

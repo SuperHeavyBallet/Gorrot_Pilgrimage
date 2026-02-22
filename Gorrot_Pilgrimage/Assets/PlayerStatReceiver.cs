@@ -81,4 +81,13 @@ public class PlayerStatReceiver : MonoBehaviour
         return playerHome;
     }
 
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
+
+    public string GetPlayerHome() 
+    {
+        return playerHome.ToString();
+    }
 }
