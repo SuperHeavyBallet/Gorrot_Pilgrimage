@@ -5828,6 +5828,7 @@ GameObject:
   - component: {fileID: 542128499}
   - component: {fileID: 542128500}
   - component: {fileID: 542128501}
+  - component: {fileID: 542128502}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -5957,6 +5958,7 @@ MonoBehaviour:
   turnOrganiser: {fileID: 542128493}
   battlefieldBuilder: {fileID: 1131809994}
   uiController: {fileID: 382327154}
+  deathPushNameToLedger: {fileID: 542128502}
 --- !u!114 &542128499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6008,6 +6010,18 @@ MonoBehaviour:
   turnOrganiser: {fileID: 542128493}
   merchantUI: {fileID: 1728712885}
   battlefieldBuilder: {fileID: 1131809994}
+--- !u!114 &542128502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542128492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22c003889947ff448229bc0e25ce406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathPushNameToLedger
 --- !u!1 &549821835
 GameObject:
   m_ObjectHideFlags: 0
@@ -9511,7 +9525,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   minImpactVelocity: 0.2
   cooldown: 0.05
-  audioManager: {fileID: 709544912}
 --- !u!54 &850809704
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12851,7 +12864,6 @@ MonoBehaviour:
   battleFieldSquare: {fileID: 1345150278100632663, guid: 28b93c85fde35004783ae95c5545c720, type: 3}
   player: {fileID: 914908663}
   uiController: {fileID: 382327154}
-  difficultyTuning: {fileID: 11400000, guid: c625b4d4bb85052408ccf3e1d1865859, type: 2}
   mapCatalogue: {fileID: 845666571}
   hasMerchantIcon: {fileID: 1769392233}
   merchantShopController: {fileID: 1728712887}
@@ -19526,7 +19538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   minImpactVelocity: 0.2
   cooldown: 0.05
-  audioManager: {fileID: 709544912}
 --- !u!1 &1769392233
 GameObject:
   m_ObjectHideFlags: 0

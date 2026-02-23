@@ -585,7 +585,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void BuildNewMap()
     {
-        //IncrementMapCount();
         ClearOldBattlefield();
         SetContent(thisMap.GetMapSize());
         
@@ -632,6 +631,13 @@ public class BattlefieldBuilder : MonoBehaviour
     */
     void SetPlayerStartSquare(int currentMapSize) {
         playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
+
+        SquareController startSqController = allSquares[playerStartingPosition, 0].GetComponent<SquareController>();
+
+        if (startSqController != null)
+        {
+            startSqController.MakeStartSquare();
+        }
     }
 
     void BuildBattleFieldGrid(int size)

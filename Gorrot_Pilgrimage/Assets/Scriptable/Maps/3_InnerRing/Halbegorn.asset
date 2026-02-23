@@ -50,6 +50,11 @@ MonoBehaviour:
   waterFoamShader: {fileID: 2100000, guid: 6f5f5ec5aeb03b844b94708f1e11f72e, type: 2}
   hasFourBlockTerrain: 1
   fourBlockTerrainDensity: 0.213
+  terrainSprites:
+  - {fileID: 21300000, guid: 3ca17b71504287748a81fc8d0be9cf70, type: 3}
+  - {fileID: 21300000, guid: 6f9d03a30f533b34d8e1cab46b06d961, type: 3}
+  - {fileID: 21300000, guid: 6a469882432cbcd45a6fb0c2bff4f558, type: 3}
+  - {fileID: 21300000, guid: a3ea92c79d7deef4690e8df77306b08b, type: 3}
   fourBlockTerrainSprites:
   - {fileID: 21300000, guid: 0f798421031649946868c61cb1f0d171, type: 3}
   - {fileID: 21300000, guid: 4c7dc8090ed388e41a2ce52171b35d7f, type: 3}

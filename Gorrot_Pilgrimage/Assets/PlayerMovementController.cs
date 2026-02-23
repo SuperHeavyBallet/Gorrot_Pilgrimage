@@ -336,6 +336,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (newSquareController.isGoalSquare)
         {
+            newSquareController.MakeGoalSquarePressed();
             SetReachedGoalSquare(true);
             turnOrganiser.LandedOnGoal();
             fateCounter.resetFateCounter();

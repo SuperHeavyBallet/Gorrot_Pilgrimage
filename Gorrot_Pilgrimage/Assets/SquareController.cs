@@ -30,6 +30,9 @@ public class SquareController : MonoBehaviour
     public GameObject itemSquareSprite;
     [SerializeField] GameObject waterAdjacentSprite;
 
+    public GameObject startSquareSprite;
+    public GameObject goalSquareSprite_Pressed;
+
    
     [SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
     void SetFourBlockTerrainSprite()
@@ -490,7 +493,7 @@ public class SquareController : MonoBehaviour
         groundSprite.SetActive(true);
         largeTerrainSprite.SetActive(false);
        SetReservedWalkway(false);
-
+        goalSquareSprite_Pressed.SetActive(false);
         
 
        
@@ -839,6 +842,15 @@ public class SquareController : MonoBehaviour
         return isEnemySquare;
     }
 
+    public void MakeStartSquare()
+    {
+        ActivateGameObject(startSquareSprite);
+    }
+
+    public void MakeGoalSquarePressed()
+    {
+        ActivateGameObject(goalSquareSprite_Pressed);
+    }
     public void MakeGoalSquare()
     {
         ClearLegacyFlags();
