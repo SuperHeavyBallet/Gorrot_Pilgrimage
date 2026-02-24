@@ -247,7 +247,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -281,6 +282,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -496,7 +498,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -530,6 +533,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1048,10 +1052,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f217e1be597184684e67dc6b41672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnOrganiser
-  isPlayerTurn: 0
-  playerTurnCooldownTime: 2
-  audioManager: {fileID: 709544912}
   turnDisplay: {fileID: 1777430317}
+  diceController: {fileID: 0}
+  playerStatsController: {fileID: 0}
+  DiceRollFormulaText: {fileID: 0}
+  waitingForFate: 0
+  currentPhaseText: {fileID: 0}
+  currentPhase: 0
+  combatPhaseResolution: {fileID: 0}
+  fatePhaseResolution: {fileID: 0}
+  movementPhaseResolution: {fileID: 0}
+  deathPhaseResolution: {fileID: 0}
+  goalPhaseResolution: {fileID: 0}
+  winPhaseResolution: {fileID: 0}
+  merchantPhaseResolution: {fileID: 0}
+  battlefieldBuilder: {fileID: 0}
 --- !u!4 &542128494
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,7 +1124,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1143,6 +1159,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1391,7 +1408,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 278477611
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 110
   m_Sprite: {fileID: 918042310615372022, guid: 523c3f45cb6b18143a6c100e24a2d313, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1401,7 +1418,7 @@ SpriteRenderer:
   m_Size: {x: 38.399998, y: 21.599998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &690289913
@@ -1548,10 +1565,22 @@ MonoBehaviour:
   turnChangeSoundEffect_Enemy: {fileID: 8300000, guid: a011986cb7bc39a4385ed8d82f6f9c34, type: 3}
   cannotMoveSoundEffect: {fileID: 8300000, guid: 5dfe55e8ef4b0884594d16e32be3f404, type: 3}
   soundEffectPlayer: {fileID: 2008823520}
+  diceRollSoundEffectPlayer: {fileID: 0}
+  diceHitSoundEffect: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: 3f4d67bf758b4f040b0ca4b5babf94a5, type: 3}
   backgroundMusicPlayer: {fileID: 2058659914}
   musicOff: 1
   musicVolume: 0
+  takeDamageSoundEffect: {fileID: 0}
+  combatWinSoundEffect: {fileID: 0}
+  healthBoostSoundEffect: {fileID: 0}
+  addSufferingSoundEffect: {fileID: 0}
+  addMoneySoundEffect: {fileID: 0}
+  playerMoveSoundEffect: {fileID: 0}
+  playerMoveWaterSoundEffects: []
+  clickInventorySoundEffect: {fileID: 0}
+  payOffChuckleSoundEffect: {fileID: 0}
+  trapTriggerSoundEffect: {fileID: 0}
 --- !u!4 &709544913
 Transform:
   m_ObjectHideFlags: 0
@@ -1741,7 +1770,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2121,12 +2150,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementController
   square: {fileID: 0}
+  previousPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   isPlayerTurn: 0
   turnOrganiser: {fileID: 542128493}
-  audioManager: {fileID: 709544912}
   playerIsAlive: 0
   battlefieldBuilder: {fileID: 1131809994}
+  nextSquareQuantity: medium
+  fateCounter: {fileID: 0}
+  playerSprite: {fileID: 0}
+  playerAnimationManager: {fileID: 0}
 --- !u!114 &914908667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2139,6 +2172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f6ecf414001904891e88549a64a60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputReceiver
+  diceController: {fileID: 0}
 --- !u!114 &914908668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,9 +2303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   goalCompassContainer: {fileID: 1645364709}
-  treasureCompassContainer: {fileID: 93101056}
   goalLocated: 0
   treasurePresent: 0
+  rotationSmoothTime: 0.15
 --- !u!114 &914908672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,11 +2318,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767f51378fa56ae439d673851a7388ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerCurrentHealth: 10
-  playerCurrentSuffering: 0
+  playerMaxSuffering: 10
+  playerMaxAttack: 4
   healthDisplay: {fileID: 200115961}
   sufferingDisplay: {fileID: 133904778}
+  attackDisplay: {fileID: 0}
+  moneyDisplay: {fileID: 0}
+  statBoxAnimationController: {fileID: 0}
   playerIsAlive: 0
+  healthPlus: {fileID: 0}
+  healthNeg: {fileID: 0}
+  attackPlus: {fileID: 0}
+  attackNeg: {fileID: 0}
+  sufferingPlus: {fileID: 0}
+  sufferingNeg: {fileID: 0}
+  moneyPlus: {fileID: 0}
+  moneyNeg: {fileID: 0}
+  turnOrganiser: {fileID: 0}
+  combatPhaseController: {fileID: 0}
+  playerStatReceiver: {fileID: 0}
 --- !u!114 &914908673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2356,7 +2404,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2390,6 +2439,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2527,7 +2577,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 278477611
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 128
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0.0141509175, g: 0.7898352, b: 1, a: 1}
@@ -2604,18 +2654,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5be058a911f60f48a5038af4518a4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  battleFieldSize: 20
   battleFieldSquare: {fileID: 1345150278100632663, guid: 28b93c85fde35004783ae95c5545c720, type: 3}
   player: {fileID: 914908663}
-  goalSquareCount: 1
-  enemySquareCount: 5
-  treasureSquareCount: 5
-  terrainSquareCount: 5
-  healthSquareCount: 5
-  isFinalMap: 0
-  finalMapText: {fileID: 546519800}
-  currentMapCount: 0
-  currentMapCountText: {fileID: 965698061}
+  uiController: {fileID: 0}
+  mapCatalogue: {fileID: 0}
+  hasMerchantIcon: {fileID: 0}
+  merchantShopController: {fileID: 0}
+  wildMapIcon: {fileID: 0}
+  goalPhaseResolution: {fileID: 0}
+  transitionScreen: {fileID: 0}
+  drunkenness: 0
+  weightSharpness: 0
+  turnOrganiser: {fileID: 0}
+  fly: {fileID: 0}
+  pottardReference: {fileID: 0}
 --- !u!4 &1131809995
 Transform:
   m_ObjectHideFlags: 0
@@ -2930,7 +2982,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 278477611
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 128
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 0.55605304, b: 0.015686274, a: 1}
@@ -3281,7 +3333,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 278477611
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.903024, b: 0.8537736, a: 1}
@@ -3799,7 +3851,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3833,6 +3886,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3935,7 +3989,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -3969,6 +4024,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

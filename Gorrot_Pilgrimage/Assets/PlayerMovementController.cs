@@ -5,6 +5,8 @@ using System.Collections;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [SerializeField] float zOffset = -0.1f;
+
     //int[,] battleFieldCoordinates;
     public GameObject square;
     int battleFieldSize = 0;
@@ -292,7 +294,9 @@ public class PlayerMovementController : MonoBehaviour
         PlayFootStepSound(newSquareController);
 
         Vector3 start = transform.position;
-        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
+        start.z = zOffset;
+
+        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, zOffset);
 
         float duration = 0.25f; // tune feel
         float t = 0f;
@@ -528,10 +532,11 @@ public class PlayerMovementController : MonoBehaviour
     {
         SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
 
-        this.transform.position = new Vector2(
-            newSquareController.GetSquareXPosition(),
-            newSquareController.GetSquareYPosition()
-        );
+        this.transform.position = new Vector3(
+    newSquareController.GetSquareXPosition(),
+    newSquareController.GetSquareYPosition(),
+    zOffset
+);
 
         newSquareController.ActivateSquareVisited();
 
@@ -545,6 +550,14 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-
+    void LateUpdate()
+    {
+        Vector3 p = transform.position;
+        if (p.z != zOffset)
+        {
+            p.z = zOffset;
+            transform.position = p;
+        }
+    }
 
 }

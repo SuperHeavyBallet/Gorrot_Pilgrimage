@@ -188,8 +188,8 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Utilities\GPUSort\GPUSort.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Common\CoreProfileId.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Stripping\RenderPipelineGraphicsSettingsStripperReport.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Lighting\ProbeVolume\ProbeIndexOfIndices.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\RenderGraph\RenderGraph.DebugData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Lighting\ProbeVolume\ProbeIndexOfIndices.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\Debugging\IDebugDisplaySettingsData.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\XR\XRView.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@615f7ded20c5\Runtime\RenderGraph\IRenderGraphEnabledRenderPipeline.cs" />

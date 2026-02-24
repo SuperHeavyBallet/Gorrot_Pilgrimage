@@ -34,9 +34,10 @@ public class SquareController : MonoBehaviour
     public GameObject goalSquareSprite_Pressed;
 
    
-    [SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
+    //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
     void SetFourBlockTerrainSprite()
     {
+        /*
         Sprite randomSprite = thisSquareMapData.GetRandomFourBlockTerrainSprite();
         if(randomSprite != null )
         {
@@ -45,7 +46,7 @@ public class SquareController : MonoBehaviour
         else
         {
             Debug.LogError("Random Four Block Terrain Sprite is null", this);
-        }
+        }*/
         
     }
 
@@ -541,7 +542,7 @@ public class SquareController : MonoBehaviour
             chosenSprite = SquareSpriteLibrary.Instance.GetRandomSprite(squareType);
         }
 
-        squareTerrainSpriteRenderer.sprite = chosenSprite;
+       squareTerrainSpriteRenderer.sprite = chosenSprite;
     }
 
     private static readonly Dictionary<Vector2Int, directions> dirLookup =
@@ -979,7 +980,7 @@ public class SquareController : MonoBehaviour
         type = SquareType.Terrain;
         isTerrainSquare = true;
         squareType = "terrain";
-        ChooseSquareSprite();
+        //ChooseSquareSprite();
         ActivateGameObject(terrainSquareSprite);
     }
 

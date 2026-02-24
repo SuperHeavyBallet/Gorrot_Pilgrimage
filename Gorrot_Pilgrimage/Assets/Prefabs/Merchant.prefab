@@ -218,27 +218,69 @@ MonoBehaviour:
   goalSquareSprite: {fileID: 2079368541572557217}
   treasureSquareSprite: {fileID: 8803553558590778619}
   enemySquareSprite: {fileID: 6318903799233828932}
+  enemySquareSpriteRenderer: {fileID: 0}
   terrainSquareSprite: {fileID: 3361120687102296729}
   emptySquareSprite: {fileID: 8554551360456835540}
   healthSquareSprite: {fileID: 7235329973958619227}
   itemSquareSprite: {fileID: 3835939806479357633}
+  waterAdjacentSprite: {fileID: 0}
+  startSquareSprite: {fileID: 0}
+  goalSquareSprite_Pressed: {fileID: 0}
   squareX: 0
   squareY: 0
   square: 1
   squareQuantityString: 
   enterDirection: 0
-  squareValue: {fileID: 6758965580617881374}
   squareTerrainSpriteRenderer: {fileID: 1478187110837370011}
   squareItemSpriteRenderer: {fileID: 6194976906794836812}
+  groundSprite: {fileID: 0}
   groundSpriteRenderer: {fileID: 0}
+  waterSpriteRenderer: {fileID: 0}
+  largeTerrainSprite: {fileID: 0}
+  freeMarker: {fileID: 0}
   squareType: empty
-  isEdgeSquare: 0
-  leftEmpty: 0
-  upEmpty: 0
-  rightEmpty: 0
-  downEmpty: 0
-  needsCorner: 0
   treasureSpriteRenderer: {fileID: 0}
+  merchantSprite: {fileID: 0}
+  squareValue: {fileID: 0}
+  squareValueText: {fileID: 0}
+  waterNorth: 0
+  waterEast: 0
+  waterSouth: 0
+  waterWest: 0
+  waterBorderNorth: {fileID: 0}
+  waterBorderEast: {fileID: 0}
+  waterBorderSouth: {fileID: 0}
+  waterBorderWest: {fileID: 0}
+  waterBorderNorthSpriteRenderer: {fileID: 0}
+  waterBorderEastSpriteRenderer: {fileID: 0}
+  waterBorderSouthSpriteRenderer: {fileID: 0}
+  waterBorderWestSpriteRenderer: {fileID: 0}
+  waterFoamNorthSpriteRenderer: {fileID: 0}
+  waterFoamEastSpriteRenderer: {fileID: 0}
+  waterFoamSouthSpriteRenderer: {fileID: 0}
+  waterFoamWestSpriteRenderer: {fileID: 0}
+  foamObjects: []
+  defaultWaterBorderSprite: {fileID: 0}
+  shadow: {fileID: 0}
+  isInShadow: 0
+  trapSprite: {fileID: 0}
+  hiddenTrapSprite: {fileID: 0}
+  thisSquareHoldsPottard: 0
+  waterFoamCorner_NE: {fileID: 0}
+  waterFoamCorner_SE: {fileID: 0}
+  waterFoamCorner_SW: {fileID: 0}
+  waterFoamCorner_NW: {fileID: 0}
+  type: 0
+  isSacred: 0
+  sacredMarker: {fileID: 0}
+  isWater: 0
+  waterMarker: {fileID: 0}
+  waterEdgeSprite: {fileID: 0}
+  isWaterAdjacent: 0
+  stepInWaterSprite: {fileID: 0}
+  moodIndicatorText: {fileID: 0}
+  moodIndicator: {fileID: 0}
+  thisSquareHoldsPlayer: 0
 --- !u!1 &2079368541572557217
 GameObject:
   m_ObjectHideFlags: 0
