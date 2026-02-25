@@ -81,8 +81,8 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\ShaderGUI\SixWayGUI.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\UniversalRenderPipelineAsset\UniversalRenderPipelineAssetUI.Drawers.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\2D\ShapeEditor\Shapes\Spline.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\Settings\PropertyDrawers\URPShaderStrippingSettingsPropertyDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\ShaderGraph\AssetCallbacks\CreateCanvasShaderGraph.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\Settings\PropertyDrawers\URPShaderStrippingSettingsPropertyDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\AssemblyInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\ShaderGUI\Shaders\BakedLitShader.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\2D\Shadows\ShadowProvider\ShadowShape2DProvider_SpriteSkin_PropertyDrawer.cs" />
@@ -266,8 +266,8 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\Decal\ProjectedTransform.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\2D\Converter\BuiltInToURP2DMaterialUpgrader.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\2D\ShapeEditor\GUIFramework\CommandAction.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\VFXGraph\VFXDecalURPOutput.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\AssetVersion.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\VFXGraph\VFXDecalURPOutput.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\AssetPostProcessors\AutodeskInteractiveMaterialImport.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\Camera\UniversalRenderPipelineCameraUI.PresetInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.universal@8a8bcae6893e\Editor\2D\ShapeEditor\View\EditablePathView.cs" />

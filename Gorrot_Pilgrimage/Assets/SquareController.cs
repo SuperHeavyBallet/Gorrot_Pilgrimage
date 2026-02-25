@@ -33,6 +33,10 @@ public class SquareController : MonoBehaviour
     public GameObject startSquareSprite;
     public GameObject goalSquareSprite_Pressed;
 
+    public Transform treasurePositon;
+    public GameObject treasure_CoinSack;
+    public GameObject treasure_Coins;
+
    
     //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
     void SetFourBlockTerrainSprite()
@@ -872,14 +876,18 @@ public class SquareController : MonoBehaviour
         ChooseSquareSprite();
 
         string treasureSize = "medium";
+
+        GameObject prefab = null;
        
         switch (square)
         {
             case squareQuantity.small:
                 treasureSize = "small";
+                prefab = treasure_Coins;
                 break;
             case squareQuantity.medium:
                 treasureSize = "medium";
+                prefab = treasure_CoinSack;
                 break;
             case squareQuantity.large:
                 treasureSize = "large";
@@ -894,6 +902,12 @@ public class SquareController : MonoBehaviour
         squareValueText.text = treasureSize;
 
         Sprite treasureSprite = SquareSpriteLibrary.Instance.GetTreasureSprite(treasureSize);
+
+        if(prefab != null)
+        {
+            GameObject treasurePrefab = Instantiate(prefab, treasurePositon);
+        }
+        
 
         if(treasureSprite != null)
         {
