@@ -396,42 +396,22 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        if(newSquareController.GetIsWater())
-        {
-            if (!freeMove)
-            {
-                playerStatsController.alterSuffering(1);
-            }
-        }
 
         if (!freeMove)
         {
-           if(!isWaiting)
-            {
-                fateCounter.alterFateCounter(1);
-            }
-            else
-            {
-                fateCounter.alterFateCounter(2);
-            }
-               
-            
-           
+            if (!isWaiting) fateCounter.alterFateCounter(1);
+            else fateCounter.alterFateCounter(2);
 
             if (newSquareController.GetIsWater())
             {
-
-               playerStatsController.alterSuffering(1);
-                
+                playerStatsController.alterSuffering(2); // or 1, whatever intended
             }
-
-            if (newSquareController.isEmptySquare && !isWaiting)
+            else if (newSquareController.isEmptySquare && !isWaiting)
             {
                 playerStatsController.alterSuffering(1);
             }
-
         }
-        
+
 
 
 
@@ -533,10 +513,10 @@ public class PlayerMovementController : MonoBehaviour
         SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
 
         this.transform.position = new Vector3(
-    newSquareController.GetSquareXPosition(),
-    newSquareController.GetSquareYPosition(),
-    zOffset
-);
+        newSquareController.GetSquareXPosition(),
+        newSquareController.GetSquareYPosition(),
+        zOffset
+    );
 
         newSquareController.ActivateSquareVisited();
 

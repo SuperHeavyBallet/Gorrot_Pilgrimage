@@ -33,6 +33,15 @@ public class DiceController : MonoBehaviour
 
     public bool isRolling = false;
 
+    public float settleLinearThreshold = 0.15f;
+    public float settleAngularThreshold = 0.15f;
+    public float settleTimeForSfx = 0.10f;
+
+    float settleTimer;
+    bool sfxPlayed;
+
+    public System.Action OnSettledSfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,6 +56,8 @@ public class DiceController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
+         * 
         if(isRolling)
         {
             if (rb.IsSleeping())
@@ -58,7 +69,43 @@ public class DiceController : MonoBehaviour
                 checkWinningValue();
             }
         }
-        
+        */
+
+        if (!isRolling) return;
+
+        // keep tracking current best face (fine)
+        checkWinningValue();
+
+        // motion check
+        bool lowMotion =
+            rb.linearVelocity.magnitude < settleLinearThreshold &&
+            rb.angularVelocity.magnitude < settleAngularThreshold;
+
+        if (lowMotion)
+        {
+            settleTimer += Time.fixedDeltaTime;
+
+            // fire SFX when it "looks settled"
+            if (!sfxPlayed && settleTimer >= settleTimeForSfx)
+            {
+                sfxPlayed = true;
+                // call your sound here, or raise an event
+                //AudioManager.Instance.PlayDiceRollComplete();
+
+                OnSettledSfx?.Invoke();
+            }
+
+            // still wait for true sleep (or a longer settle) to finalize value
+            if (rb.IsSleeping())
+            {
+                CalculateFinalRollValue();
+            }
+        }
+        else
+        {
+            settleTimer = 0f;
+        }
+
 
     }
 
@@ -106,11 +153,16 @@ public class DiceController : MonoBehaviour
         rb.AddTorque(randomTorque, ForceMode.Impulse);
 
         isRolling = true;
+
+        settleTimer = 0f;
+        sfxPlayed = false;
+        isRolling = true;
     }
 
     void CalculateFinalRollValue()
     {
         isRolling = false;
+        
 
         var sides = new (int value, float y)[]
         {

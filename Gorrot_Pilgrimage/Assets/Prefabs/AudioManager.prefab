@@ -457,3 +457,4 @@ MonoBehaviour:
   clickInventorySoundEffect: {fileID: 8300000, guid: 396f9b89150c2264381551e7e1e44de8, type: 3}
   payOffChuckleSoundEffect: {fileID: 8300000, guid: 5d046feab937a0346819bf6bfca0df19, type: 3}
   trapTriggerSoundEffect: {fileID: 8300000, guid: 6147304fc6144a144a77d716042a47ca, type: 3}
+  diceRollCompleteSoundEffect: {fileID: 8300000, guid: 11a9bbb6237f0b44d95d844c8e83c603, type: 3}

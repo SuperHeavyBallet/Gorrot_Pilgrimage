@@ -21,7 +21,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
     int currentEnemyDamage;
 
-    //public AudioManager audioManager;
+   // [SerializeField] AudioManager audioManager;
 
     int currentPlayerRoll;
     int enemyResult;
@@ -80,6 +80,11 @@ public class CombatPhaseResolution : MonoBehaviour
         ActivateDiceDisplays(false);
     }
 
+    private void Awake()
+    {
+        diceController.OnSettledSfx += PlayDiceRollCompleteSoundEffect;
+        enemyDiceController.OnSettledSfx += PlayDiceRollCompleteSoundEffect;
+    }
 
 
     void ActivateDiceDisplays(bool value)
@@ -89,7 +94,10 @@ public class CombatPhaseResolution : MonoBehaviour
        
     }
 
-
+    void PlayDiceRollCompleteSoundEffect()
+    {
+       AudioManager.Instance.PlayDiceRollCompleteSoundEffect();
+    }
     public void EnterCombatPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
@@ -223,6 +231,7 @@ public class CombatPhaseResolution : MonoBehaviour
         enemyDiceController.RollDice();
         fightButtonText.text = "Rolling...";
         yield return new WaitUntil(() => !enemyDiceController.isRolling);
+      
         yield return new WaitForSeconds(0.25f);
        
 
@@ -358,6 +367,7 @@ public class CombatPhaseResolution : MonoBehaviour
             diceController.RollDice();
         
             yield return new WaitUntil(() => !diceController.isRolling);
+        
             yield return new WaitForSeconds(0.25f);
 
             ResolveCombat();

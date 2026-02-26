@@ -115,6 +115,21 @@ public class MapData : ScriptableObject
     Sprite[] terrainSprites;
     Sprite blankTerrainSprite;
 
+    [SerializeField] GameObject[] thisMap_SquareMeshes;
+    [SerializeField]  GameObject default_SquareMesh;
+
+    public GameObject GetSquareMesh()
+    {
+        if(thisMap_SquareMeshes.Length > 0)
+        {
+            return thisMap_SquareMeshes[UnityEngine.Random.Range(0, thisMap_SquareMeshes.Length)];
+        }
+
+        return default_SquareMesh;
+
+        
+    }
+
     public Sprite GetRandomTerrainSprite() => RandomSpriteFromArray(terrainSprites);
 
     Sprite RandomSpriteFromArray(Sprite[] spriteArrray)

@@ -35,6 +35,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip payOffChuckleSoundEffect;
     [SerializeField] AudioClip trapTriggerSoundEffect;
 
+    [SerializeField] AudioClip diceRollCompleteSoundEffect;
+
+  
+
 
     private void Awake()
     {
@@ -47,6 +51,8 @@ public class AudioManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -141,6 +147,8 @@ public class AudioManager : MonoBehaviour
     public void PlayPayOffChuckle() => soundEffectPlayer.PlayOneShot(payOffChuckleSoundEffect);
 
     public void PlayTrapTriggerSoundEffect() => soundEffectPlayer.PlayOneShot(trapTriggerSoundEffect);
+
+    public void PlayDiceRollCompleteSoundEffect() => soundEffectPlayer.PlayOneShot(diceRollCompleteSoundEffect);
 
 
 }

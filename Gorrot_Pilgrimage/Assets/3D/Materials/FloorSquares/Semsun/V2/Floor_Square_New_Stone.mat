@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3603484032329111502
+--- !u!114 &-44798116561261524
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Semsun_Floor_1_Stone
+  m_Name: Floor_Square_New_Stone
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,11 +41,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 9744e7c7c0b3460428771e47e1368597, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36d1be3ce087ae24c89ab1fa160ee860, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8ffc47872eb6b7f408ccbdba4a7a8192, type: 3}
+        m_Texture: {fileID: 2800000, guid: 536d367425d07c94bb8249d5fc7673cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -65,11 +65,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9744e7c7c0b3460428771e47e1368597, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36d1be3ce087ae24c89ab1fa160ee860, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 19d8605fc38ed11428fa83dbe0649d24, type: 3}
+        m_Texture: {fileID: 2800000, guid: b23625f2c9c3f6142bdcb31fa9c25153, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

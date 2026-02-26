@@ -33,9 +33,13 @@ public class SquareController : MonoBehaviour
     public GameObject startSquareSprite;
     public GameObject goalSquareSprite_Pressed;
 
-    public Transform treasurePositon;
-    public GameObject treasure_CoinSack;
-    public GameObject treasure_Coins;
+    [SerializeField] Transform treasurePositon;
+    [SerializeField] GameObject treasure_CoinSack;
+    [SerializeField] GameObject treasure_Coins;
+    [SerializeField] GameObject treasure_Chest;
+
+    [SerializeField] Transform itemPosition;
+    [SerializeField] GameObject item_Greatsword;
 
    
     //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
@@ -146,6 +150,27 @@ public class SquareController : MonoBehaviour
     [SerializeField] SpriteRenderer[] foamObjects;
 
     [SerializeField] Sprite defaultWaterBorderSprite;
+
+    [SerializeField] Transform squareMeshHolder;
+
+    void SetSquareMesh()
+    {
+        GameObject prefab = thisSquareMapData.GetSquareMesh();
+        ClearChildren(squareMeshHolder);
+
+        GameObject mesh = Instantiate(prefab, squareMeshHolder);
+    }
+
+    void ClearChildren(Transform parent)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(parent.GetChild(i).gameObject);
+            else
+                DestroyImmediate(parent.GetChild(i).gameObject);
+        }
+    }
 
     void AssignWaterBorderSprites()
     {
@@ -500,6 +525,7 @@ public class SquareController : MonoBehaviour
        SetReservedWalkway(false);
         goalSquareSprite_Pressed.SetActive(false);
         
+        
 
        
 
@@ -509,6 +535,7 @@ public class SquareController : MonoBehaviour
     private void Start()
     {
         AssignWaterBorderSprites();
+        SetSquareMesh();
     }
 
     private void OnEnable()
@@ -652,6 +679,7 @@ public class SquareController : MonoBehaviour
 
     public void SetIsWater(bool value)
     {
+        ClearLegacyFlags();
         isWater = value;
         waterMarker.SetActive(value);   
         SpriteRenderer waterSR = waterMarker.GetComponent<SpriteRenderer>();
@@ -763,6 +791,8 @@ public class SquareController : MonoBehaviour
         ItemCatalogue itemCatalogue = ItemCatalogue.Instance;
         Sprite itemSprite = null;
 
+        GameObject prefab = null;
+
         if (itemCatalogue != null)
         {
             allItemsList = itemCatalogue.GetAllItems();
@@ -793,6 +823,16 @@ public class SquareController : MonoBehaviour
                 
             squareContentsID = randomID;
 
+        }
+
+        if(squareContentsID == "greatsword")
+        {
+            prefab = item_Greatsword;
+        }
+
+        if(prefab != null)
+        {
+            GameObject itemGameObject = Instantiate(prefab, itemPosition);
         }
 
         if(itemSprite != null)
@@ -891,9 +931,11 @@ public class SquareController : MonoBehaviour
                 break;
             case squareQuantity.large:
                 treasureSize = "large";
+                prefab = treasure_Chest;
                 break;
             default:
                 treasureSize = "medium";
+                prefab = treasure_CoinSack;
                 break;
 
         }
