@@ -785,7 +785,7 @@ public class BattlefieldBuilder : MonoBehaviour
             if(item != null)
             {
                 SquareController squareController = item.GetComponent<SquareController>();
-                if (squareController != null && squareController.CheckIsEnemy()) { enemySquares.Add(item); }
+                if (squareController != null && squareController.IsEnemy) { enemySquares.Add(item); }
 
             }
         }

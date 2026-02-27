@@ -91,7 +91,12 @@ public class TurnOrganiser : MonoBehaviour
         foreach(GameObject newFly in currentFlies)
         {
             FlyMovementController newFlyMovement = newFly.GetComponent<FlyMovementController>();
-            newFlyMovement.RollNewDirection();
+
+            if (newFlyMovement != null)
+            {
+                newFlyMovement.RollNewDirection();
+            }
+            
         }
     }
 

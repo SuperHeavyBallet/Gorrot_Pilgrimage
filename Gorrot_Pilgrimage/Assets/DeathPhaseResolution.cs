@@ -20,10 +20,13 @@ public class DeathPhaseResolution : MonoBehaviour
 
     [SerializeField] DeathPushNameToLedger deathPushNameToLedger;
 
+    [SerializeField] Animator standeeAnimator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerIsDead = false;
+        standeeAnimator.SetBool("isDead",false);
         deathScreen.SetActive(false);
         deathUI.SetActive(false);
     }
@@ -63,6 +66,7 @@ public class DeathPhaseResolution : MonoBehaviour
         deathScreen.SetActive(true);
        deathUI.SetActive(true);
         playerIsDead=true;
+        standeeAnimator.SetBool("isDead", true);
 
 
         PushDataToDeathLedger();

@@ -43,8 +43,17 @@ public class PlayerMovementController : MonoBehaviour
     public GameObject playerSprite;
 
    [SerializeField] PlayerAnimationManager playerAnimationManager;
+     Vector3 standeeForwardRotationEuler; // for editing in inspector
+    private Quaternion standeeForwardQ;
+    [SerializeField] GameObject standee;
+    [SerializeField] Animator standeeAnimator;
+
+    private Quaternion standeeRightQ, standeeLeftQ, standeeBackQ;
+
 
     SquareController currentSquareController;
+
+    public System.Action OnPlayerMoved;
 
     enum facingPositions
     {
@@ -54,9 +63,12 @@ public class PlayerMovementController : MonoBehaviour
     facingPositions nextFacingPosition = facingPositions.up;
     facingPositions currentFacingPosition = facingPositions.up;
 
+    [SerializeField] float turnDuration = 0.15f; // small = snappy
+    Coroutine turnRoutine;
+
     int previousPositionX = 0;
     int previousPositionY = 0;
-
+    [SerializeField] Transform board; // something whose “up” is your turn axis
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,6 +76,17 @@ public class PlayerMovementController : MonoBehaviour
         playerStatsController = this.GetComponent<PlayerStatsController>();
         playerIsAlive = CheckPlayerAlive();
         playerInventory = this.GetComponent<PlayerInventory>();
+
+        standeeForwardQ = standee.transform.rotation;
+
+        Vector3 turnAxis = board.up; // or board.forward / board.right depending on your scene
+
+        standeeRightQ = standeeForwardQ * Quaternion.AngleAxis(90f, turnAxis);
+        standeeLeftQ = standeeForwardQ * Quaternion.AngleAxis(-90f, turnAxis);
+        standeeBackQ = standeeForwardQ * Quaternion.AngleAxis(180f, turnAxis);
+
+        standeeAnimator.SetBool("isMoving", false);
+
     }
 
     public void SetReachedGoalSquare(bool value)
@@ -89,10 +112,10 @@ public class PlayerMovementController : MonoBehaviour
 
         if(!reachedGoalSquare)
         {
-            Vector2 normalizedMoveValue = receivedMoveValue;
-            if (receivedMoveValue.x > 0) { normalizedMoveValue.x = 1; }
-
-            if (receivedMoveValue.y > 0) { normalizedMoveValue.y = 1; }
+            Vector2 normalizedMoveValue = new Vector2(
+                 receivedMoveValue.x == 0 ? 0 : Mathf.Sign(receivedMoveValue.x),
+                 receivedMoveValue.y == 0 ? 0 : Mathf.Sign(receivedMoveValue.y)
+             );
 
             SetFacing(normalizedMoveValue.x, normalizedMoveValue.y);
 
@@ -138,38 +161,62 @@ public class PlayerMovementController : MonoBehaviour
     {
         currentFacingPosition = nextFacingPosition;
 
-        if (normX < 0) { nextFacingPosition = facingPositions.left; }
-        else if (normX > 0) { nextFacingPosition = facingPositions.right; }
+        if (normX < 0) nextFacingPosition = facingPositions.left;
+        else if (normX > 0) nextFacingPosition = facingPositions.right;
         else if (normY < 0) nextFacingPosition = facingPositions.down;
-        else { nextFacingPosition = facingPositions.up; }
+        else nextFacingPosition = facingPositions.up;
 
-        if (currentFacingPosition != nextFacingPosition)
+        // 1) Always compute rotation from the current facing
+        Quaternion target;
+        switch (nextFacingPosition)
         {
-            switch (nextFacingPosition)
-            {
-                case facingPositions.down:
-                    playerAnimationManager.SetFrontSprites();
-                    break;
-
-                case facingPositions.right:
-                    playerAnimationManager.SetSideSprites("right");
-                    break;
-
-                case facingPositions.left:
-                    playerAnimationManager.SetSideSprites("left");
-                    break;
-
-                case facingPositions.up:
-                default:
-                    playerAnimationManager.SetBackSprites();
-                    break;
-            }
-
+            case facingPositions.down: target = standeeBackQ; break;
+            case facingPositions.right: target = standeeRightQ; break;
+            case facingPositions.left: target = standeeLeftQ; break;
+            case facingPositions.up:
+            default: target = standeeForwardQ; break;
         }
 
        
 
-    
+        // Smooth rotate (even if facing didn't change, this is harmless)
+        if (turnRoutine != null) StopCoroutine(turnRoutine);
+        turnRoutine = StartCoroutine(TurnToRotation(target));
+
+        // Only swap sprites when facing changes
+        if (currentFacingPosition == nextFacingPosition) return;
+
+        switch (nextFacingPosition)
+        {
+            case facingPositions.down: playerAnimationManager.SetFrontSprites(); break;
+            case facingPositions.right: playerAnimationManager.SetSideSprites("right"); break;
+            case facingPositions.left: playerAnimationManager.SetSideSprites("left"); break;
+            default: playerAnimationManager.SetBackSprites(); break;
+        }
+
+
+
+    }
+
+    IEnumerator TurnToRotation(Quaternion target)
+    {
+        Quaternion start = standee.transform.rotation;
+        float t = 0f;
+
+        // quick early-out
+        if (Quaternion.Angle(start, target) < 0.1f)
+            yield break;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / Mathf.Max(0.0001f, turnDuration);
+            float u = t * t * (3f - 2f * t); // smoothstep
+            standee.transform.rotation = Quaternion.Slerp(start, target, u);
+            yield return null;
+        }
+
+        standee.transform.rotation = target;
+        turnRoutine = null;
     }
 
     public void MovePlayer(Vector2 newMoveValue, bool freeMove, bool isWaiting)
@@ -290,6 +337,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         isMoving = true;
         playerAnimationManager.SetIsWalking(true);
+        standeeAnimator.SetBool("isMoving", true);
 
         PlayFootStepSound(newSquareController);
 
@@ -326,10 +374,13 @@ public class PlayerMovementController : MonoBehaviour
         UpdateCurrentPosition(newX, newY);
         MakeSquareHoldPlayer(newSquareController, true);
         UpdateCurrentSquareController(newSquareController);
+
+        OnPlayerMoved?.Invoke();
         
 
         isMoving = false;
         playerAnimationManager.SetIsWalking(false);
+        standeeAnimator.SetBool("isMoving", false);
         ApplyMoveResults(newSquareController, freeMove, isWaiting);
         turnOrganiser.BuildNextTurn();
     }
@@ -371,7 +422,7 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        if (newSquareController.isEnemySquare)
+        if (newSquareController.IsEnemy)
         {
             int amount = 0;
 

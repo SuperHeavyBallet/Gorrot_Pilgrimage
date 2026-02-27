@@ -115,9 +115,13 @@ public class CombatPhaseResolution : MonoBehaviour
 
     void SetupEnemyStart()
     {
-        CalculateThisBribe(1);
+       
         SquareController sq = turnOrganiser.GetLandedSquare();
+
+        currentEnemyDamage = sq.EnemyDamage;
         currentEnemyBuff = sq.GetEnemyBaseBuff();
+
+        CalculateThisBribe(1);
         UpdateDiceRollFormulaText(currentEnemyBuff, 0, -1);
 
         if(waitForInput != null)
@@ -345,18 +349,23 @@ public class CombatPhaseResolution : MonoBehaviour
             bribeMultiplier = 1 * excessBribe;
         }
 
-        if (currentMap.GetCanBeBribed() == true)
+        if(currentMap != null)
         {
-            thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
-            totalBribeAmount = thisCombatBribeMultiplerMax * bribeMultiplier;
+            if (currentMap.GetCanBeBribed() == true)
+            {
+                thisCombatBribeMultiplerMax = UnityEngine.Random.Range(1, currentEnemyDamage * 3);
+                totalBribeAmount = thisCombatBribeMultiplerMax * bribeMultiplier;
 
-            payButtonText.text = "Pay: " + (totalBribeAmount).ToString();
+                payButtonText.text = "Pay: " + (totalBribeAmount).ToString();
+            }
+            else
+            {
+                totalBribeAmount = 9999;
+                payButtonText.text = "No Pay.";
+            }
         }
-        else
-        {
-            totalBribeAmount = 9999;
-            payButtonText.text = "No Pay.";
-        }
+
+        
 
     }
 
@@ -388,6 +397,7 @@ public class CombatPhaseResolution : MonoBehaviour
         if (!playerWins)
         {
             // Lose Results
+            
             playerStatsController.alterHealth(currentEnemyDamage * -1);
             AudioManager.Instance.playTakeDamageSoundEffect();
             playerStatsController.resetSuffering();

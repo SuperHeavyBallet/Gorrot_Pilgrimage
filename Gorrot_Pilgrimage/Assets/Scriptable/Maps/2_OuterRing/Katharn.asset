@@ -54,6 +54,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a3ea92c79d7deef4690e8df77306b08b, type: 3}
   - {fileID: 21300000, guid: 3ca17b71504287748a81fc8d0be9cf70, type: 3}
   - {fileID: 21300000, guid: 6f9d03a30f533b34d8e1cab46b06d961, type: 3}
+  thisMap_SquareMeshes: []
+  default_SquareMesh: {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
   fourBlockTerrainSprites:
   - {fileID: 21300000, guid: 0f798421031649946868c61cb1f0d171, type: 3}
   - {fileID: 21300000, guid: 4c7dc8090ed388e41a2ce52171b35d7f, type: 3}

@@ -13,7 +13,7 @@ public class SquareController : MonoBehaviour
 
     public bool isGoalSquare;
     public bool isTreasureSquare;
-    public bool isEnemySquare;
+   // public bool isEnemySquare;
     public bool isTerrainSquare;
     public bool isEmptySquare;
     public bool IsEmptySquare => type == SquareType.Empty;
@@ -41,7 +41,16 @@ public class SquareController : MonoBehaviour
     [SerializeField] Transform itemPosition;
     [SerializeField] GameObject item_Greatsword;
 
-   
+    GameObject player;
+    Vector3 playerPosition;
+
+    int enemyDamage;
+    public int EnemyDamage => enemyDamage;
+    [SerializeField] Animator enemyAnimator;
+
+    PlayerMovementController playerMovementController;
+
+
     //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
     void SetFourBlockTerrainSprite()
     {
@@ -56,6 +65,45 @@ public class SquareController : MonoBehaviour
             Debug.LogError("Random Four Block Terrain Sprite is null", this);
         }*/
         
+    }
+
+    void LocatePlayer()
+    {
+        player = GameObject.Find("Player");
+
+        if(player != null )
+        {
+            Debug.Log("Found Player");
+            playerPosition = player.transform.position;
+            Debug.Log("At: " + playerPosition.x + " , " + playerPosition.y + " , " + playerPosition.z);
+
+            playerMovementController = player.GetComponent<PlayerMovementController>();
+
+            if(playerMovementController != null )
+            {
+                playerMovementController.OnPlayerMoved += UpdatePlayerPosition;
+            }
+
+        }
+    }
+
+    void UpdatePlayerPosition()
+    {
+
+        playerPosition = player.transform.position;
+        Debug.Log("Update Player Position: " + +playerPosition.x + " , " + playerPosition.y + " , " + playerPosition.z);
+        float dist = Vector3.Distance(this.transform.position, playerPosition);
+        Debug.Log("This Square Distance to Player: " +  dist);
+        
+        if(dist < 5)
+        {
+            Debug.Log("Player IN RANGE");
+            enemyAnimator.SetBool("playerInRange", true);
+        }
+        else
+        {
+            enemyAnimator.SetBool("playerInRange", false);
+        }
     }
 
     public int squareX = 0;
@@ -536,6 +584,12 @@ public class SquareController : MonoBehaviour
     {
         AssignWaterBorderSprites();
         SetSquareMesh();
+
+        if(type == SquareType.Enemy)
+        {
+            LocatePlayer();
+        }
+        
     }
 
     private void OnEnable()
@@ -698,7 +752,7 @@ public class SquareController : MonoBehaviour
     {
         isGoalSquare = false;
         isTreasureSquare = false;
-        isEnemySquare = false;
+        //isEnemySquare = false;
         isTerrainSquare = false;
         isEmptySquare = false;
         isHealthSquare = false;
@@ -882,10 +936,7 @@ public class SquareController : MonoBehaviour
 
     }
 
-    public bool CheckIsEnemy()
-    {
-        return isEnemySquare;
-    }
+    public bool IsEnemy => type == SquareType.Enemy;
 
     public void MakeStartSquare()
     {
@@ -984,7 +1035,7 @@ public class SquareController : MonoBehaviour
     {
         ClearLegacyFlags();
         type = SquareType.Enemy;
-        isEnemySquare = true;
+        //isEnemySquare = true;
 
         squareType = "enemy";
         ChooseSquareSprite();
@@ -998,14 +1049,17 @@ public class SquareController : MonoBehaviour
             case squareQuantity.small:
                 squareValueText.text = "3+";
                 enemySquareSpriteRenderer.sprite = thisMap.GetSmallEnemySprite();
+                enemyDamage = 1;
                 break;
             case squareQuantity.medium:
                 squareValueText.text = "4+";
                 enemySquareSpriteRenderer.sprite = thisMap.GetMediumEnemySprite();
+                enemyDamage = 2;
                 break;
             case squareQuantity.large:
                 squareValueText.text = "5+";
                 enemySquareSpriteRenderer.sprite = thisMap.GetLargeEnemySprite();
+                enemyDamage = 3;
                 break;
             default:
                 break;
