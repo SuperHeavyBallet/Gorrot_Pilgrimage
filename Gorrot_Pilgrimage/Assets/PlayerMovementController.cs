@@ -53,7 +53,7 @@ public class PlayerMovementController : MonoBehaviour
 
     SquareController currentSquareController;
 
-    public System.Action OnPlayerMoved;
+    public event System.Action OnPlayerMoved;
 
     enum facingPositions
     {
@@ -87,6 +87,28 @@ public class PlayerMovementController : MonoBehaviour
 
         standeeAnimator.SetBool("isMoving", false);
 
+    }
+
+    public void PrepareForMapRebuild()
+    {
+        // Stop movement mid-flight so coroutine doesn't keep touching old squares
+        if (turnRoutine != null)
+        {
+            StopCoroutine(turnRoutine);
+            turnRoutine = null;
+        }
+        StopAllCoroutines();
+
+        isMoving = false;
+        reachedGoalSquare = false;
+
+        // Drop dead references
+        currentSquareController = null;
+        allSquares = null;
+
+        // Optional: if you want to fully reset facing/anim
+        playerAnimationManager.SetIsWalking(false);
+        if (standeeAnimator) standeeAnimator.SetBool("isMoving", false);
     }
 
     public void SetReachedGoalSquare(bool value)

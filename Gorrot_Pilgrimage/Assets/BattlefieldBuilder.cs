@@ -558,6 +558,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void BuildNewBattlefield()
     {
+        playerMovementController.PrepareForMapRebuild();
         MapData chosen = GetMapToBuild();
 
         thisMap = chosen;

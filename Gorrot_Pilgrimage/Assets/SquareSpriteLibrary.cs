@@ -7,6 +7,7 @@ public class SquareSpriteLibrary : MonoBehaviour
     public Sprite[] terrainSprites;
 
     public GameObject borderSquare;
+    public GameObject borderCornerSquare;
 
     public Sprite[] midworldGround;
     public Sprite[] outworldGround;
@@ -113,5 +114,10 @@ public class SquareSpriteLibrary : MonoBehaviour
     public GameObject getBorderSquare()
     {
         return borderSquare;
+    }
+
+    public GameObject GetBorderCornerSquare()
+    {
+        return borderCornerSquare;
     }
 }

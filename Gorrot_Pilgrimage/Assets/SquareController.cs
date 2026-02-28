@@ -23,7 +23,7 @@ public class SquareController : MonoBehaviour
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
     public GameObject enemySquareSprite;
-    [SerializeField] SpriteRenderer enemySquareSpriteRenderer;
+    //[SerializeField] SpriteRenderer enemySquareSpriteRenderer;
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
@@ -37,7 +37,7 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject treasure_CoinSack;
     [SerializeField] GameObject treasure_Coins;
     [SerializeField] GameObject treasure_Chest;
-
+    
     [SerializeField] Transform itemPosition;
     [SerializeField] GameObject item_Greatsword;
 
@@ -49,6 +49,8 @@ public class SquareController : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
 
     PlayerMovementController playerMovementController;
+
+    [SerializeField] StandeeController standeeController;
 
 
     //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
@@ -81,10 +83,34 @@ public class SquareController : MonoBehaviour
 
             if(playerMovementController != null )
             {
-                playerMovementController.OnPlayerMoved += UpdatePlayerPosition;
+              Bind();
             }
 
         }
+    }
+
+    public void Bind()
+    {
+        // If rebinding, unbind first
+        if (playerMovementController != null)
+            playerMovementController.OnPlayerMoved -= UpdatePlayerPosition;
+
+        
+
+        if (playerMovementController != null)
+            playerMovementController.OnPlayerMoved += UpdatePlayerPosition;
+    }
+
+    private void OnDisable()
+    {
+        if (playerMovementController != null)
+            playerMovementController.OnPlayerMoved -= UpdatePlayerPosition;
+    }
+
+    private void OnDestroy()
+    {
+        if (playerMovementController != null)
+            playerMovementController.OnPlayerMoved -= UpdatePlayerPosition;
     }
 
     void UpdatePlayerPosition()
@@ -95,7 +121,7 @@ public class SquareController : MonoBehaviour
         float dist = Vector3.Distance(this.transform.position, playerPosition);
         Debug.Log("This Square Distance to Player: " +  dist);
         
-        if(dist < 5)
+        if(dist <= 4)
         {
             Debug.Log("Player IN RANGE");
             enemyAnimator.SetBool("playerInRange", true);
@@ -518,35 +544,57 @@ public class SquareController : MonoBehaviour
         float thisSquareSize = this.transform.localScale.x;
 
         if (leftEmpty && upEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, thisSquareSize, 0f));
+            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, thisSquareSize, 0f), CornerPositions.NorthWest);
 
         if (rightEmpty && upEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, thisSquareSize, 0f));
+            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, thisSquareSize, 0f), CornerPositions.NorthEast);
 
         if (leftEmpty && downEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, -thisSquareSize, 0f));
+            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, -thisSquareSize, 0f), CornerPositions.SouthWest);
 
         if (rightEmpty && downEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, -thisSquareSize, 0f));
+            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, -thisSquareSize, 0f), CornerPositions.SouthEast);
 
 
-        if (leftEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.left * thisSquareSize, "right");
-        if (rightEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.right * thisSquareSize, "left");
-        if (upEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.up * thisSquareSize, "bottom");
-        if (downEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.down * thisSquareSize, "top");
+        if (leftEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.left * thisSquareSize,  OrthogonalPositions.West);
+        if (rightEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.right * thisSquareSize,  OrthogonalPositions.East);
+        if (upEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.up * thisSquareSize,  OrthogonalPositions.North);
+        if (downEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.down * thisSquareSize,  OrthogonalPositions.South);
     }
 
-    void MakeCornerBorderAtPosition(Vector3 position)
+    enum OrthogonalPositions { North, East, South, West };
+    enum CornerPositions { NorthEast, SouthEast, SouthWest, NorthWest};
+
+
+    void MakeCornerBorderAtPosition(Vector3 position, CornerPositions cornerPos)
     {
-        Instantiate(
-            SquareSpriteLibrary.Instance.getBorderSquare(),
+        GameObject newCornerBorderSquare = Instantiate(
+            SquareSpriteLibrary.Instance.GetBorderCornerSquare(),
             position,
             Quaternion.identity,
             transform.parent
         );
+
+        switch(cornerPos )
+        {
+            case CornerPositions.NorthWest:
+                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 0f);
+                    break;
+            case CornerPositions.NorthEast:
+                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -90f);
+                break;
+            case CornerPositions.SouthEast:
+                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -180f);
+                break;
+            case CornerPositions.SouthWest:
+                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 90f);
+                break;
+            default:
+                break;
+        }
     }
 
-    void MakeBorderSquareAtPosition(Vector3 position, string shadowSide)
+    void MakeBorderSquareAtPosition(Vector3 position,  OrthogonalPositions borderPos)
     {
         GameObject newBorderSquare = UnityEngine.Object.Instantiate(
             SquareSpriteLibrary.Instance.getBorderSquare(),
@@ -555,11 +603,16 @@ public class SquareController : MonoBehaviour
             transform.parent
             );
 
-        BorderSquareController borderSquareController = newBorderSquare.GetComponent<BorderSquareController>();
-        if (borderSquareController != null)
+
+        if(borderPos == OrthogonalPositions.North)
         {
-            borderSquareController.PositionBorderShadow(shadowSide);
+            newBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 90f);
         }
+        else if (borderPos == OrthogonalPositions.South)
+        {
+            newBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -90f);
+        }
+       
     }
 
     private void Awake()
@@ -1043,28 +1096,35 @@ public class SquareController : MonoBehaviour
         squareValue.gameObject.SetActive(true );
         moodIndicator.SetActive(true);
 
+        Sprite chosenSprite = null;
 
         switch (square)
         {
             case squareQuantity.small:
                 squareValueText.text = "3+";
-                enemySquareSpriteRenderer.sprite = thisMap.GetSmallEnemySprite();
+                chosenSprite = thisMap.GetSmallEnemySprite();
                 enemyDamage = 1;
                 break;
             case squareQuantity.medium:
                 squareValueText.text = "4+";
-                enemySquareSpriteRenderer.sprite = thisMap.GetMediumEnemySprite();
+                chosenSprite = thisMap.GetMediumEnemySprite();
                 enemyDamage = 2;
                 break;
             case squareQuantity.large:
                 squareValueText.text = "5+";
-                enemySquareSpriteRenderer.sprite = thisMap.GetLargeEnemySprite();
+                chosenSprite = thisMap.GetLargeEnemySprite();
                 enemyDamage = 3;
                 break;
             default:
+                squareValueText.text = "3+";
+                chosenSprite = thisMap.GetSmallEnemySprite();
+                enemyDamage = 1;
                 break;
 
         }
+
+        //enemySquareSpriteRenderer.sprite = chosenSprite;
+        standeeController.SetSprites(chosenSprite, chosenSprite);
 
         int roll = Random.Range(0, 2);
 

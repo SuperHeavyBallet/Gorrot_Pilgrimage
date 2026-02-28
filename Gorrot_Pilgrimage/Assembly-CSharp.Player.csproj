@@ -92,6 +92,7 @@
     <Compile Include="Assets\CharacterStatSheet.cs" />
     <Compile Include="Assets\StatBoxAnimationController.cs" />
     <Compile Include="Assets\WorldLocations.cs" />
+    <Compile Include="Assets\StandeeController.cs" />
     <Compile Include="Assets\ShadowController.cs" />
     <Compile Include="Assets\MapCatalogue.cs" />
     <Compile Include="Assets\StandeeAnimationController.cs" />
