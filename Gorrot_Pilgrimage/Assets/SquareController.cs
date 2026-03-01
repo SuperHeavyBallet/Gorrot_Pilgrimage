@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using GorrotGame;
 using System.Collections.Generic;
 
 
@@ -51,6 +51,8 @@ public class SquareController : MonoBehaviour
     PlayerMovementController playerMovementController;
 
     [SerializeField] StandeeController standeeController;
+
+    [SerializeField]    SquareTypeController squareTypeController;
 
 
     //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
@@ -135,8 +137,8 @@ public class SquareController : MonoBehaviour
     public int squareX = 0;
     public int squareY = 0;
 
-    public enum squareQuantity { small, medium, large };
-    public squareQuantity square = squareQuantity.medium;
+    //public enum squareQuantity { small, medium, large };
+    public SquareSize square = SquareSize.Medium;
     public string squareQuantityString;
 
     public enum directions
@@ -377,21 +379,8 @@ public class SquareController : MonoBehaviour
 
     public void SetMapLocation(string newMapLocation) { mapLocation = newMapLocation; }
 
-    public enum SquareType
-    {
-        Empty, 
-        Goal, 
-        Treasure, 
-        Enemy, 
-        Terrain,
-        Health, 
-        Item, 
-        Trap, 
-        Merchant, 
-        Water
-    }
+    [SerializeField] private SquareType type = SquareType.Empty;
 
-    [SerializeField] private SquareType type;
     public SquareType Type => type;
     public bool isTrapSquare => type == SquareType.Trap;
 
@@ -413,6 +402,11 @@ public class SquareController : MonoBehaviour
       
             
      
+    }
+
+    public void MakeSquare(SquareType sqType, MapData thisMap)
+    {
+        squareTypeController.ConstructSquare(sqType, thisMap);
     }
 
     static readonly int TimeOffset = Shader.PropertyToID("_TimeOffset");
@@ -766,14 +760,14 @@ public class SquareController : MonoBehaviour
         switch (randomChance)
         {
             case 0:
-                SetSquare(squareQuantity.small, 0.25f, "small");
+                SetSquare(SquareSize.Small, 0.25f, "small");
                 break;
 
             case 1:
-                SetSquare(squareQuantity.medium, 0.5f, "medium");
+                SetSquare(SquareSize.Medium, 0.5f, "medium");
                 break;
             case 2:
-                SetSquare(squareQuantity.large, 1f, "large");
+                SetSquare(SquareSize.Large, 1f, "large");
                 break;
         }
     }
@@ -842,7 +836,7 @@ public class SquareController : MonoBehaviour
         isReservedWalkway = value;
     }
 
-    void SetSquare(squareQuantity sq, float scale, string name)
+    void SetSquare(SquareSize sq, float scale, string name)
     {
         square = sq;
         spriteScale = scale;
@@ -1025,15 +1019,15 @@ public class SquareController : MonoBehaviour
        
         switch (square)
         {
-            case squareQuantity.small:
+            case SquareSize.Small:
                 treasureSize = "small";
                 prefab = treasure_Coins;
                 break;
-            case squareQuantity.medium:
+            case SquareSize.Medium:
                 treasureSize = "medium";
                 prefab = treasure_CoinSack;
                 break;
-            case squareQuantity.large:
+            case SquareSize.Large:
                 treasureSize = "large";
                 prefab = treasure_Chest;
                 break;
@@ -1091,7 +1085,7 @@ public class SquareController : MonoBehaviour
         //isEnemySquare = true;
 
         squareType = "enemy";
-        ChooseSquareSprite();
+       // ChooseSquareSprite();
 
         squareValue.gameObject.SetActive(true );
         moodIndicator.SetActive(true);
@@ -1100,17 +1094,17 @@ public class SquareController : MonoBehaviour
 
         switch (square)
         {
-            case squareQuantity.small:
+            case SquareSize.Small:
                 squareValueText.text = "3+";
                 chosenSprite = thisMap.GetSmallEnemySprite();
                 enemyDamage = 1;
                 break;
-            case squareQuantity.medium:
+            case SquareSize.Medium:
                 squareValueText.text = "4+";
                 chosenSprite = thisMap.GetMediumEnemySprite();
                 enemyDamage = 2;
                 break;
-            case squareQuantity.large:
+            case SquareSize.Large:
                 squareValueText.text = "5+";
                 chosenSprite = thisMap.GetLargeEnemySprite();
                 enemyDamage = 3;
@@ -1247,9 +1241,9 @@ public class SquareController : MonoBehaviour
     {
         return square switch
         {
-            squareQuantity.small => 0,
-            squareQuantity.medium => 1,
-            squareQuantity.large => 2,
+            SquareSize.Small => 0,
+            SquareSize.Medium => 1,
+            SquareSize.Large => 2,
             _ => 4
         };
     }

@@ -203,7 +203,9 @@ public class TurnOrganiser : MonoBehaviour
         if(!isInMerchant)
         {
             disablePlayerTurn();
-            MoveFly();
+
+            
+            //MoveFly();
             //SpawnNewEnemy();
             BuildNextPhase();
         }

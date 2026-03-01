@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using GorrotGame;
 
 public class BattlefieldBuilder : MonoBehaviour
 {
@@ -597,39 +598,7 @@ public class BattlefieldBuilder : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--) { Destroy(transform.GetChild(i).gameObject); }
     }
 
-    /*
-    public void SpawnNewEnemy()
-    {
-
-
-        int randomNumber = UnityEngine.Random.Range(0, freeSquares.Count);
-
-        int currentIndex = 0;
-
-        Vector2Int[] arrayOfSquares = freeSquares.ToArray();
-
-        for(int i = 0; i < arrayOfSquares.Length; i++)
-        {
-            if(i == randomNumber)
-            {
-                Debug.Log("Matching Index: " + freeSquares[i] + currentIndex);
-
-                Vector2Int coord = freeSquares[i];
-
-                SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
-                sq.MakeEnemySquare(thisMap);
-
-
-                break;
-            }
-
-
-            currentIndex++;
-        }
-
-    }
-
-    */
+  
     void SetPlayerStartSquare(int currentMapSize) {
         playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
 
@@ -802,6 +771,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
             int enemyCount = Mathf.RoundToInt(size * thisMap.EnemyDensity); // EnemyDensity in 0..1
             PlaceTypeSquares(enemyCount, sq => sq.MakeEnemySquare(thisMap), disallowReservedWalkway: false);
+            PlaceTypeSquares(enemyCount, sq => sq.MakeSquare(SquareType.Enemy, thisMap), disallowReservedWalkway: false);
 
         }
         

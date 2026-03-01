@@ -66,6 +66,7 @@
     <Compile Include="Assets\MerchantPhaseResolution.cs" />
     <Compile Include="Assets\PlayerMovementController.cs" />
     <Compile Include="Assets\PlayerAnimationManager.cs" />
+    <Compile Include="Assets\SquareTypeController.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
     <Compile Include="Assets\PlayerInventory.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\PlayerStatsController.cs" />
     <Compile Include="Assets\WinPhaseResolution.cs" />
     <Compile Include="Assets\PlayerStatReceiver.cs" />
+    <Compile Include="Assets\Sprites\SquareType.cs" />
     <Compile Include="Assets\SquareController.cs" />
     <Compile Include="Assets\CharacterCreationMenuController.cs" />
     <Compile Include="Assets\ItemCatalogue.cs" />

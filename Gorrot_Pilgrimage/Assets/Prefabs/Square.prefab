@@ -483,6 +483,7 @@ GameObject:
   - component: {fileID: 6822048057866452752}
   - component: {fileID: 954198480903388606}
   - component: {fileID: 8259703709946232772}
+  - component: {fileID: 2721291182392624524}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -604,7 +605,6 @@ MonoBehaviour:
   goalSquareSprite: {fileID: 2079368541572557217}
   treasureSquareSprite: {fileID: 8803553558590778619}
   enemySquareSprite: {fileID: 6318903799233828932}
-  enemySquareSpriteRenderer: {fileID: 411645002172820728}
   terrainSquareSprite: {fileID: 3361120687102296729}
   emptySquareSprite: {fileID: 8554551360456835540}
   healthSquareSprite: {fileID: 7235329973958619227}
@@ -620,6 +620,7 @@ MonoBehaviour:
   item_Greatsword: {fileID: 8929069690623183087, guid: 2e381e8ce579e9d468270f045865d880, type: 3}
   enemyAnimator: {fileID: 7701855086751310174}
   standeeController: {fileID: 7270524921660559102}
+  squareTypeController: {fileID: 2721291182392624524}
   squareX: 0
   squareY: 0
   square: 1
@@ -685,6 +686,18 @@ MonoBehaviour:
   moodIndicatorText: {fileID: 1223172519395207291}
   moodIndicator: {fileID: 8342304845538613239}
   thisSquareHoldsPlayer: 0
+--- !u!114 &2721291182392624524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae57d75023dc8d04fb1cdd618c040b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1978849301010216467
 GameObject:
   m_ObjectHideFlags: 0

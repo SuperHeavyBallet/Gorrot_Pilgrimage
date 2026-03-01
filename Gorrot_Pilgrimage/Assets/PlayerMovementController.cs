@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections;
+using GorrotGame;
 
 
 public class PlayerMovementController : MonoBehaviour
@@ -426,7 +427,7 @@ public class PlayerMovementController : MonoBehaviour
             MovePlayerBackOneSquare();
         }
 
-        if(newSquareController.Type == SquareController.SquareType.Trap)
+        if(newSquareController.Type == SquareType.Trap)
         {
             if(newSquareController.GetTrapActivated == false)
             {
