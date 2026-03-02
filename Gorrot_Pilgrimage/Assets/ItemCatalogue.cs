@@ -15,6 +15,8 @@ public class ItemCatalogue : MonoBehaviour
 
     public InventoryItemTemplate[] uniqueItems;
 
+    
+
     private void Awake()
     {
 

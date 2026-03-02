@@ -54,6 +54,11 @@ MonoBehaviour:
   terrainSprites: []
   thisMap_SquareMeshes: []
   default_SquareMesh: {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
+  thisMap_FourSquareTerrain:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 7020964279979990658, guid: 4d792b1c716a0e14e92970087f594ea1, type: 3}
+  - {fileID: 582117322151891733, guid: a333b7ff475cbfe4c9ae371d8f2fbb9a, type: 3}
+  default_FourSquareTerrain: {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
   fourBlockTerrainSprites:
   - {fileID: 21300000, guid: 0f798421031649946868c61cb1f0d171, type: 3}
   - {fileID: 21300000, guid: 4c7dc8090ed388e41a2ce52171b35d7f, type: 3}

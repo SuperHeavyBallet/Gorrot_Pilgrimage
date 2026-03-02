@@ -270,9 +270,9 @@ public class PlayerMovementController : MonoBehaviour
 
         nextSquareQuantity = newSquareController.getSquareQuantity();
 
-        bool isMoveableSquare = newSquareController.isMoveableSquare();
+        //bool isMoveableSquare = newSquareController.IsMoveableSquare;
 
-        if (!isMoveableSquare)
+        if (!newSquareController.IsMoveableSquare)
         {
             BlockedSquare();
             return;
@@ -304,7 +304,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void PlayFootStepSound(SquareController squareController)
     {
-        if (squareController.isWater)
+        if (squareController.IsWater)
         {
             AudioManager.Instance.playPlayerMoveWaterSoundEffect();
         }
@@ -328,7 +328,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (squareController != null)
         {
-            if (squareController.isWater)
+            if (squareController.IsWater)
             {
                 squareController.ActivateStepInWaterSprite(value);
             }
@@ -381,7 +381,7 @@ public class PlayerMovementController : MonoBehaviour
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / duration);
 
-            if (!waterSplashTriggered && u >= 0.5f && newSquareController.isWater)
+            if (!waterSplashTriggered && u >= 0.5f && newSquareController.IsWater)
             {
                 newSquareController.ActivateStepInWaterSprite(true);
                 waterSplashTriggered = true;
@@ -410,11 +410,11 @@ public class PlayerMovementController : MonoBehaviour
 
     void ApplyMoveResults(SquareController newSquareController, bool freeMove, bool isWaiting)
     {
-        newSquareController.ActivateSquareVisited();
+        //newSquareController.ActivateSquareVisited();
 
-        if (newSquareController.isGoalSquare)
+        if (newSquareController.IsGoalSquare)
         {
-            newSquareController.MakeGoalSquarePressed();
+            //newSquareController.MakeGoalSquarePressed();
             SetReachedGoalSquare(true);
             turnOrganiser.LandedOnGoal();
             fateCounter.resetFateCounter();
@@ -427,7 +427,7 @@ public class PlayerMovementController : MonoBehaviour
             MovePlayerBackOneSquare();
         }
 
-        if(newSquareController.Type == SquareType.Trap)
+        if(newSquareController.IsTrapSquare)
         {
             if(newSquareController.GetTrapActivated == false)
             {
@@ -439,7 +439,7 @@ public class PlayerMovementController : MonoBehaviour
             
         }
 
-        if(newSquareController.GetIsMerchantSquare())
+        if(newSquareController.IsMerchantSquare)
         {
             turnOrganiser.LandedOnMerchantSquare();
             return;
@@ -476,11 +476,11 @@ public class PlayerMovementController : MonoBehaviour
             if (!isWaiting) fateCounter.alterFateCounter(1);
             else fateCounter.alterFateCounter(2);
 
-            if (newSquareController.GetIsWater())
+            if (newSquareController.IsWater)
             {
                 playerStatsController.alterSuffering(2); // or 1, whatever intended
             }
-            else if (newSquareController.isEmptySquare && !isWaiting)
+            else if (newSquareController.IsEmptySquare && !isWaiting)
             {
                 playerStatsController.alterSuffering(1);
             }
@@ -489,14 +489,14 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-        if (newSquareController.isItemSquare)
+        if (newSquareController.IsItemSquare)
         {
             string squareContentsID = newSquareController.GetContentsID();
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
             if (canAddItem)
             {
-                newSquareController.MakeEmptySquare();
+                newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
             }
             else
             {
@@ -505,7 +505,7 @@ public class PlayerMovementController : MonoBehaviour
 
         }
 
-        if (newSquareController.isTreasureSquare)
+        if (newSquareController.IsTreasureSquare)
         {
             int amount = 0;
 
@@ -527,12 +527,12 @@ public class PlayerMovementController : MonoBehaviour
 
             playerStatsController.AlterMoney(amount);
             playerStatsController.alterSuffering(amount * -1);
-            newSquareController.MakeEmptySquare();
+            newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
         }
 
         
 
-        if (newSquareController.isHealthSquare)
+        if (newSquareController.IsHealthSquare)
         {
             int amount = 0;
 
@@ -557,7 +557,7 @@ public class PlayerMovementController : MonoBehaviour
 
             
             playerStatsController.alterSuffering(sufferingAmount * -1);
-            newSquareController.MakeEmptySquare();
+            newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
         }
     }
 
@@ -592,7 +592,7 @@ public class PlayerMovementController : MonoBehaviour
         zOffset
     );
 
-        newSquareController.ActivateSquareVisited();
+       // newSquareController.ActivateSquareVisited();
 
         SetStartCurrentPosition(recX, recY);
     }

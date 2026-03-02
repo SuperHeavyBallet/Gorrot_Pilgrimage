@@ -6,6 +6,7 @@ namespace GorrotGame
     {
         Empty,
         Goal,
+        Start,
         Treasure,
         Enemy,
         Terrain,
@@ -22,5 +23,23 @@ namespace GorrotGame
         Medium,
         Large,
     }
+
+    public enum SquareMood
+    {
+        Positive,
+        Negative,
+    }
+
+    public enum NamedNPCS
+    {
+        Pottard,
+    }
+
+    public enum ItemNames
+    {
+        Any,
+        Flower,
+    }
+
 
 }

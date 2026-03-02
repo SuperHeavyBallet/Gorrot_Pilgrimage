@@ -6,24 +6,31 @@ using System.Collections.Generic;
 
 public class SquareController : MonoBehaviour
 {
-    public bool hasBeenVisited;
 
-    public GameObject visitedSprite;
-    public Transform squareCentre;
+    // public GameObject visitedSprite;
+    //public Transform squareCentre;
 
-    public bool isGoalSquare;
-    public bool isTreasureSquare;
-   // public bool isEnemySquare;
-    public bool isTerrainSquare;
-    public bool isEmptySquare;
-    public bool IsEmptySquare => type == SquareType.Empty;
-    public bool isHealthSquare;
+    //public bool isGoalSquare;
+
+    //public bool isTreasureSquare;
+
+    public bool IsGoalSquare => squareTypeController.ThisSquareType == SquareType.Goal;
+    public bool IsTreasureSquare => squareTypeController.ThisSquareType == SquareType.Treasure;
+
+    //public bool isTerrainSquare;
+    //public bool isEmptySquare;
+    public bool IsEmptySquare => squareTypeController.ThisSquareType == SquareType.Empty;
+   // public bool isHealthSquare;
+    public bool IsHealthSquare => squareTypeController.ThisSquareType == SquareType.Health;
     public bool isItemSquare;
+    public bool IsItemSquare => squareTypeController.ThisSquareType == SquareType.Item;
+
+    public bool IsTrapSquare => squareTypeController.ThisSquareType == SquareType.Trap;
 
     public GameObject goalSquareSprite;
     public GameObject treasureSquareSprite;
     public GameObject enemySquareSprite;
-    //[SerializeField] SpriteRenderer enemySquareSpriteRenderer;
+
     public GameObject terrainSquareSprite;
     public GameObject emptySquareSprite;
     public GameObject healthSquareSprite;
@@ -44,8 +51,9 @@ public class SquareController : MonoBehaviour
     GameObject player;
     Vector3 playerPosition;
 
-    int enemyDamage;
-    public int EnemyDamage => enemyDamage;
+    public int EnemyDamage() => squareTypeController.SquareBaseDamage;
+    
+
     [SerializeField] Animator enemyAnimator;
 
     PlayerMovementController playerMovementController;
@@ -55,31 +63,30 @@ public class SquareController : MonoBehaviour
     [SerializeField]    SquareTypeController squareTypeController;
 
 
-    //[SerializeField] SpriteRenderer fourBlockTerrainSpriteRenderer;
+    [SerializeField] GameObject fourSquareTerrainContainer;
+
     void SetFourBlockTerrainSprite()
     {
-        /*
-        Sprite randomSprite = thisSquareMapData.GetRandomFourBlockTerrainSprite();
-        if(randomSprite != null )
-        {
-            fourBlockTerrainSpriteRenderer.sprite = randomSprite;
-        }
-        else
-        {
-            Debug.LogError("Random Four Block Terrain Sprite is null", this);
-        }*/
+        DeleteAllChildren(fourSquareTerrainContainer.transform);
+        GameObject fourSquarePrefab = Instantiate(thisSquareMapData.GetFourSquareMesh(), fourSquareTerrainContainer.transform);
         
     }
-
+    public void DeleteAllChildren(Transform parent)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(parent.GetChild(i).gameObject);
+        }
+    }
     void LocatePlayer()
     {
         player = GameObject.Find("Player");
 
         if(player != null )
         {
-            Debug.Log("Found Player");
+           
             playerPosition = player.transform.position;
-            Debug.Log("At: " + playerPosition.x + " , " + playerPosition.y + " , " + playerPosition.z);
+
 
             playerMovementController = player.GetComponent<PlayerMovementController>();
 
@@ -119,13 +126,10 @@ public class SquareController : MonoBehaviour
     {
 
         playerPosition = player.transform.position;
-        Debug.Log("Update Player Position: " + +playerPosition.x + " , " + playerPosition.y + " , " + playerPosition.z);
         float dist = Vector3.Distance(this.transform.position, playerPosition);
-        Debug.Log("This Square Distance to Player: " +  dist);
         
         if(dist <= 4)
         {
-            Debug.Log("Player IN RANGE");
             enemyAnimator.SetBool("playerInRange", true);
         }
         else
@@ -137,7 +141,6 @@ public class SquareController : MonoBehaviour
     public int squareX = 0;
     public int squareY = 0;
 
-    //public enum squareQuantity { small, medium, large };
     public SquareSize square = SquareSize.Medium;
     public string squareQuantityString;
 
@@ -152,9 +155,7 @@ public class SquareController : MonoBehaviour
 
     List<InventoryItemTemplate> allItemsList = new List<InventoryItemTemplate>();
 
-    //InventoryItemTemplate[] allItems;
 
-    //SquareSpriteLibrary squareSpriteLibrary;
 
     public SpriteRenderer squareTerrainSpriteRenderer;
     public SpriteRenderer squareItemSpriteRenderer;
@@ -191,10 +192,9 @@ public class SquareController : MonoBehaviour
 
     float spriteScale = 1;
 
-    [SerializeField] GameObject squareValue;
-    [SerializeField] TextMeshProUGUI squareValueText;
 
     MapData thisSquareMapData;
+    public MapData ThisMap => thisSquareMapData;
 
     int waterAdjacencyMask;
 
@@ -333,8 +333,8 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject shadow;
     public bool isInShadow;
 
-    [SerializeField] GameObject trapSprite;
-    [SerializeField] GameObject hiddenTrapSprite;
+    //[SerializeField] GameObject trapSprite;
+   // [SerializeField] GameObject hiddenTrapSprite;
     bool trapActivated = false;
     // bool isTrapSquare;
 
@@ -349,18 +349,19 @@ public class SquareController : MonoBehaviour
     {
         
         type = SquareType.Trap;
-        hiddenTrapSprite.SetActive(true);
+       // hiddenTrapSprite.SetActive(true);
         
     }
     public void ActivateTrap()
     {
-        
-        trapActivated = true;
-        hiddenTrapSprite.SetActive(false);
-        trapSprite.SetActive(true);
+       // Debug.Log("Activate Trap");
+        squareTypeController.ActivateTrap();
+       // trapActivated = true;
+       // hiddenTrapSprite.SetActive(false);
+       // trapSprite.SetActive(true);
     }
 
-    public bool GetTrapActivated => trapActivated;
+    public bool GetTrapActivated => squareTypeController.TrapActivated;
 
    // public bool GetIsTrapSquare => isTrapSquare;
 
@@ -388,7 +389,8 @@ public class SquareController : MonoBehaviour
     public bool isSacred;
     [SerializeField] GameObject sacredMarker;
 
-    public bool isWater;
+    //public bool isWater;
+    public bool IsWater => squareTypeController.ThisSquareType == SquareType.Water;
     [SerializeField] GameObject waterMarker;
 
     [SerializeField] Sprite waterEdgeSprite;
@@ -406,7 +408,7 @@ public class SquareController : MonoBehaviour
 
     public void MakeSquare(SquareType sqType, MapData thisMap)
     {
-        squareTypeController.ConstructSquare(sqType, thisMap);
+        squareTypeController.ConstructSquare(sqType, square, thisMap);
     }
 
     static readonly int TimeOffset = Shader.PropertyToID("_TimeOffset");
@@ -518,9 +520,9 @@ public class SquareController : MonoBehaviour
 
     public bool GetIsWaterAdjacent() => isWaterAdjacent;
 
-    public bool GetIsWater() => isWater;
+   // public bool GetIsWater() => isWater;
 
-    public bool IsWater => isWater;
+    //public bool IsWater => isWater;
 
     public void AddBorderSquare(int[] sides)
     {
@@ -611,7 +613,7 @@ public class SquareController : MonoBehaviour
 
     private void Awake()
     {
-        squareValue.gameObject.SetActive(false);
+       // squareValue.gameObject.SetActive(false);
         sacredMarker.gameObject.SetActive(false);
         waterMarker.gameObject.SetActive(false);
         ActivateStepInWaterSprite(false);
@@ -659,7 +661,7 @@ public class SquareController : MonoBehaviour
         waterFoamCorner_SW.SetActive(false);
         waterFoamCorner_NW.SetActive(false);
 
-        moodIndicator.SetActive(false);
+       // moodIndicator.SetActive(false);
     }
 
     void ChooseSquareSprite()
@@ -738,7 +740,7 @@ public class SquareController : MonoBehaviour
         }
         Quaternion rot = Quaternion.Euler(0, 0, angle);
 
-        visitedSprite.transform.rotation = rot;
+        //visitedSprite.transform.rotation = rot;
     }
 
 
@@ -754,7 +756,7 @@ public class SquareController : MonoBehaviour
         targetGO.SetActive(true);
     }
 
-    void decideSquareQuantity()
+    void SetSquareQuantity()
     {
         int randomChance = UnityEngine.Random.Range(0, 3);
         switch (randomChance)
@@ -778,10 +780,15 @@ public class SquareController : MonoBehaviour
         sacredMarker.SetActive(value);
     }
 
+    /*
     public void SetIsWater(bool value)
     {
+
+        MakeSquare(SquareType.Water, thisSquareMapData);
+       // isWater = value;
+        
         ClearLegacyFlags();
-        isWater = value;
+        
         waterMarker.SetActive(value);   
         SpriteRenderer waterSR = waterMarker.GetComponent<SpriteRenderer>();
         waterSR.material = thisSquareMapData.WaterShader;
@@ -793,26 +800,26 @@ public class SquareController : MonoBehaviour
         }
 
         type = SquareType.Water;
-    }
+    }*/
 
     void ClearLegacyFlags()
     {
-        isGoalSquare = false;
-        isTreasureSquare = false;
+        //isGoalSquare = false;
+       // isTreasureSquare = false;
         //isEnemySquare = false;
-        isTerrainSquare = false;
-        isEmptySquare = false;
-        isHealthSquare = false;
-        isItemSquare = false;
+       // isTerrainSquare = false;
+        //isEmptySquare = false;
+        //isHealthSquare = false;
+       // isItemSquare = false;
 
-        isMerchantSquare = false;
+       // isMerchantSquare = false;
 
         // water & trap visuals / state
-        isWater = false;
-        trapActivated = false;
-        if (trapSprite) trapSprite.SetActive(false);
-        if (hiddenTrapSprite) hiddenTrapSprite.SetActive(false);
-        if (merchantSprite) merchantSprite.SetActive(false);
+       // isWater = false;
+       // trapActivated = false;
+      //  if (trapSprite) trapSprite.SetActive(false);
+       //// if (hiddenTrapSprite) hiddenTrapSprite.SetActive(false);
+     //   if (merchantSprite) merchantSprite.SetActive(false);
     }
 
 
@@ -822,8 +829,6 @@ public class SquareController : MonoBehaviour
     public void ActivateStepInWaterSprite(bool value)
     {
         stepInWaterSprite.SetActive(value);
-
-
 
     }
     public bool IsSacred => isSacred;
@@ -852,6 +857,8 @@ public class SquareController : MonoBehaviour
     enemyMoods thisEnemyMood = enemyMoods.positive;
 
     public enemyMoods EnemyMood => thisEnemyMood;
+
+    /*
     public void SetEnemyMood(enemyMoods newMood)
     {
         thisEnemyMood = newMood;
@@ -864,23 +871,23 @@ public class SquareController : MonoBehaviour
         {
             moodIndicatorText.text = "-";
         }
-    }
+    }*/
 
+    /*
     public void MakeHealthSquare()
     {
         ClearLegacyFlags();
         type = SquareType.Health;
         isHealthSquare = true;
         squareType = "health";
-        ChooseSquareSprite();
+       //ChooseSquareSprite();
 
         ActivateGameObject(healthSquareSprite);
-    }
+    }*/
 
-    public string GetContentsID()
-    {
-        return squareContentsID;
-    }
+    public string GetContentsID() => squareTypeController.GetContentsID;
+
+    /*
     public void MakeItemSquare()
     {
         ClearLegacyFlags();
@@ -944,10 +951,13 @@ public class SquareController : MonoBehaviour
         
 
         ActivateGameObject(itemSquareSprite);
-    }
+    }*/
 
     public void MakeFlowerSquare()
     {
+        squareTypeController.ConstructFlowerSquare(SquareType.Item, square, thisSquareMapData );
+
+        /*
         ClearLegacyFlags();
         type = SquareType.Item;
         isItemSquare = true;
@@ -978,22 +988,29 @@ public class SquareController : MonoBehaviour
 
 
 
-        ActivateGameObject(itemSquareSprite);
+        ActivateGameObject(itemSquareSprite);*/
 
 
     }
 
-    public bool IsEnemy => type == SquareType.Enemy;
 
+
+    public bool IsEnemy => squareTypeController.ThisSquareType == SquareType.Enemy;
+
+    /*
     public void MakeStartSquare()
     {
         ActivateGameObject(startSquareSprite);
     }
+    */
 
+    /*
     public void MakeGoalSquarePressed()
     {
         ActivateGameObject(goalSquareSprite_Pressed);
     }
+    */
+    /*
     public void MakeGoalSquare()
     {
         ClearLegacyFlags();
@@ -1003,8 +1020,8 @@ public class SquareController : MonoBehaviour
         ChooseSquareSprite();
 
         ActivateGameObject(goalSquareSprite);
-    }
-
+    }*/
+    /*
     public void MakeTreasureSquare()
     {
         ClearLegacyFlags();
@@ -1038,8 +1055,8 @@ public class SquareController : MonoBehaviour
 
         }
 
-        squareValue.gameObject.SetActive(true);
-        squareValueText.text = treasureSize;
+       // squareValue.gameObject.SetActive(true);
+       // squareValueText.text = treasureSize;
 
         Sprite treasureSprite = SquareSpriteLibrary.Instance.GetTreasureSprite(treasureSize);
 
@@ -1061,7 +1078,8 @@ public class SquareController : MonoBehaviour
        ActivateGameObject(treasureSquareSprite);
 
     }
-
+    */
+    /*
     public void MakeMerchantSquare()
     {
         ClearLegacyFlags();
@@ -1070,14 +1088,15 @@ public class SquareController : MonoBehaviour
         merchantSprite.SetActive(true);
         isMerchantSquare = true;
     }
+    */
+    public bool IsMerchantSquare => squareTypeController.ThisSquareType == SquareType.Merchant;
 
-   public bool GetIsMerchantSquare()
-    {
-        return isMerchantSquare;
-    }
+    /*
 
     [SerializeField] TextMeshProUGUI moodIndicatorText;
     [SerializeField] GameObject moodIndicator;
+    */
+    /*
     public void MakeEnemySquare(MapData thisMap)
     {
         ClearLegacyFlags();
@@ -1087,57 +1106,57 @@ public class SquareController : MonoBehaviour
         squareType = "enemy";
        // ChooseSquareSprite();
 
-        squareValue.gameObject.SetActive(true );
-        moodIndicator.SetActive(true);
+        //squareValue.gameObject.SetActive(true );
+        //moodIndicator.SetActive(true);
 
-        Sprite chosenSprite = null;
+        //Sprite chosenSprite = null;
 
         switch (square)
         {
             case SquareSize.Small:
-                squareValueText.text = "3+";
-                chosenSprite = thisMap.GetSmallEnemySprite();
-                enemyDamage = 1;
+               // squareValueText.text = "3+";
+                //chosenSprite = thisMap.GetSmallEnemySprite();
+                //enemyDamage = 1;
                 break;
             case SquareSize.Medium:
-                squareValueText.text = "4+";
-                chosenSprite = thisMap.GetMediumEnemySprite();
-                enemyDamage = 2;
+                //squareValueText.text = "4+";
+                //chosenSprite = thisMap.GetMediumEnemySprite();
+                //enemyDamage = 2;
                 break;
             case SquareSize.Large:
-                squareValueText.text = "5+";
-                chosenSprite = thisMap.GetLargeEnemySprite();
-                enemyDamage = 3;
+                //squareValueText.text = "5+";
+                //chosenSprite = thisMap.GetLargeEnemySprite();
+                //enemyDamage = 3;
                 break;
             default:
-                squareValueText.text = "3+";
-                chosenSprite = thisMap.GetSmallEnemySprite();
-                enemyDamage = 1;
+                //squareValueText.text = "3+";
+               //chosenSprite = thisMap.GetSmallEnemySprite();
+               // enemyDamage = 1;
                 break;
 
         }
 
         //enemySquareSpriteRenderer.sprite = chosenSprite;
-        standeeController.SetSprites(chosenSprite, chosenSprite);
+        // standeeController.SetSprites(chosenSprite, chosenSprite);
+        
+         int roll = Random.Range(0, 2);
 
-        int roll = Random.Range(0, 2);
-
-        if(roll < 1)
-        {
-            SetEnemyMood(enemyMoods.negative);
-        }
-        else
-        {
-            SetEnemyMood(enemyMoods.positive);
-        }
-
-            ActivateGameObject(enemySquareSprite);
-
+         if(roll < 1)
+         {
+             SetEnemyMood(enemyMoods.negative);
+         }
+         else
+         {
+             SetEnemyMood(enemyMoods.positive);
+         }
+        
+        //ActivateGameObject(enemySquareSprite);
+       
         
 
     }
-
-
+*/
+    /*
     public void MakeTerrainSquare()
     {
         ClearLegacyFlags();
@@ -1146,14 +1165,17 @@ public class SquareController : MonoBehaviour
         squareType = "terrain";
         //ChooseSquareSprite();
         ActivateGameObject(terrainSquareSprite);
-    }
+    }*/
 
     public void MakeEmptyTerrainSquare()
     {
+        squareTypeController.ConstructEmptyTerrainSquare(SquareType.Terrain, square, thisSquareMapData);
+
+        /*
         ClearLegacyFlags();
         type = SquareType.Terrain;
         isTerrainSquare = true;
-        squareType = "terrain";
+        squareType = "terrain";*/
     
     }
 
@@ -1173,25 +1195,27 @@ public class SquareController : MonoBehaviour
     }
 
     public bool ThisSquareHoldsPottard => thisSquareHoldsPottard;
+
+
     public void MakeEmptySquare()
     {
-        ClearLegacyFlags();
-        type = SquareType.Empty;
-        isEmptySquare = true;
-        squareValue.gameObject.SetActive(false);
-        squareType = "empty";
-        ChooseSquareSprite();
+       // ClearLegacyFlags();
+       // type = SquareType.Empty;
+        //isEmptySquare = true;
+       //squareValue.gameObject.SetActive(false);
+        //squareType = "empty";
+       // ChooseSquareSprite();
 
-        ActivateGameObject(emptySquareSprite);
+       // ActivateGameObject(emptySquareSprite);
     }
 
   
-
+    /*
     public Transform GetSquareCentre()
     {
         return squareCentre;
-    }
-
+    }*/
+    /*
     public void ActivateSquareVisited()
     {
         hasBeenVisited = true;
@@ -1202,7 +1226,7 @@ public class SquareController : MonoBehaviour
         }
         
         
-    }
+    }*/
 
     public void SetSquarePosition(int x, int y)
     {
@@ -1220,10 +1244,8 @@ public class SquareController : MonoBehaviour
         return squareY;
     }
 
-    public bool isMoveableSquare()
-    {
-        return !isTerrainSquare;
-    }
+    public bool IsMoveableSquare => squareTypeController.ThisSquareType != SquareType.Terrain;
+
 
     public void SetupNewSquare(
         int x, int y,
@@ -1232,9 +1254,12 @@ public class SquareController : MonoBehaviour
     {
         SetSquarePosition(x, y);
         SetMapLocation(newMapLocation);
-        decideSquareQuantity();
+        SetSquareQuantity();
         ChooseSquareGroundSprite();
-        MakeEmptySquare();
+
+       MakeSquare(SquareType.Empty, thisSquareMapData);
+        //MakeEmptySquare();
+
     }
 
     public int GetEnemyBaseBuff()

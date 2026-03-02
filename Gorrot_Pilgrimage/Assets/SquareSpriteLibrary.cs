@@ -1,3 +1,4 @@
+using GorrotGame;
 using UnityEngine;
 
 public class SquareSpriteLibrary : MonoBehaviour
@@ -20,6 +21,8 @@ public class SquareSpriteLibrary : MonoBehaviour
     public Sprite treasureSMALL;
     public Sprite treasureMED;
     public Sprite treasureLARGE;
+
+    [SerializeField] Sprite[] healthSprites;
 
     private void Awake()
     {
@@ -62,6 +65,26 @@ public class SquareSpriteLibrary : MonoBehaviour
         return terrainSprites[1];
 
 
+    }
+
+    public Sprite GetHealthSprite(SquareSize squareSize)
+    {
+
+        switch (squareSize)
+        {
+            case SquareSize.Small:
+                return healthSprites[0];
+                
+            case SquareSize.Medium:
+                return healthSprites[1];
+              
+            case SquareSize.Large:
+                return healthSprites[2];
+              
+            default:
+                return healthSprites[1];
+              
+        }
     }
 
     public Sprite GetTreasureSprite(string size)

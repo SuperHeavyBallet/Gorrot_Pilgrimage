@@ -270,7 +270,7 @@ public class BattlefieldBuilder : MonoBehaviour
                 if (sc == null) continue;
 
                 if (sc.IsSacred) continue;
-                if (sc.GetIsWater()) continue;
+                if (sc.IsWater) continue;
 
                 // Mark as reserved walkway (halo)
                 sc.SetReservedWalkway(true);
@@ -300,7 +300,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
                 // halo must remain walkable
                 if (sc.IsSacred) return false;
-                if (sc.GetIsWater()) return false;
+                if (sc.IsWater) return false;
                 if (!sc.IsEmptySquare) return false; // strict version
             }
         }
@@ -606,7 +606,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if (startSqController != null)
         {
-            startSqController.MakeStartSquare();
+            startSqController.MakeSquare(SquareType.Start, thisMap);
         }
     }
 
@@ -718,7 +718,7 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         if (newSquareController != null)
         {
-            newSquareController.MakeGoalSquare();
+            newSquareController.MakeSquare(SquareType.Goal, thisMap);
 
             if(player != null)
             {
@@ -763,27 +763,31 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void AssignContentSquares()
     {
-        PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare(), disallowReservedWalkway: true);
+       // PlaceTypeSquares(terrainSquareCount, sq => sq.MakeTerrainSquare(), disallowReservedWalkway: true);
+        PlaceTypeSquares(terrainSquareCount, sq => sq.MakeSquare(SquareType.Terrain, thisMap), disallowReservedWalkway: true);
 
         if(thisMap.GetHasEnemies == true)
         {
             int size = thisMap.GetMapSize();
 
             int enemyCount = Mathf.RoundToInt(size * thisMap.EnemyDensity); // EnemyDensity in 0..1
-            PlaceTypeSquares(enemyCount, sq => sq.MakeEnemySquare(thisMap), disallowReservedWalkway: false);
+            //PlaceTypeSquares(enemyCount, sq => sq.MakeEnemySquare(thisMap), disallowReservedWalkway: false);
             PlaceTypeSquares(enemyCount, sq => sq.MakeSquare(SquareType.Enemy, thisMap), disallowReservedWalkway: false);
 
         }
         
-        PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare(), disallowReservedWalkway: false);
-        PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare(), disallowReservedWalkway: false);
-        PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare(), disallowReservedWalkway: false);
+        //PlaceTypeSquares(healthSquareCount, sq => sq.MakeHealthSquare(), disallowReservedWalkway: false);
+        PlaceTypeSquares(healthSquareCount, sq => sq.MakeSquare(SquareType.Health, thisMap), disallowReservedWalkway: false);
+        //PlaceTypeSquares(potionSquareCount, sq => sq.MakeItemSquare(), disallowReservedWalkway: false);
+        PlaceTypeSquares(potionSquareCount, sq => sq.MakeSquare(SquareType.Item, thisMap), disallowReservedWalkway: false);
+        PlaceTypeSquares(potionSquareCount, sq => sq.MakeSquare(SquareType.Treasure, thisMap), disallowReservedWalkway: false);
+       // PlaceTypeSquares(treasureSquareCount, sq => sq.MakeTreasureSquare(), disallowReservedWalkway: false);
 
         if(thisMap.GetHasHiddenTraps == true)
         {
             PlaceTypeSquares(
                 Mathf.CeilToInt(thisMap.GetMapSize() * thisMap.GetHiddenTrapDensity),
-                sq => sq.MakeTrapSquare(thisMap), disallowReservedWalkway: true
+                sq => sq.MakeSquare(SquareType.Trap, thisMap), disallowReservedWalkway: true
             );
         }
         
@@ -894,7 +898,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         SquareController merchantSquareController = allSquares[merchantPosition.x, merchantPosition.y].GetComponent<SquareController>();
 
-        if (merchantSquareController != null) { merchantSquareController.MakeMerchantSquare(); }
+        if (merchantSquareController != null) { merchantSquareController.MakeSquare(SquareType.Merchant, thisMap); }
         else { Debug.LogError("No Merchant Square Controller"); }
 
 
@@ -1027,7 +1031,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
                 if (avoidSacred && sc.IsSacred) continue;
 
-                sc.SetIsWater(true);
+                sc.MakeSquare(SquareType.Water, thisMap);
                 freeSquares.Remove(new Vector2Int(x, y));
             }
         }
@@ -1220,7 +1224,7 @@ public class BattlefieldBuilder : MonoBehaviour
                     if (inBounds)
                     {
                         var nsc = allSquares[n.x, n.y]?.GetComponent<SquareController>();
-                        neighborIsWater = (nsc != null && nsc.GetIsWater());
+                        neighborIsWater = (nsc != null && nsc.IsWater);
                     }
 
                     // Land: record water adjacency
@@ -1228,12 +1232,12 @@ public class BattlefieldBuilder : MonoBehaviour
                         waterNeighborMask |= (1 << i);
 
                     // Water: record OPEN edges where neighbor is not water (or out of bounds)
-                    if (sc.GetIsWater() && !neighborIsWater)
+                    if (sc.IsWater && !neighborIsWater)
                         waterEdgeMask |= (1 << i);
                 }
 
                 // ---- Diagonal neighbors (NE/NW/SE/SW) ----
-                if (sc.GetIsWater())
+                if (sc.IsWater)
                 {
                     for (int i = 0; i < NeighDiag.Length; i++)
                     {
@@ -1242,12 +1246,12 @@ public class BattlefieldBuilder : MonoBehaviour
                             continue;
 
                         var dsc = allSquares[d.x, d.y]?.GetComponent<SquareController>();
-                        if (dsc != null && dsc.GetIsWater())
+                        if (dsc != null && dsc.IsWater)
                             diagWaterMask |= (1 << i); // bit 1,2,4,8 for NE,NW,SE,SW
                     }
                 }
 
-                if (sc.GetIsWater())
+                if (sc.IsWater)
                 {
                     sc.SetIsWaterAdjacent(false);
                     sc.SetWaterAdjacencyMask(waterEdgeMask);

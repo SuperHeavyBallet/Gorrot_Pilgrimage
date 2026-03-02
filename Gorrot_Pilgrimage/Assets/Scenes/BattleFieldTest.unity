@@ -13174,6 +13174,10 @@ MonoBehaviour:
   treasureSMALL: {fileID: 21300000, guid: ebed63241593fd944a12b3f689323722, type: 3}
   treasureMED: {fileID: 21300000, guid: bf08d4dfe32252049ac2e4187a24fa62, type: 3}
   treasureLARGE: {fileID: 21300000, guid: 510c98b32502bd3419cf12a6a2abb5e6, type: 3}
+  healthSprites:
+  - {fileID: 21300000, guid: 9a9dad38e2cc8504b9c570a0bfe0122b, type: 3}
+  - {fileID: 21300000, guid: 9a9dad38e2cc8504b9c570a0bfe0122b, type: 3}
+  - {fileID: 21300000, guid: 9a9dad38e2cc8504b9c570a0bfe0122b, type: 3}
 --- !u!4 &1157923977
 Transform:
   m_ObjectHideFlags: 0
@@ -19207,6 +19211,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 497437926}
     m_Modifications:
+    - target: {fileID: 6151691172133250738, guid: e24e4fa240f4d1b4380947c56f8ac626, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151691172133250738, guid: e24e4fa240f4d1b4380947c56f8ac626, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151691172133250738, guid: e24e4fa240f4d1b4380947c56f8ac626, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6151691172133250738, guid: e24e4fa240f4d1b4380947c56f8ac626, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

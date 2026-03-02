@@ -118,7 +118,7 @@ public class CombatPhaseResolution : MonoBehaviour
        
         SquareController sq = turnOrganiser.GetLandedSquare();
 
-        currentEnemyDamage = sq.EnemyDamage;
+        currentEnemyDamage = sq.EnemyDamage();
         currentEnemyBuff = sq.GetEnemyBaseBuff();
 
         CalculateThisBribe(1);
@@ -410,7 +410,8 @@ public class CombatPhaseResolution : MonoBehaviour
             playerStatsController.resetSuffering();
             playerStatsController.AlterMoney(10);
             AudioManager.Instance.playCombatWinSoundEffect();
-            turnOrganiser.GetLandedSquare().MakeEmptySquare();
+            //turnOrganiser.GetLandedSquare().MakeEmptySquare();
+            turnOrganiser.GetLandedSquare().MakeSquare(GorrotGame.SquareType.Empty, currentMap);
         }
 
         currentEnemyDamage = 0;

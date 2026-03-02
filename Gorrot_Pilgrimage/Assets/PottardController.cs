@@ -129,7 +129,7 @@ public class PottardController : MonoBehaviour
         if (squareController != null)
         {
            
-                if (squareController.isGoalSquare)
+                if (squareController.IsGoalSquare)
                 {
                     landOnGoal = true;
                 }
@@ -151,7 +151,7 @@ public class PottardController : MonoBehaviour
     {
         if (sq is null) return false;
 
-        bool isMoveableType = sq.isEmptySquare || sq.isGoalSquare || sq.isTreasureSquare;
+        bool isMoveableType = sq.IsEmptySquare || sq.IsGoalSquare || sq.IsTrapSquare;
         bool squareValid = isMoveableType && !sq.ThisSquareHoldsPlayer && !sq.IsWater;
 
         return squareValid;
@@ -215,7 +215,7 @@ public class PottardController : MonoBehaviour
         if (squareToLand != null)
         {
 
-            if(squareToLand.isTreasureSquare)
+            if(squareToLand.IsTreasureSquare)
             {
                 squareToLand.MakeEmptySquare();
             }

@@ -118,6 +118,18 @@ public class MapData : ScriptableObject
     [SerializeField] GameObject[] thisMap_SquareMeshes;
     [SerializeField]  GameObject default_SquareMesh;
 
+    [SerializeField] GameObject[] thisMap_FourSquareTerrain;
+    [SerializeField] GameObject default_FourSquareTerrain;
+    public GameObject GetFourSquareMesh()
+    {
+        if (thisMap_FourSquareTerrain.Length > 0)
+        {
+            return thisMap_FourSquareTerrain[UnityEngine.Random.Range(0, thisMap_FourSquareTerrain.Length)];
+        }
+
+        return default_FourSquareTerrain;
+
+    }
     public GameObject GetSquareMesh()
     {
         if(thisMap_SquareMeshes.Length > 0)
