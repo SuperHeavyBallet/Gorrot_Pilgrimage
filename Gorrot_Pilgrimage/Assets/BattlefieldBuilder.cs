@@ -633,7 +633,8 @@ public class BattlefieldBuilder : MonoBehaviour
                         if (newSquareController != null)
                         {
                             newSquareController.SetSquareMapData(thisMap);
-                            newSquareController.SetupNewSquare(x, y, thisMap.GetMapLocation());
+                            newSquareController.SetupNewSquare(x, y);
+                            newSquareController.AssignPlayer(player);
                         }
 
                             newSquareController.SetIsInShadow(thisMap.GetHasShadows());
@@ -685,7 +686,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
                     var sc = newSquare.GetComponent<SquareController>();
                     sc.SetSquareMapData(thisMap);
-                    sc.SetupNewSquare(x, y, thisMap.GetMapLocation());
+                    sc.SetupNewSquare(x, y);
 
                     sc.SetIsInShadow(thisMap.GetHasShadows());
 
@@ -735,7 +736,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
     void MakeBorderSquare(int x, int y, int width, int height, SquareController sc)
     {
-        sc.MakeEdgeSquare();
+       // sc.MakeEdgeSquare();
 
         int[] sidesEmpty =
         {
@@ -848,7 +849,7 @@ public class BattlefieldBuilder : MonoBehaviour
             SquareController sq = allSquares[coord.x, coord.y].GetComponent<SquareController>();
             if (sq == null) { freeSquares.RemoveAt(index); continue; }
 
-            if (!sq.GetIsWaterAdjacent())
+            if (!sq.IsWaterAdjacent)
             {
                 // Don't remove it; just try another.
                 continue;
@@ -866,8 +867,8 @@ public class BattlefieldBuilder : MonoBehaviour
         SquareController newSquareController = allSquares[playerStartingPosition, 0].GetComponent<SquareController>();
         if (newSquareController != null)
         {
-            int testX = newSquareController.GetSquareXPosition();
-            int testY = newSquareController.GetSquareYPosition();
+            int testX = newSquareController.SquareXPosition;
+            int testY = newSquareController.SquareYPosition;
 
 
             if (playerMovementController != null)

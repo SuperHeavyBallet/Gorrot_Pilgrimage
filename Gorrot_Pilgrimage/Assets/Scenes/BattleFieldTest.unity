@@ -10474,7 +10474,7 @@ MonoBehaviour:
   turnOrganiser: {fileID: 542128493}
   playerIsAlive: 0
   battlefieldBuilder: {fileID: 1131809994}
-  nextSquareQuantity: medium
+  nextSquareQuantity: 1
   fateCounter: {fileID: 783402514}
   playerSprite: {fileID: 1609953272}
   playerAnimationManager: {fileID: 1609953276}
@@ -23900,6 +23900,10 @@ PrefabInstance:
     - target: {fileID: 4767786111039467841, guid: 6c1071b0f647a874a84a8f03d3604567, type: 3}
       propertyPath: m_Name
       value: BorderSquare_Corner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767786111039467841, guid: 6c1071b0f647a874a84a8f03d3604567, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

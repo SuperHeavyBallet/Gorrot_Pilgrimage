@@ -437,6 +437,10 @@ GameObject:
   - component: {fileID: 954198480903388606}
   - component: {fileID: 8259703709946232772}
   - component: {fileID: 2721291182392624524}
+  - component: {fileID: 2604168876537211095}
+  - component: {fileID: 313226652482240882}
+  - component: {fileID: 3250293012820874465}
+  - component: {fileID: 4904240969558872104}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -547,87 +551,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ac42d3302b5484a8d98f2f8e4e2982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  visitedSprite: {fileID: 5728220654611428682}
-  squareCentre: {fileID: 4079950390845382374}
-  isTerrainSquare: 0
-  isHealthSquare: 0
-  isItemSquare: 0
-  goalSquareSprite: {fileID: 2079368541572557217}
-  treasureSquareSprite: {fileID: 8803553558590778619}
-  enemySquareSprite: {fileID: 6318903799233828932}
-  terrainSquareSprite: {fileID: 3361120687102296729}
-  emptySquareSprite: {fileID: 8554551360456835540}
-  healthSquareSprite: {fileID: 7235329973958619227}
-  itemSquareSprite: {fileID: 3835939806479357633}
-  waterAdjacentSprite: {fileID: 1978849301010216467}
-  startSquareSprite: {fileID: 3216390437078213999}
-  goalSquareSprite_Pressed: {fileID: 3047965584473574401}
-  treasurePositon: {fileID: 8320393180870400975}
-  treasure_CoinSack: {fileID: 5381709731971956266, guid: 9160c35f78547714782a501c49e502d9, type: 3}
-  treasure_Coins: {fileID: 4183556654469757217, guid: cc055374bf260b248a498f2f68865ddf, type: 3}
-  treasure_Chest: {fileID: 8525325051525354227, guid: affebe85ccbb5454cb023cc52a42eb78, type: 3}
-  itemPosition: {fileID: 8005324462072697171}
-  item_Greatsword: {fileID: 8929069690623183087, guid: 2e381e8ce579e9d468270f045865d880, type: 3}
   enemyAnimator: {fileID: 7701855086751310174}
   standeeController: {fileID: 7270524921660559102}
   squareTypeController: {fileID: 2721291182392624524}
-  fourSquareTerrainContainer: {fileID: 2102292273039902198}
+  mapBorderSquareController: {fileID: 2604168876537211095}
+  waterAdjacencyController: {fileID: 313226652482240882}
+  enemyStandeeController: {fileID: 3250293012820874465}
+  largeTerrainController: {fileID: 4904240969558872104}
   squareX: 0
   squareY: 0
-  square: 1
-  squareQuantityString: 
-  enterDirection: 0
-  squareTerrainSpriteRenderer: {fileID: 1478187110837370011}
-  squareItemSpriteRenderer: {fileID: 6194976906794836812}
-  groundSprite: {fileID: 7133547252205674052}
-  groundSpriteRenderer: {fileID: 8192808211701341989}
-  waterSpriteRenderer: {fileID: 1949811700285940429}
-  largeTerrainSprite: {fileID: 2102292273039902198}
-  freeMarker: {fileID: 5525488587445625720}
-  squareType: empty
   treasureSpriteRenderer: {fileID: 1447261729561774253}
-  merchantSprite: {fileID: 6532739362534656693}
-  waterNorth: 0
-  waterEast: 0
-  waterSouth: 0
-  waterWest: 0
-  waterBorderNorth: {fileID: 4464764953878023360}
-  waterBorderEast: {fileID: 688532861614172428}
-  waterBorderSouth: {fileID: 3290842870744729990}
-  waterBorderWest: {fileID: 3284330074802392226}
-  waterBorderNorthSpriteRenderer: {fileID: 972083830093619149}
-  waterBorderEastSpriteRenderer: {fileID: 2463990577534042411}
-  waterBorderSouthSpriteRenderer: {fileID: 2171181855505291843}
-  waterBorderWestSpriteRenderer: {fileID: 8047826086785911962}
-  waterFoamNorthSpriteRenderer: {fileID: 6732928129581725158}
-  waterFoamEastSpriteRenderer: {fileID: 8592224350327888100}
-  waterFoamSouthSpriteRenderer: {fileID: 3901809683688319638}
-  waterFoamWestSpriteRenderer: {fileID: 5101651837876053230}
-  foamObjects:
-  - {fileID: 3386152248537713519}
-  - {fileID: 294175190818994313}
-  - {fileID: 2457494766533172347}
-  - {fileID: 4982094321173499831}
-  - {fileID: 6732928129581725158}
-  - {fileID: 8592224350327888100}
-  - {fileID: 3901809683688319638}
-  - {fileID: 5101651837876053230}
-  - {fileID: 3599322016635401077}
-  defaultWaterBorderSprite: {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
-  squareMeshHolder: {fileID: 3180646345749611083}
   shadow: {fileID: 1283844947944636068}
   isInShadow: 0
   thisSquareHoldsPottard: 0
-  waterFoamCorner_NE: {fileID: 8378833665655491356}
-  waterFoamCorner_SE: {fileID: 7817388853242416786}
-  waterFoamCorner_SW: {fileID: 9130554571557883301}
-  waterFoamCorner_NW: {fileID: 988861802997329895}
-  type: 0
   isSacred: 0
   sacredMarker: {fileID: 5681365793743862789}
-  waterMarker: {fileID: 8353820096994637104}
-  waterEdgeSprite: {fileID: 0}
-  isWaterAdjacent: 0
   stepInWaterSprite: {fileID: 5577986145404178863}
   thisSquareHoldsPlayer: 0
 --- !u!114 &2721291182392624524
@@ -667,7 +605,86 @@ MonoBehaviour:
   startSpriteObject: {fileID: 3216390437078213999}
   merchantSpriteObject: {fileID: 6532739362534656693}
   waterSpriteObject: {fileID: 8353820096994637104}
+  regularSquareMesh: {fileID: 3709477522489833433}
+  squareMeshContainer: {fileID: 3180646345749611083}
   terrainSpriteObject: {fileID: 3361120687102296729}
+--- !u!114 &2604168876537211095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36f62428409a104f89e70143eab90ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &313226652482240882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49d128f975f4dd40ab47a7c3d48c24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  waterBorderNorth: {fileID: 4464764953878023360}
+  waterBorderEast: {fileID: 688532861614172428}
+  waterBorderSouth: {fileID: 3290842870744729990}
+  waterBorderWest: {fileID: 3284330074802392226}
+  waterBorderNorthSpriteRenderer: {fileID: 972083830093619149}
+  waterBorderEastSpriteRenderer: {fileID: 2463990577534042411}
+  waterBorderSouthSpriteRenderer: {fileID: 2171181855505291843}
+  waterBorderWestSpriteRenderer: {fileID: 8047826086785911962}
+  waterFoamNorthSpriteRenderer: {fileID: 6732928129581725158}
+  waterFoamEastSpriteRenderer: {fileID: 8592224350327888100}
+  waterFoamSouthSpriteRenderer: {fileID: 3901809683688319638}
+  waterFoamWestSpriteRenderer: {fileID: 5101651837876053230}
+  foamObjects:
+  - {fileID: 3386152248537713519}
+  - {fileID: 294175190818994313}
+  - {fileID: 2457494766533172347}
+  - {fileID: 4982094321173499831}
+  - {fileID: 6732928129581725158}
+  - {fileID: 8592224350327888100}
+  - {fileID: 3901809683688319638}
+  - {fileID: 5101651837876053230}
+  - {fileID: 3599322016635401077}
+  defaultWaterBorderSprite: {fileID: 21300000, guid: b56c8bd3fcec5e843a5e4fa879e972b9, type: 3}
+  waterFoamCorner_NE: {fileID: 8378833665655491356}
+  waterFoamCorner_SE: {fileID: 7817388853242416786}
+  waterFoamCorner_SW: {fileID: 9130554571557883301}
+  waterFoamCorner_NW: {fileID: 988861802997329895}
+  waterSpriteRenderer: {fileID: 1949811700285940429}
+--- !u!114 &3250293012820874465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfbdfbaf14221b48806bc342f069eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &4904240969558872104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c457d86c13b6f743a84f445747f6ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  fourSquareTerrainContainer: {fileID: 2102292273039902198}
 --- !u!1 &1963333741626556715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2480,7 +2497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7149602713837763015
 Transform:
   m_ObjectHideFlags: 0
@@ -3851,7 +3868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4370760416859480475
 Transform:
   m_ObjectHideFlags: 0
@@ -3861,7 +3878,7 @@ Transform:
   m_GameObject: {fileID: 8353820096994637104}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

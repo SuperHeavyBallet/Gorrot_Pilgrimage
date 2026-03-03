@@ -41,5 +41,22 @@ namespace GorrotGame
         Flower,
     }
 
+   public enum OrthogonalPositions 
+    { 
+        North, 
+        East, 
+        South, 
+        West 
+    }
+
+    public enum CornerPositions 
+    { 
+        NorthEast, 
+        SouthEast, 
+        SouthWest, 
+        NorthWest 
+    }
+
+
 
 }

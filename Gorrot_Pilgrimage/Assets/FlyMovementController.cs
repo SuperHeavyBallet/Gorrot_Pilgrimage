@@ -29,8 +29,8 @@ public class FlyMovementController : MonoBehaviour
         SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
 
         this.transform.position = new Vector2(
-            newSquareController.GetSquareXPosition(),
-            newSquareController.GetSquareYPosition()
+            newSquareController.SquareXPosition,
+            newSquareController.SquareYPosition
         );
 
         //newSquareController.ActivateSquareVisited();
@@ -94,8 +94,8 @@ public class FlyMovementController : MonoBehaviour
         SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
 
         Vector2 newPosition = new Vector2(
-          newSquareController.GetSquareXPosition(),
-          newSquareController.GetSquareYPosition()
+          newSquareController.SquareXPosition,
+          newSquareController.SquareYPosition
            );
 
         StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController));

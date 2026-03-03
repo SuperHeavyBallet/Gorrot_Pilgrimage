@@ -40,7 +40,7 @@ public class SquareTypeController : MonoBehaviour
     [SerializeField] Transform itemPosition;
     [SerializeField] SpriteRenderer squareItemSpriteRenderer;
     string squareContentsID = "";
-    public string GetContentsID => squareContentsID;
+    public string ContentsID => squareContentsID;
 
     [SerializeField] GameObject treasureSquareSprite;
     [SerializeField] GameObject treasure_Coins;
@@ -62,6 +62,8 @@ public class SquareTypeController : MonoBehaviour
     [SerializeField] GameObject merchantSpriteObject;
 
     [SerializeField] GameObject waterSpriteObject;
+    [SerializeField] GameObject regularSquareMesh;
+    [SerializeField] Transform squareMeshContainer;
 
     [SerializeField] GameObject terrainSpriteObject;
 
@@ -73,11 +75,15 @@ public class SquareTypeController : MonoBehaviour
 
     public void ConstructSquare(SquareType sqType, SquareSize sqSize, MapData thisMap)
     {
-        Debug.Log("Received Make: " + sqType.ToString() + " of Size: " + sqSize.ToString() + " Square, for Map: " + thisMap.GetMapName());
+        
 
         thisSquareType = sqType;
         thisSquareSize = sqSize;
         thisMapData = thisMap;
+
+        SetSquareMesh(thisMap);
+
+        regularSquareMesh.SetActive(true);
 
         if (thisSquareType == SquareType.Enemy)
         {
@@ -134,11 +140,29 @@ public class SquareTypeController : MonoBehaviour
     }
 
 
+    // Basic Square Route
 
-    
+    void SetSquareMesh(MapData thisSquareMapData)
+    {
+        GameObject prefab = thisSquareMapData.GetSquareMesh();
+        ClearChildren(squareMeshContainer);
+
+        GameObject mesh = Instantiate(prefab, squareMeshContainer);
+    }
+
+    void ClearChildren(Transform parent)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(parent.GetChild(i).gameObject);
+            else
+                DestroyImmediate(parent.GetChild(i).gameObject);
+        }
+    }
 
 
-    void SetSquareValue()
+        void SetSquareValue()
     {
         switch (thisSquareSize)
         {
@@ -183,6 +207,7 @@ public class SquareTypeController : MonoBehaviour
         waterSpriteObject.SetActive(true);
         SpriteRenderer waterSR = waterSpriteObject.GetComponent<SpriteRenderer>();
         waterSR.material = thisMapData.WaterShader;
+        regularSquareMesh.SetActive(false);
 
     }
 
@@ -292,7 +317,7 @@ public class SquareTypeController : MonoBehaviour
                 int randomInt = UnityEngine.Random.Range(0, itemCatalogueArray.Length);
                 string randomID = "";
 
-                if (squareController.isWaterAdjacent)
+                if (squareController.IsWaterAdjacent)
                 {
                     randomID = itemCatalogue.GetFlowerItem().itemID;
                     itemSprite = itemCatalogue.GetFlowerItem().itemImage;
@@ -398,6 +423,8 @@ public class SquareTypeController : MonoBehaviour
 
         moodIndicatorObject.SetActive(true);
     }
+
+    public SquareMood SquareMood => thisSquareMood;
 
     // Helper Functions
 

@@ -31,7 +31,7 @@ public class PlayerMovementController : MonoBehaviour
     public bool playerIsAlive;
 
    public BattlefieldBuilder battlefieldBuilder;
-    public string nextSquareQuantity = "medium";
+    public SquareSize nextSquareQuantity = SquareSize.Medium;
 
     PlayerInventory playerInventory;
 
@@ -268,7 +268,7 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        nextSquareQuantity = newSquareController.getSquareQuantity();
+        nextSquareQuantity = newSquareController.ThisSquareSize;
 
         //bool isMoveableSquare = newSquareController.IsMoveableSquare;
 
@@ -280,13 +280,13 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-        // Compare Positions between this and proposed next square to set the entry direction
+        // Compare Positions between this and proposed next squareSize to set the entry direction
         Vector2Int newMoveVector = new Vector2Int(newPositionX, newPositionY);
-        newSquareController.SetEntryDirection(currentPosition, newMoveVector);
+        //newSquareController.SetEntryDirection(currentPosition, newMoveVector);
 
         Vector2 newPosition = new Vector2(
-           newSquareController.GetSquareXPosition(),
-           newSquareController.GetSquareYPosition()
+           newSquareController.SquareXPosition,
+           newSquareController.SquareYPosition
             );
 
 
@@ -429,7 +429,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if(newSquareController.IsTrapSquare)
         {
-            if(newSquareController.GetTrapActivated == false)
+            if(newSquareController.TrapActivated == false)
             {
                 AudioManager.Instance.PlayTrapTriggerSoundEffect();
                 newSquareController.ActivateTrap();
@@ -451,13 +451,13 @@ public class PlayerMovementController : MonoBehaviour
 
             switch (nextSquareQuantity)
             {
-                case "small":
+                case SquareSize.Small:
                     amount = 1;
                     break;
-                case "medium":
+                case SquareSize.Medium:
                     amount = 3;
                     break;
-                case "large":
+                case SquareSize.Large:
                     amount = 5;
                     break;
                 default:
@@ -491,7 +491,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (newSquareController.IsItemSquare)
         {
-            string squareContentsID = newSquareController.GetContentsID();
+            string squareContentsID = newSquareController.ContentsID;
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
 
             if (canAddItem)
@@ -511,13 +511,13 @@ public class PlayerMovementController : MonoBehaviour
 
             switch (nextSquareQuantity)
             {
-                case "small":
+                case SquareSize.Small:
                     amount = 1;
                     break;
-                case "medium":
+                case SquareSize.Medium:
                     amount = 3;
                     break;
-                case "large":
+                case SquareSize.Large:
                     amount = 5;
                     break;
                 default:
@@ -538,13 +538,13 @@ public class PlayerMovementController : MonoBehaviour
 
             switch (nextSquareQuantity)
             {
-                case "small":
+                case SquareSize.Small:
                     amount = 1;
                     break;
-                case "medium":
+                case SquareSize.Medium:
                     amount = 3;
                     break;
-                case "large":
+                case SquareSize.Large:
                     amount = 5;
                     break;
                 default:
@@ -587,8 +587,8 @@ public class PlayerMovementController : MonoBehaviour
         SquareController newSquareController = allSquares[recX, recY].GetComponent<SquareController>();
 
         this.transform.position = new Vector3(
-        newSquareController.GetSquareXPosition(),
-        newSquareController.GetSquareYPosition(),
+        newSquareController.SquareXPosition,
+        newSquareController.SquareYPosition,
         zOffset
     );
 

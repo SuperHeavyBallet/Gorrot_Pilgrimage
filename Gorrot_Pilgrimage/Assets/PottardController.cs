@@ -62,7 +62,7 @@ public class PottardController : MonoBehaviour
 
         Vector2Int next;
 
-        // If we are forced to move (back one square), treat it as a DELTA
+        // If we are forced to move (back one squareSize), treat it as a DELTA
         if (overrideDelta != Vector2Int.zero)
         {
             next = current + overrideDelta;

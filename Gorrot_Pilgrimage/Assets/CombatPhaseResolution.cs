@@ -1,3 +1,4 @@
+using GorrotGame;
 using System.Collections;
 using System.IO;
 using TMPro;
@@ -118,7 +119,7 @@ public class CombatPhaseResolution : MonoBehaviour
        
         SquareController sq = turnOrganiser.GetLandedSquare();
 
-        currentEnemyDamage = sq.EnemyDamage();
+        currentEnemyDamage = sq.EnemyDamage;
         currentEnemyBuff = sq.GetEnemyBaseBuff();
 
         CalculateThisBribe(1);
@@ -183,11 +184,11 @@ public class CombatPhaseResolution : MonoBehaviour
             AudioManager.Instance.PlayPayOffChuckle();
 
             SquareController sq = turnOrganiser.GetLandedSquare();
-            string enemyWeight = sq.getSquareQuantity();
+            SquareSize enemyWeight = sq.ThisSquareSize;
 
-            string enemyMood = sq.EnemyMood.ToString();  
+            SquareMood enemyMood = sq.EnemyMood;  
 
-            string newDialogue = currentMap.GetRandomLine(enemyWeight, enemyMood);
+            string newDialogue = currentMap.GetRandomLine(enemyWeight.ToString(), enemyMood.ToString());
 
             textBoxText.text = newDialogue;
 
