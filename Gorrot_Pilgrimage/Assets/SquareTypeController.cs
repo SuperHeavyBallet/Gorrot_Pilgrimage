@@ -67,6 +67,8 @@ public class SquareTypeController : MonoBehaviour
 
     [SerializeField] GameObject terrainSpriteObject;
 
+   
+
     private void OnEnable()
     {
         DisableAllObjects();
@@ -90,6 +92,7 @@ public class SquareTypeController : MonoBehaviour
             SetEnemySprite();
             SetSquareValue();
             SetMood();
+            squareController.LocatePlayer();
 
             enemySquareVisuals.SetActive(true);
         }

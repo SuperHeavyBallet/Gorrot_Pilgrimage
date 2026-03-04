@@ -184,11 +184,15 @@ public class CombatPhaseResolution : MonoBehaviour
             AudioManager.Instance.PlayPayOffChuckle();
 
             SquareController sq = turnOrganiser.GetLandedSquare();
-            SquareSize enemyWeight = sq.ThisSquareSize;
+            SquareSize enemySize = sq.ThisSquareSize;
 
             SquareMood enemyMood = sq.EnemyMood;  
 
-            string newDialogue = currentMap.GetRandomLine(enemyWeight.ToString(), enemyMood.ToString());
+            Debug.Log(enemySize + " " + enemyMood);
+
+            string newDialogue = currentMap.GetRandomLine(enemySize, enemyMood);
+
+            Debug.Log(newDialogue);
 
             textBoxText.text = newDialogue;
 

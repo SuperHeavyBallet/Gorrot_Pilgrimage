@@ -1,3 +1,4 @@
+using GorrotGame;
 using System;
 using UnityEngine;
 
@@ -222,27 +223,28 @@ public class MapData : ScriptableObject
     }
 
 
-    public string GetRandomLine(string tier, string mood)
+    public string GetRandomLine(SquareSize size, SquareMood mood)
     {
-
+        Debug.Log(size + " " + mood);   
         if (dialogueData == null)
         {
+            
             return "...";
         }
 
 
 
-        if (mood == "positive")
+        if (mood == SquareMood.Positive)
         {
-            string[] pool = tier switch
+            string[] pool = size switch
             {
-                "small" => dialogueData.categories.small.positive,
-                "medium" => dialogueData.categories.medium.positive,
-                "large" => dialogueData.categories.large.positive,
+                SquareSize.Small => dialogueData.categories.small.positive,
+               SquareSize.Medium => dialogueData.categories.medium.positive,
+                SquareSize.Large  => dialogueData.categories.large.positive,
                 _ => null
             };
 
-
+            
 
             if (pool == null || pool.Length == 0)
             {
@@ -253,11 +255,11 @@ public class MapData : ScriptableObject
         }
         else
         {
-            string[] pool = tier switch
+            string[] pool = size switch
             {
-                "small" => dialogueData.categories.small.negative,
-                "medium" => dialogueData.categories.medium.negative,
-                "large" => dialogueData.categories.large.negative,
+                SquareSize.Small => dialogueData.categories.small.negative,
+                SquareSize.Medium => dialogueData.categories.medium.negative,
+                SquareSize.Large => dialogueData.categories.large.negative,
                 _ => null
             };
 

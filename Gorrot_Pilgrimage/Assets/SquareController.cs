@@ -66,10 +66,7 @@ public class SquareController : MonoBehaviour
         //FIX Water Adjacency and Water 'decorations' are currently bundled, maybe seperate out water decorations from border logic
         waterAdjacencyController.AssignWaterBorderSprites(thisSquareMapData);
 
-        if (squareTypeController.ThisSquareType == SquareType.Enemy)
-        {
-            LocatePlayer();
-        }
+
     }
 
     public void SetSquareMapData(MapData mapData) => thisSquareMapData = mapData;
@@ -114,13 +111,11 @@ public class SquareController : MonoBehaviour
     public void AssignPlayer(GameObject newPlayer)
     {
         player = newPlayer;
-        Debug.Log("Got Player Reference, " +  player);
-
     }
 
-    void LocatePlayer()
+    public void LocatePlayer()
     {
-       // player = GameObject.Find("Player");
+        Debug.Log("Locate Player");
 
         if(player != null )
         { 
