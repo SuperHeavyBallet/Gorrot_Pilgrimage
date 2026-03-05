@@ -100,13 +100,13 @@ public class InventorySlotController : MonoBehaviour
         itemID = newItemID;
     }
 
-    public void PlaceItemInSlot(string itemID, Sprite itemSprite)
+    public void PlaceItemInSlot(string itemID, Sprite itemSprite, int quantityToAdd)
     {
         slotIsEmpty = false;
 
         if(itemCatalogue.CheckItemIDInUniqueItems(itemID) == false)
         {
-            itemQuantity += 1;
+            itemQuantity += quantityToAdd;
             itemQuantityText.text = itemQuantity.ToString();
         }
         

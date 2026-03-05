@@ -45,7 +45,8 @@ public class PlayerInventory : MonoBehaviour
         {
             if (item.itemID == itemID)
             {
-                inventorySlotController.PlaceItemInSlot(itemID, item.itemImage);
+                int amountToAdd = item.AmountAddedOnPickup;
+                inventorySlotController.PlaceItemInSlot(itemID, item.itemImage, amountToAdd);
                 return;
             }
 
