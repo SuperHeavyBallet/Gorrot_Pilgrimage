@@ -2,6 +2,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using System.Collections;
 using GorrotGame;
+using System.Collections.Generic;
+
 
 
 public class PlayerMovementController : MonoBehaviour
@@ -431,8 +433,8 @@ public class PlayerMovementController : MonoBehaviour
         {
             if(newSquareController.TrapActivated == false)
             {
-                AudioManager.Instance.PlayTrapTriggerSoundEffect();
-                newSquareController.ActivateTrap();
+               
+                newSquareController.ActivateTrap(playSoundEffect : true);
                 playerStatsController.alterHealth(-1);
                 MovePlayerBackOneSquare();
             }
@@ -493,6 +495,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             string squareContentsID = newSquareController.ContentsID;
             bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
+            
 
             if (canAddItem)
             {
@@ -560,8 +563,52 @@ public class PlayerMovementController : MonoBehaviour
             newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
         }
     }
+    
+    public GameObject[] GetEightSurroundingSquares()
+    {
+        Vector2Int playerCurrentPosition = currentPosition;
 
+        List<GameObject> neighbours = new List<GameObject>();
 
+        int x = currentPosition.x;
+        int y = currentPosition.y;
+
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                if (dx == 0 && dy == 0)
+                    continue; // skip the centre square
+
+                int nx = x + dx;
+                int ny = y + dy;
+
+                // boundary check (important!)
+                if (nx >= 0 && nx < gridWidth && ny >= 0 && ny < gridHeight)
+                {
+                    neighbours.Add(allSquares[nx, ny]);
+                }
+            }
+        }
+
+        // Maybe later
+        Vector2Int[] offsets =
+        {
+            new Vector2Int(-1, 1),
+            new Vector2Int(0, 1),
+            new Vector2Int(1, 1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(1, 0),
+            new Vector2Int(-1, -1),
+            new Vector2Int(0, -1),
+            new Vector2Int(1, -1)
+        };
+
+       
+
+        return neighbours.ToArray();
+
+    }
 
     public void MovePlayerBackOneSquare()
     {

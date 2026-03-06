@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Bag Of Stones
   itemImage: {fileID: 21300000, guid: bf08d4dfe32252049ac2e4187a24fa62, type: 3}
   amountHeld: 0
-  statEffected: 2
+  statEffected: 4
   effectDelta: 4
   amountAddedOnPickup: 100
   price: 10

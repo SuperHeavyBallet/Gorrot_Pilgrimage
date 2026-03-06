@@ -180,7 +180,7 @@ public class SquareController : MonoBehaviour
 
     // Traps
     public bool TrapActivated => squareTypeController.TrapActivated;
-    public void ActivateTrap() => squareTypeController.ActivateTrap();
+    public void ActivateTrap(bool playSoundEffect) => squareTypeController.ActivateTrap(playSoundEffect);
     
 
     // Shadows - Not yet really used

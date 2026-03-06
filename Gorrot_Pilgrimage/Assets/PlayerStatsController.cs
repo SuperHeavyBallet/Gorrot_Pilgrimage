@@ -53,6 +53,7 @@ public class PlayerStatsController : MonoBehaviour
     [SerializeField] CombatPhaseResolution combatPhaseController;
     [SerializeField] PlayerStatReceiver playerStatReceiver;
 
+    [SerializeField] PlayerMovementController playerMovementController;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -96,30 +97,73 @@ public class PlayerStatsController : MonoBehaviour
 
     public void UseItem(string itemID)
     {
+        
         string statEffected = ItemCatalogue.Instance.GetItemStatEffected(itemID);
-        int effectDelta = ItemCatalogue.Instance.GetItemEffectDelta(itemID);
 
-
-        switch (statEffected)
+        if(statEffected != "special")
         {
-            case "health":
-                alterHealth(effectDelta);
-                break;
-            case "suffering":
-                alterSuffering(effectDelta);
-                break;
-            case "attack":
-                alterAttack(effectDelta);
-                if(turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.combat)
-                {
-                    combatPhaseController.UpdateCombatRoll();
-                }
-                break;
-            default:
-                alterHealth(3);
+            int effectDelta = ItemCatalogue.Instance.GetItemEffectDelta(itemID);
 
-                break;
+
+            switch (statEffected)
+            {
+                case "health":
+                    alterHealth(effectDelta);
+                    break;
+                case "suffering":
+                    alterSuffering(effectDelta);
+                    break;
+                case "attack":
+                    alterAttack(effectDelta);
+                    if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.combat)
+                    {
+                        combatPhaseController.UpdateCombatRoll();
+                    }
+                    break;
+                default:
+                    alterHealth(3);
+
+                    break;
+            }
+         
         }
+        else
+        {
+            if (itemID == "bag_of_stones")
+            {
+                Debug.Log("Throw BAG OF STONES");
+
+
+                // Get 8 Surrounding Squares
+                // If any square = trap, Activate Trap
+                // Stone throw is cosmetic on top
+
+                GameObject[] surroundingSquares = playerMovementController.GetEightSurroundingSquares();
+
+                bool playedSoundEffect = false;
+
+                foreach (GameObject surroundingSquare in surroundingSquares)
+                {
+                    SquareController sq = surroundingSquare.GetComponent<SquareController>();
+
+                    if(sq != null)
+                    {
+                        if(sq.IsTrapSquare && !sq.TrapActivated)
+                        {
+                            if(playedSoundEffect == false)
+                            {
+                                sq.ActivateTrap(playSoundEffect: true);
+                                playedSoundEffect = true;
+                            }
+                            else sq.ActivateTrap(playSoundEffect : false);
+                                
+
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 

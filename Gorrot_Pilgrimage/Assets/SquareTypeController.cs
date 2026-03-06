@@ -2,7 +2,7 @@ using GorrotGame;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
+using System.Collections;
 
 public class SquareTypeController : MonoBehaviour
 {
@@ -67,7 +67,7 @@ public class SquareTypeController : MonoBehaviour
 
     [SerializeField] GameObject terrainSpriteObject;
 
-   
+    [SerializeField] GameObject stoneThrowEffect;
 
     private void OnEnable()
     {
@@ -255,11 +255,25 @@ public class SquareTypeController : MonoBehaviour
         hiddenTrapSprite.SetActive(true);
     }
 
-    public void ActivateTrap()
+    public void ActivateTrap(bool playSoundEffect)
     {
         hiddenTrapSprite.SetActive(false);
         trapSprite.SetActive(true);
         trapActivated = true;
+
+        stoneThrowEffect.SetActive(true);
+        StartCoroutine(DisableAfterTime(stoneThrowEffect, 0.5f));
+        if(playSoundEffect)
+        {
+            AudioManager.Instance.PlayTrapTriggerSoundEffect();
+        }
+        
+    }
+
+    public IEnumerator DisableAfterTime(GameObject go, float time)
+    {
+        yield return new WaitForSeconds(time);
+        go.SetActive(false);
     }
 
     // Treasure Square Route
@@ -492,6 +506,10 @@ public class SquareTypeController : MonoBehaviour
         if(terrainSpriteObject != null) terrainSpriteObject.SetActive(false);
         else
             Debug.LogError($"Missing Terrain Sprite on {name}", this);
+
+        if(stoneThrowEffect != null) stoneThrowEffect.SetActive(false);
+        else
+            Debug.LogError($"Missing Stone Throw Effect on {name}", this);
     }
     
 }

@@ -461,6 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5073602709856283842}
   - {fileID: 7149602713837763015}
   - {fileID: 9110591709881912777}
   - {fileID: 4616932317290008833}
@@ -558,16 +559,9 @@ MonoBehaviour:
   waterAdjacencyController: {fileID: 313226652482240882}
   enemyStandeeController: {fileID: 3250293012820874465}
   largeTerrainController: {fileID: 4904240969558872104}
-  squareX: 0
-  squareY: 0
-  treasureSpriteRenderer: {fileID: 1447261729561774253}
   shadow: {fileID: 1283844947944636068}
   isInShadow: 0
-  thisSquareHoldsPottard: 0
-  isSacred: 0
-  sacredMarker: {fileID: 5681365793743862789}
   stepInWaterSprite: {fileID: 5577986145404178863}
-  thisSquareHoldsPlayer: 0
 --- !u!114 &2721291182392624524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +602,7 @@ MonoBehaviour:
   regularSquareMesh: {fileID: 3709477522489833433}
   squareMeshContainer: {fileID: 3180646345749611083}
   terrainSpriteObject: {fileID: 3361120687102296729}
+  stoneThrowEffect: {fileID: 2028017753505141047}
 --- !u!114 &2604168876537211095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4978,6 +4973,105 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5768733774716974230, guid: 1c1e939ad5468cb4687cf4bcffafd313, type: 3}
   m_PrefabInstance: {fileID: 3112263099060949284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5318540537172437505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6822048057866452752}
+    m_Modifications:
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 9.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: NoiseModule.separateAxes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: NoiseModule.strengthY.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: NoiseModule.strengthZ.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130788972383093121, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6191243419788098358, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+      propertyPath: m_Name
+      value: StoneThrowEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+--- !u!1 &2028017753505141047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6191243419788098358, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+  m_PrefabInstance: {fileID: 5318540537172437505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5073602709856283842 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1127675308982191811, guid: 415a4f6c0004a344aba96a3368894272, type: 3}
+  m_PrefabInstance: {fileID: 5318540537172437505}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6364554293140922717
 PrefabInstance:
