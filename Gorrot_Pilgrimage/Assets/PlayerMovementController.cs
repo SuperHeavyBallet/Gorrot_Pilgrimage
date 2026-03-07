@@ -272,6 +272,14 @@ public class PlayerMovementController : MonoBehaviour
 
         nextSquareQuantity = newSquareController.ThisSquareSize;
 
+        Vector3 nextSquareStandPosition = newSquareController.StandPositionCentre;
+
+        if (newSquareController.IsGoalSquare)
+        {
+            nextSquareStandPosition = newSquareController.StandPositionFront;
+        }
+        
+
         //bool isMoveableSquare = newSquareController.IsMoveableSquare;
 
         if (!newSquareController.IsMoveableSquare)
@@ -299,7 +307,8 @@ public class PlayerMovementController : MonoBehaviour
             newPosition, 
             newSquareController, 
             freeMove,
-            isWaiting
+            isWaiting,
+            nextSquareStandPosition
             ));
 
     }
@@ -352,13 +361,14 @@ public class PlayerMovementController : MonoBehaviour
 
     IEnumerator MoveRoutine(
         SquareController targetSquare,
-    int newX,
-    int newY,
-    Vector2 worldTargetPos,
-    SquareController newSquareController,
-    bool freeMove,
-    bool isWaiting
-    )
+        int newX,
+        int newY,
+        Vector2 worldTargetPos,
+        SquareController newSquareController,
+        bool freeMove,
+        bool isWaiting,
+        Vector3 targetPos
+        )
     {
         isMoving = true;
         playerAnimationManager.SetIsWalking(true);
@@ -369,7 +379,7 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 start = transform.position;
         start.z = zOffset;
 
-        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, zOffset);
+        Vector3 end = new Vector3(targetPos.x, targetPos.y, targetPos.z);
 
         float duration = 0.25f; // tune feel
         float t = 0f;

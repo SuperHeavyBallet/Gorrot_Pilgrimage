@@ -20,6 +20,13 @@ public class SquareController : MonoBehaviour
     [SerializeField] EnemyStandeeController enemyStandeeController;
     [SerializeField] LargeTerrainController largeTerrainController;
 
+    [SerializeField] Transform standPositionCentre;
+    [SerializeField] Transform standPositionFront;
+    [SerializeField] Transform standPositionBack;
+    public Vector3 StandPositionCentre => standPositionCentre.transform.position;
+    public Vector3 StandPositionFront => standPositionFront.transform.position;
+    public Vector3 StandPositionBack => standPositionBack.transform.position;
+
     [SerializeField] GameObject shadow;
 
 
