@@ -272,12 +272,7 @@ public class PlayerMovementController : MonoBehaviour
 
         nextSquareQuantity = newSquareController.ThisSquareSize;
 
-        Vector3 nextSquareStandPosition = newSquareController.StandPositionCentre;
-
-        if (newSquareController.IsGoalSquare)
-        {
-            nextSquareStandPosition = newSquareController.StandPositionFront;
-        }
+        Vector3 nextSquareStandPosition = newSquareController.ThisSquarePlayerPosition;
         
 
         //bool isMoveableSquare = newSquareController.IsMoveableSquare;

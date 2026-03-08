@@ -102,6 +102,7 @@
     <Compile Include="Assets\WaterAdjacencyController.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\PlaySoundOnClick.cs" />
+    <Compile Include="Assets\SquarePositionsController.cs" />
     <Compile Include="Assets\UIController.cs" />
     <Compile Include="Assets\Scriptable\Maps\MapData.cs" />
     <Compile Include="Assets\SquareSpriteLibrary.cs" />

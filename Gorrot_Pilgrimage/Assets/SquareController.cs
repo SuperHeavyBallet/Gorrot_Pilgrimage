@@ -19,6 +19,9 @@ public class SquareController : MonoBehaviour
     [SerializeField] WaterAdjacencyController waterAdjacencyController;
     [SerializeField] EnemyStandeeController enemyStandeeController;
     [SerializeField] LargeTerrainController largeTerrainController;
+    [SerializeField] SquarePositionsController squarePositionsController;
+    Vector3 thisSquarePlayerPosition;
+    public Vector3 ThisSquarePlayerPosition => thisSquarePlayerPosition;
 
     [SerializeField] Transform standPositionCentre;
     [SerializeField] Transform standPositionFront;
@@ -72,7 +75,7 @@ public class SquareController : MonoBehaviour
     {
         //FIX Water Adjacency and Water 'decorations' are currently bundled, maybe seperate out water decorations from border logic
         waterAdjacencyController.AssignWaterBorderSprites(thisSquareMapData);
-
+        thisSquarePlayerPosition = squarePositionsController.DecideSquarePlayerPosition(squareTypeController.ThisSquareType);
 
     }
 
@@ -122,7 +125,6 @@ public class SquareController : MonoBehaviour
 
     public void LocatePlayer()
     {
-        Debug.Log("Locate Player");
 
         if(player != null )
         { 

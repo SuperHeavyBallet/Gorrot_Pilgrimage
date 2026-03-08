@@ -805,6 +805,7 @@ GameObject:
   - component: {fileID: 313226652482240882}
   - component: {fileID: 3250293012820874465}
   - component: {fileID: 4904240969558872104}
+  - component: {fileID: 1877210871513616001}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -926,6 +927,7 @@ MonoBehaviour:
   waterAdjacencyController: {fileID: 313226652482240882}
   enemyStandeeController: {fileID: 3250293012820874465}
   largeTerrainController: {fileID: 4904240969558872104}
+  squarePositionsController: {fileID: 1877210871513616001}
   standPositionCentre: {fileID: 6829699974197645086}
   standPositionFront: {fileID: 2071938589351562652}
   standPositionBack: {fileID: 838324333360292830}
@@ -1050,6 +1052,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   fourSquareTerrainContainer: {fileID: 2102292273039902198}
+--- !u!114 &1877210871513616001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345150278100632663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4932e743e23844abde18589ebe3db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  centrePosition: {fileID: 6829699974197645086}
+  frontPosition: {fileID: 2071938589351562652}
+  backPosition: {fileID: 838324333360292830}
 --- !u!1 &1963333741626556715
 GameObject:
   m_ObjectHideFlags: 0
