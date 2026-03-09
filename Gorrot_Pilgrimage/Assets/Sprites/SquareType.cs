@@ -58,5 +58,10 @@ namespace GorrotGame
     }
 
 
-
+    public enum BridgeOrientation
+    {
+        None,
+        Horizontal,
+        Vertical
+    }
 }

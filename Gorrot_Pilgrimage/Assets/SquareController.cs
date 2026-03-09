@@ -23,15 +23,70 @@ public class SquareController : MonoBehaviour
     Vector3 thisSquarePlayerPosition;
     public Vector3 ThisSquarePlayerPosition => thisSquarePlayerPosition;
 
-    [SerializeField] Transform standPositionCentre;
-    [SerializeField] Transform standPositionFront;
-    [SerializeField] Transform standPositionBack;
-    public Vector3 StandPositionCentre => standPositionCentre.transform.position;
-    public Vector3 StandPositionFront => standPositionFront.transform.position;
-    public Vector3 StandPositionBack => standPositionBack.transform.position;
+    BridgeOrientation bridgeOrientation;
+
+ 
 
     [SerializeField] GameObject shadow;
 
+    [SerializeField] GameObject bridgeMarker;
+    bool isBridge;
+    public bool IsBridge => isBridge;
+
+    public void SetIsBridge(bool newIsBridge)
+    {
+        isBridge = newIsBridge;
+
+        if(isBridge)
+        {
+            bridgeMarker.SetActive(true);
+            squareTypeController.MakeBridge();
+        }
+    }
+
+    public void SetBridgeOrientation(BridgeOrientation orientation)
+    {
+        bridgeOrientation = orientation;
+
+        if(orientation == BridgeOrientation.Horizontal)
+        {
+            bridgeMarker.transform.Rotate(0, 0, 90);
+        }
+        else
+        {
+            bridgeMarker.transform.Rotate(0, 0, 0);
+        }
+    }
+
+    public BridgeOrientation GetBridgeOrientation()
+    {
+        return bridgeOrientation;
+    }
+
+    public void DisableWaterBorder(OrthogonalPositions borderSide)
+    {
+
+        waterAdjacencyController.DisableWaterBorder(borderSide);
+    }
+
+    public void EnableWaterBorder(OrthogonalPositions borderSide)
+    {
+        waterAdjacencyController.EnableWaterBorder(borderSide); 
+    }
+
+    [SerializeField] GameObject bridgeEndNorth;
+    [SerializeField] GameObject bridgeEndEast;
+    [SerializeField] GameObject bridgeEndSouth;
+    [SerializeField] GameObject bridgeEndWest;
+
+    public void SetBridgeEndCaps(bool north, bool east, bool south, bool west)
+    {
+        
+        if (bridgeEndNorth != null) bridgeEndNorth.SetActive(north);
+        if (bridgeEndEast != null) bridgeEndEast.SetActive(east);
+        if (bridgeEndSouth != null) bridgeEndSouth.SetActive(south);
+        if (bridgeEndWest != null) bridgeEndWest.SetActive(west);
+    }
 
     // Bool Checks
     public bool IsGoalSquare => squareTypeController.ThisSquareType == SquareType.Goal;

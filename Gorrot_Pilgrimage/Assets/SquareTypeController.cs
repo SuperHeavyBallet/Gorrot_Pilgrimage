@@ -142,6 +142,16 @@ public class SquareTypeController : MonoBehaviour
        
     }
 
+    // Bridge Route
+
+    public void MakeBridge()
+    {
+        waterSpriteObject.SetActive(true);
+        SpriteRenderer waterSR = waterSpriteObject.GetComponent<SpriteRenderer>();
+        waterSR.material = thisMapData.WaterShader;
+        regularSquareMesh.SetActive(false);
+    }
+
 
     // Basic Square Route
 

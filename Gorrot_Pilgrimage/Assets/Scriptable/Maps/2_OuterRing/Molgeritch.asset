@@ -42,7 +42,7 @@ MonoBehaviour:
   hasShadows: 0
   canHavePottard: 1
   hasHiddenTraps: 1
-  hiddenTrapDensity: 2
+  hiddenTrapDensity: 1
   bribeMultiplier: 2
   canBeBribed: 1
   waterShader: {fileID: 2100000, guid: 3eca4f0fef64b4d4da84dfa9a9a8cf97, type: 2}

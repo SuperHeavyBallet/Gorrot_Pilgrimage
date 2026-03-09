@@ -1,3 +1,4 @@
+using GorrotGame;
 using UnityEngine;
 
 public class WaterAdjacencyController : MonoBehaviour
@@ -155,42 +156,7 @@ public class WaterAdjacencyController : MonoBehaviour
     public void SetWaterAdjacencyMask(int mask)
     {
         waterAdjacencyMask = mask;
-
-
-        waterNorth = (mask & N) != 0;
-        waterEast = (mask & E) != 0;
-        waterSouth = (mask & S) != 0;
-        waterWest = (mask & W) != 0;
-
-
-
-
-        waterBorderNorth.SetActive(waterNorth);
-        waterBorderEast.SetActive(waterEast);
-        waterBorderSouth.SetActive(waterSouth);
-        waterBorderWest.SetActive(waterWest);
-
-        if (waterNorth && waterEast)
-        {
-            waterFoamCorner_NE.SetActive(true);
-        }
-
-        if (waterEast && waterSouth)
-        {
-            waterFoamCorner_SE.SetActive(true);
-        }
-
-        if (waterSouth && waterWest)
-        {
-            waterFoamCorner_SW.SetActive(true);
-        }
-
-        if (waterWest && waterNorth)
-        {
-            waterFoamCorner_NW.SetActive(true);
-        }
-
-        ApplyWaterEdgesToRenderer(mask);
+        RebuildWaterVisuals();
 
     }
 
@@ -234,4 +200,60 @@ public class WaterAdjacencyController : MonoBehaviour
     }
 
     public bool IsWaterAdjacent => isWaterAdjacent;
+
+    public void DisableWaterBorder(OrthogonalPositions borderSide)
+    {
+        int bit = 0;
+
+        switch (borderSide)
+        {
+            case OrthogonalPositions.North: bit = N; break;
+            case OrthogonalPositions.East: bit = E; break;
+            case OrthogonalPositions.South: bit = S; break;
+            case OrthogonalPositions.West: bit = W; break;
+            default: return;
+        }
+
+        waterAdjacencyMask &= ~bit;
+
+        RebuildWaterVisuals();
+    }
+
+    public void EnableWaterBorder(OrthogonalPositions borderSide)
+    {
+        int bit = 0;
+
+        switch (borderSide)
+        {
+            case OrthogonalPositions.North: bit = N; break;
+            case OrthogonalPositions.East: bit = E; break;
+            case OrthogonalPositions.South: bit = S; break;
+            case OrthogonalPositions.West: bit = W; break;
+            default: return;
+        }
+
+        waterAdjacencyMask &= ~bit;
+
+        RebuildWaterVisuals();
+    }
+
+    void RebuildWaterVisuals()
+    {
+        waterNorth = (waterAdjacencyMask & N) != 0;
+        waterEast = (waterAdjacencyMask & E) != 0;
+        waterSouth = (waterAdjacencyMask & S) != 0;
+        waterWest = (waterAdjacencyMask & W) != 0;
+
+        waterBorderNorth.SetActive(waterNorth);
+        waterBorderEast.SetActive(waterEast);
+        waterBorderSouth.SetActive(waterSouth);
+        waterBorderWest.SetActive(waterWest);
+
+        waterFoamCorner_NE.SetActive(waterNorth && waterEast);
+        waterFoamCorner_SE.SetActive(waterEast && waterSouth);
+        waterFoamCorner_SW.SetActive(waterSouth && waterWest);
+        waterFoamCorner_NW.SetActive(waterWest && waterNorth);
+
+        ApplyWaterEdgesToRenderer(waterAdjacencyMask);
+    }
 }
