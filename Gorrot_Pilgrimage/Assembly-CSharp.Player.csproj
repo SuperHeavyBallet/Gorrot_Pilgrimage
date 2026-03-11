@@ -74,6 +74,7 @@
     <Compile Include="Assets\TurnOrganiser.cs" />
     <Compile Include="Assets\ResizeElementOnClick.cs" />
     <Compile Include="Assets\DeathPhaseResolution.cs" />
+    <Compile Include="Assets\BridgeController.cs" />
     <Compile Include="Assets\CombatPhaseResolution.cs" />
     <Compile Include="Assets\CharacterSpriteLibrary.cs" />
     <Compile Include="Assets\DeathPushNameToLedger.cs" />

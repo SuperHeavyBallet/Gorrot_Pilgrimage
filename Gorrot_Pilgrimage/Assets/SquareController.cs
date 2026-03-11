@@ -20,72 +20,39 @@ public class SquareController : MonoBehaviour
     [SerializeField] EnemyStandeeController enemyStandeeController;
     [SerializeField] LargeTerrainController largeTerrainController;
     [SerializeField] SquarePositionsController squarePositionsController;
+    [SerializeField] BridgeController bridgeController;
+
     Vector3 thisSquarePlayerPosition;
     public Vector3 ThisSquarePlayerPosition => thisSquarePlayerPosition;
 
-    BridgeOrientation bridgeOrientation;
+
 
  
 
     [SerializeField] GameObject shadow;
 
-    [SerializeField] GameObject bridgeMarker;
-    bool isBridge;
-    public bool IsBridge => isBridge;
+
+    
+    public bool IsBridge => bridgeController.GetIsBridge;
 
     public void SetIsBridge(bool newIsBridge)
     {
-        isBridge = newIsBridge;
-
-        if(isBridge)
-        {
-            bridgeMarker.SetActive(true);
-            squareTypeController.MakeBridge();
-        }
+       bridgeController.SetIsBridge(newIsBridge);
     }
 
     public void SetBridgeOrientation(BridgeOrientation orientation)
     {
-        bridgeOrientation = orientation;
-
-        if(orientation == BridgeOrientation.Horizontal)
-        {
-            bridgeMarker.transform.Rotate(0, 0, 90);
-        }
-        else
-        {
-            bridgeMarker.transform.Rotate(0, 0, 0);
-        }
+        bridgeController.SetBridgeOrientation(orientation);
     }
 
-    public BridgeOrientation GetBridgeOrientation()
-    {
-        return bridgeOrientation;
-    }
+    public BridgeOrientation GetBridgeOrientation() => bridgeController.GetBridgeOrientation();
+ 
 
-    public void DisableWaterBorder(OrthogonalPositions borderSide)
-    {
-
-        waterAdjacencyController.DisableWaterBorder(borderSide);
-    }
-
-    public void EnableWaterBorder(OrthogonalPositions borderSide)
-    {
-        waterAdjacencyController.EnableWaterBorder(borderSide); 
-    }
-
-    [SerializeField] GameObject bridgeEndNorth;
-    [SerializeField] GameObject bridgeEndEast;
-    [SerializeField] GameObject bridgeEndSouth;
-    [SerializeField] GameObject bridgeEndWest;
 
     public void SetBridgeEndCaps(bool north, bool east, bool south, bool west)
     {
-        
-        if (bridgeEndNorth != null) bridgeEndNorth.SetActive(north);
-        if (bridgeEndEast != null) bridgeEndEast.SetActive(east);
-        if (bridgeEndSouth != null) bridgeEndSouth.SetActive(south);
-        if (bridgeEndWest != null) bridgeEndWest.SetActive(west);
+
+        bridgeController.SetBridgeEndCaps(north, east, south, west);
     }
 
     // Bool Checks

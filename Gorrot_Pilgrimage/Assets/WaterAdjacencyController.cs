@@ -221,7 +221,7 @@ public class WaterAdjacencyController : MonoBehaviour
 
     public void EnableWaterBorder(OrthogonalPositions borderSide)
     {
-        int bit = 0;
+         int bit = 0;
 
         switch (borderSide)
         {
