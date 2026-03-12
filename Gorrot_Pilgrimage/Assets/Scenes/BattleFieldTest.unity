@@ -8833,13 +8833,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   allFateOutcomes:
-  - {fileID: 11400000, guid: 272c0a7bc52ac7640bfae466471cb914, type: 2}
-  - {fileID: 11400000, guid: d4ef2244e52a87244a151c27b46a38ce, type: 2}
-  - {fileID: 11400000, guid: f1f440c504fa4ca42a429fedcd2cc296, type: 2}
-  - {fileID: 11400000, guid: 4c8fcac61ff435346a89251adeee39b8, type: 2}
-  - {fileID: 11400000, guid: acef3e8d456a544469e2cc24e7a30203, type: 2}
-  - {fileID: 11400000, guid: c404274376f0b0f4d83945dc58361ca3, type: 2}
+  - {fileID: 11400000, guid: ad73aa511cfe1dd438a41aa81659566b, type: 2}
+  - {fileID: 11400000, guid: 61739777866f8cd469618be45a9a0f4c, type: 2}
+  - {fileID: 11400000, guid: e463d2f2755344943a3f8c4ce267e847, type: 2}
+  - {fileID: 11400000, guid: 8a6bf656e27f673478eb4ee46541847f, type: 2}
   - {fileID: 11400000, guid: 07db8977f8421a4469783018edc7030b, type: 2}
+  - {fileID: 11400000, guid: 0c198bcc5caefdf4abd2ea83feb47539, type: 2}
+  - {fileID: 11400000, guid: aa408ff7935a774439b36bcb1fceecc8, type: 2}
+  - {fileID: 11400000, guid: d4ef2244e52a87244a151c27b46a38ce, type: 2}
+  - {fileID: 11400000, guid: 26253ffa27077c64c83ff7a235f47bbc, type: 2}
+  - {fileID: 11400000, guid: c404274376f0b0f4d83945dc58361ca3, type: 2}
+  - {fileID: 11400000, guid: 8f0196284f32b93429d94c8515be2bbb, type: 2}
   playerStatsController: {fileID: 914908672}
   playerMovementController: {fileID: 914908666}
   turnOrganiser: {fileID: 542128493}

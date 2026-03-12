@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c12ec042a4aac44fb9c4d484e910b0b, type: 3}
-  m_Name: StrengthBoost
+  m_Name: MediumStrengthReduction
   m_EditorClassIdentifier: Assembly-CSharp::FateOutcome
-  fateID: strength_boost
-  fateName: Strength Boost
+  fateID: medium_strength_reduction
+  fateName: Medium Strength Reduction
   statToEffect: 3
-  effectDelta: 2
+  effectDelta: -2
   effectDirection: {x: 0, y: 0}

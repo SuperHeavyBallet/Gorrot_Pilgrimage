@@ -383,8 +383,15 @@ public class PlayerMovementController : MonoBehaviour
         ActivateWaterStep(currentSquareController, false);
         bool waterSplashTriggered = false;
 
+        bool isGoalSquare = newSquareController.IsGoalSquare;
+        if (isGoalSquare)
+        {
+            SetFacing(0, 1);
+        }
+
         while (t < duration)
         {
+            
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / duration);
 

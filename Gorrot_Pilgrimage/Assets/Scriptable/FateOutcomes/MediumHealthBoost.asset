@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c12ec042a4aac44fb9c4d484e910b0b, type: 3}
-  m_Name: StrengthCut
+  m_Name: MediumHealthBoost
   m_EditorClassIdentifier: Assembly-CSharp::FateOutcome
-  fateID: strength_cut
-  fateName: Strength Cut
-  statToEffect: 3
-  effectDelta: -2
+  fateID: medium_health_boost
+  fateName: Medium Health Boost
+  statToEffect: 0
+  effectDelta: 10
   effectDirection: {x: 0, y: 0}

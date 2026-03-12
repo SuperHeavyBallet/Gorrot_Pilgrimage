@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c12ec042a4aac44fb9c4d484e910b0b, type: 3}
-  m_Name: NastyCut
+  m_Name: MediumHealthReduction
   m_EditorClassIdentifier: Assembly-CSharp::FateOutcome
-  fateID: nasty_cut
-  fateName: A Nasty Cut
+  fateID: medium_health_reduction
+  fateName: Medium Health Reduction
   statToEffect: 0
-  effectDelta: -5
+  effectDelta: -3
   effectDirection: {x: 0, y: 0}
