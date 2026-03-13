@@ -7,6 +7,10 @@ using GorrotGame;
 
 public class BattlefieldBuilder : MonoBehaviour
 {
+    [SerializeField] BattleFieldGridBuilder gridBuilder;
+
+    [SerializeField] NPCBuilder npcBuilder;
+
     [SerializeField] GameObject battleFieldSquare;
 
     [SerializeField] GameObject[,] allSquares;
@@ -14,8 +18,6 @@ public class BattlefieldBuilder : MonoBehaviour
     [SerializeField] GameObject player;
 
     [SerializeField] UIController uiController;
-
-    //[SerializeField] DifficultyTuning difficultyTuning;
 
     int enemySquareCount = 5;
     int treasureSquareCount = 5;
@@ -30,8 +32,6 @@ public class BattlefieldBuilder : MonoBehaviour
     private List<Vector2Int> freeSquares = new List<Vector2Int>();
     List<GameObject> candidateBaseSquaresforLargeItems = new List<GameObject>();
 
-    //int currentMapCount = 0;
-
     List<GameObject> enemySquares = new List<GameObject>();
 
     [SerializeField] MapCatalogue mapCatalogue;
@@ -41,11 +41,8 @@ public class BattlefieldBuilder : MonoBehaviour
     MapData thisMap;
 
 
-    bool canAdvanceDifficulty;
-
-
-    [SerializeField] GameObject hasMerchantIcon;
-    [SerializeField] MerchantShopController merchantShopController;
+    //[SerializeField] GameObject hasMerchantIcon;
+    //[SerializeField] MerchantShopController merchantShopController;
 
     [SerializeField] GameObject wildMapIcon;
 
@@ -59,14 +56,11 @@ public class BattlefieldBuilder : MonoBehaviour
     Vector2 goalSquareLocation;
     bool isLost;
 
-    //bool isFinalCorridoor = false;
-
-
-    [Header("Sacred Path Drunkenness")]
-    [Tooltip("0 = always best, 1 = very random")]
-    [SerializeField, Range(0f, 1f)] float drunkenness;
-    [Tooltip("higher = more greedy, lower = more meandery")]
-    [SerializeField, Range(0.1f, 10f)] float weightSharpness;
+  //  [Header("Sacred Path Drunkenness")]
+   // [Tooltip("0 = always best, 1 = very random")]
+   // [SerializeField, Range(0f, 1f)] float drunkenness;
+    //[Tooltip("higher = more greedy, lower = more meandery")]
+    //[SerializeField, Range(0.1f, 10f)] float weightSharpness;
 
     [SerializeField] TurnOrganiser turnOrganiser;
 
@@ -78,6 +72,14 @@ public class BattlefieldBuilder : MonoBehaviour
 
     [SerializeField] GameObject pottardReference;
 
+    List<(GameObject obj, OrthogonalPositions edge)> borderSquares 
+    = new List<(GameObject obj, OrthogonalPositions edge)>();
+
+
+    List<(GameObject obj, CornerPositions corner)> cornerBorderSquares
+    = new List<(GameObject obj, CornerPositions corner)>();
+
+    [SerializeField] OverHeadSpansBuilder overHeadSpansBuilder;
 
     void Awake()
     {
@@ -86,8 +88,8 @@ public class BattlefieldBuilder : MonoBehaviour
         if (player == null) Debug.LogError("Player not set", this);
         if (uiController == null) Debug.LogError("UIController not set", this);
         if (mapCatalogue == null) Debug.LogError("MapCatalogue not set", this);
-        if (hasMerchantIcon == null) Debug.LogError("Merchant icon not set", this);
-        if (merchantShopController == null) Debug.LogError("Merchant Shop Controller not set", this);
+       // if (hasMerchantIcon == null) Debug.LogError("Merchant icon not set", this);
+       // if (merchantShopController == null) Debug.LogError("Merchant Shop Controller not set", this);
 
         if (player != null)
         {
@@ -112,8 +114,16 @@ public class BattlefieldBuilder : MonoBehaviour
     }
     void SetFirstMap() { previousMap = mapCatalogue.GetFirstMap(); }
 
+    [SerializeField] LargeTerrainBuilder largeTerrainBuilder;
+    
+    /*
     void TestSpaceForBigPieces()
     {
+
+        
+
+        
+
         candidateBaseSquaresforLargeItems.Clear();
 
         // 0..1 where 0 = none, 1 = "as many as possible"
@@ -232,7 +242,8 @@ public class BattlefieldBuilder : MonoBehaviour
         }
 
     }
-
+*/
+    /*
     // Fisher–Yates shuffle
     void Shuffle<T>(List<T> list)
     {
@@ -242,13 +253,16 @@ public class BattlefieldBuilder : MonoBehaviour
             (list[i], list[j]) = (list[j], list[i]);
         }
     }
+    */
 
-    bool InBounds(int x, int y)
+    public bool InBounds(int x, int y)
     {
         return x >= 0 && y >= 0
             && x < allSquares.GetLength(0)
             && y < allSquares.GetLength(1);
     }
+
+    /*
 
     void ReserveHaloAroundBigTerrain(int baseX, int baseY, int haloRadius = 1)
     {
@@ -279,8 +293,9 @@ public class BattlefieldBuilder : MonoBehaviour
                // freeSquares.Remove(new Vector2Int(x, y));
             }
         }
-    }
+    }*/
 
+    /*
     bool HaloIsClearForBigTerrain(int baseX, int baseY, int haloRadius = 1)
     {
         int minX = baseX - haloRadius;
@@ -306,11 +321,10 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         return true;
     }
+    */
 
 
-
-    void CheckIfFinalMap() { isFinalMap = thisMap.GetIsFinalMap(); }
-
+    /*
     void PlacePottard()
     {
         Vector2Int[] freeSqArray = freeSquares.ToArray();
@@ -331,6 +345,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
        
     }
+*/
+    /*
     void PlaceFly(int size)
     {
         turnOrganiser.ClearFlies();
@@ -374,9 +390,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
-    }
+    }*/
 
-    void CheckMapisWild()
+    public void CheckMapisWild()
     {
         if(thisMap.GetIsWildMap())
         {
@@ -407,7 +423,7 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
         {
-            canAdvanceDifficulty = true;
+           //canAdvanceDifficulty = true;
             mapToBuild = previousMap.RollNextMap();
         }
 
@@ -428,7 +444,7 @@ public class BattlefieldBuilder : MonoBehaviour
         if (!escaped)
         {
             isLost = true;
-            canAdvanceDifficulty = false;
+         //  canAdvanceDifficulty = false;
            chosenMap = previousMap; // repeat
         }
         else
@@ -449,7 +465,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
-    void UpdateMapDataUI() 
+    public void UpdateMapDataUI() 
     { 
         string mapLocation = thisMap.GetMapLocation();
         mapLocation = mapLocation.Replace("_", " ");
@@ -459,6 +475,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
     void ClearEnemySquares() { enemySquares.Clear(); }
+
+    [SerializeField] BridgesBuilder bridgesBuilder;
 
     void SetContent(int mapSize)
     {
@@ -472,15 +490,18 @@ public class BattlefieldBuilder : MonoBehaviour
 
             if (thisMap.GetWaterAmount() > 0)
             {
-                DetectBridges();
+                bridgesBuilder.DetectBridges();
+
             }
 
-            RebuildBridgeAwareVisuals();
+            bridgesBuilder.RebuildBridgeAwareVisuals();
 
-            CheckMerchantNeeded();
-            CheckGateKeeperNeeded();
+            npcBuilder.CheckNPCRequired();
 
-            if(thisMap.HasFourBlockTerrain) TestSpaceForBigPieces();
+
+           
+
+            if(thisMap.HasFourBlockTerrain) largeTerrainBuilder.TestSpaceForBigPieces();
 
             AssignContentSquares();
 
@@ -489,14 +510,69 @@ public class BattlefieldBuilder : MonoBehaviour
                 CollectInitialEnemySquares();
             }
 
-            CheckFlies(mapSize);
-            CheckPottardPlacement();
+           
+
+            // Add Overhead Decorations
+
+            if(borderSquares.Count > 0)
+            {
+                overHeadSpansBuilder.CreateOverheadSpanDecorations();
+            }
         }
 
             PlacePlayer(mapSize);
    
     }
+    /*
+    void SetNPCPresent()
+    {
+        //CheckMerchantNeeded();
+       // CheckGateKeeperNeeded();
 
+        //CheckFlies(thisMap.GetMapSize());
+        //CheckPottardPlacement();
+    }
+    */
+
+    /*
+    void CreateOverHeadSpanDecoration()
+    {
+        // This gives the square length of the side to start spans from
+        int borderHeight = thisMap.GetMapSize();
+
+        HashSet<int> chosenPositions = new HashSet<int>();
+
+        int numberOfSpans = UnityEngine.Random.Range(0, borderHeight);
+
+
+
+        for(int i = 0; i < numberOfSpans; i++)
+        {
+            int randomBorderPosition = UnityEngine.Random.Range(0, borderSquares.Count);
+
+            if (!chosenPositions.Contains(randomBorderPosition))
+            {
+                chosenPositions.Add(randomBorderPosition);
+
+                var square = borderSquares[randomBorderPosition];
+
+                BorderOverHeadDecorationController bc =
+                    square.obj.GetComponent<BorderOverHeadDecorationController>();
+
+                if (bc != null)
+                {
+                    bc.SpawnChainOverhead(thisMap.GetMapSize() + 2, square.edge);
+                }
+
+                Debug.Log("SQUARE AT " + randomBorderPosition + " SHOULD FIRE " + square.edge.ToString());
+            }
+        }
+
+      
+    }
+
+    */
+    /*
     void CheckPottardPlacement()
     {
 
@@ -506,8 +582,8 @@ public class BattlefieldBuilder : MonoBehaviour
         }
         
 
-    }
-
+    }*/
+    /*
     bool RollPottardPresentRNG()
     {
         bool finalChoice = false;
@@ -521,8 +597,11 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
         return finalChoice;
-    }
+    }*/
+    
+    public GameObject Player => player;
 
+    /*
     void CheckGateKeeperNeeded()
     {
         PlayerStatsController playerStatController = player.GetComponent<PlayerStatsController>();
@@ -537,9 +616,9 @@ public class BattlefieldBuilder : MonoBehaviour
                 Debug.Log("GateKeeper Should Appear...");
             }
         }
-    }
+    }*/
 
-
+    /*
     void CheckFlies(int mapSize)
     {
         turnOrganiser.ClearFlies();
@@ -548,33 +627,46 @@ public class BattlefieldBuilder : MonoBehaviour
             PlaceFly(mapSize);
         }
     }
+    */
+
+    public MapData ThisMap => thisMap;
 
     void CheckMerchantNeeded()
     {
         if (thisMap.GetHasMerchant())
         {
-            hasMerchantIcon.SetActive(true);
-            PlaceMerchant();
-            merchantShopController.SetCurrentMap(thisMap);
+           // hasMerchantIcon.SetActive(true);
+          //  PlaceMerchant();
+          //  merchantShopController.SetCurrentMap(thisMap);
         }
         else 
         { 
     
-            hasMerchantIcon.SetActive(false);
+           // hasMerchantIcon.SetActive(false);
         }
+    }
+
+    public void SetThisMap(MapData newMap)
+    {
+        thisMap = newMap;
     }
 
     public void BuildNewBattlefield()
     {
-        playerMovementController.PrepareForMapRebuild();
-        MapData chosen = GetMapToBuild();
 
-        thisMap = chosen;
-        thisMap.ParseDialogue();
-        UpdateMapDataUI();
-        CheckMapisWild();
+        //gridBuilder.BuildNewGrid();
+
+       playerMovementController.PrepareForMapRebuild();
+       MapData chosen = GetMapToBuild();
+
+       thisMap = chosen;
+       thisMap.ParseDialogue();
+       UpdateMapDataUI();
+       CheckMapisWild();
         
         ClearEnemySquares();
+        ClearEnemySquares();
+        ClearBorderSquareLists();
 
         if(!thisMap.GetIsFinalMap())
         { 
@@ -590,6 +682,8 @@ public class BattlefieldBuilder : MonoBehaviour
         StartFadeFromBlack();
         transitionScreen.SetActive(false);
         playerMovementController.SetReachedGoalSquare(false);
+        Debug.Log("BORDER SQUARES: " + borderSquares.Count);
+        Debug.Log("CORNER BORDER SQUARES: " + cornerBorderSquares.Count);
     }
 
     void BuildNewMap()
@@ -599,7 +693,11 @@ public class BattlefieldBuilder : MonoBehaviour
         
     }
 
-
+    void ClearBorderSquareLists()
+    {
+        borderSquares.Clear();
+        cornerBorderSquares.Clear();
+    }
     void ClearOldBattlefield()
     {
         for (int i = transform.childCount - 1; i >= 0; i--) { Destroy(transform.GetChild(i).gameObject); }
@@ -722,6 +820,26 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
+    public void AddBorderSquareToList(GameObject newBorderSquare, OrthogonalPositions newEdge)
+    {
+        if (newBorderSquare == null) return;
+
+        // Only add West Side borders, spans are horizontal so should not start from any other, this also gives a defined limit/count/position from that
+        if (newEdge != OrthogonalPositions.West) return;
+
+        borderSquares.Add((newBorderSquare, newEdge));
+
+    }
+
+    public List<(GameObject obj, OrthogonalPositions edge)> BorderSquares => borderSquares;
+
+    public void AddCornerBorderSquareToList(GameObject newCornerBorderSquare, CornerPositions cornerPos)
+    {
+        if(newCornerBorderSquare == null) return;
+
+        cornerBorderSquares.Add((newCornerBorderSquare, cornerPos));
+    }
+
 
     void MakeGoalSquare(SquareController newSquareController, GameObject newSquare)
     {
@@ -754,7 +872,7 @@ public class BattlefieldBuilder : MonoBehaviour
         y == 0          ? 1 : 0, // bottom
     };
 
-        sc.AddBorderSquare(sidesEmpty);
+        sc.AddBorderSquare(sidesEmpty, this);
     }
 
     void CollectInitialEnemySquares()
@@ -893,6 +1011,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
     }
 
+    public List<Vector2Int> FreeSquares => freeSquares;
+
+    /*
     void PlaceMerchant()
     {
         if (freeSquares.Count == 0)
@@ -911,7 +1032,7 @@ public class BattlefieldBuilder : MonoBehaviour
         else { Debug.LogError("No Merchant Square Controller"); }
 
 
-    }
+    }*/
 
     public void QuitGame()
     {
@@ -1047,7 +1168,9 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
 
+    public GameObject[,] AllSquares => allSquares;
 
+    /*
     void DetectBridges()
     {
         int width = allSquares.GetLength(0);
@@ -1087,10 +1210,10 @@ public class BattlefieldBuilder : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 
-
+    /*
     List<Vector2Int> GetVerticalBridgeRun(int x, int y)
     {
         List<Vector2Int> run = new List<Vector2Int>();
@@ -1107,8 +1230,9 @@ public class BattlefieldBuilder : MonoBehaviour
             run.Add(new Vector2Int(x, yy));
 
         return run;
-    }
+    }*/
 
+    /*
     List<Vector2Int> GetHorizontalBridgeRun(int x, int y)
     {
         List<Vector2Int> run = new List<Vector2Int>();
@@ -1125,7 +1249,9 @@ public class BattlefieldBuilder : MonoBehaviour
             run.Add(new Vector2Int(xx, y));
 
         return run;
-    }
+    }*/
+
+    /*
 
     bool RunConnectsLandAtBothEnds(List<Vector2Int> run, BridgeOrientation orientation)
     {
@@ -1154,7 +1280,7 @@ public class BattlefieldBuilder : MonoBehaviour
         }
 
         return false;
-    }
+    }*/
 
     void RebuildBridgeAwareVisuals()
     {
@@ -1281,7 +1407,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
 
 
-
+    /*
     void MarkBridgeRun(List<Vector2Int> run, BridgeOrientation orientation)
     {
         foreach (var pos in run)
@@ -1306,9 +1432,9 @@ public class BattlefieldBuilder : MonoBehaviour
         return IsLandAt(x, y)
             && IsWaterAt(x, y - 1)
             && IsWaterAt(x, y + 1);
-    }
+    }*/
 
-    bool IsWaterAt(int x, int y)
+    public bool IsWaterAt(int x, int y)
     {
         if(!InBounds(x, y)) return false;
 
@@ -1316,23 +1442,24 @@ public class BattlefieldBuilder : MonoBehaviour
         return sc != null && sc.IsWater;
     }
 
-    bool IsLandAt(int x, int y)
+   public bool IsLandAt(int x, int y)
     {
         if (!InBounds(x, y)) return false;
         SquareController sc = allSquares[x, y].GetComponent<SquareController>();
         return sc != null && !sc.IsWater;
 
     }
-
-    bool IsBridgeAt(int x, int y)
+    
+    public bool IsBridgeAt(int x, int y)
     {
         if (!InBounds(x, y)) return false;
 
         SquareController sc = allSquares[x, y]?.GetComponent<SquareController>();
         return sc != null && sc.IsBridge;
     }
+    
 
-    bool IsSolidLandAt(int x, int y)
+   public bool IsSolidLandAt(int x, int y)
     {
         if (!InBounds(x, y)) return false;
 
@@ -1340,9 +1467,18 @@ public class BattlefieldBuilder : MonoBehaviour
         return sc != null && !sc.IsWater && !sc.IsBridge;
     }
 
+    public void RemoveFreeSquare(Vector2Int removeFreeSquare)
+    {
+        freeSquares.Remove(removeFreeSquare);
+    }
+
+    [SerializeField] SacredPathBuilder sacredPathBuilder;
 
     void SetSacredPath()
     {
+        sacredPathBuilder.SetSacredPath(allSquares, playerStartingPosition);
+
+        /*
         int width = allSquares.GetLength(0);
         int height = allSquares.GetLength(1);
 
@@ -1385,40 +1521,35 @@ public class BattlefieldBuilder : MonoBehaviour
         // Also mark the goal as sacred (optional)
         var goalSq = allSquares[goal.x, goal.y].GetComponent<SquareController>();
         if (goalSq != null) goalSq.SetIsSacred(true);
-        freeSquares.Remove(goal); // harmless if not present
+        freeSquares.Remove(goal); // harmless if not present*/
 
 
 
     }
 
-    Vector2Int FindGoalCoord()
+   public Vector2Int FindGoalCoord()
     {
         int gx = Mathf.RoundToInt(goalSquareLocation.x);
         int gy = Mathf.RoundToInt(goalSquareLocation.y);
         return new Vector2Int(gx, gy);
     }
 
-   
 
-    Vector2Int GetDrunkNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int width, int height, HashSet<Vector2Int> visited)
+    [SerializeField] DrunkenPathController drunkenPathController;
+
+   public  Vector2Int GetDrunkNeighborTowardsGoal(Vector2Int current, Vector2Int goal, int width, int height, HashSet<Vector2Int> visited)
     {
-        // 4-neighbors
-        Vector2Int[] dirs =
-        {
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0),
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1),
-        };
+    return drunkenPathController.GetDrunkNeighborTowardsGoal(current, goal, width, height, visited);
 
+        /*
         List<Vector2Int> candidates = new List<Vector2Int>();
         List<float> weights = new List<float>();
 
         int currentDist = Mathf.Abs(current.x - goal.x) + Mathf.Abs(current.y - goal.y);
 
-        for (int i = 0; i < dirs.Length; i++)
+        foreach (var dir in Neigh4)
         {
-            Vector2Int n = current + dirs[i];
+            Vector2Int n = current + dir;
 
             if (n.x < 0 || n.x >= width || n.y < 0 || n.y >= height) continue;
 
@@ -1485,20 +1616,21 @@ public class BattlefieldBuilder : MonoBehaviour
             if (roll <= accum) return candidates[i];
         }
 
-        return candidates[candidates.Count - 1];
+        return candidates[candidates.Count - 1];*/
     }
 
 
-    static readonly Vector2Int[] Neigh4 = new[]
- {
-    new Vector2Int(0, 1),  // N
-    new Vector2Int(1, 0),  // E
-    new Vector2Int(0, -1), // S
-    new Vector2Int(-1, 0), // W
-};
+
+    public static readonly Vector2Int[] Neigh4 = new[]
+    {
+        new Vector2Int(0, 1),  // N
+        new Vector2Int(1, 0),  // E
+        new Vector2Int(0, -1), // S
+        new Vector2Int(-1, 0), // W
+    };
 
 
-
+    /*
     void MarkWaterAndShore()
     {
         int width = allSquares.GetLength(0);
@@ -1568,16 +1700,16 @@ public class BattlefieldBuilder : MonoBehaviour
                 }
             }
     }
+     */
 
-
-    static readonly Vector2Int[] NeighDiag = new[]
-{
-    new Vector2Int(1, 1),   // NE  bit 1
-    new Vector2Int(-1, 1),  // NW  bit 2
-    new Vector2Int(1, -1),  // SE  bit 4
-    new Vector2Int(-1, -1), // SW  bit 8
-};
-
+    public static readonly Vector2Int[] NeighDiag = new[]
+    {
+        new Vector2Int(1, 1),   // NE  bit 1
+        new Vector2Int(-1, 1),  // NW  bit 2
+        new Vector2Int(1, -1),  // SE  bit 4
+        new Vector2Int(-1, -1), // SW  bit 8
+    };
+   
  
 
 

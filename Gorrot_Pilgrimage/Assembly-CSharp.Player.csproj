@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\SquareVisId.cs" />
+    <Compile Include="Assets\SacredPathBuilder.cs" />
     <Compile Include="Assets\DiceController.cs" />
     <Compile Include="Assets\MerchantPhaseResolution.cs" />
     <Compile Include="Assets\PlayerMovementController.cs" />
@@ -69,9 +70,11 @@
     <Compile Include="Assets\SquareTypeController.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
+    <Compile Include="Assets\BattleFieldGridBuilder.cs" />
     <Compile Include="Assets\PlayerInventory.cs" />
     <Compile Include="Assets\ShadowPulseAnimation.cs" />
     <Compile Include="Assets\TurnOrganiser.cs" />
+    <Compile Include="Assets\LargeTerrainBuilder.cs" />
     <Compile Include="Assets\ResizeElementOnClick.cs" />
     <Compile Include="Assets\DeathPhaseResolution.cs" />
     <Compile Include="Assets\BridgeController.cs" />
@@ -97,7 +100,9 @@
     <Compile Include="Assets\WorldLocations.cs" />
     <Compile Include="Assets\StandeeController.cs" />
     <Compile Include="Assets\ShadowController.cs" />
+    <Compile Include="Assets\OverHeadSpansBuilder.cs" />
     <Compile Include="Assets\MapCatalogue.cs" />
+    <Compile Include="Assets\OverheadDecorationController.cs" />
     <Compile Include="Assets\StandeeAnimationController.cs" />
     <Compile Include="Assets\Scriptable\CharacterSprites\CharacterSpriteSet.cs" />
     <Compile Include="Assets\WaterAdjacencyController.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="Assets\DiceCollisionSound.cs" />
     <Compile Include="Assets\FlyMovementController.cs" />
     <Compile Include="Assets\FlyAnimationPicker.cs" />
+    <Compile Include="Assets\NPCBuilder.cs" />
     <Compile Include="Assets\PickRandomSpriteFromCollection.cs" />
     <Compile Include="Assets\Scriptable\DifficultyTuning.cs" />
     <Compile Include="Assets\Scriptable\MerchantStocks\MerchantStock.cs" />
@@ -128,8 +134,11 @@
     <Compile Include="Assets\PlayerStatReceiver.cs" />
     <Compile Include="Assets\Sprites\SquareType.cs" />
     <Compile Include="Assets\SquareController.cs" />
+    <Compile Include="Assets\BorderOverHeadDecorationController.cs" />
     <Compile Include="Assets\CharacterCreationMenuController.cs" />
+    <Compile Include="Assets\BridgesBuilder.cs" />
     <Compile Include="Assets\ItemCatalogue.cs" />
+    <Compile Include="Assets\DrunkenPathController.cs" />
     <Compile Include="Assets\AudioManager.cs" />
   </ItemGroup>
   <ItemGroup>

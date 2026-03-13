@@ -53,14 +53,8 @@ public class FatePhaseResolution : MonoBehaviour
         fateOutcomeStatText.text = fateOutcome.GetStatEffectedString();
 
         int fateDelta = fateOutcome.GetEffectDelta();
-        string deltaSign = "+";
-
-        if(fateDelta < 0)
-        {
-            deltaSign = "-";
-        }
-
-        fateOutcomeStatDelta.text = deltaSign + " " + fateDelta;
+        string deltaSign = fateDelta < 0 ? "-" : "+";
+        fateOutcomeStatDelta.text = deltaSign + " " + Mathf.Abs(fateDelta);
     }
     IEnumerator FateRollScreen()
     {

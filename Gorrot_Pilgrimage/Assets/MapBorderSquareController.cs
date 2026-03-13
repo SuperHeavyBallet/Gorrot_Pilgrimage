@@ -8,6 +8,9 @@ public class MapBorderSquareController : MonoBehaviour
     bool rightEmpty;
     bool downEmpty;
 
+    BattlefieldBuilder builder;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,8 +23,9 @@ public class MapBorderSquareController : MonoBehaviour
         
     }
 
-    public void AddBorderSquare(int[] sides)
+    public void AddBorderSquare(int[] sides, BattlefieldBuilder battlefieldBuilder)
     {
+        builder = battlefieldBuilder;
 
         int squareLeft = sides[0];
         int squareUp = sides[1];
@@ -63,6 +67,10 @@ public class MapBorderSquareController : MonoBehaviour
             transform.parent
         );
 
+       builder.AddCornerBorderSquareToList( newCornerBorderSquare , cornerPos);
+
+    
+
         switch (cornerPos)
         {
             case CornerPositions.NorthWest:
@@ -91,6 +99,7 @@ public class MapBorderSquareController : MonoBehaviour
             transform.parent
             );
 
+       builder.AddBorderSquareToList( newBorderSquare, borderPos );
 
         if (borderPos == OrthogonalPositions.North)
         {

@@ -69,8 +69,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\IMGUI\IDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\IMGUI\GUIFramework\GenericDefaultControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\EditablePath\IUndoObject.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\Selection\IndexedSelection.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\EditablePath\MultipleEditablePathController.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\Selection\IndexedSelection.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\EditablePath\ControlPoint.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\EditorTool\GenericScriptablePathInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.common@dd402daace1b\Path\Editor\IMGUI\CreatePointAction.cs" />

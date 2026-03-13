@@ -21,17 +21,7 @@ public class BridgeController : MonoBehaviour
     [SerializeField] SquareController squareController;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SetIsBridge(bool newIsBridge)
     {
@@ -79,4 +69,6 @@ public class BridgeController : MonoBehaviour
         waterSR.material = squareController.ThisMap.WaterShader;
         regularSquareMesh.SetActive(false);
     }
+
+
 }

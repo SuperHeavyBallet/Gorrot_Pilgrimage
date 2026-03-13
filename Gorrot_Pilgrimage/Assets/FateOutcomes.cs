@@ -49,6 +49,7 @@ public class FateOutcomes : MonoBehaviour
         int currentSuffering = playerStatsController.GetPlayerCurrentSuffering();
 
         const int maxAttempts = 25; // safety cap
+
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
             int index = Random.Range(0, allFateOutcomes.Length);
@@ -75,7 +76,7 @@ public class FateOutcomes : MonoBehaviour
 
             if (lowHealth && chosenFateEffectDelta < 0) return true;   // avoid more damage
             if (atMaxHealth && chosenFateEffectDelta > 0) return true; // avoid wasted healing
-            if (currentHealth - chosenFateEffectDelta <= 1) return true; // Extra guard against KO fate
+            if (currentHealth + chosenFateEffectDelta <= 3) return true; // Extra guard against KO fate
         }
         else if (chosenFateStatEffected == "suffering")
         {

@@ -236,17 +236,21 @@ public class SquareController : MonoBehaviour
     public void SetWaterDiagonalMask(int diagMask) => waterAdjacencyController.SetWaterDiagonalMask(diagMask);
 
     // Map Borders
-    public void AddBorderSquare(int[] sides) => mapBorderSquareController.AddBorderSquare(sides);
+    public void AddBorderSquare(int[] sides, BattlefieldBuilder battlefieldBuilder) => mapBorderSquareController.AddBorderSquare(sides, battlefieldBuilder);
 
-
+    [SerializeField] GameObject sacredMarker;
     // Sacred Path
     bool isSacred;
     public bool IsSacred => isSacred;
-    public void SetIsSacred(bool value) => isSacred = value;
+    public void SetIsSacred(bool value)
+    {
+        sacredMarker.SetActive(value);
+        isSacred = value;
+    }
 
 
-    // Water Step Effect
-    [SerializeField] GameObject stepInWaterSprite;
+        // Water Step Effect
+        [SerializeField] GameObject stepInWaterSprite;
     public void ActivateStepInWaterSprite(bool value) => stepInWaterSprite.SetActive(value);
     
    
