@@ -349,6 +349,7 @@ public class SquareTypeController : MonoBehaviour
                         {
                             randomID = itemCatalogueArray[i].itemID;
                             itemSprite = itemCatalogueArray[i].itemImage;
+                            prefab = itemCatalogueArray[i].ItemMesh;
                         }
                     }
                 }
@@ -369,6 +370,8 @@ public class SquareTypeController : MonoBehaviour
             }
           
         }
+
+
         if (squareContentsID == "greatsword")
         {
             prefab = item_Greatsword;

@@ -12,6 +12,9 @@ public class InventoryItemTemplate : ScriptableObject
     public statsToEffect statEffected = statsToEffect.health;
     public int effectDelta = 1; // +1, -1 to adjust stat
     [SerializeField] int amountAddedOnPickup = 1;
+
+    [SerializeField] GameObject mesh;
+    public GameObject ItemMesh => mesh;
     public int AmountAddedOnPickup => amountAddedOnPickup;
 
     public int price;

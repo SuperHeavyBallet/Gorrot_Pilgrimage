@@ -21,6 +21,7 @@ public class SquareController : MonoBehaviour
     [SerializeField] LargeTerrainController largeTerrainController;
     [SerializeField] SquarePositionsController squarePositionsController;
     [SerializeField] BridgeController bridgeController;
+    [SerializeField] GameObject overheadSpanSupport;
 
     Vector3 thisSquarePlayerPosition;
     public Vector3 ThisSquarePlayerPosition => thisSquarePlayerPosition;
@@ -32,7 +33,10 @@ public class SquareController : MonoBehaviour
     [SerializeField] GameObject shadow;
 
 
-    
+    public void ActivateOverHeadSpanSupport()
+    {
+        overheadSpanSupport.SetActive(true);
+    }
     public bool IsBridge => bridgeController.GetIsBridge;
 
     public void SetIsBridge(bool newIsBridge)

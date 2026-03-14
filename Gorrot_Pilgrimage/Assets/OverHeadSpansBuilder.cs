@@ -33,7 +33,8 @@ public class OverHeadSpansBuilder : MonoBehaviour
 
                 if (bc != null)
                 {
-                    bc.SpawnChainOverhead(battlefieldBuilder.ThisMap.GetMapSize() + 2, square.edge);
+                 
+                    bc.SpawnChainOverhead(battlefieldBuilder.ThisMap.GetMapSize() + 2, square.edge, battlefieldBuilder.ThisMap);
                 }
 
             }

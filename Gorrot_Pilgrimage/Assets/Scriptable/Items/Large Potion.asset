@@ -18,5 +18,7 @@ MonoBehaviour:
   amountHeld: 0
   statEffected: 0
   effectDelta: 6
+  amountAddedOnPickup: 1
+  mesh: {fileID: 97196280192246637, guid: 2bd13c1928e46ae429b1676afdc1b718, type: 3}
   price: 10
   ItemDescription: A mighty boost. +10 Health

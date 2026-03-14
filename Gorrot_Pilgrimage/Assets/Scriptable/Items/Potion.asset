@@ -18,5 +18,7 @@ MonoBehaviour:
   amountHeld: 0
   statEffected: 0
   effectDelta: 3
+  amountAddedOnPickup: 1
+  mesh: {fileID: 1370584880411141953, guid: 813ccbe523b40054eb021f19be0b5df5, type: 3}
   price: 5
   ItemDescription: A decent boost. +5 Health

@@ -5,20 +5,12 @@ public class BorderOverHeadDecorationController : MonoBehaviour
 {
     [SerializeField] GameObject overHeadDecoration;
     [SerializeField] Transform overHeadStartPos;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void SpawnChainOverhead(int spanAmount, OrthogonalPositions startEdge, MapData thisMap)
     {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SpawnChainOverhead(int spanAmount, OrthogonalPositions startEdge)
-    {
 
         Vector2 spanDirection = Vector2.zero;
         Transform spawnNextPosition = overHeadStartPos;
@@ -58,12 +50,32 @@ public class BorderOverHeadDecorationController : MonoBehaviour
         {
             for(int i = 0; i < spanAmount; i++)
             {
-                
+                bool isFirstOrLast = false;
 
-                GameObject newOverhead = Instantiate(overHeadDecoration, spawnNextPosition);
+                if (i == 0 || i == spanAmount-1)
+                {
+                    isFirstOrLast = true;
+                }
+
+                GameObject thisMapOverheadSpanObject = thisMap.OverheadSpanObject;
+                GameObject newOverhead = null;
+
+                if (thisMapOverheadSpanObject != null)
+                {
+                    newOverhead = Instantiate(thisMapOverheadSpanObject, spawnNextPosition);
+                }
+                else
+                {
+                    newOverhead = Instantiate(overHeadDecoration, spawnNextPosition);
+                }
+                    
                 OverheadDecorationController controller = newOverhead.GetComponent<OverheadDecorationController>();
+
                 if(controller != null )
                 {
+                    controller.SetThisMapData(thisMap);
+                    controller.SetIsFirstOrLast(isFirstOrLast);
+                    controller.SetOverheadDecoration();
                     spawnNextPosition = controller.GetSpawnNextPosition;
                 }
             }

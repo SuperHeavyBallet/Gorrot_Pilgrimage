@@ -425,5 +425,8 @@ public class MapData : ScriptableObject
         return terrainDensity;
     }
 
+    [SerializeField] GameObject overHeadSpanObject;
+    public GameObject OverheadSpanObject => overHeadSpanObject;
+
     
 }

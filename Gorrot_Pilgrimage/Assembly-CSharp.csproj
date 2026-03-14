@@ -61,6 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.14f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ContentSquareBuilder.cs" />
     <Compile Include="Assets\SquareVisId.cs" />
     <Compile Include="Assets\SacredPathBuilder.cs" />
     <Compile Include="Assets\DiceController.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\WorldLocations.cs" />
     <Compile Include="Assets\StandeeController.cs" />
     <Compile Include="Assets\ShadowController.cs" />
+    <Compile Include="Assets\WaterBuilder.cs" />
     <Compile Include="Assets\OverHeadSpansBuilder.cs" />
     <Compile Include="Assets\MapCatalogue.cs" />
     <Compile Include="Assets\OverheadDecorationController.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\PlaySoundOnClick.cs" />
     <Compile Include="Assets\SquarePositionsController.cs" />
+    <Compile Include="Assets\EnemyBuilder.cs" />
     <Compile Include="Assets\UIController.cs" />
     <Compile Include="Assets\Scriptable\Maps\MapData.cs" />
     <Compile Include="Assets\SquareSpriteLibrary.cs" />

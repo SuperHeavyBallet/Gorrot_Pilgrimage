@@ -1,11 +1,12 @@
 using UnityEngine;
+using GorrotGame;
 
 public class BattleFieldGridBuilder : MonoBehaviour
 {
     MapData chosenMap = null;
     MapData mapToBuild = null;
     MapData previousMap;
-    MapData thisMap;
+
 
     bool isLost;
 
@@ -16,75 +17,154 @@ public class BattleFieldGridBuilder : MonoBehaviour
     [SerializeField] PlayerMovementController playerMovementController;
 
     [SerializeField] BattlefieldBuilder battlefieldBuilder;
+    [SerializeField] GameObject battleFieldSquare;
+
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 
-    public void BuildNewGrid()
-    {
-        playerMovementController.PrepareForMapRebuild();
-        chosenMap = GetMapToBuild();
-
-        battlefieldBuilder.SetThisMap(chosenMap);
-        thisMap.ParseDialogue();
-        battlefieldBuilder.UpdateMapDataUI();
-        battlefieldBuilder.CheckMapisWild();
-        
-    }
-
-    MapData GetMapToBuild()
-    {
-        mapToBuild = null;
-        isLost = false;
-
-        if(previousMap == null)
-        {
-            mapToBuild = GetFirstMap();
-        }
-        else if (previousMap.GetIsWildMap())
-        {
-            mapToBuild = CalculateLostOrProgress();
-        }
-        else if (previousMap.GetIsFirstMap())
-        {
-            mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
-        }
-        else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
-        {
-            //canAdvanceDifficulty = true;
-            mapToBuild = previousMap.RollNextMap();
-        }
-
-        goalPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
-
-        return mapToBuild;
-
-    }
-
-    MapData GetFirstMap()
-    {
-        return mapCatalogue.GetFirstMap();
-    }
-
-    MapData CalculateLostOrProgress()
+   public void BuildBattleFieldGrid(int size, GameObject player)
     {
 
-        MapData chosenMap = null;
 
-        float escapeChance = previousMap.GetEscapeChance();
-        bool escaped = UnityEngine.Random.value < escapeChance;
-
-        if (!escaped)
+        if (!battlefieldBuilder.ThisMap.IsFinalCorridoor)
         {
-            isLost = true;
-            //  canAdvanceDifficulty = false;
-            chosenMap = previousMap; // repeat
+            GameObject[,] newSet = new GameObject[size, size];
+            battlefieldBuilder.SetAllSquares(newSet);
+            battlefieldBuilder.FreeSquares.Clear();
+
+
+            int randomGoalSquare = UnityEngine.Random.Range(0, size);
+
+            for (int x = 0; x < size; x++)
+            {
+                for (int y = 0; y < size; y++)
+                {
+                    GameObject newSquare = Instantiate(battleFieldSquare, transform);
+                    if (newSquare != null)
+                    {
+                        newSquare.transform.position = new Vector3(x, y, 0);
+                        battlefieldBuilder.AllSquares[x, y] = newSquare;
+
+                        SquareController newSquareController = newSquare.GetComponent<SquareController>();
+                        if (newSquareController != null)
+                        {
+                            newSquareController.SetSquareMapData(battlefieldBuilder.ThisMap);
+                            newSquareController.SetupNewSquare(x, y);
+                            newSquareController.AssignPlayer(player);
+                        }
+
+                        newSquareController.SetIsInShadow(battlefieldBuilder.ThisMap.GetHasShadows());
+
+                        // Border Placement
+                        if (x == 0 || x == size - 1 || y == 0 || y == size - 1) { MakeBorderSquare(x, y, size, size, newSquareController); }
+
+                        // Goal placement
+                        bool isGoalSpot = (y == size - 1 && x == randomGoalSquare);
+                        if (isGoalSpot)
+                        {
+                            MakeGoalSquare(newSquareController, newSquare, player);
+                            battlefieldBuilder.SetGoalSquareLocation(newSquare.transform.position);
+                           // goalSquareLocation = newSquare.transform.position;
+                        }
+
+                        // Don't add the player start or goal tile to free list either
+                        bool isPlayerStart = (x == battlefieldBuilder.PlayerStartingPosition && y == 0);
+
+                        if (!isPlayerStart && !isGoalSpot) { battlefieldBuilder.FreeSquares.Add(new Vector2Int(x, y)); }
+
+
+                    }
+                    else { Debug.LogError("Square prefab missing SquareController.", newSquare); return; }
+
+
+                }
+            }
         }
         else
         {
-            chosenMap = previousMap.RollNextMap();
+            Vector2Int corridoorSize = battlefieldBuilder.ThisMap.GetFinalCorrDimensions();
+
+            int width = corridoorSize.x;
+            int height = corridoorSize.y;
+
+
+            GameObject[,] newSet = new GameObject[width, height];
+            battlefieldBuilder.SetAllSquares(newSet);
+           
+            battlefieldBuilder.FreeSquares.Clear();
+
+            // pick a goal column within corridor width
+            int goalX = UnityEngine.Random.Range(0, width);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    GameObject newSquare = Instantiate(battleFieldSquare, transform);
+                    newSquare.transform.position = new Vector3(x, y, 0);
+                    battlefieldBuilder.AllSquares[x, y] = newSquare;
+
+                    var sc = newSquare.GetComponent<SquareController>();
+                    sc.SetSquareMapData(battlefieldBuilder.ThisMap);
+                    sc.SetupNewSquare(x, y);
+
+                    sc.SetIsInShadow(battlefieldBuilder.ThisMap.GetHasShadows());
+
+                    // Border placement using corridor bounds
+                    if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+                        MakeBorderSquare(x, y, width, height, sc); // see note below
+
+                    // Goal placement: top row of corridor
+                    bool isGoalSpot = (y == height - 1 && x == goalX);
+                    if (isGoalSpot)
+                    {
+                        MakeGoalSquare(sc, newSquare, player);
+                        battlefieldBuilder.SetGoalSquareLocation(newSquare.transform.position);
+            
+                    }
+
+                    bool isPlayerStart = (x == battlefieldBuilder.PlayerStartingPosition && y == 0);
+                    if (!isPlayerStart && !isGoalSpot)
+                        battlefieldBuilder.FreeSquares.Add(new Vector2Int(x, y));
+                }
+            }
         }
 
-        return chosenMap;
     }
+
+    void MakeGoalSquare(SquareController newSquareController, GameObject newSquare, GameObject player)
+    {
+        if (newSquareController != null)
+        {
+            newSquareController.MakeSquare(SquareType.Goal, battlefieldBuilder.ThisMap);
+
+            if (player != null)
+            {
+                if (battlefieldBuilder.PlayerCompassController != null) { battlefieldBuilder.PlayerCompassController.SetGoalLocation(newSquare); }
+                else { Debug.LogError("No Compass Controller Component Found on Player"); }
+
+                if (battlefieldBuilder.PlayerDistanceController != null) { battlefieldBuilder.PlayerDistanceController.SetGoalLocation(newSquare); }
+                else { Debug.LogError("No Distance Controller Component Found on Player"); }
+            }
+            else { Debug.Log("No Player Object Found"); }
+
+        }
+    }
+
+    void MakeBorderSquare(int x, int y, int width, int height, SquareController sc)
+    {
+
+        int[] sidesEmpty =
+        {
+            x == 0          ? 1 : 0, // left
+            y == height - 1 ? 1 : 0, // top
+            x == width - 1  ? 1 : 0, // right
+            y == 0          ? 1 : 0, // bottom
+        };
+
+        sc.AddBorderSquare(sidesEmpty, battlefieldBuilder);
+    }
+
 }
