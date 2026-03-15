@@ -139,7 +139,10 @@ public class BattlefieldBuilder : MonoBehaviour
 
             //if (thisMap.GetHasEnemies == true) CollectInitialEnemySquares();
 
-            if (borderSquares.Count > 0) overHeadSpansBuilder.CreateOverheadSpanDecorations();
+            if(thisMap.HasOverheadSpanObjects && borderSquares.Count > 0)
+            {
+                overHeadSpansBuilder.CreateOverheadSpanDecorations();
+            }
 
         }
 

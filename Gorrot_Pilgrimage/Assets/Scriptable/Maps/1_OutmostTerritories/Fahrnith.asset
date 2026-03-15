@@ -72,3 +72,5 @@ MonoBehaviour:
   waterBorderSprites:
   - {fileID: 21300000, guid: 83f5995ba4843ef4bbf2b8dd758c47eb, type: 3}
   enemyDialogue: {fileID: 4900000, guid: 48daf249b147e9e4ea7d49ee230a5bbd, type: 3}
+  hasOverheadSpanObjects: 1
+  overHeadSpanObject: {fileID: 3709438744217106091, guid: a5ba36fc9a06bc74abef67fc95959675, type: 3}
