@@ -10,6 +10,7 @@ public class SquareController : MonoBehaviour
     Vector3 playerPosition;
 
     [SerializeField] Animator enemyAnimator;
+    [SerializeField] Animator goalAnimator;
 
     PlayerMovementController playerMovementController;
 
@@ -22,6 +23,7 @@ public class SquareController : MonoBehaviour
     [SerializeField] SquarePositionsController squarePositionsController;
     [SerializeField] BridgeController bridgeController;
     [SerializeField] GameObject overheadSpanSupport;
+    [SerializeField] GoalSquareController goalSquareController;
 
     Vector3 thisSquarePlayerPosition;
     public Vector3 ThisSquarePlayerPosition => thisSquarePlayerPosition;
@@ -196,11 +198,27 @@ public class SquareController : MonoBehaviour
         
         if(dist <= 4)
         {
-            enemyAnimator.SetBool("playerInRange", true);
+            if(IsGoalSquare)
+            {
+                goalAnimator.SetBool("playerInRange", true);
+            }
+            else if(IsEnemy)
+            {
+                enemyAnimator.SetBool("playerInRange", true);
+            }
+                
         }
         else
         {
-            enemyAnimator.SetBool("playerInRange", false);
+            if (IsGoalSquare)
+            {
+                goalAnimator.SetBool("playerInRange", false);
+            }
+            else if (IsEnemy)
+            {
+                enemyAnimator.SetBool("playerInRange", false);
+            }
+          
         }
     }
 

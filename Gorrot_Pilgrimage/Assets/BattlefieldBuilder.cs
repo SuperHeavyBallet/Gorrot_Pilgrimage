@@ -49,7 +49,7 @@ public class BattlefieldBuilder : MonoBehaviour
     GameObject[,] allSquares;
 
     // Assorted
-    Vector2 goalSquareLocation;
+    Vector2Int goalSquareCoord;
     bool isLost;
     int playerStartingPosition = 0;
 
@@ -169,12 +169,7 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         return drunkenPathController.GetDrunkNeighborTowardsGoal(current, goal, width, height, visited);
     }
-    public Vector2Int FindGoalCoord()
-    {
-        int gx = Mathf.RoundToInt(goalSquareLocation.x);
-        int gy = Mathf.RoundToInt(goalSquareLocation.y);
-        return new Vector2Int(gx, gy);
-    }
+    public Vector2Int FindGoalCoord() => goalSquareCoord;
     public bool IsWaterAt(int x, int y)
     {
         if (!InBounds(x, y)) return false;
@@ -252,7 +247,7 @@ public class BattlefieldBuilder : MonoBehaviour
         borderSquares.Add((newBorderSquare, newEdge));
     }
     public int PlayerStartingPosition => playerStartingPosition;
-    public void SetGoalSquareLocation(Vector3 newPos) => goalSquareLocation = newPos;
+    public void SetGoalSquareCoord(Vector2Int coord) => goalSquareCoord = coord;
     public PlayerCompassController PlayerCompassController => playerCompassController;
     public PlayerDistanceController PlayerDistanceController => playerDistanceController;
     void SetPlayerStartSquare(int currentMapSize)

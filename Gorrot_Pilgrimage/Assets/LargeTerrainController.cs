@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class LargeTerrainController : MonoBehaviour
 {
-    [SerializeField] GameObject fourSquareTerrainContainer;
+
+    [SerializeField] GameObject largeTerrainContainer;
 
     public void SetFourBlockTerrainSprite(MapData thisSquareMapData)
     {
-        DeleteAllChildren(fourSquareTerrainContainer.transform);
-        GameObject fourSquarePrefab = Instantiate(thisSquareMapData.GetFourSquareMesh(), fourSquareTerrainContainer.transform);
+        DeleteAllChildren(largeTerrainContainer.transform);
+        GameObject fourSquarePrefab = Instantiate(thisSquareMapData.GetFourSquareMesh(), largeTerrainContainer.transform);
 
     }
 

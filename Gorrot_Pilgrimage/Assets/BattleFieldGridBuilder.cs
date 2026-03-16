@@ -44,7 +44,10 @@ public class BattleFieldGridBuilder : MonoBehaviour
                     GameObject newSquare = Instantiate(battleFieldSquare, transform);
                     if (newSquare != null)
                     {
-                        newSquare.transform.position = new Vector3(x, y, 0);
+                        //newSquare.transform.position = new Vector3(x, y, 0);
+                        //newSquare.transform.localRotation = Quaternion.identity;
+                        newSquare.transform.localPosition = new Vector3(x, 0, y);
+
                         battlefieldBuilder.AllSquares[x, y] = newSquare;
 
                         SquareController newSquareController = newSquare.GetComponent<SquareController>();
@@ -65,7 +68,7 @@ public class BattleFieldGridBuilder : MonoBehaviour
                         if (isGoalSpot)
                         {
                             MakeGoalSquare(newSquareController, newSquare, player);
-                            battlefieldBuilder.SetGoalSquareLocation(newSquare.transform.position);
+                            battlefieldBuilder.SetGoalSquareCoord(new Vector2Int(x, y));
                            // goalSquareLocation = newSquare.transform.position;
                         }
 
@@ -103,7 +106,11 @@ public class BattleFieldGridBuilder : MonoBehaviour
                 for (int y = 0; y < height; y++)
                 {
                     GameObject newSquare = Instantiate(battleFieldSquare, transform);
-                    newSquare.transform.position = new Vector3(x, y, 0);
+                    //newSquare.transform.position = new Vector3(x, y, 0);
+
+                    newSquare.transform.localRotation = Quaternion.identity;
+                    newSquare.transform.localPosition = new Vector3(x, 0, y);
+
                     battlefieldBuilder.AllSquares[x, y] = newSquare;
 
                     var sc = newSquare.GetComponent<SquareController>();
@@ -113,7 +120,7 @@ public class BattleFieldGridBuilder : MonoBehaviour
                     sc.SetIsInShadow(battlefieldBuilder.ThisMap.GetHasShadows());
 
                     // Border placement using corridor bounds
-                    if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+                    if (x == 0 || x == width - 1 || y == 0 || y == height -1)
                         MakeBorderSquare(x, y, width, height, sc); // see note below
 
                     // Goal placement: top row of corridor
@@ -121,7 +128,7 @@ public class BattleFieldGridBuilder : MonoBehaviour
                     if (isGoalSpot)
                     {
                         MakeGoalSquare(sc, newSquare, player);
-                        battlefieldBuilder.SetGoalSquareLocation(newSquare.transform.position);
+                        battlefieldBuilder.SetGoalSquareCoord(new Vector2Int(x, y));
             
                     }
 

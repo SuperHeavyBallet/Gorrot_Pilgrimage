@@ -68,6 +68,7 @@
     <Compile Include="Assets\MerchantPhaseResolution.cs" />
     <Compile Include="Assets\PlayerMovementController.cs" />
     <Compile Include="Assets\PlayerAnimationManager.cs" />
+    <Compile Include="Assets\GoalSquareController.cs" />
     <Compile Include="Assets\SquareTypeController.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />

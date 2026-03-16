@@ -317,6 +317,12 @@
         },
         {
             "m_Id": "dafbb6d331f1441d8c630482e5fb6953"
+        },
+        {
+            "m_Id": "ade09b6778b049c4ab726245d92082cb"
+        },
+        {
+            "m_Id": "ceba29f662444ec4a22e5d5c3e00f3d9"
         }
     ],
     "m_GroupDatas": [
@@ -712,7 +718,7 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "e83ec7066b8d49958ae78f9abd04c969"
+                    "m_Id": "ade09b6778b049c4ab726245d92082cb"
                 },
                 "m_SlotId": 0
             }
@@ -1154,6 +1160,34 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "ade09b6778b049c4ab726245d92082cb"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ceba29f662444ec4a22e5d5c3e00f3d9"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ade09b6778b049c4ab726245d92082cb"
+                },
+                "m_SlotId": 3
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ceba29f662444ec4a22e5d5c3e00f3d9"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "af2946cb691745e585fc6f9816b2c73b"
                 },
                 "m_SlotId": 0
@@ -1331,6 +1365,20 @@
                     "m_Id": "20dfae7d692b494a8fab3141c36e6acc"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "ceba29f662444ec4a22e5d5c3e00f3d9"
+                },
+                "m_SlotId": 6
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e83ec7066b8d49958ae78f9abd04c969"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -1588,8 +1636,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 1841.0,
-            "y": -186.99996948242188
+            "x": 1902.0,
+            "y": -240.0
         },
         "m_Blocks": [
             {
@@ -1685,6 +1733,27 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "034e4318025b43c38fd0f3b6f46afa1f",
+    "m_Id": 6,
+    "m_DisplayName": "RG",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "RG",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
 }
 
 {
@@ -3761,6 +3830,21 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "30b4f15a575544db97987c85c92f3df1",
+    "m_Id": 2,
+    "m_DisplayName": "B",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "B",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "3164ad45d34640a1ab9a622758d280a7",
     "m_Id": 0,
     "m_DisplayName": "_FoamIntensity",
@@ -3957,6 +4041,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "398dfa647db34fa6b787bf89a04f27af",
+    "m_Id": 2,
+    "m_DisplayName": "G",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "G",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "3bdd70ffc19349db979eb158038a5ce3",
     "m_Title": "South Ramp",
@@ -3997,7 +4096,7 @@
     "m_Title": "Corner Blob Mask",
     "m_Position": {
         "x": -872.0000610351563,
-        "y": -3287.000244140625
+        "y": -3287.0
     }
 }
 
@@ -4822,8 +4921,8 @@
     "m_ObjectId": "53506027eb8f4dc69f5813f94a8af45c",
     "m_Title": "ShoreMask",
     "m_Position": {
-        "x": 2074.000244140625,
-        "y": -1637.0001220703125
+        "x": 2074.0,
+        "y": -1637.0
     }
 }
 
@@ -6439,7 +6538,7 @@
     "m_ObjectId": "74ad08ba47fb49c79f1839b4f2771d9e",
     "m_Title": "East Ramp",
     "m_Position": {
-        "x": -2074.000244140625,
+        "x": -2074.0,
         "y": -1327.0001220703125
     }
 }
@@ -6787,6 +6886,31 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "7a07d43bf5d54b0894003a233c99df56",
+    "m_Id": 4,
+    "m_DisplayName": "RGBA",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "RGBA",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7afe212fa4fa4605ad64269b2b54bce0",
     "m_Id": 3,
@@ -7069,7 +7193,7 @@
     "m_ObjectId": "83859aedc09f4eabb39cabf9a5dd5460",
     "m_Title": "North West Ramp",
     "m_Position": {
-        "x": -2305.000244140625,
+        "x": -2305.0,
         "y": -2442.000244140625
     }
 }
@@ -7144,6 +7268,21 @@
         "z": 0.0,
         "w": 0.0
     },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "84e6560e690e4232bae437df02a20c49",
+    "m_Id": 0,
+    "m_DisplayName": "R",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "R",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
     "m_Labels": []
 }
 
@@ -7444,6 +7583,30 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "90f4f01cce9c40e2bcd9640fec52ad62",
+    "m_Id": 0,
+    "m_DisplayName": "In",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "In",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
@@ -8366,8 +8529,8 @@
     "m_ObjectId": "a5ee60d7c4d04decbe4fd08ee13087ae",
     "m_Title": "West Ramp",
     "m_Position": {
-        "x": -2055.0,
-        "y": -678.0
+        "x": -2055.000244140625,
+        "y": -678.0000610351563
     }
 }
 
@@ -8661,6 +8824,53 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.SplitNode",
+    "m_ObjectId": "ade09b6778b049c4ab726245d92082cb",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Split",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -957.0,
+            "y": 639.0,
+            "width": 120.0,
+            "height": 149.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "90f4f01cce9c40e2bcd9640fec52ad62"
+        },
+        {
+            "m_Id": "b064df5cdaf743bebc05761e8e9a3cc3"
+        },
+        {
+            "m_Id": "398dfa647db34fa6b787bf89a04f27af"
+        },
+        {
+            "m_Id": "ee24b6c560264c64a4104d2abb34f3ae"
+        },
+        {
+            "m_Id": "c1c6b9c7f3094a8f944aa7a4e85fbd58"
+        }
+    ],
+    "synonyms": [
+        "separate"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ae6bf9c83b5244059bd62eaa7ae492f8",
     "m_Id": 3,
@@ -8756,6 +8966,21 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "b064df5cdaf743bebc05761e8e9a3cc3",
+    "m_Id": 1,
+    "m_DisplayName": "R",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "R",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -8924,6 +9149,21 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "b3b29b7f4d794ad5ba9dd9596e770343",
+    "m_Id": 3,
+    "m_DisplayName": "A",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "A",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -9260,7 +9500,7 @@
     "m_ObjectId": "b999580a182946b6a9c446fd6bf14952",
     "m_Title": "North Ramp",
     "m_Position": {
-        "x": -3264.00048828125,
+        "x": -3264.000244140625,
         "y": -1332.0001220703125
     }
 }
@@ -9596,6 +9836,21 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "c1c6b9c7f3094a8f944aa7a4e85fbd58",
+    "m_Id": 4,
+    "m_DisplayName": "A",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "A",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -10058,6 +10313,59 @@
         "mix",
         "blend",
         "linear interpolate"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CombineNode",
+    "m_ObjectId": "ceba29f662444ec4a22e5d5c3e00f3d9",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Combine",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -741.0,
+            "y": 514.0,
+            "width": 208.0,
+            "height": 350.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "84e6560e690e4232bae437df02a20c49"
+        },
+        {
+            "m_Id": "ebcad6d743004c29b2d5ac2ce53ea791"
+        },
+        {
+            "m_Id": "30b4f15a575544db97987c85c92f3df1"
+        },
+        {
+            "m_Id": "b3b29b7f4d794ad5ba9dd9596e770343"
+        },
+        {
+            "m_Id": "7a07d43bf5d54b0894003a233c99df56"
+        },
+        {
+            "m_Id": "f249ba82969743219ae1d1421101cc6c"
+        },
+        {
+            "m_Id": "034e4318025b43c38fd0f3b6f46afa1f"
+        }
+    ],
+    "synonyms": [
+        "append"
     ],
     "m_Precision": 0,
     "m_PreviewExpanded": true,
@@ -11452,7 +11760,7 @@
     "m_Title": "South West Ramp",
     "m_Position": {
         "x": -617.0000610351563,
-        "y": -2456.000244140625
+        "y": -2456.0
     }
 }
 
@@ -11468,7 +11776,7 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -867.0,
+            "x": -805.0,
             "y": 915.0,
             "width": 208.0,
             "height": 360.0
@@ -11578,6 +11886,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "ebcad6d743004c29b2d5ac2ce53ea791",
+    "m_Id": 1,
+    "m_DisplayName": "G",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "G",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
     "m_ObjectId": "ed0add292fc74cb0a09a9c14fa267370",
     "m_Id": 3,
@@ -11587,6 +11910,21 @@
     "m_ShaderOutputName": "Sampler",
     "m_StageCapability": 3,
     "m_BareResource": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "ee24b6c560264c64a4104d2abb34f3ae",
+    "m_Id": 3,
+    "m_DisplayName": "B",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "B",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -11682,6 +12020,29 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "f249ba82969743219ae1d1421101cc6c",
+    "m_Id": 5,
+    "m_DisplayName": "RGB",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "RGB",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
 }
 
 {
@@ -11950,8 +12311,8 @@
     "m_ObjectId": "f97c3f9763454433986c4f37388da15d",
     "m_Title": "South East Ramp",
     "m_Position": {
-        "x": 206.00001525878907,
-        "y": -2453.000244140625
+        "x": 206.0,
+        "y": -2453.0
     }
 }
 

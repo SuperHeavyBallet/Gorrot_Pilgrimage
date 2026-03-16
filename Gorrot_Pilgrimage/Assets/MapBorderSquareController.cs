@@ -39,76 +39,71 @@ public class MapBorderSquareController : MonoBehaviour
 
         float thisSquareSize = this.transform.localScale.x;
 
+        Vector3 baseLocalPos = transform.localPosition;
+
         if (leftEmpty && upEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, thisSquareSize, 0f), CornerPositions.NorthWest);
+            MakeCornerBorderAtPosition(baseLocalPos + new Vector3(-thisSquareSize,  0f, thisSquareSize), CornerPositions.NorthWest);
 
         if (rightEmpty && upEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, thisSquareSize, 0f), CornerPositions.NorthEast);
+            MakeCornerBorderAtPosition(baseLocalPos + new Vector3(thisSquareSize,  0f, thisSquareSize), CornerPositions.NorthEast);
 
         if (leftEmpty && downEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(-thisSquareSize, -thisSquareSize, 0f), CornerPositions.SouthWest);
+            MakeCornerBorderAtPosition(baseLocalPos + new Vector3(-thisSquareSize, 0f, -thisSquareSize), CornerPositions.SouthWest);
 
         if (rightEmpty && downEmpty)
-            MakeCornerBorderAtPosition(transform.position + new Vector3(thisSquareSize, -thisSquareSize, 0f), CornerPositions.SouthEast);
+            MakeCornerBorderAtPosition(baseLocalPos + new Vector3(thisSquareSize, 0f, -thisSquareSize), CornerPositions.SouthEast);
 
-
-        if (leftEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.left * thisSquareSize, OrthogonalPositions.West);
-        if (rightEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.right * thisSquareSize, OrthogonalPositions.East);
-        if (upEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.up * thisSquareSize, OrthogonalPositions.North);
-        if (downEmpty) MakeBorderSquareAtPosition(transform.position + Vector3.down * thisSquareSize, OrthogonalPositions.South);
+        if (leftEmpty) MakeBorderSquareAtPosition(baseLocalPos + Vector3.left * thisSquareSize, OrthogonalPositions.West);
+        if (rightEmpty) MakeBorderSquareAtPosition(baseLocalPos + Vector3.right * thisSquareSize, OrthogonalPositions.East);
+        if (upEmpty) MakeBorderSquareAtPosition(baseLocalPos + Vector3.forward * thisSquareSize, OrthogonalPositions.North);
+        if (downEmpty) MakeBorderSquareAtPosition(baseLocalPos + Vector3.back * thisSquareSize, OrthogonalPositions.South);
     }
 
-    public void MakeCornerBorderAtPosition(Vector3 position, CornerPositions cornerPos)
+    public void MakeCornerBorderAtPosition(Vector3 localPosition, CornerPositions cornerPos)
     {
         GameObject newCornerBorderSquare = Instantiate(
             SquareSpriteLibrary.Instance.GetBorderCornerSquare(),
-            position,
-            Quaternion.identity,
             transform.parent
         );
 
-       builder.AddCornerBorderSquareToList( newCornerBorderSquare , cornerPos);
+        newCornerBorderSquare.transform.localPosition = localPosition;
+        
 
-    
+       
+
+        Vector3 rotationEuler = new Vector3(0, 0, 0);
 
         switch (cornerPos)
         {
-            case CornerPositions.NorthWest:
-                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 0f);
-                break;
             case CornerPositions.NorthEast:
-                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -90f);
+                rotationEuler = new Vector3(0f, 90f, 0f);
                 break;
             case CornerPositions.SouthEast:
-                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -180f);
+                rotationEuler = new Vector3(0f, 180f, 0f);
                 break;
             case CornerPositions.SouthWest:
-                newCornerBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 90f);
+                rotationEuler = new Vector3(0f, -90f, 0f);
                 break;
-            default:
+                default:
+                rotationEuler = new Vector3(0f, 0f, 0f);
                 break;
         }
+
+        newCornerBorderSquare.transform.localRotation = Quaternion.Euler(rotationEuler);
+
+        builder.AddCornerBorderSquareToList(newCornerBorderSquare, cornerPos);
     }
 
-   public void MakeBorderSquareAtPosition(Vector3 position, OrthogonalPositions borderPos)
+    public void MakeBorderSquareAtPosition(Vector3 localPosition, OrthogonalPositions borderPos)
     {
-        GameObject newBorderSquare = UnityEngine.Object.Instantiate(
+        GameObject newBorderSquare = Instantiate(
             SquareSpriteLibrary.Instance.getBorderSquare(),
-            position,
-            Quaternion.identity,
             transform.parent
-            );
+        );
 
-       builder.AddBorderSquareToList( newBorderSquare, borderPos );
+        newBorderSquare.transform.localPosition = localPosition;
+        newBorderSquare.transform.localRotation = Quaternion.identity;
 
-        if (borderPos == OrthogonalPositions.North)
-        {
-            newBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, 90f);
-        }
-        else if (borderPos == OrthogonalPositions.South)
-        {
-            newBorderSquare.transform.localRotation *= Quaternion.Euler(0f, 0f, -90f);
-        }
-
+        builder.AddBorderSquareToList(newBorderSquare, borderPos);
     }
 }

@@ -120,6 +120,7 @@ public class SquareTypeController : MonoBehaviour
         else if(thisSquareType == SquareType.Goal)
         {
             SetGoal();
+            squareController.LocatePlayer();
         }
         else if(thisSquareType == SquareType.Start)
         {

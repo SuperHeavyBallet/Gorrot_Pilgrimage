@@ -73,6 +73,7 @@ public class WaterAdjacencyController : MonoBehaviour
 
     public void AssignWaterBorderSprites(MapData thisSquareMapData)
     {
+        /*
         if (thisSquareMapData.GetWaterBorderSpritesArrayLength > 0)
         {
 
@@ -150,7 +151,7 @@ public class WaterAdjacencyController : MonoBehaviour
             waterBorderSouthSpriteRenderer.sprite = defaultWaterBorderSprite;
             waterBorderWestSpriteRenderer.sprite = defaultWaterBorderSprite;
         }
-
+        */
     }
 
     public void SetWaterAdjacencyMask(int mask)

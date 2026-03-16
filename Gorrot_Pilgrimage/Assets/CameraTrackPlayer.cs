@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraTrackPlayer : MonoBehaviour
 {
     public GameObject player;
+    [SerializeField] float heightOffset;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,6 +19,6 @@ public class CameraTrackPlayer : MonoBehaviour
 
     void trackPlayer()
     {
-        this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, this.transform.position.z);
+        this.transform.position = new Vector3(player.transform.position.x, this.transform.position.y, player.transform.position.z);
     }
 }
