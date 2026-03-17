@@ -8,12 +8,14 @@ public class BorderOverHeadDecorationController : MonoBehaviour
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    public void SpawnChainOverhead(int spanAmount, OrthogonalPositions startEdge, MapData thisMap)
+    public void SpawnChainOverhead(int spanAmount, MapData thisMap)
     {
         
 
         Vector2 spanDirection = Vector2.zero;
         Transform spawnNextPosition = overHeadStartPos;
+
+        /*
         switch (startEdge)
         {
             case OrthogonalPositions.North:
@@ -39,7 +41,7 @@ public class BorderOverHeadDecorationController : MonoBehaviour
             default:
                 spanDirection = Vector2.zero;
                 break;
-        }
+        }*/
 
 
 

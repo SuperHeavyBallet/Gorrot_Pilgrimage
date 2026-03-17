@@ -9,15 +9,15 @@ public class OverHeadSpansBuilder : MonoBehaviour
 
     public void CreateOverheadSpanDecorations()
     {
-        // This gives the square length of the side to start spans from
-        int borderHeight = battlefieldBuilder.ThisMap.GetMapSize();
 
         HashSet<int> chosenPositions = new HashSet<int>();
 
-        int numberOfSpans = UnityEngine.Random.Range(0, borderHeight);
+        // Generate a random number of total spans within the total amount of available borders per map
+        // Example: total possible = 10, chosen amount for this map = 5 => 5 used, 5 free, but unspecified which yet
+        int numberOfSpans = UnityEngine.Random.Range(0, battlefieldBuilder.ThisMap.GetMapSize());
 
 
-
+        // For that total amount selected, choose random positions within the available borders, then add that to the hashset to prevent duplication
         for (int i = 0; i < numberOfSpans; i++)
         {
             int randomBorderPosition = UnityEngine.Random.Range(0, battlefieldBuilder.BorderSquares.Count);
@@ -28,13 +28,15 @@ public class OverHeadSpansBuilder : MonoBehaviour
 
                 var square = battlefieldBuilder.BorderSquares[randomBorderPosition];
 
-                BorderOverHeadDecorationController bc =
-                    square.obj.GetComponent<BorderOverHeadDecorationController>();
+                BorderOverHeadDecorationController borderOHController = square.obj.GetComponent<BorderOverHeadDecorationController>();
 
-                if (bc != null)
+                if (borderOHController != null)
                 {
-                 
-                    bc.SpawnChainOverhead(battlefieldBuilder.ThisMap.GetMapSize() + 2, square.edge, battlefieldBuilder.ThisMap);
+                    // Send the signal for this starting border to begin a span, use +2 to account for starting and ending border as well as actual map width
+                    borderOHController.SpawnChainOverhead(
+                        battlefieldBuilder.ThisMap.GetMapSize() + 2, 
+                       // square.edge, 
+                        battlefieldBuilder.ThisMap);
                 }
 
             }

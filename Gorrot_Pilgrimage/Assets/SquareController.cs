@@ -266,7 +266,13 @@ public class SquareController : MonoBehaviour
     public bool IsSacred => isSacred;
     public void SetIsSacred(bool value)
     {
-        sacredMarker.SetActive(value);
+        int rng = UnityEngine.Random.Range(0, 2);
+        if(rng == 0 )
+        {
+            sacredMarker.SetActive(true);
+        }
+        else sacredMarker.SetActive(false);
+
         isSacred = value;
     }
 

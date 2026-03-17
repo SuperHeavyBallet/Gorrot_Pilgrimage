@@ -139,6 +139,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
             //if (thisMap.GetHasEnemies == true) CollectInitialEnemySquares();
 
+
+            // Check if overhead is needed and double check we actually have border squares to start from
             if(thisMap.HasOverheadSpanObjects && borderSquares.Count > 0)
             {
                 overHeadSpansBuilder.CreateOverheadSpanDecorations();

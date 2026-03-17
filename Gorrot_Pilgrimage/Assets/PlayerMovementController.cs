@@ -494,7 +494,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 playerStatsController.alterSuffering(2); // or 1, whatever intended
             }
-            else if (newSquareController.IsEmptySquare && !isWaiting)
+            else if (newSquareController.IsEmptySquare && !isWaiting && !newSquareController.IsSacred)
             {
                 playerStatsController.alterSuffering(1);
             }
