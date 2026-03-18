@@ -70,6 +70,7 @@
     <Compile Include="Assets\PlayerAnimationManager.cs" />
     <Compile Include="Assets\GoalSquareController.cs" />
     <Compile Include="Assets\SquareTypeController.cs" />
+    <Compile Include="Assets\TestScripts\HouseBuilder.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
     <Compile Include="Assets\BattleFieldGridBuilder.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\InventorySlotController.cs" />
     <Compile Include="Assets\PlayerInputReceiver.cs" />
     <Compile Include="Assets\CameraTrackPlayer.cs" />
+    <Compile Include="Assets\GroundFloorPositions.cs" />
     <Compile Include="Assets\PottardController.cs" />
     <Compile Include="Assets\BattlefieldBuilder.cs" />
     <Compile Include="Assets\PhaseTemplate.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Assets\FateCounter.cs" />
     <Compile Include="Assets\PlayerDistanceController.cs" />
     <Compile Include="Assets\LargeTerrainController.cs" />
+    <Compile Include="Assets\TopFloorPositions.cs" />
     <Compile Include="Assets\FatePhaseResolution.cs" />
     <Compile Include="Assets\CursorManager.cs" />
     <Compile Include="Assets\CharacterStatSheet.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Assets\SquareSpriteLibrary.cs" />
     <Compile Include="Assets\GoalPhaseResolution.cs" />
     <Compile Include="Assets\PlayerCompassController.cs" />
+    <Compile Include="Assets\BuildingFloorPositions.cs" />
     <Compile Include="Assets\CharacterCreationController.cs" />
     <Compile Include="Assets\MapBorderSquareController.cs" />
     <Compile Include="Assets\DiceCollisionSound.cs" />

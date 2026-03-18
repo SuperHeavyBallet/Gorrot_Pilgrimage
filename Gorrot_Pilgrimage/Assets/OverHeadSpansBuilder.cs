@@ -30,7 +30,7 @@ public class OverHeadSpansBuilder : MonoBehaviour
 
                 BorderOverHeadDecorationController borderOHController = square.obj.GetComponent<BorderOverHeadDecorationController>();
 
-                if (borderOHController != null)
+                if (borderOHController != null && battlefieldBuilder.RowFreeForOverhead(randomBorderPosition))
                 {
                     // Send the signal for this starting border to begin a span, use +2 to account for starting and ending border as well as actual map width
                     borderOHController.SpawnChainOverhead(

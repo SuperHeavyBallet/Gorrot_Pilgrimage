@@ -47,7 +47,19 @@ public class BattlefieldBuilder : MonoBehaviour
     List<(GameObject obj, OrthogonalPositions edge)> borderSquares = new List<(GameObject obj, OrthogonalPositions edge)>();
     List<(GameObject obj, CornerPositions corner)> cornerBorderSquares = new List<(GameObject obj, CornerPositions corner)>();
     GameObject[,] allSquares;
+    HashSet<int> rowsCannotContainOverheadSpans = new HashSet<int>();
 
+    public void AddRowToForbiddenForOverhead(int newRow)
+    {
+        rowsCannotContainOverheadSpans.Add(newRow);
+    }
+
+    public bool RowFreeForOverhead(int row)
+    {
+        if (rowsCannotContainOverheadSpans.Contains(row)) return false;
+
+        else return true;
+    }
     // Assorted
     Vector2Int goalSquareCoord;
     bool isLost;

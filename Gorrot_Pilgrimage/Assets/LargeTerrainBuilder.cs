@@ -107,6 +107,10 @@ public class LargeTerrainBuilder : MonoBehaviour
             battlefieldBuilder.AllSquares[x + 1, y].GetComponent<SquareController>().MakeEmptyTerrainSquare();
             battlefieldBuilder.AllSquares[x + 1, y + 1].GetComponent<SquareController>().MakeEmptyTerrainSquare();
 
+            // Add Rows to prevent Overhead spans
+            battlefieldBuilder.AddRowToForbiddenForOverhead(y);
+            battlefieldBuilder.AddRowToForbiddenForOverhead(y+1);
+
             // Reserve base for sprite activation
             candidateBaseSquaresforLargeItems.Add(battlefieldBuilder.AllSquares[x, y]);
 
