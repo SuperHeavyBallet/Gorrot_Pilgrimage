@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 6204885917950939288}
   - component: {fileID: 4665962770847947610}
   m_Layer: 0
-  m_Name: HouseTest
+  m_Name: GrowHouseTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

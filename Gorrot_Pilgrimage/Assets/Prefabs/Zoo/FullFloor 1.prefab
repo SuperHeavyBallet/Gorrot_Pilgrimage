@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3317504516013226281}
   - component: {fileID: 87923868029318830}
   m_Layer: 0
-  m_Name: FullFloor
+  m_Name: FullFloor 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6992450244510624699}
@@ -118,7 +118,6 @@ MonoBehaviour:
   groundFloorDecorations:
   - {fileID: 6386610729401232711, guid: e62dc7e31e2ec144aa766e5856188c7c, type: 3}
   - {fileID: 6386610729401232711, guid: e62dc7e31e2ec144aa766e5856188c7c, type: 3}
-  - {fileID: 6386610729401232711, guid: f36b6b2b51c991646afbad9a538e4ed2, type: 3}
   fillChance: 0.6
 --- !u!1 &506627958243982625
 GameObject:

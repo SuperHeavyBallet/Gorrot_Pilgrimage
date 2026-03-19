@@ -1307,6 +1307,7 @@ MonoBehaviour:
   groundFloorDecorations:
   - {fileID: 3442506157730074938, guid: 48cdefdb862b3d74988b0e215332f8eb, type: 3}
   - {fileID: 6386610729401232711, guid: e62dc7e31e2ec144aa766e5856188c7c, type: 3}
+  - {fileID: 6386610729401232711, guid: f36b6b2b51c991646afbad9a538e4ed2, type: 3}
   fillChance: 0.5
 --- !u!1 &4704092186824388449
 GameObject:
