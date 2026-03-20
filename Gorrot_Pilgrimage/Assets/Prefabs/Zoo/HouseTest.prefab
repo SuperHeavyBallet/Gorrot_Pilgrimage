@@ -232,5 +232,5 @@ MonoBehaviour:
   - {fileID: 3988439029315272929, guid: 1af1803bf3ab423418e9d43a4590189e, type: 3}
   houseBasePosition: {fileID: 136111800057513883}
   houseParent: {fileID: 2694674129423793908}
-  maxMidFloorCount: 10
+  maxMidFloorCount: 2
   namesFile: {fileID: 4900000, guid: 80ea24c35d00156429baeb7bf84cf3b6, type: 3}

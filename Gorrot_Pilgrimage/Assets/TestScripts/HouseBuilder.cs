@@ -22,18 +22,12 @@ public class HouseBuilder : MonoBehaviour
 
     Coroutine buildNewHouse;
 
-    IEnumerator RebuildHouse()
-    {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(3, 10));
-
-        DestroyOldHouse();
-        BuildHouse();
-    }
+ 
 
     void Start()
     {
         BuildHouse();
-        StartCoroutine(RebuildLoop());
+       // StartCoroutine(RebuildLoop());
     }
 
     IEnumerator RebuildLoop()
@@ -145,10 +139,10 @@ public class HouseBuilder : MonoBehaviour
         GameObject spawnedRoof = SpawnFloorAligned(topFloors[roofIndex], currentFloorPos.FloorTopPosition, houseParent);
 
         newHouse.SetTopFloor(spawnedRoof);
-        newHouse.SetNamesFile(namesFile);
-        newHouse.SetHouseName();
+        //newHouse.SetNamesFile(namesFile);
+        //newHouse.SetHouseName();
 
-        Debug.Log(newHouse.GetFloorNames());
+        //Debug.Log(newHouse.GetFloorNames());
 
        
     }
