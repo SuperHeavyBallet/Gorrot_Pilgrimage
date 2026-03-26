@@ -25,12 +25,6 @@ public class PottardController : MonoBehaviour
        prevDirection = Vector2Int.zero;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GetCurrentBattlefield(Vector2Int[] recFreeSquares, GameObject[,] recAllSquares)
     {
 
@@ -39,9 +33,20 @@ public class PottardController : MonoBehaviour
 
     }
 
-    public void SetStartPosition(Vector2 startPos)
+    public void SetStartPosition(Vector2Int startGridPos)
     {
-        this.transform.position = startPos;
+        currentPosition = startGridPos;
+
+        SquareController sq = allSquares[startGridPos.x, startGridPos.y].GetComponent<SquareController>();
+
+        transform.position = new Vector3(
+            sq.SquareXPosition,
+            transform.position.y,
+            sq.SquareYPosition
+        );
+
+        currentSquareController = sq;
+        sq.MakePottardSquare(true);
 
         StartNewMoveRoutine(Vector2Int.zero);
     }
@@ -56,9 +61,9 @@ public class PottardController : MonoBehaviour
 
         landOnGoal = false;
 
-        Vector2Int current = Vector2Int.RoundToInt(transform.position);
+        Vector2Int current = currentPosition;
 
-        currentPosition = current;
+        //currentPosition = current;
 
         Vector2Int next;
 
@@ -172,9 +177,13 @@ public class PottardController : MonoBehaviour
             yield return new WaitForSeconds(1);
 
             Vector3 start = transform.position;
-            Vector3 end = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            Vector3 end = new Vector3(
+                squareToLand.SquareXPosition,
+                transform.position.y,
+                squareToLand.SquareYPosition
+                );
 
-            float duration = 0.25f;
+        float duration = 0.25f;
             float t = 0f;
 
         if(currentSquareController != null)
@@ -205,8 +214,13 @@ public class PottardController : MonoBehaviour
                 yield return null;
             }
 
-            this.transform.position = new Vector2(newPosition.x, newPosition.y);
-            yield return null;
+        this.transform.position = new Vector3(
+            squareToLand.SquareXPosition,
+            transform.position.y,
+            squareToLand.SquareYPosition
+            );
+
+        yield return null;
 
         
 

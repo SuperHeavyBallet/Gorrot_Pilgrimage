@@ -15,33 +15,7 @@ public class BorderOverHeadDecorationController : MonoBehaviour
         Vector2 spanDirection = Vector2.zero;
         Transform spawnNextPosition = overHeadStartPos;
 
-        /*
-        switch (startEdge)
-        {
-            case OrthogonalPositions.North:
-                spanDirection = Vector2.down;
-                spawnNextPosition.rotation = Quaternion.Euler(0f, 0f, 0f);
-                break;
 
-            case OrthogonalPositions.South:
-                spanDirection = Vector2.up;
-                spawnNextPosition.rotation = Quaternion.Euler(0f, 0f, 180f);
-                break;
-
-            case OrthogonalPositions.East:
-                spanDirection = Vector2.left;
-                spawnNextPosition.rotation = Quaternion.Euler(0f, 0f, 180f);
-                break;
-
-            case OrthogonalPositions.West:
-                spanDirection = Vector2.right;
-                spawnNextPosition.rotation = Quaternion.Euler(0f, 0f, 0f);
-                break;
-
-            default:
-                spanDirection = Vector2.zero;
-                break;
-        }*/
 
 
 
@@ -69,6 +43,7 @@ public class BorderOverHeadDecorationController : MonoBehaviour
                 else
                 {
                     newOverhead = Instantiate(overHeadDecoration, spawnNextPosition);
+                    Debug.LogError("Default Span Fallback");
                 }
                     
                 OverheadDecorationController controller = newOverhead.GetComponent<OverheadDecorationController>();
@@ -78,6 +53,7 @@ public class BorderOverHeadDecorationController : MonoBehaviour
                     controller.SetThisMapData(thisMap);
                     controller.SetIsFirstOrLast(isFirstOrLast);
                     controller.SetOverheadDecoration();
+                   // controller.SetSagRotation(i, spanAmount);
                     spawnNextPosition = controller.GetSpawnNextPosition;
                 }
             }

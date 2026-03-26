@@ -166,7 +166,7 @@ public class NPCBuilder : MonoBehaviour
         GameObject newPottard = Instantiate(pottardReference, transform);
 
         PottardController pottardController = newPottard.GetComponent<PottardController>();
-        Vector2 startPos = new Vector2(freeSqArray[randomInt].x, freeSqArray[randomInt].y);
+        Vector2Int startPos = new Vector2Int(freeSqArray[randomInt].x, freeSqArray[randomInt].y);
 
         if (pottardController != null)
         {
