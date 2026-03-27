@@ -275,8 +275,6 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 nextSquareStandPosition = newSquareController.ThisSquarePlayerPosition;
         
 
-        //bool isMoveableSquare = newSquareController.IsMoveableSquare;
-
         if (!newSquareController.IsMoveableSquare)
         {
             BlockedSquare();
@@ -287,7 +285,6 @@ public class PlayerMovementController : MonoBehaviour
 
         // Compare Positions between this and proposed next squareSize to set the entry direction
         Vector2Int newMoveVector = new Vector2Int(newPositionX, newPositionY);
-        //newSquareController.SetEntryDirection(currentPosition, newMoveVector);
 
         Vector2 newPosition = new Vector2(
            newSquareController.SquareXPosition,

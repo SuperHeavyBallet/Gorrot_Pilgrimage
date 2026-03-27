@@ -9,6 +9,7 @@ public class MapBorderSquareController : MonoBehaviour
     bool downEmpty;
 
     BattlefieldBuilder builder;
+    MapData thisMap;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +27,7 @@ public class MapBorderSquareController : MonoBehaviour
     public void AddBorderSquare(int[] sides, BattlefieldBuilder battlefieldBuilder)
     {
         builder = battlefieldBuilder;
+        thisMap = builder.GetThisMap();
 
         int squareLeft = sides[0];
         int squareUp = sides[1];
@@ -91,6 +93,13 @@ public class MapBorderSquareController : MonoBehaviour
 
         newCornerBorderSquare.transform.localRotation = Quaternion.Euler(rotationEuler);
 
+        BorderSquareController borderSquareController = newCornerBorderSquare.GetComponent<BorderSquareController>();
+
+        if (borderSquareController != null)
+        {
+            borderSquareController.SetWallTopDressing(MapAssetsController.Instance.GetWallDresings(thisMap.GetMapLocation()));
+        }
+
         builder.AddCornerBorderSquareToList(newCornerBorderSquare, cornerPos);
     }
 
@@ -103,6 +112,13 @@ public class MapBorderSquareController : MonoBehaviour
 
         newBorderSquare.transform.localPosition = localPosition;
         newBorderSquare.transform.localRotation = Quaternion.identity;
+
+        BorderSquareController borderSquareController = newBorderSquare.GetComponent<BorderSquareController>();
+
+        if( borderSquareController != null )
+        {
+            borderSquareController.SetWallTopDressing(MapAssetsController.Instance.GetWallDresings(thisMap.GetMapLocation()));
+        }
 
         builder.AddBorderSquareToList(newBorderSquare, borderPos);
     }

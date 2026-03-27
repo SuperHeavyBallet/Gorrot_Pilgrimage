@@ -16,7 +16,8 @@ public class MapData : ScriptableObject
         Swamp_Border,
         Outer_Swamp,
         Inner_Swamp,
-        Gorrot
+        Gorrot_Town,
+        Gorrot_Church
     }
 
     [SerializeField] MapLocations mapLocation = MapLocations.Outmost_Territories;
@@ -121,6 +122,21 @@ public class MapData : ScriptableObject
 
     [SerializeField] GameObject[] thisMap_FourSquareTerrain;
     [SerializeField] GameObject default_FourSquareTerrain;
+
+
+    [SerializeField] GameObject[] thisMap_SmallTerrain;
+    [SerializeField] GameObject default_SmallTerrain;
+
+    public GameObject GetSmallTerrain()
+    {
+        if(thisMap_SmallTerrain.Length > 0)
+        {
+            return thisMap_SmallTerrain[UnityEngine.Random.Range(0, thisMap_SmallTerrain.Length)];
+        }
+
+        return default_SmallTerrain;
+    }
+
     public GameObject GetFourSquareMesh()
     {
         if (thisMap_FourSquareTerrain.Length > 0)

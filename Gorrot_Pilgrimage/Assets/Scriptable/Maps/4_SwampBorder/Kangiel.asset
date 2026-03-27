@@ -59,10 +59,13 @@ MonoBehaviour:
   thisMap_SquareMeshes: []
   default_SquareMesh: {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
   thisMap_FourSquareTerrain:
-  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
-  - {fileID: 7020964279979990658, guid: 4d792b1c716a0e14e92970087f594ea1, type: 3}
-  - {fileID: 582117322151891733, guid: a333b7ff475cbfe4c9ae371d8f2fbb9a, type: 3}
-  default_FourSquareTerrain: {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  default_FourSquareTerrain: {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  thisMap_SmallTerrain:
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  default_SmallTerrain: {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
   fourBlockTerrainSprites:
   - {fileID: 21300000, guid: 0f798421031649946868c61cb1f0d171, type: 3}
   - {fileID: 21300000, guid: 4c7dc8090ed388e41a2ce52171b35d7f, type: 3}
@@ -71,3 +74,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9eaa2e2b25926684abab2e1c2b5a164c, type: 3}
   - {fileID: 21300000, guid: dd75bf964486d0f41ac113e074ea1399, type: 3}
   enemyDialogue: {fileID: 4900000, guid: 15ccb2946372c54458311f0ed9ab622c, type: 3}
+  hasOverheadSpanObjects: 0
+  overHeadSpanObject: {fileID: 0}

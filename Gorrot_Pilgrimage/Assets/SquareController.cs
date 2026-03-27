@@ -258,7 +258,10 @@ public class SquareController : MonoBehaviour
     public void SetWaterDiagonalMask(int diagMask) => waterAdjacencyController.SetWaterDiagonalMask(diagMask);
 
     // Map Borders
-    public void AddBorderSquare(int[] sides, BattlefieldBuilder battlefieldBuilder) => mapBorderSquareController.AddBorderSquare(sides, battlefieldBuilder);
+    public void AddBorderSquare(int[] sides, BattlefieldBuilder battlefieldBuilder)
+    {
+        mapBorderSquareController.AddBorderSquare(sides, battlefieldBuilder);
+    }
 
     [SerializeField] GameObject sacredMarker;
     // Sacred Path
@@ -266,7 +269,8 @@ public class SquareController : MonoBehaviour
     public bool IsSacred => isSacred;
     public void SetIsSacred(bool value)
     {
-        int rng = UnityEngine.Random.Range(0, 2);
+        int mapSizeSacredDensity = thisSquareMapData.GetMapSize()/2;
+        int rng = UnityEngine.Random.Range(0,mapSizeSacredDensity);
         if(rng == 0 )
         {
             sacredMarker.SetActive(true);

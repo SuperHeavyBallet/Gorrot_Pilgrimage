@@ -8,7 +8,8 @@ public class LargeTerrainController : MonoBehaviour
     public void SetFourBlockTerrainSprite(MapData thisSquareMapData)
     {
         DeleteAllChildren(largeTerrainContainer.transform);
-        GameObject fourSquarePrefab = Instantiate(thisSquareMapData.GetFourSquareMesh(), largeTerrainContainer.transform);
+        GameObject largeTerrainPrefab = MapAssetsController.Instance.GetLargeTerrainPiece(thisSquareMapData.GetMapLocation());
+        GameObject fourSquarePrefab = Instantiate(largeTerrainPrefab, largeTerrainContainer.transform);
 
     }
 

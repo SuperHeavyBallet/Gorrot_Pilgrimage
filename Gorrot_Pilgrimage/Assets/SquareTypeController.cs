@@ -9,6 +9,8 @@ public class SquareTypeController : MonoBehaviour
 
     [SerializeField] SquareController squareController;
 
+    [SerializeField] SmallTerrainController smallTerrainController;
+
     SquareType thisSquareType = SquareType.Empty;
     public SquareType ThisSquareType => thisSquareType;
 
@@ -149,7 +151,7 @@ public class SquareTypeController : MonoBehaviour
 
     void SetSquareMesh(MapData thisSquareMapData)
     {
-        GameObject prefab = thisSquareMapData.GetSquareMesh();
+        GameObject prefab = MapAssetsController.Instance.GetFloorSquare(thisSquareMapData.GetMapLocation());
         ClearChildren(squareMeshContainer);
 
         GameObject mesh = Instantiate(prefab, squareMeshContainer);
@@ -196,7 +198,8 @@ public class SquareTypeController : MonoBehaviour
 
     void SetSmallTerrain()
     {
-        terrainSpriteObject.SetActive(true);
+        smallTerrainController.SetSmallTerrain(thisMapData);
+        
     }
 
     public void ConstructEmptyTerrainSquare(SquareType sqType, SquareSize sqSize, MapData thisMap)

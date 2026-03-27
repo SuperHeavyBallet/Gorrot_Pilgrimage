@@ -1452,6 +1452,127 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &136509202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136509204}
+  - component: {fileID: 136509203}
+  m_Layer: 0
+  m_Name: MapAssetsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &136509203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136509202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe867177c9fbdb4f870df46232d0fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  outmostTerritoriesFloorSquares:
+  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  outerRingFloorSquares:
+  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  innerRingFloorSquares:
+  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  swampBorderFloorSquares:
+  - {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
+  outerSwampFloorSquares:
+  - {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
+  innerSwampFloorSquares:
+  - {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
+  gorrotTownFloorSquares:
+  - {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
+  gorrotChurchFloorSquares:
+  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  outmostTerritoriesWallTopDressing: {fileID: 2134195125785653868, guid: be1933ee87d70734b961405351871686, type: 3}
+  outerRingWallTopDressing: {fileID: 2134195125785653868, guid: 7d1cb4d72a9d5ee41ab94b92f63230f3, type: 3}
+  innerRingWallTopDressing: {fileID: 2134195125785653868, guid: b6609ca18d295ba48a7a0c31735523c0, type: 3}
+  swampBorderWallTopDressing: {fileID: 2134195125785653868, guid: e0081a1da1d3d2643aab4acd67b68760, type: 3}
+  outerSwampWallTopDressing: {fileID: 2134195125785653868, guid: e0081a1da1d3d2643aab4acd67b68760, type: 3}
+  innerSwampWallTopDressing: {fileID: 2134195125785653868, guid: e0081a1da1d3d2643aab4acd67b68760, type: 3}
+  gorrotTownWallTopDressing: {fileID: 2134195125785653868, guid: be1933ee87d70734b961405351871686, type: 3}
+  gorrotChurchWallTopDressing: {fileID: 2134195125785653868, guid: b6609ca18d295ba48a7a0c31735523c0, type: 3}
+  outmostTerritoriesSmallTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  outerRingTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  innerRingTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  swampBorderTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  outerSwampTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  innerSwampTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  gorrotTownTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  gorrotChurchTerrainPieces:
+  - {fileID: 5651589730683467177, guid: abbe175bd196aad4da439e2a14971abc, type: 3}
+  - {fileID: 8326484965433571838, guid: 41fb0955142deaf46bff6a260682b126, type: 3}
+  - {fileID: 8326484965433571838, guid: f36a75c2d8fd3c94d8e77bd76e1af2f9, type: 3}
+  outmostTerritoriesLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  outerRingLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  innerRingLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  swampBorderLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  outerSwampLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: c6aac1cd64abc8549ba1357333c6a225, type: 3}
+  innerSwampLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: c6aac1cd64abc8549ba1357333c6a225, type: 3}
+  gorrotTownLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: 223c6ce9b111d224797d051d0c755aaf, type: 3}
+  - {fileID: 8819516493285128715, guid: 4e930191f1259a2469de440c5cd4036c, type: 3}
+  gorrotChurchLargeTerrainPieces:
+  - {fileID: 5772382466795997877, guid: c6aac1cd64abc8549ba1357333c6a225, type: 3}
+--- !u!4 &136509204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136509202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1117, y: 0.44626, z: -0.18691}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &139680065
 GameObject:
   m_ObjectHideFlags: 0
@@ -10527,8 +10648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c5c21766d72864b803f34e4c8f16a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementController
-  yOffset: 0
-  square: {fileID: 0}
+  yOffset: 0.05
   previousPosition: {x: 0, y: 0}
   currentPosition: {x: 0, y: 0}
   isPlayerTurn: 0
@@ -21950,6 +22070,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1051976439189441789, guid: 28b93c85fde35004783ae95c5545c720, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1345150278100632663, guid: 28b93c85fde35004783ae95c5545c720, type: 3}
       propertyPath: m_Name
       value: Square
@@ -24785,3 +24909,4 @@ SceneRoots:
   - {fileID: 7197488958029875674}
   - {fileID: 3827027394588949834}
   - {fileID: 1939695386}
+  - {fileID: 136509204}

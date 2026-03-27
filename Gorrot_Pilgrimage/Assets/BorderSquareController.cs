@@ -4,7 +4,10 @@ public class BorderSquareController : MonoBehaviour
 {
     [SerializeField] GameObject borderShadow;
 
-    public string shadowSide;
+    string shadowSide;
+
+    [SerializeField] GameObject wallTopDressingContainer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -33,5 +36,20 @@ public class BorderSquareController : MonoBehaviour
         };
 
         borderShadow.transform.localEulerAngles = new Vector3(0f, 0f, z);
+    }
+
+    public void SetWallTopDressing(GameObject wallTopDressing)
+    {
+        DeleteAllChildren(wallTopDressingContainer.transform);
+
+        GameObject newWallTopDressing = Instantiate(wallTopDressing, wallTopDressingContainer.transform);
+    }
+
+    void DeleteAllChildren(Transform parent)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(parent.GetChild(i).gameObject);
+        }
     }
 }
