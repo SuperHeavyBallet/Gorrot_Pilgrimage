@@ -9,7 +9,7 @@ public class OverHeadSpansBuilder : MonoBehaviour
 
     public void CreateOverheadSpanDecorations()
     {
-
+        /*
         HashSet<int> chosenPositions = new HashSet<int>();
 
         // Generate a random number of total spans within the total amount of available borders per map
@@ -40,6 +40,6 @@ public class OverHeadSpansBuilder : MonoBehaviour
                 }
 
             }
-        }
+        }*/
     }
 }
