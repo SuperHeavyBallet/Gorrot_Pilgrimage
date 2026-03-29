@@ -65,5 +65,34 @@ namespace GorrotGame
         Vertical
     }
 
+    public enum MapNames
+    {
+        Fetsmeld,
+        Garthun,
+        Farhnith,
+        Semsun,
+        Hindruhn,
+        Katharn,
+        Odrikloft,
+        Molgeritch,
+        Arx_Thronus,
+        Dwindir,
+        Halbegorn,
+        Wyrsmet,
+        Limmut,
+        Kangiel,
+        Ithen,
+        Borgen,
+        Ritten,
+        Myr,
+        Hingrel,
+        Imthuhl,
+        Gorrot_Town,
+        Gorrot_Church,
+        Gorrot_Waiting_Room,
+        Gorrot
+
+    }
+
 
 }
