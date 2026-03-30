@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: molgeritch
   mapLocation: 1
   mapName: Molgeritch
+  mapNames: 7
   mapSize: 15
   nextMaps:
   - {fileID: 11400000, guid: 3527bf4480d51ba4797be1e5fa91ad92, type: 2}

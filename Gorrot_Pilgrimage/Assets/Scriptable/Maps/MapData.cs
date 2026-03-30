@@ -25,6 +25,9 @@ public class MapData : ScriptableObject
     [SerializeField] string mapName;
     public string GetMapName() => mapName;
 
+    [SerializeField] MapNames mapNames;
+    public MapNames GetMapNames() => mapNames;
+
     [SerializeField] int mapSize;
 
     [SerializeField] MapData[] nextMaps;

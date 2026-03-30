@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: kangiel
   mapLocation: 3
   mapName: Kangiel
+  mapNames: 13
   mapSize: 15
   nextMaps:
   - {fileID: 11400000, guid: 5dba807657d77984c9d6a4fe7474bafe, type: 2}

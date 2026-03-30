@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: fahrnith
   mapLocation: 0
   mapName: Fahrnith
+  mapNames: 2
   mapSize: 8
   nextMaps:
   - {fileID: 11400000, guid: 184c5cc9909d46946a82c380aa83b824, type: 2}

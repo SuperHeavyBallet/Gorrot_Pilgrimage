@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: semsun
   mapLocation: 0
   mapName: Semsun
+  mapNames: 3
   mapSize: 10
   nextMaps:
   - {fileID: 11400000, guid: 184c5cc9909d46946a82c380aa83b824, type: 2}

@@ -1,3 +1,4 @@
+using GorrotGame;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
@@ -18,11 +19,17 @@ public class GoalPhaseResolution : MonoBehaviour
     [SerializeField] GameObject transitionScreen;
     [SerializeField] TextMeshProUGUI transitionScreenLostText;
 
-    bool isLost = false;
+   
 
     [SerializeField] GameObject succesfulTransitionGO;
     [SerializeField] GameObject lostTransitionGO;
-    [SerializeField] TextMeshProUGUI transitionText;
+    
+
+    [SerializeField] TransitionMapScreenController transitionMapScreenController;
+
+   
+
+    [SerializeField] LevelTransitionPhaseResolution levelTransitionPhaseResolution;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,32 +45,13 @@ public class GoalPhaseResolution : MonoBehaviour
         
     }
 
-    public void SetTransitionData(bool lostValue, MapData leavingMap, MapData goingToMap)
-    {
-
-        isLost = lostValue;
-
-        string leavingMapName = leavingMap.GetMapName();
-        string goingToMapName = goingToMap.GetMapName();
-
-        if(isLost )
-        {
-
-            transitionText.text = "You lost your way and remain in " + leavingMapName + ".";
-        }
-        else
-        {
-            transitionText.text = "You Move from " + leavingMapName + " to " + goingToMapName + ".";
-        }
-
-    }
 
     public void EnterGoalPhase()
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.goalReach);
 
 
-        goalScreen.SetActive(true);
+      //  goalScreen.SetActive(true);
         
         StartCoroutine(ArriveAtGoal());
 
@@ -74,16 +62,22 @@ public class GoalPhaseResolution : MonoBehaviour
         
 
         battlefieldBuilder.StartFadeToBlack();
+
+        
         yield return new WaitForSeconds(1);
-
+        
         playerStatsController.resetSuffering();
-        battlefieldBuilder.BuildNewBattlefield();
+        //battlefieldBuilder.BuildNewBattlefield();
 
-        transitionScreen.SetActive(true);
+        levelTransitionPhaseResolution.EnterLevelTransitionPhase();
 
-        yield return new WaitForSeconds(2);
+       // transitionMapScreenController.StartMapTransition(currentMap, nextMap);
+        
 
-        goalScreen.SetActive(false);
-        transitionScreen.SetActive(false);
+
+       // yield return new WaitForSeconds(2);
+
+       // goalScreen.SetActive(false);
+    
     }
 }

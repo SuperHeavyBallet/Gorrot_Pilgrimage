@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: katharn
   mapLocation: 1
   mapName: Katharn
+  mapNames: 5
   mapSize: 30
   nextMaps:
   - {fileID: 11400000, guid: e35e92b6b0a875a4193b005188ff3640, type: 2}

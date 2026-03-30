@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GorrotBasement
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrotBasement
-  mapLocation: 6
+  mapLocation: 7
   mapName: Gorrot Basement
+  mapNames: 24
   mapSize: 30
   nextMaps:
   - {fileID: 11400000, guid: 4e9c10bbf1067ad49ac1295f4096904e, type: 2}

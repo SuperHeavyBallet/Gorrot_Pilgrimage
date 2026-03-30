@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: ritten
   mapLocation: 4
   mapName: Ritten
+  mapNames: 16
   mapSize: 15
   nextMaps:
   - {fileID: 11400000, guid: 05f43e94432d6214ead2f73eb3c35586, type: 2}

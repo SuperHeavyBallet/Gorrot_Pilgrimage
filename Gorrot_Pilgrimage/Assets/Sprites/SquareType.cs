@@ -89,7 +89,8 @@ namespace GorrotGame
         Imthuhl,
         Gorrot_Town,
         Gorrot_Church,
-        Gorrot_Waiting_Room,
+        Gorrot_Waiting_Hall,
+        Gorrot_Corridoor,
         Gorrot
 
     }

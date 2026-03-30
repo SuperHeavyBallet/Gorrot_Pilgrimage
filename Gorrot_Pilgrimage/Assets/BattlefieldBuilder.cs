@@ -40,6 +40,8 @@ public class BattlefieldBuilder : MonoBehaviour
     [SerializeField] MapCatalogue mapCatalogue;
     [SerializeField] TurnOrganiser turnOrganiser;
     PlayerStatReceiver playerStatReceiver;
+    [SerializeField] TransitionMapScreenController transitionMapScreenController;
+    [SerializeField] LevelTransitionPhaseResolution levelTransitionPhaseResolution;
 
     // Lists and Arrays
     List<Vector2Int> freeSquares = new List<Vector2Int>();
@@ -97,6 +99,36 @@ public class BattlefieldBuilder : MonoBehaviour
         BuildNewBattlefield();
     }
 
+    public void PrepareNextMap()
+    {
+        MapData mapToBuild = null;
+        isLost = false;
+
+        if (previousMap == null)
+        {
+            mapToBuild = GetFirstMap();
+        }
+        else if (previousMap.GetIsWildMap())
+        {
+            mapToBuild = CalculateLostOrProgress();
+        }
+        else if (previousMap.GetIsFirstMap())
+        {
+            mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
+        }
+        else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
+        {
+
+            mapToBuild = previousMap.RollNextMap();
+        }
+
+       levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
+
+
+
+        thisMap = mapToBuild;
+    }
+
     public void BuildNewBattlefield()
     {
 
@@ -124,8 +156,9 @@ public class BattlefieldBuilder : MonoBehaviour
             QuitGame();
         }
 
+        
         StartFadeFromBlack();
-        transitionScreen.SetActive(false);
+        /*transitionScreen.SetActive(false);*/
         playerMovementController.SetReachedGoalSquare(false);
     }
 
@@ -332,6 +365,13 @@ public class BattlefieldBuilder : MonoBehaviour
     {
         return mapCatalogue.GetFirstMap();
     }
+
+    public void PrepareNextMapToBuild()
+    {
+
+    }
+
+
     MapData GetMapToBuild()
     {
         MapData mapToBuild = null;
@@ -355,12 +395,17 @@ public class BattlefieldBuilder : MonoBehaviour
             mapToBuild = previousMap.RollNextMap();
         }
 
-        goalPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
+        levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
+
+      
+       
 
         return mapToBuild;
     }
     public MapData GetThisMap() => thisMap;
 
+    public MapNames CurrentMapNames => previousMap.GetMapNames();
+    public MapNames NextMapNames => thisMap.GetMapNames();
 
     // UI Functions
     public void UpdateMapDataUI() 
@@ -370,8 +415,12 @@ public class BattlefieldBuilder : MonoBehaviour
 
         uiController.UpdateMapDataText(thisMap.GetMapName(), mapLocation); 
     }
-    public void StartFadeToBlack() { uiController.StartFadeToBlack(); }
-    public void StartFadeFromBlack() { uiController.StartFadeFromBlack(); }
+    public void StartFadeToBlack() { 
+        uiController.StartFadeToBlack(); 
+    }
+    public void StartFadeFromBlack() { 
+        uiController.StartFadeFromBlack();
+        }
 
 
 }

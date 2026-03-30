@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: hingrel
   mapLocation: 5
   mapName: Hingrel
+  mapNames: 18
   mapSize: 20
   nextMaps:
   - {fileID: 11400000, guid: 553db43221b674f42830de500717b85f, type: 2}

@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: borgen
   mapLocation: 4
   mapName: Borgen
+  mapNames: 15
   mapSize: 20
   nextMaps:
   - {fileID: 11400000, guid: 1a88157e67bba594ca0190efae683af0, type: 2}

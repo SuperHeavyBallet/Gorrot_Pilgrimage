@@ -11,8 +11,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] float yOffset = 0f;
 
 
-   // public GameObject square;
-  //  int battleFieldSize = 0;
    int gridWidth;
     int gridHeight;
 
@@ -26,7 +24,6 @@ public class PlayerMovementController : MonoBehaviour
     public bool isPlayerTurn;
     public TurnOrganiser turnOrganiser;
 
-   // public AudioManager audioManager;
 
     PlayerStatsController playerStatsController;
 
@@ -41,12 +38,11 @@ public class PlayerMovementController : MonoBehaviour
 
     bool isMoving;
 
-    bool reachedGoalSquare;
+    public bool reachedGoalSquare;
 
     public GameObject playerSprite;
 
    [SerializeField] PlayerAnimationManager playerAnimationManager;
-    // Vector3 standeeForwardRotationEuler; // for editing in inspector
     private Quaternion standeeForwardQ;
     [SerializeField] GameObject standee;
     [SerializeField] Animator standeeAnimator;
@@ -69,8 +65,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] float turnDuration = 0.15f; // small = snappy
     Coroutine turnRoutine;
 
-   // int previousPositionX = 0;
-   // int previousPositionY = 0;
     [SerializeField] Transform board; // something whose “up” is your turn axis
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -122,8 +116,7 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isPlayerTurn = turnOrganiser.GetPlayerTurn();
-        
+        isPlayerTurn = turnOrganiser.GetPlayerTurn();   
     }
 
     bool CheckPlayerAlive()

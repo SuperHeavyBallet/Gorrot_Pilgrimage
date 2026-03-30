@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GorrotCorridoor
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrotCorridoor
-  mapLocation: 6
+  mapLocation: 7
   mapName: Gorrot Corridoor
+  mapNames: 23
   mapSize: 50
   nextMaps:
   - {fileID: 11400000, guid: 6b187aea332e4dd46a36533376a049d8, type: 2}

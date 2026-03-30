@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: ithen
   mapLocation: 3
   mapName: Ithen
+  mapNames: 14
   mapSize: 15
   nextMaps:
   - {fileID: 11400000, guid: 895f280fbad579d4fa7f9411566a76dd, type: 2}

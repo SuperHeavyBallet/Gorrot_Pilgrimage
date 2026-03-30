@@ -38,7 +38,8 @@ public class TurnOrganiser : MonoBehaviour
         goalReach,
         death,
         merchant,
-        win
+        win,
+        levelTransition
     }
 
     public ActivePhase currentPhase = ActivePhase.movement;
@@ -103,13 +104,8 @@ public class TurnOrganiser : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-
-
-
         playerIsAlive = true;
         movementPhaseResolution.EnterMovementPhase();
-       
     }
 
     public void UpdateCurrentPhase(ActivePhase newPhase)

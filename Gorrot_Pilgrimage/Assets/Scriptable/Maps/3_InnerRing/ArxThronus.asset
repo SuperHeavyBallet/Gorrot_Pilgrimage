@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: arx_thronus
   mapLocation: 2
   mapName: Arx Thronus
+  mapNames: 8
   mapSize: 25
   nextMaps:
   - {fileID: 11400000, guid: e191521dc475679459eda0298110b4c2, type: 2}

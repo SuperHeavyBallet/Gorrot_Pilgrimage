@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: imthuhl
   mapLocation: 5
   mapName: Imthuhl
+  mapNames: 19
   mapSize: 25
   nextMaps:
   - {fileID: 11400000, guid: 553db43221b674f42830de500717b85f, type: 2}

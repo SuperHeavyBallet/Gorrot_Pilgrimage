@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: limmut
   mapLocation: 3
   mapName: Limmut
+  mapNames: 12
   mapSize: 25
   nextMaps:
   - {fileID: 11400000, guid: 700cccbf8a087bb44b71000941631082, type: 2}

@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: wyrsmet
   mapLocation: 2
   mapName: Wyrsmet
+  mapNames: 11
   mapSize: 20
   nextMaps:
   - {fileID: 11400000, guid: e191521dc475679459eda0298110b4c2, type: 2}

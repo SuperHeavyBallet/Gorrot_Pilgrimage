@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: halbegorn
   mapLocation: 2
   mapName: Halbegorn
+  mapNames: 10
   mapSize: 25
   nextMaps:
   - {fileID: 11400000, guid: adc86f2cf5bbca9439b95a617990aa01, type: 2}

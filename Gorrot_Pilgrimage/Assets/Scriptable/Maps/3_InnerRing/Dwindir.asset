@@ -15,6 +15,7 @@ MonoBehaviour:
   mapID: dwindir
   mapLocation: 2
   mapName: Dwindir
+  mapNames: 9
   mapSize: 30
   nextMaps:
   - {fileID: 11400000, guid: c911a0c7ad10d3c45bab96b54a1798d3, type: 2}
