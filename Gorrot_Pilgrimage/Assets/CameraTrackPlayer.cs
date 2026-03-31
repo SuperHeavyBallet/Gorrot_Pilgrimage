@@ -2,23 +2,64 @@ using UnityEngine;
 
 public class CameraTrackPlayer : MonoBehaviour
 {
-    public GameObject player;
-    [SerializeField] float heightOffset;
+    [SerializeField] GameObject player;
+    [SerializeField] PlayerMovementController playerMovementController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] float maxForwardOffset = 6f;
+    [SerializeField] float minForwardOffset = 1f;
+    [SerializeField] float smoothTime = 0.2f;
 
-    // Update is called once per frame
+    Vector3 velocity = Vector3.zero;
+
+    public int gridHeight;
+    public int playerZPosition;
+
+     float startXRotation = 75f;
+    float endXRotation = 55f;
+    [SerializeField] float rotationSmoothSpeed = 5f;
+
+
+
     void Update()
     {
-        trackPlayer();
+        TrackPlayer();
     }
 
-    void trackPlayer()
+    void TrackPlayer()
     {
-        this.transform.position = new Vector3(player.transform.position.x, this.transform.position.y, player.transform.position.z);
+        gridHeight = playerMovementController.GridHeight;
+        playerZPosition = playerMovementController.PlayerPosition.y;
+
+        float t = gridHeight > 1 ? playerZPosition / (float)(gridHeight - 1) : 0;
+        t = Mathf.Clamp01(t);
+
+        float forwardOffset = Mathf.Lerp(0f, maxForwardOffset, t);
+
+        Vector3 targetPosition = new Vector3(
+            player.transform.position.x,
+            transform.position.y,
+            player.transform.position.z - forwardOffset
+        );
+
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            targetPosition,
+            ref velocity,
+            smoothTime
+        );
+
+        float targetXRotation = Mathf.Lerp(startXRotation, endXRotation, t);
+
+        Quaternion targetRotation = Quaternion.Euler(
+     targetXRotation,
+     transform.localEulerAngles.y,
+     transform.localEulerAngles.z
+ );
+
+        transform.localRotation = Quaternion.Lerp(
+            transform.localRotation,
+            targetRotation,
+            rotationSmoothSpeed * Time.deltaTime
+        );
     }
 }

@@ -18,31 +18,31 @@ public class PlayerMovementController : MonoBehaviour
     GameObject[,] allSquares;
 
 
-    public Vector2Int previousPosition;
-    public Vector2Int currentPosition;
+    Vector2Int previousPosition;
+    Vector2Int currentPosition;
 
-    public bool isPlayerTurn;
-    public TurnOrganiser turnOrganiser;
+    bool isPlayerTurn;
+    [SerializeField] TurnOrganiser turnOrganiser;
 
 
     PlayerStatsController playerStatsController;
 
     public bool playerIsAlive;
 
-   public BattlefieldBuilder battlefieldBuilder;
-    public SquareSize nextSquareQuantity = SquareSize.Medium;
+    [SerializeField] BattlefieldBuilder battlefieldBuilder;
+    SquareSize nextSquareQuantity = SquareSize.Medium;
 
     PlayerInventory playerInventory;
 
-    public FateCounter fateCounter;
+    [SerializeField] FateCounter fateCounter;
 
     bool isMoving;
 
-    public bool reachedGoalSquare;
+    bool reachedGoalSquare;
 
-    public GameObject playerSprite;
+    //public GameObject playerSprite;
 
-   [SerializeField] PlayerAnimationManager playerAnimationManager;
+   //[SerializeField] PlayerAnimationManager playerAnimationManager;
     private Quaternion standeeForwardQ;
     [SerializeField] GameObject standee;
     [SerializeField] Animator standeeAnimator;
@@ -88,7 +88,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void PrepareForMapRebuild()
     {
-        // Stop movement mid-flight so coroutine doesn't keep touching old squares
         if (turnRoutine != null)
         {
             StopCoroutine(turnRoutine);
@@ -98,13 +97,10 @@ public class PlayerMovementController : MonoBehaviour
 
         isMoving = false;
         reachedGoalSquare = false;
-
-        // Drop dead references
         currentSquareController = null;
         allSquares = null;
 
-        // Optional: if you want to fully reset facing/anim
-        playerAnimationManager.SetIsWalking(false);
+        //playerAnimationManager.SetIsWalking(false);
         if (standeeAnimator) standeeAnimator.SetBool("isMoving", false);
     }
 
@@ -112,8 +108,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         reachedGoalSquare = value;
     }
-
-    // Update is called once per frame
     void Update()
     {
         isPlayerTurn = turnOrganiser.GetPlayerTurn();   
@@ -126,8 +120,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveMoveInput(Vector2 receivedMoveValue, bool freeMove, bool isWaiting)
     {
-        
-
         if(!reachedGoalSquare)
         {
             Vector2 normalizedMoveValue = new Vector2(
@@ -155,10 +147,7 @@ public class PlayerMovementController : MonoBehaviour
                 if (turnOrganiser.currentPhase == TurnOrganiser.ActivePhase.movement)
                 {
                    
-                        MovePlayer(normalizedMoveValue, freeMove, isWaiting);
-                    
-
-                   
+                        MovePlayer(normalizedMoveValue, freeMove, isWaiting);   
                 }
                     
             }
@@ -167,14 +156,6 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
-    bool IsInsideGrid(int x, int y)
-    {
-        return x >= 0 && x < gridWidth &&
-         y >= 0 && y < gridHeight;
-    }
-
-
-    
     void SetFacing(float normX, float normY)
     {
         currentFacingPosition = nextFacingPosition;
@@ -203,14 +184,14 @@ public class PlayerMovementController : MonoBehaviour
 
         // Only swap sprites when facing changes
         if (currentFacingPosition == nextFacingPosition) return;
-
+        /*
         switch (nextFacingPosition)
         {
             case facingPositions.down: playerAnimationManager.SetFrontSprites(); break;
             case facingPositions.right: playerAnimationManager.SetSideSprites("right"); break;
             case facingPositions.left: playerAnimationManager.SetSideSprites("left"); break;
             default: playerAnimationManager.SetBackSprites(); break;
-        }
+        }*/
 
 
 
@@ -249,11 +230,15 @@ public class PlayerMovementController : MonoBehaviour
         
 
         // FIRST: check bounds BEFORE touching the array
-        if (!IsInsideGrid(newPositionX, newPositionY))
+        
+        if(!GridUtilities.IsInsideGrid(newPositionX, newPositionY, gridWidth, gridHeight))
         {
             BlockedSquare();
             return;
         }
+
+        
+        
 
         SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
 
@@ -300,23 +285,14 @@ public class PlayerMovementController : MonoBehaviour
 
     void PlayFootStepSound(SquareController squareController)
     {
-        if (squareController.IsWater)
-        {
-            AudioManager.Instance.playPlayerMoveWaterSoundEffect();
-        }
-        else
-        {
-            AudioManager.Instance.playPlayerMoveSoundEffect();
-        }
+        AudioManager.Instance.PlayPlayerMoveSoundEffect(squareController.IsWater);
     }
 
     void MakeSquareHoldPlayer(SquareController squareController, bool value)
     {
         if (squareController != null)
         {
-            squareController.MakeThisSquareHoldPlayer(value);
-
-            
+            squareController.MakeThisSquareHoldPlayer(value); 
         }
     }
 
@@ -356,7 +332,7 @@ public class PlayerMovementController : MonoBehaviour
         )
     {
         isMoving = true;
-        playerAnimationManager.SetIsWalking(true);
+        //playerAnimationManager.SetIsWalking(true);
         standeeAnimator.SetBool("isMoving", true);
 
         PlayFootStepSound(newSquareController);
@@ -406,210 +382,189 @@ public class PlayerMovementController : MonoBehaviour
         
 
         isMoving = false;
-        playerAnimationManager.SetIsWalking(false);
+        //playerAnimationManager.SetIsWalking(false);
         standeeAnimator.SetBool("isMoving", false);
         ApplyMoveResults(newSquareController, freeMove, isWaiting);
         turnOrganiser.BuildNextTurn();
     }
+    public int GridHeight => gridHeight;
+    public Vector2Int PlayerPosition => currentPosition;
 
+    void SteppedOnGoal()
+    {
+        SetReachedGoalSquare(true);
+        turnOrganiser.LandedOnGoal();
+        fateCounter.resetFateCounter();
+    }
+
+
+    void SteppedOnPottard()
+    {
+        playerStatsController.resetSuffering();
+        MovePlayerBackOneSquare();
+    }
+
+    void SteppedOnTrap(SquareController newSqCon)
+    {
+        newSqCon.ActivateTrap(playSoundEffect: true);
+        playerStatsController.alterHealth(-1);
+        MovePlayerBackOneSquare();
+    }
+
+    void SteppedOnMerchant()
+    {
+        turnOrganiser.LandedOnMerchantSquare();
+    }
+
+    void SteppedOnEnemy(SquareController newSqCon)
+    {
+        int amount = 0;
+
+        switch (nextSquareQuantity)
+        {
+            case SquareSize.Small:
+                amount = 1;
+                break;
+            case SquareSize.Medium:
+                amount = 3;
+                break;
+            case SquareSize.Large:
+                amount = 5;
+                break;
+            default:
+                amount = 3;
+                break;
+        }
+
+        turnOrganiser.UpdateCurrentEnemySize(amount);
+        turnOrganiser.SetLandedOnEnemySquare(true, newSqCon);
+    }
+
+    void ApplyMoveTax(SquareController newSqCon, bool isWaiting)
+    {
+        if (!isWaiting) fateCounter.alterFateCounter(1);
+        else fateCounter.alterFateCounter(2);
+
+        if (newSqCon.IsWater)
+        {
+            playerStatsController.alterSuffering(2);
+        }
+        else if (newSqCon.IsEmptySquare && !isWaiting && !newSqCon.IsSacred)
+        {
+            playerStatsController.alterSuffering(1);
+        }
+    }
+
+    void SteppedOnItem(SquareController newSqCon)
+    {
+        string squareContentsID = newSqCon.ContentsID;
+        bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
+
+
+        if (canAddItem)
+        {
+            newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+        }
+        else
+        {
+            AudioManager.Instance.playCannotMoveSoundEffect();
+        }
+    }
+
+    void SteppedOnTreasure(SquareController newSqCon)
+    {
+        int amount = 0;
+
+        switch (nextSquareQuantity)
+        {
+            case SquareSize.Small:
+                amount = 1;
+                break;
+            case SquareSize.Medium:
+                amount = 3;
+                break;
+            case SquareSize.Large:
+                amount = 5;
+                break;
+            default:
+                amount = 3;
+                break;
+        }
+
+        playerStatsController.AlterMoney(amount);
+        playerStatsController.alterSuffering(amount * -1);
+        newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+    }
+
+    void SteppedOnHealth(SquareController newSqCon)
+    {
+        int amount = 0;
+
+        switch (nextSquareQuantity)
+        {
+            case SquareSize.Small:
+                amount = 1;
+                break;
+            case SquareSize.Medium:
+                amount = 3;
+                break;
+            case SquareSize.Large:
+                amount = 5;
+                break;
+            default:
+                amount = 3;
+                break;
+        }
+
+        playerStatsController.alterHealth(amount);
+        int sufferingAmount = 1;
+
+
+        playerStatsController.alterSuffering(sufferingAmount * -1);
+        newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+    }
     void ApplyMoveResults(SquareController newSquareController, bool freeMove, bool isWaiting)
     {
-        //newSquareController.ActivateSquareVisited();
-
         if (newSquareController.IsGoalSquare)
         {
-            //newSquareController.MakeGoalSquarePressed();
-            SetReachedGoalSquare(true);
-            turnOrganiser.LandedOnGoal();
-            fateCounter.resetFateCounter();
+           SteppedOnGoal();
             return;
         }
 
-        if(newSquareController.ThisSquareHoldsPottard)
-        {
-            playerStatsController.resetSuffering();
-            MovePlayerBackOneSquare();
-        }
+        if(newSquareController.ThisSquareHoldsPottard) SteppedOnPottard();
 
-        if(newSquareController.IsTrapSquare)
-        {
-            if(newSquareController.TrapActivated == false)
-            {
-               
-                newSquareController.ActivateTrap(playSoundEffect : true);
-                playerStatsController.alterHealth(-1);
-                MovePlayerBackOneSquare();
-            }
-            
-        }
+        if(newSquareController.IsTrapSquare && newSquareController.TrapActivated == false) SteppedOnTrap(newSquareController);
 
         if(newSquareController.IsMerchantSquare)
         {
-            turnOrganiser.LandedOnMerchantSquare();
+            SteppedOnMerchant();
             return;
         }
 
         if (newSquareController.IsEnemy)
         {
-            int amount = 0;
-
-            switch (nextSquareQuantity)
-            {
-                case SquareSize.Small:
-                    amount = 1;
-                    break;
-                case SquareSize.Medium:
-                    amount = 3;
-                    break;
-                case SquareSize.Large:
-                    amount = 5;
-                    break;
-                default:
-                    amount = 3;
-                    break;
-            }
-
-            turnOrganiser.UpdateCurrentEnemySize(amount);
-            turnOrganiser.SetLandedOnEnemySquare(true, newSquareController);
+            SteppedOnEnemy(newSquareController);
             return;
         }
 
+        if (!freeMove) ApplyMoveTax(newSquareController, isWaiting);
 
-        if (!freeMove)
-        {
-            if (!isWaiting) fateCounter.alterFateCounter(1);
-            else fateCounter.alterFateCounter(2);
-
-            if (newSquareController.IsWater)
-            {
-                playerStatsController.alterSuffering(2); // or 1, whatever intended
-            }
-            else if (newSquareController.IsEmptySquare && !isWaiting && !newSquareController.IsSacred)
-            {
-                playerStatsController.alterSuffering(1);
-            }
-        }
-
-
-
-
-        if (newSquareController.IsItemSquare)
-        {
-            string squareContentsID = newSquareController.ContentsID;
-            bool canAddItem = playerInventory.TryToAddItem(squareContentsID);
-            
-
-            if (canAddItem)
-            {
-                newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
-            }
-            else
-            {
-                AudioManager.Instance.playCannotMoveSoundEffect();
-            }
-
-        }
+        if (newSquareController.IsItemSquare) SteppedOnItem(newSquareController);
 
         if (newSquareController.IsTreasureSquare)
         {
-            int amount = 0;
-
-            switch (nextSquareQuantity)
-            {
-                case SquareSize.Small:
-                    amount = 1;
-                    break;
-                case SquareSize.Medium:
-                    amount = 3;
-                    break;
-                case SquareSize.Large:
-                    amount = 5;
-                    break;
-                default:
-                    amount = 3;
-                    break;
-            }
-
-            playerStatsController.AlterMoney(amount);
-            playerStatsController.alterSuffering(amount * -1);
-            newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
+            SteppedOnTreasure(newSquareController);
         }
-
-        
 
         if (newSquareController.IsHealthSquare)
         {
-            int amount = 0;
-
-            switch (nextSquareQuantity)
-            {
-                case SquareSize.Small:
-                    amount = 1;
-                    break;
-                case SquareSize.Medium:
-                    amount = 3;
-                    break;
-                case SquareSize.Large:
-                    amount = 5;
-                    break;
-                default:
-                    amount = 3;
-                    break;
-            }
-
-            playerStatsController.alterHealth(amount);
-            int sufferingAmount = 1;
-
-            
-            playerStatsController.alterSuffering(sufferingAmount * -1);
-            newSquareController.MakeSquare(SquareType.Empty, newSquareController.ThisMap);
+           SteppedOnHealth(newSquareController);
         }
     }
     
     public GameObject[] GetEightSurroundingSquares()
     {
-        Vector2Int playerCurrentPosition = currentPosition;
-
-        List<GameObject> neighbours = new List<GameObject>();
-
-        int x = currentPosition.x;
-        int y = currentPosition.y;
-
-        for (int dx = -1; dx <= 1; dx++)
-        {
-            for (int dy = -1; dy <= 1; dy++)
-            {
-                if (dx == 0 && dy == 0)
-                    continue; // skip the centre square
-
-                int nx = x + dx;
-                int ny = y + dy;
-
-                // boundary check (important!)
-                if (nx >= 0 && nx < gridWidth && ny >= 0 && ny < gridHeight)
-                {
-                    neighbours.Add(allSquares[nx, ny]);
-                }
-            }
-        }
-
-        // Maybe later
-        Vector2Int[] offsets =
-        {
-            new Vector2Int(-1, 1),
-            new Vector2Int(0, 1),
-            new Vector2Int(1, 1),
-            new Vector2Int(-1, 0),
-            new Vector2Int(1, 0),
-            new Vector2Int(-1, -1),
-            new Vector2Int(0, -1),
-            new Vector2Int(1, -1)
-        };
-
-       
-
-        return neighbours.ToArray();
-
+        return GridUtilities.GetEightSurroundingSquares(currentPosition, gridWidth, gridHeight, allSquares);
     }
 
     public void MovePlayerBackOneSquare()
@@ -617,6 +572,7 @@ public class PlayerMovementController : MonoBehaviour
        Vector2Int delta = previousPosition - currentPosition;   // e.g. (-1,0)
         MovePlayer(new Vector2(delta.x, delta.y), true, false);
     }
+
     void BlockedSquare()
     {
         AudioManager.Instance.playCannotMoveSoundEffect();
@@ -624,8 +580,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ReceiveBattlefieldSize(GameObject[,] receivedAllSquares)
     {
-        
-
         allSquares = receivedAllSquares;
         gridWidth = allSquares.GetLength(0);
         gridHeight = allSquares.GetLength(1);
@@ -653,13 +607,19 @@ public class PlayerMovementController : MonoBehaviour
 
     void LateUpdate()
     {
-        /*
+        
+       ApplyVerticalOffset();
+    }
+
+    void ApplyVerticalOffset()
+    {
+        // To Ensure player is consistently above the floor
         Vector3 p = transform.position;
-        if (p.z != zOffset)
+        if (p.y != yOffset)
         {
-            p.z = zOffset;
+            p.y = yOffset;
             transform.position = p;
-        }*/
+        }
     }
 
 }

@@ -51,17 +51,7 @@ public class BattlefieldBuilder : MonoBehaviour
     GameObject[,] allSquares;
     HashSet<int> rowsCannotContainOverheadSpans = new HashSet<int>();
 
-    public void AddRowToForbiddenForOverhead(int newRow)
-    {
-        rowsCannotContainOverheadSpans.Add(newRow);
-    }
 
-    public bool RowFreeForOverhead(int row)
-    {
-        if (rowsCannotContainOverheadSpans.Contains(row)) return false;
-
-        else return true;
-    }
     // Assorted
     Vector2Int goalSquareCoord;
     bool isLost;
@@ -133,9 +123,13 @@ public class BattlefieldBuilder : MonoBehaviour
     {
 
         playerMovementController.PrepareForMapRebuild();
-        MapData chosen = GetMapToBuild();
 
-        thisMap = chosen;
+        if(thisMap == null)
+        {
+            PrepareNextMapToBuild();
+
+        }
+        
         thisMap.ParseDialogue();
         UpdateMapDataUI();
         CheckMapisWild();
@@ -158,7 +152,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
         
         StartFadeFromBlack();
-        /*transitionScreen.SetActive(false);*/
         playerMovementController.SetReachedGoalSquare(false);
     }
 
@@ -198,6 +191,7 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
     // Helper Functions
+    
     public static readonly Vector2Int[] NeighDiag = new[]
     {
         new Vector2Int(1, 1),   // NE  bit 1
@@ -368,7 +362,33 @@ public class BattlefieldBuilder : MonoBehaviour
 
     public void PrepareNextMapToBuild()
     {
+        MapData mapToBuild = null;
+        isLost = false;
 
+        if (previousMap == null)
+        {
+            mapToBuild = GetFirstMap();
+        }
+        else if (previousMap.GetIsWildMap())
+        {
+            mapToBuild = CalculateLostOrProgress();
+        }
+        else if (previousMap.GetIsFirstMap())
+        {
+            mapToBuild = previousMap.GetStartingMap(playerStatReceiver.GetPlayerStartingLocation());
+        }
+        else //Otherwise, proceed as standard, the mapToBuild is the previousMaps > NextMap
+        {
+
+            mapToBuild = previousMap.RollNextMap();
+        }
+
+        levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
+
+
+
+
+        thisMap = mapToBuild;
     }
 
 
@@ -422,5 +442,18 @@ public class BattlefieldBuilder : MonoBehaviour
         uiController.StartFadeFromBlack();
         }
 
+    // Almost Certainly Remove all Overhead Actions
+
+    public void AddRowToForbiddenForOverhead(int newRow)
+    {
+        rowsCannotContainOverheadSpans.Add(newRow);
+    }
+
+    public bool RowFreeForOverhead(int row)
+    {
+        if (rowsCannotContainOverheadSpans.Contains(row)) return false;
+
+        else return true;
+    }
 
 }

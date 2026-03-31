@@ -67,12 +67,13 @@ public class LevelTransitionPhaseResolution : MonoBehaviour
 
     IEnumerator BuildNewBattleField()
     {
-        // battlefieldBuilder.PrepareNextMapToBuild();
-        battlefieldBuilder.BuildNewBattlefield();
-        
-        yield return new WaitForSeconds(5);
+        battlefieldBuilder.PrepareNextMapToBuild();
         transitionMapScreenController.StartMapTransition(battlefieldBuilder.CurrentMapNames, battlefieldBuilder.NextMapNames);
+        battlefieldBuilder.BuildNewBattlefield();
 
+        yield return new WaitForSeconds(5);
+        
+        
 
         ExitLevelTransitionPhase();
     }

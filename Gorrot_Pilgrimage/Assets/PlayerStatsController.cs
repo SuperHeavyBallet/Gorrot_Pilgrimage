@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using GorrotGame;
 
 public class PlayerStatsController : MonoBehaviour
 {

@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioClip diceRollCompleteSoundEffect;
 
-  
+
 
 
     private void Awake()
@@ -52,13 +52,13 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-     
+
         playBackgroundMusic(backgroundMusic);
     }
 
@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
     {
         if (turnFor == "player")
         {
-           // soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Player);
+            // soundEffectPlayer.PlayOneShot(turnChangeSoundEffect_Player);
         }
         else if (turnFor == "enemy")
         {
@@ -90,7 +90,7 @@ public class AudioManager : MonoBehaviour
 
     void playBackgroundMusic(AudioClip newMusic)
     {
-       backgroundMusicPlayer.Play();
+        backgroundMusicPlayer.Play();
     }
 
     void playSoundEffect(AudioClip newClip)
@@ -126,19 +126,30 @@ public class AudioManager : MonoBehaviour
 
     public void playAddSufferingSoundEffect()
     {
-       // soundEffectPlayer.PlayOneShot(addSufferingSoundEffect);
+        // soundEffectPlayer.PlayOneShot(addSufferingSoundEffect);
     }
 
-    public void playPlayerMoveSoundEffect() => soundEffectPlayer.PlayOneShot(playerMoveSoundEffect);
-
-    public void playPlayerMoveWaterSoundEffect()
+    public void PlayPlayerMoveSoundEffect(bool isWater)
     {
-        if (playerMoveWaterSoundEffects.Length == 0)
-            return;
+        if (isWater)
+        {
+            if (playerMoveWaterSoundEffects.Length == 0)
+            {
+                soundEffectPlayer.PlayOneShot(playerMoveSoundEffect);
+                return;
+            }
 
-        int index = UnityEngine.Random.Range(0, playerMoveWaterSoundEffects.Length);
-        soundEffectPlayer.PlayOneShot(playerMoveWaterSoundEffects[index]);
+            int index = UnityEngine.Random.Range(0, playerMoveWaterSoundEffects.Length);
+            soundEffectPlayer.PlayOneShot(playerMoveWaterSoundEffects[index]);
+        }
+        else
+        {
+            soundEffectPlayer.PlayOneShot(playerMoveSoundEffect);
+        }
+        
+
     }
+
 
     public void playAddMoneySoundEffect() => soundEffectPlayer.PlayOneShot(addMoneySoundEffect);
 
