@@ -7,9 +7,13 @@ public class PlayerInputReceiver : MonoBehaviour
     Vector2 moveValue = new Vector2(0,0);
     bool hasPressedMove;
 
+    public    bool isPressingPanCameraLeft;
+    public    bool isPressingPanCameraRight;
+
    // public GameObject player;
     PlayerMovementController playerMovementController;
     public DiceController diceController;
+    PlayerCameraMovementController playerCameraMovementController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,10 +22,27 @@ public class PlayerInputReceiver : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+   public void PanCameraLeft(InputAction.CallbackContext context)
     {
-        
+        if(context.performed)
+        {
+            playerCameraMovementController.Set_isPressingPanLeft(true);
+        }
+        else if(context.canceled)
+        {
+            playerCameraMovementController.Set_isPressingPanLeft(false);
+        }
+    }
+   public void PanCameraRight(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            playerCameraMovementController.Set_isPressingPanRight(true);
+        }
+        else if(context.canceled)
+        {
+            playerCameraMovementController.Set_isPressingPanRight(false);
+        }
     }
 
     public void CaptureDiceRollInput(InputAction.CallbackContext context)
@@ -36,7 +57,6 @@ public class PlayerInputReceiver : MonoBehaviour
     {
         if (context.performed && !hasPressedMove)
         {
-            Debug.Log("INPUT WAIT");
             hasPressedMove = true;
             playerMovementController.ReceiveMoveInput(Vector2.zero, false, true);
             
@@ -95,6 +115,7 @@ public class PlayerInputReceiver : MonoBehaviour
         if (this.GetComponent<PlayerMovementController>() != null)
         {
             playerMovementController = this.GetComponent<PlayerMovementController>();
+            playerCameraMovementController = this.GetComponent<PlayerCameraMovementController>();
         }
         else
         {
