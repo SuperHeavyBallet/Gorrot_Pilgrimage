@@ -201,7 +201,7 @@ public class TurnOrganiser : MonoBehaviour
             disablePlayerTurn();
 
             
-            //MoveFly();
+            MoveFly();
             //SpawnNewEnemy();
             BuildNextPhase();
         }

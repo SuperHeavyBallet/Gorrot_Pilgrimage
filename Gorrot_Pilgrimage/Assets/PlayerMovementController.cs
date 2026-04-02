@@ -266,7 +266,7 @@ public class PlayerMovementController : MonoBehaviour
 
         Vector2 newPosition = new Vector2(
            newSquareController.SquareXPosition,
-           newSquareController.SquareYPosition
+           newSquareController.SquareZPosition
             );
 
 
@@ -592,7 +592,7 @@ public class PlayerMovementController : MonoBehaviour
         this.transform.position = new Vector3(
             newSquareController.SquareXPosition,
             yOffset,
-            newSquareController.SquareYPosition
+            newSquareController.SquareZPosition
         );
 
         SetStartCurrentPosition(recX, recY);

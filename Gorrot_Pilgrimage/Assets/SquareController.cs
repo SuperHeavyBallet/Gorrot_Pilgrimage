@@ -77,7 +77,7 @@ public class SquareController : MonoBehaviour
     // Value Retrieval
     public int EnemyDamage => squareTypeController.SquareBaseDamage;
     public int SquareXPosition => squareX;
-    public int SquareYPosition => squareY;
+    public int SquareZPosition => squareZ;
     public SquareMood EnemyMood => squareTypeController.SquareMood;
     public string ContentsID => squareTypeController.ContentsID;
     public int GetEnemyBaseBuff()
@@ -116,11 +116,11 @@ public class SquareController : MonoBehaviour
     }
 
     int squareX = 0;
-    int squareY = 0;
+    int squareZ = 0;
 
     public void SetSquarePosition(int x, int y)
     {
-        squareX = x; squareY = y;
+        squareX = x; squareZ = y;
     }
 
     SquareSize squareSize = SquareSize.Medium;

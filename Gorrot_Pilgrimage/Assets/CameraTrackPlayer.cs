@@ -18,11 +18,18 @@ public class CameraTrackPlayer : MonoBehaviour
     float endXRotation = 55f;
     [SerializeField] float rotationSmoothSpeed = 5f;
 
+    public bool cameraTrackIsDisabled;
+    public void DisableCameraTrack(bool value) => cameraTrackIsDisabled = value;
+
 
 
     void Update()
     {
-        TrackPlayer();
+        if(!cameraTrackIsDisabled)
+        {
+            TrackPlayer();
+        }
+        
     }
 
     void TrackPlayer()

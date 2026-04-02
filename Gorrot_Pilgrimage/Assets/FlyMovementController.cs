@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FlyMovementController : MonoBehaviour
 {
-    Vector2Int currentPosition;
-    Vector2Int previousPosition;
+    Vector3 currentPosition;
+    Vector3 previousPosition;
 
     int battleFieldSize;
 
@@ -30,7 +30,7 @@ public class FlyMovementController : MonoBehaviour
 
         this.transform.position = new Vector2(
             newSquareController.SquareXPosition,
-            newSquareController.SquareYPosition
+            newSquareController.SquareZPosition
         );
 
         //newSquareController.ActivateSquareVisited();
@@ -40,7 +40,7 @@ public class FlyMovementController : MonoBehaviour
 
     void SetStartCurrentPosition(int startCurX, int startCurY)
     {
-        currentPosition = new Vector2Int(startCurX, startCurY);
+        currentPosition = new Vector3(startCurX, this.transform.position.y, startCurY);
     }
 
     public void RollNewDirection()
@@ -81,24 +81,25 @@ public class FlyMovementController : MonoBehaviour
     {
         previousPosition = currentPosition;
 
-        int newPositionX = currentPosition.x + Mathf.RoundToInt(newMoveValue.x);
-        int newPositionY = currentPosition.y + Mathf.RoundToInt(newMoveValue.y);
+        int newPositionX = Mathf.RoundToInt(currentPosition.x) + Mathf.RoundToInt(newMoveValue.x);
+        int newPositionZ = Mathf.RoundToInt(currentPosition.y) + Mathf.RoundToInt(newMoveValue.y);
 
         // FIRST: check bounds BEFORE touching the array
-        if (!IsInsideGrid(newPositionX, newPositionY))
+        if (!IsInsideGrid(newPositionX, newPositionZ))
         {
             ResetCanMove();
             return;
         }
 
-        SquareController newSquareController = allSquares[newPositionX, newPositionY].GetComponent<SquareController>();
+        SquareController newSquareController = allSquares[newPositionX, newPositionZ].GetComponent<SquareController>();
 
-        Vector2 newPosition = new Vector2(
+        Vector3 newPosition = new Vector3(
           newSquareController.SquareXPosition,
-          newSquareController.SquareYPosition
+          this.transform.position.y,
+          newSquareController.SquareZPosition
            );
 
-        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionY, newPosition, newSquareController));
+        StartCoroutine(MoveRoutine(newSquareController, newPositionX, newPositionZ, newPosition, newSquareController));
 
         ResetCanMove();
 
@@ -109,12 +110,13 @@ public class FlyMovementController : MonoBehaviour
         SquareController targetSquare,
         int newX,
         int newY,
-        Vector2 worldTargetPos,
+        Vector3 worldTargetPos,
         SquareController newSquareController)
+ 
     {
 
         Vector3 start = transform.position;
-        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, transform.position.z);
+        Vector3 end = new Vector3(worldTargetPos.x, worldTargetPos.y, worldTargetPos.z);
 
         float duration = 0.25f; // tune feel
         float t = 0f;
@@ -134,7 +136,7 @@ public class FlyMovementController : MonoBehaviour
         transform.position = end;
 
         // Commit grid position *after* movement finishes
-        currentPosition = new Vector2Int(newX, newY);
+        currentPosition = new Vector3(end.x, end.y, end.z);
 
 
     }

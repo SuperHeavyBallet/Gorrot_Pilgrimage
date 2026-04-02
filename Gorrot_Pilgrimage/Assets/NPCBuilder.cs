@@ -92,17 +92,27 @@ public class NPCBuilder : MonoBehaviour
         Vector2Int[] freeSqArray = battlefieldBuilder.FreeSquares.ToArray();
 
         int max = (int)(size * 0.8f); // size 30 => 24
+        //debug
+        max = size; 
         float t = UnityEngine.Random.value;
         t = t * t; // bias toward 0
         int randomFlyCount = (size / 6) + Mathf.RoundToInt(t * (max - (size / 6)));
 
         for (int i = 0; i < randomFlyCount; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, battlefieldBuilder.FreeSquares.Count);
+            int randomIndex = UnityEngine.Random.Range(0, freeSqArray.Length);
 
+            int randomHeight = UnityEngine.Random.Range(2, 4);
 
+            Vector2Int randomSquare = freeSqArray[randomIndex];
+            
+            //Vector3 newPos = new Vector3(0, randomHeight,0);
 
-            Vector3 newPos = new Vector3(freeSqArray[randomIndex].x, freeSqArray[randomIndex].y, 1);
+            SquareController squareCon = battlefieldBuilder.AllSquares[randomSquare.x, randomSquare.y].GetComponent<SquareController>();
+            Vector3 newPos = new Vector3(squareCon.SquareXPosition, randomHeight, squareCon.SquareZPosition);
+
+            Debug.Log("Square Pos: " + newPos);
+
             GameObject newFly = Instantiate(fly, transform);
             newFly.transform.position = newPos;
 
@@ -114,7 +124,7 @@ public class NPCBuilder : MonoBehaviour
                 int testY = freeSqArray[randomIndex].y;
 
                 flyController.SetBattleFieldSize(size, battlefieldBuilder.AllSquares);
-                flyController.SetPlayerStartSquare(testX, testY);
+               // flyController.SetPlayerStartSquare(testX, testY);
             }
             else
             {

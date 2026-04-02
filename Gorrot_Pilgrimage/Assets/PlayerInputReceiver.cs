@@ -6,6 +6,7 @@ public class PlayerInputReceiver : MonoBehaviour
 {
     Vector2 moveValue = new Vector2(0,0);
     bool hasPressedMove;
+    bool moveInputIsBlocked;
 
     public    bool isPressingPanCameraLeft;
     public    bool isPressingPanCameraRight;
@@ -27,10 +28,12 @@ public class PlayerInputReceiver : MonoBehaviour
         if(context.performed)
         {
             playerCameraMovementController.Set_isPressingPanLeft(true);
+            moveInputIsBlocked = true;
         }
         else if(context.canceled)
         {
-            playerCameraMovementController.Set_isPressingPanLeft(false);
+           playerCameraMovementController.Set_isPressingPanLeft(false);
+            moveInputIsBlocked = false;
         }
     }
    public void PanCameraRight(InputAction.CallbackContext context)
@@ -38,10 +41,12 @@ public class PlayerInputReceiver : MonoBehaviour
         if(context.performed)
         {
             playerCameraMovementController.Set_isPressingPanRight(true);
+            moveInputIsBlocked = true;
         }
         else if(context.canceled)
         {
             playerCameraMovementController.Set_isPressingPanRight(false);
+            moveInputIsBlocked = false;
         }
     }
 
@@ -71,7 +76,7 @@ public class PlayerInputReceiver : MonoBehaviour
  
     public void CaptureMovementInput(InputAction.CallbackContext context)
     {
-        if (context.performed && !hasPressedMove)
+        if (context.performed && !hasPressedMove && !moveInputIsBlocked)
         {
             hasPressedMove = true;
             var input = context.ReadValue<Vector2>();

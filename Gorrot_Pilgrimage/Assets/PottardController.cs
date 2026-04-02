@@ -42,7 +42,7 @@ public class PottardController : MonoBehaviour
         transform.position = new Vector3(
             sq.SquareXPosition,
             transform.position.y,
-            sq.SquareYPosition
+            sq.SquareZPosition
         );
 
         currentSquareController = sq;
@@ -180,7 +180,7 @@ public class PottardController : MonoBehaviour
             Vector3 end = new Vector3(
                 squareToLand.SquareXPosition,
                 transform.position.y,
-                squareToLand.SquareYPosition
+                squareToLand.SquareZPosition
                 );
 
         float duration = 0.25f;
@@ -217,7 +217,7 @@ public class PottardController : MonoBehaviour
         this.transform.position = new Vector3(
             squareToLand.SquareXPosition,
             transform.position.y,
-            squareToLand.SquareYPosition
+            squareToLand.SquareZPosition
             );
 
         yield return null;

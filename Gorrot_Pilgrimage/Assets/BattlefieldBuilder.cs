@@ -249,7 +249,7 @@ public class BattlefieldBuilder : MonoBehaviour
         if (newSquareController != null)
         {
             int testX = newSquareController.SquareXPosition;
-            int testY = newSquareController.SquareYPosition;
+            int testY = newSquareController.SquareZPosition;
 
 
             if (playerMovementController != null)
