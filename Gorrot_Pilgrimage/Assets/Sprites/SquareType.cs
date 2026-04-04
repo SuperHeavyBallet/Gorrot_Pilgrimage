@@ -96,6 +96,23 @@ namespace GorrotGame
 
     }
 
+    public enum MapBiomeType
+    {
+        Forest,
+        Swamp,
+        Steppe,
+        Mountain,
+
+    }
+
+    public enum MapSettlementType
+    {
+        None,
+        Village,
+        Town,
+        City
+    }
+
     public static class GridUtilities
     {
         public static bool IsInsideGrid(int x, int y, int gridWidth, int gridHeight)

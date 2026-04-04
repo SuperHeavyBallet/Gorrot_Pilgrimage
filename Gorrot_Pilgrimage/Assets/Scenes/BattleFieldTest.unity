@@ -2224,12 +2224,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   outmostTerritoriesFloorSquares:
-  - {fileID: 5831903632196430789, guid: 88361235f7d62a048bd6885fa49ba544, type: 3}
-  - {fileID: 8945535385997691982, guid: b0d1bfd8e3fccdb45b42c53ea135a8b9, type: 3}
-  - {fileID: 8945535385997691982, guid: 1c624c565a9b48d46bbe165e27fa0109, type: 3}
-  - {fileID: 8945535385997691982, guid: d8e2f16365f2d9141888dab1968722e1, type: 3}
+  - {fileID: 2777690946403647553, guid: 98c2bcde08c26b446a86e3c9efca7555, type: 3}
+  - {fileID: 2777690946403647553, guid: fb48c37ebc0272143b854332dc7cbe76, type: 3}
+  - {fileID: 831490923966654760, guid: 131847f62a18eba4398f00b728eb778a, type: 3}
+  - {fileID: 3459525848553083349, guid: 6b57d37e8f0ea7c499d0982d9a2543f9, type: 3}
   outerRingFloorSquares:
-  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  - {fileID: 1552180635716916400, guid: 054f147097bc2e146a9f2cbd53c6ad61, type: 3}
+  - {fileID: 799383462462799054, guid: 17fa4c9192622d24386d78e01c901eb7, type: 3}
+  - {fileID: 2421642770852027227, guid: 4d3c6af901f90f0419752e0f8864bb69, type: 3}
+  - {fileID: 1653544226286307550, guid: c9803b788e8f7754ab8568ecea4490ac, type: 3}
   innerRingFloorSquares:
   - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
   swampBorderFloorSquares:
@@ -15229,6 +15232,32 @@ MonoBehaviour:
   flowerItem: {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
   uniqueItems:
   - {fileID: 11400000, guid: 481ef8b690d6b4342bece02cd535f1af, type: 2}
+  forest_inventoryItems:
+  - {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
+  - {fileID: 11400000, guid: c9df6626437407445aed8bda4f823e8b, type: 2}
+  - {fileID: 11400000, guid: a40bb9fd586dc364fa01619429a26be4, type: 2}
+  - {fileID: 11400000, guid: 3ed38c13ec808394aaf2f1afe1d499e0, type: 2}
+  swamp_inventoryItems:
+  - {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
+  - {fileID: 11400000, guid: 763c887ed6619d840840855e25087fbb, type: 2}
+  - {fileID: 11400000, guid: c2896de042331484d9505b0798a63598, type: 2}
+  - {fileID: 11400000, guid: 3ed38c13ec808394aaf2f1afe1d499e0, type: 2}
+  - {fileID: 11400000, guid: c4ca0b6228ab71841b9f32ce4446674d, type: 2}
+  - {fileID: 11400000, guid: a40bb9fd586dc364fa01619429a26be4, type: 2}
+  steppe_inventoryItems:
+  - {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
+  - {fileID: 11400000, guid: 3ed38c13ec808394aaf2f1afe1d499e0, type: 2}
+  - {fileID: 11400000, guid: a40bb9fd586dc364fa01619429a26be4, type: 2}
+  - {fileID: 11400000, guid: c4ca0b6228ab71841b9f32ce4446674d, type: 2}
+  - {fileID: 11400000, guid: c9df6626437407445aed8bda4f823e8b, type: 2}
+  - {fileID: 11400000, guid: c2896de042331484d9505b0798a63598, type: 2}
+  mountain_inventoryItems:
+  - {fileID: 11400000, guid: 5d76e324334164548a968b3e83019741, type: 2}
+  - {fileID: 11400000, guid: 3ed38c13ec808394aaf2f1afe1d499e0, type: 2}
+  - {fileID: 11400000, guid: a40bb9fd586dc364fa01619429a26be4, type: 2}
+  - {fileID: 11400000, guid: c4ca0b6228ab71841b9f32ce4446674d, type: 2}
+  - {fileID: 11400000, guid: c9df6626437407445aed8bda4f823e8b, type: 2}
+  - {fileID: 11400000, guid: c2896de042331484d9505b0798a63598, type: 2}
 --- !u!4 &964849348
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GorrotTown
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrot_town
+  biomeType: 1
+  settlementType: 2
   mapLocation: 6
+  hasHealthBoosts: 0
   mapName: Gorrot Town
   mapNames: 20
   mapSize: 30

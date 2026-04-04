@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Semsun
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: semsun
+  biomeType: 3
+  settlementType: 1
   mapLocation: 0
+  hasHealthBoosts: 0
   mapName: Semsun
   mapNames: 3
   mapSize: 10

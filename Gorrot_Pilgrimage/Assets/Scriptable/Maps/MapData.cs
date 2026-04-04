@@ -20,7 +20,16 @@ public class MapData : ScriptableObject
         Gorrot_Church
     }
 
+    [SerializeField] MapBiomeType biomeType = MapBiomeType.Forest;
+    [SerializeField] MapSettlementType settlementType = MapSettlementType.None;
+
+    public MapBiomeType GetMapBiomeType => biomeType;
+    public MapSettlementType GetMapSettlementType => settlementType;
+
     [SerializeField] MapLocations mapLocation = MapLocations.Outmost_Territories;
+
+    [SerializeField] bool hasHealthBoosts = false;
+    public bool HasHealthBoosts => hasHealthBoosts;
 
     [SerializeField] string mapName;
     public string GetMapName() => mapName;

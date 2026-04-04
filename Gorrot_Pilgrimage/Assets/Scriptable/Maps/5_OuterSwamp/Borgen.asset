@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Borgen
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: borgen
+  biomeType: 1
+  settlementType: 0
   mapLocation: 4
+  hasHealthBoosts: 0
   mapName: Borgen
   mapNames: 15
   mapSize: 20

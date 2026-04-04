@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Myr
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: myr
+  biomeType: 1
+  settlementType: 0
   mapLocation: 4
+  hasHealthBoosts: 0
   mapName: Myr
   mapNames: 17
   mapSize: 25

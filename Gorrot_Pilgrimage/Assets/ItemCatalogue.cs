@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using GorrotGame;
 
 public class ItemCatalogue : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class ItemCatalogue : MonoBehaviour
 
     public InventoryItemTemplate[] uniqueItems;
 
-    
+    [SerializeField] List<InventoryItemTemplate> forest_inventoryItems = new List<InventoryItemTemplate>();
+    [SerializeField] List<InventoryItemTemplate> swamp_inventoryItems = new List<InventoryItemTemplate>();
+    [SerializeField] List<InventoryItemTemplate> steppe_inventoryItems = new List<InventoryItemTemplate>();
+    [SerializeField] List<InventoryItemTemplate> mountain_inventoryItems = new List<InventoryItemTemplate>();
 
     private void Awake()
     {
@@ -46,7 +50,6 @@ public class ItemCatalogue : MonoBehaviour
         for (int i = 0; i < uniqueItems.Length; i++)
         {
             if(uniqueItems[i].itemID == itemID) return true;
-            Debug.Log("TRY TO PICK DUPLICATE: " +  itemID + uniqueItems[i]);
         }
 
         return false;
@@ -56,6 +59,21 @@ public class ItemCatalogue : MonoBehaviour
     public List<InventoryItemTemplate> GetAllItems()
     {
         return allItemsList;
+    }
+
+    public List<InventoryItemTemplate> GetMapItems(MapData mapData)
+    {
+        MapBiomeType mapBiome = mapData.GetMapBiomeType;
+
+        return mapBiome switch
+        {
+            MapBiomeType.Forest => forest_inventoryItems,
+            MapBiomeType.Swamp => swamp_inventoryItems,
+            MapBiomeType.Steppe => steppe_inventoryItems,
+            MapBiomeType.Mountain => mountain_inventoryItems,
+            _ => allItemsList
+
+        };
     }
 
     public string GetItemName(string itemID)
@@ -71,11 +89,8 @@ public class ItemCatalogue : MonoBehaviour
     {
         if (itemLookup.TryGetValue(itemID, out var item))
         {
-            Debug.Log("Got Item Effect for: " + itemID);
             return item.statEffected.ToString();
         }
-
-        Debug.Log("NO Item Effect for: " + itemID);
         return "";
     }
 

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Halbegorn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: halbegorn
+  biomeType: 2
+  settlementType: 0
   mapLocation: 2
+  hasHealthBoosts: 0
   mapName: Halbegorn
   mapNames: 10
   mapSize: 25

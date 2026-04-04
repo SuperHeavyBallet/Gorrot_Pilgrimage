@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ArxThronus
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: arx_thronus
+  biomeType: 2
+  settlementType: 3
   mapLocation: 2
+  hasHealthBoosts: 0
   mapName: Arx Thronus
   mapNames: 8
   mapSize: 25

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Ithen
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: ithen
+  biomeType: 1
+  settlementType: 1
   mapLocation: 3
+  hasHealthBoosts: 0
   mapName: Ithen
   mapNames: 14
   mapSize: 15

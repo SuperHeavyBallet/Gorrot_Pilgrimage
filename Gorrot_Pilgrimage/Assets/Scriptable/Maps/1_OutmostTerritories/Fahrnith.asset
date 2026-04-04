@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Fahrnith
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: fahrnith
+  biomeType: 3
+  settlementType: 1
   mapLocation: 0
+  hasHealthBoosts: 0
   mapName: Fahrnith
   mapNames: 2
   mapSize: 8

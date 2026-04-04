@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Kangiel
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: kangiel
+  biomeType: 1
+  settlementType: 1
   mapLocation: 3
+  hasHealthBoosts: 0
   mapName: Kangiel
   mapNames: 13
   mapSize: 15

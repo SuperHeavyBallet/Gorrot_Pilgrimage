@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Hindruhn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: hindruhn
+  biomeType: 3
+  settlementType: 0
   mapLocation: 1
+  hasHealthBoosts: 0
   mapName: Hindruhn
   mapNames: 4
   mapSize: 30

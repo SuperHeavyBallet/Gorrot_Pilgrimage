@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Ritten
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: ritten
+  biomeType: 1
+  settlementType: 0
   mapLocation: 4
+  hasHealthBoosts: 0
   mapName: Ritten
   mapNames: 16
   mapSize: 15

@@ -24,7 +24,11 @@ public class ContentSquareBuilder : MonoBehaviour
 
         }
 
-        PlaceTypeSquares(healthSquareCount, sq => sq.MakeSquare(SquareType.Health, thisMap), disallowReservedWalkway: false);
+        if(thisMap.HasHealthBoosts)
+        {
+            PlaceTypeSquares(healthSquareCount, sq => sq.MakeSquare(SquareType.Health, thisMap), disallowReservedWalkway: false);
+        }
+        
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeSquare(SquareType.Item, thisMap), disallowReservedWalkway: false);
         PlaceTypeSquares(potionSquareCount, sq => sq.MakeSquare(SquareType.Treasure, thisMap), disallowReservedWalkway: false);
 

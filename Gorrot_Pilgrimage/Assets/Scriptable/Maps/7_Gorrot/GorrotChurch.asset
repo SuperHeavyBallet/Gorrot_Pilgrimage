@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GorrotChurch
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrot_church
+  biomeType: 2
+  settlementType: 3
   mapLocation: 7
+  hasHealthBoosts: 0
   mapName: Gorrot Church
   mapNames: 21
   mapSize: 10

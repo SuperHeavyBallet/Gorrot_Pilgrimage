@@ -145,6 +145,11 @@ public class SquareTypeController : MonoBehaviour
        
     }
 
+    // Empty Square Contents
+    public void EmptySquare()
+    {
+        SetEmptySquare();
+    }
    
 
     // Basic Square Route
@@ -169,7 +174,7 @@ public class SquareTypeController : MonoBehaviour
     }
 
 
-        void SetSquareValue()
+    void SetSquareValue()
     {
         switch (thisSquareSize)
         {
@@ -333,7 +338,9 @@ public class SquareTypeController : MonoBehaviour
         {
             if(itemName == ItemNames.Any)
             {
-                allItemsList = itemCatalogue.GetAllItems();
+               // allItemsList = itemCatalogue.GetAllItems();
+                allItemsList = itemCatalogue.GetMapItems(thisMapData);
+
                 InventoryItemTemplate[] itemCatalogueArray = allItemsList.ToArray();
 
                 int randomInt = UnityEngine.Random.Range(0, itemCatalogueArray.Length);

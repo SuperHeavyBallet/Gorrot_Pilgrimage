@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Molgeritch
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: molgeritch
+  biomeType: 3
+  settlementType: 0
   mapLocation: 1
+  hasHealthBoosts: 0
   mapName: Molgeritch
   mapNames: 7
   mapSize: 15

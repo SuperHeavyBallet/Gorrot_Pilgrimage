@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Katharn
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: katharn
+  biomeType: 3
+  settlementType: 0
   mapLocation: 1
+  hasHealthBoosts: 0
   mapName: Katharn
   mapNames: 5
   mapSize: 30

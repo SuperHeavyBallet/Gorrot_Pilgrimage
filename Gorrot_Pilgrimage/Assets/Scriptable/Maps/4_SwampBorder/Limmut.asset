@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Limmut
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: limmut
+  biomeType: 1
+  settlementType: 1
   mapLocation: 3
+  hasHealthBoosts: 0
   mapName: Limmut
   mapNames: 12
   mapSize: 25

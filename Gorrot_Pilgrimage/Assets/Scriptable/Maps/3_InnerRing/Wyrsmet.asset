@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Wyrsmet
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: wyrsmet
+  biomeType: 2
+  settlementType: 0
   mapLocation: 2
+  hasHealthBoosts: 0
   mapName: Wyrsmet
   mapNames: 11
   mapSize: 20

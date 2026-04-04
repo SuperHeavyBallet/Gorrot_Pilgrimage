@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Odrikloft
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: odrikloft
+  biomeType: 3
+  settlementType: 0
   mapLocation: 1
+  hasHealthBoosts: 0
   mapName: Odrikloft
   mapNames: 6
   mapSize: 25

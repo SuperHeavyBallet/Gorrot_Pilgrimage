@@ -250,6 +250,8 @@ public class SquareController : MonoBehaviour
     // Create Specific Square Types
     public void MakeSquare(SquareType sqType, MapData thisMap) => squareTypeController.ConstructSquare(sqType, squareSize, thisMap);
 
+    public void EmptySquare() => squareTypeController.EmptySquare();
+
 
     // Water Adjacency for water side placement
     public void SetIsWaterAdjacent(bool value) => waterAdjacencyController.SetIsWaterAdjacent(value);

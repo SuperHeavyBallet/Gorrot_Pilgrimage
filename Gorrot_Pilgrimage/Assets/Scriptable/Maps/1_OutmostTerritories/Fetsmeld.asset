@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Fetsmeld
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: fetsmeld
+  biomeType: 3
+  settlementType: 1
   mapLocation: 0
+  hasHealthBoosts: 0
   mapName: Fetsmeld
+  mapNames: 0
   mapSize: 10
   nextMaps:
   - {fileID: 11400000, guid: b33fa20f01bb03541a93d77b396bb325, type: 2}

@@ -463,7 +463,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (canAddItem)
         {
-            newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+            newSqCon.EmptySquare();
         }
         else
         {
@@ -493,7 +493,7 @@ public class PlayerMovementController : MonoBehaviour
 
         playerStatsController.AlterMoney(amount);
         playerStatsController.alterSuffering(amount * -1);
-        newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+        newSqCon.EmptySquare();
     }
 
     void SteppedOnHealth(SquareController newSqCon)
@@ -521,7 +521,7 @@ public class PlayerMovementController : MonoBehaviour
 
 
         playerStatsController.alterSuffering(sufferingAmount * -1);
-        newSqCon.MakeSquare(SquareType.Empty, newSqCon.ThisMap);
+        newSqCon.EmptySquare();
     }
     void ApplyMoveResults(SquareController newSquareController, bool freeMove, bool isWaiting)
     {

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Imthuhl
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: imthuhl
+  biomeType: 1
+  settlementType: 0
   mapLocation: 5
+  hasHealthBoosts: 0
   mapName: Imthuhl
   mapNames: 19
   mapSize: 25

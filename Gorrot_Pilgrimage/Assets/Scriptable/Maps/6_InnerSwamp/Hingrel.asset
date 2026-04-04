@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Hingrel
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: hingrel
+  biomeType: 1
+  settlementType: 0
   mapLocation: 5
+  hasHealthBoosts: 0
   mapName: Hingrel
   mapNames: 18
   mapSize: 20

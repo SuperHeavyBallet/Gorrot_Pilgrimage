@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GorrotWaitingHall
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: gorrot_waiting_hall
+  biomeType: 2
+  settlementType: 3
   mapLocation: 7
+  hasHealthBoosts: 0
   mapName: Gorrot Waiting Hall
   mapNames: 22
   mapSize: 50

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Dwindir
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   mapID: dwindir
+  biomeType: 2
+  settlementType: 0
   mapLocation: 2
+  hasHealthBoosts: 0
   mapName: Dwindir
   mapNames: 9
   mapSize: 30
