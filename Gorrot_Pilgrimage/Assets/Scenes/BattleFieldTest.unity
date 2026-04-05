@@ -2234,7 +2234,7 @@ MonoBehaviour:
   - {fileID: 2421642770852027227, guid: 4d3c6af901f90f0419752e0f8864bb69, type: 3}
   - {fileID: 1653544226286307550, guid: c9803b788e8f7754ab8568ecea4490ac, type: 3}
   innerRingFloorSquares:
-  - {fileID: 1750682668921416357, guid: c96e086a3de5d844d866e8d96b72e32e, type: 3}
+  - {fileID: 8956589790804836040, guid: 2bd934220aa2e724999006089166a0b2, type: 3}
   swampBorderFloorSquares:
   - {fileID: 6795876980381315680, guid: c65f21e49088533478f0188fb8ad1522, type: 3}
   outerSwampFloorSquares:

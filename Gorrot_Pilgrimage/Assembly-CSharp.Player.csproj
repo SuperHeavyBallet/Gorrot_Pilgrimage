@@ -75,6 +75,7 @@
     <Compile Include="Assets\TestScripts\HouseBuilder.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
+    <Compile Include="Assets\InGameMenuController.cs" />
     <Compile Include="Assets\BattleFieldGridBuilder.cs" />
     <Compile Include="Assets\PlayerInventory.cs" />
     <Compile Include="Assets\ShadowPulseAnimation.cs" />
