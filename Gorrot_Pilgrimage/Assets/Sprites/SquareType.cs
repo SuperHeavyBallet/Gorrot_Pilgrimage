@@ -113,6 +113,21 @@ namespace GorrotGame
         City
     }
 
+    public static class GameFunctions
+    {
+        static bool gameIsPaused = false;
+
+        public static bool GameIsPaused()
+        {
+            return gameIsPaused;
+        }
+
+        public static void SetGameIsPaused(bool value)
+        {
+            gameIsPaused = value;
+        }
+    }
+
     public static class GridUtilities
     {
         public static bool IsInsideGrid(int x, int y, int gridWidth, int gridHeight)
