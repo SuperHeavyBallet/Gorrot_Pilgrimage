@@ -38,6 +38,31 @@ public class InventorySlotController : MonoBehaviour
 
     }
 
+    public void DropItemClick()
+    {
+        if(itemQuantity > 0)
+        {
+            if (scaleUpAndDown != null)
+            {
+                StopCoroutine(scaleUpAndDown);
+            }
+
+            AudioManager.Instance.PlayClickSoundEffect();
+            scaleUpAndDown = StartCoroutine(ScaleUpThenDown());
+
+            itemQuantity = 0;
+
+            UpdateItemQuantityText();
+
+            RemoveItemFromSlot();
+            
+        }
+        else
+        {
+            AudioManager.Instance.playCannotMoveSoundEffect();
+        }
+    }
+
     public void UseItemClick()
     {
 
