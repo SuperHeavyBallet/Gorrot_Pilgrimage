@@ -25,6 +25,8 @@ public class InventorySlotController : MonoBehaviour
 
     Coroutine scaleUpAndDown;
 
+    [SerializeField] GameObject removeItemButton;
+
     //[SerializeField] AudioManager audioManager;
 
     [SerializeField] ItemCatalogue itemCatalogue;
@@ -34,6 +36,7 @@ public class InventorySlotController : MonoBehaviour
     {
         playerStatsController = GameObject.Find("Player").GetComponent<PlayerStatsController>();
         UpdateItemSprite(itemSprite_Empty);
+        removeItemButton.SetActive(false);
   
 
     }
@@ -129,6 +132,10 @@ public class InventorySlotController : MonoBehaviour
     {
         slotIsEmpty = false;
 
+    
+            removeItemButton.SetActive(true);
+        
+
         if(itemCatalogue.CheckItemIDInUniqueItems(itemID) == false)
         {
             itemQuantity += quantityToAdd;
@@ -174,6 +181,7 @@ public class InventorySlotController : MonoBehaviour
             // UpdateItemText("...");
             UpdateItemID("Empty");
             UpdateItemSprite(itemSprite_Empty);
+            removeItemButton.SetActive(false);
         }
        
     }

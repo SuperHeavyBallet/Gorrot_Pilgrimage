@@ -5,6 +5,7 @@ public class InGameMenuController : MonoBehaviour
 {
 
     [SerializeField] GameObject inGameMenuOverlay;
+    [SerializeField] GameObject controlsScreen;
 
     public bool gameIsPaused;
 
@@ -43,5 +44,16 @@ public class InGameMenuController : MonoBehaviour
     {
         Time.timeScale = 1;
         GorrotGame.GameFunctions.SetGameIsPaused(false);
+    }
+
+    public void OpenControlsScreen()
+    {
+        controlsScreen.SetActive(true);
+
+    }
+
+    public void CloseControlsScreen()
+    {
+        controlsScreen.SetActive(false);
     }
 }

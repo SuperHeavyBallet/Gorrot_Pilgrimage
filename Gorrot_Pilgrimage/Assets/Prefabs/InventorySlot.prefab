@@ -139,6 +139,7 @@ MonoBehaviour:
   itemSprite: {fileID: 0}
   itemSprite_Empty: {fileID: 21300000, guid: 71f879d2404749648ae2e52181c9047c, type: 3}
   itemSpriteRenderer: {fileID: 3518209253405336188}
+  removeItemButton: {fileID: 5890684496180878374}
   itemCatalogue: {fileID: 0}
 --- !u!1 &3021391344175468679
 GameObject:
