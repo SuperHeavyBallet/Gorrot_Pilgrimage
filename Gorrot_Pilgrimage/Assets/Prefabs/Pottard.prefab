@@ -136,6 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891236b7e74a5644a8ad29bb9ef89452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  standee: {fileID: 7602321799932116393}
+  turnDuration: 0.15
   keepGoingChance: 0.65
 --- !u!1001 &8781880007512333238
 PrefabInstance:
@@ -205,5 +207,10 @@ PrefabInstance:
 --- !u!4 &6882348048983376150 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2764227485836073632, guid: 8913c52942b9baf4297f3217515707fe, type: 3}
+  m_PrefabInstance: {fileID: 8781880007512333238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7602321799932116393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1179765201919665695, guid: 8913c52942b9baf4297f3217515707fe, type: 3}
   m_PrefabInstance: {fileID: 8781880007512333238}
   m_PrefabAsset: {fileID: 0}

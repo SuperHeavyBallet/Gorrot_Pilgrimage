@@ -40,14 +40,10 @@ public class PlayerMovementController : MonoBehaviour
 
     bool reachedGoalSquare;
 
-    //public GameObject playerSprite;
-
-   //[SerializeField] PlayerAnimationManager playerAnimationManager;
-    private Quaternion standeeForwardQ;
     [SerializeField] GameObject standee;
     [SerializeField] Animator standeeAnimator;
 
-    private Quaternion standeeRightQ, standeeLeftQ, standeeBackQ;
+    private Quaternion standeeForwardQ, standeeRightQ, standeeLeftQ, standeeBackQ;
 
 
     SquareController currentSquareController;
@@ -99,8 +95,6 @@ public class PlayerMovementController : MonoBehaviour
         reachedGoalSquare = false;
         currentSquareController = null;
         allSquares = null;
-
-        //playerAnimationManager.SetIsWalking(false);
         if (standeeAnimator) standeeAnimator.SetBool("isMoving", false);
     }
 
@@ -184,14 +178,7 @@ public class PlayerMovementController : MonoBehaviour
 
         // Only swap sprites when facing changes
         if (currentFacingPosition == nextFacingPosition) return;
-        /*
-        switch (nextFacingPosition)
-        {
-            case facingPositions.down: playerAnimationManager.SetFrontSprites(); break;
-            case facingPositions.right: playerAnimationManager.SetSideSprites("right"); break;
-            case facingPositions.left: playerAnimationManager.SetSideSprites("left"); break;
-            default: playerAnimationManager.SetBackSprites(); break;
-        }*/
+     
 
 
 

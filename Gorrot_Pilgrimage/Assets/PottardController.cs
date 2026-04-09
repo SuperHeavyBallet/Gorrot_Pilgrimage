@@ -4,6 +4,10 @@ public class PottardController : MonoBehaviour
 {
     Coroutine pottardMoveRoutine;
 
+    [SerializeField] GameObject standee;
+    [SerializeField] float turnDuration = 0.25f; // small = snappy
+    Coroutine turnRoutine;
+
     Vector2Int[] freeSquares;
     GameObject[,] allSquares;
 
@@ -17,12 +21,20 @@ public class PottardController : MonoBehaviour
 
     SquareController currentSquareController;
 
- 
+    Transform board;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       prevDirection = Vector2Int.zero;
+        prevDirection = Vector2Int.zero;
+
+        standeeForwardQ = standee.transform.rotation;
+        Vector3 turnAxis = Vector3.up; // or board.forward / board.right depending on your scene
+
+        standeeRightQ = standeeForwardQ * Quaternion.AngleAxis(90f, turnAxis);
+        standeeLeftQ = standeeForwardQ * Quaternion.AngleAxis(-90f, turnAxis);
+        standeeBackQ = standeeForwardQ * Quaternion.AngleAxis(180f, turnAxis);
     }
 
     public void GetCurrentBattlefield(Vector2Int[] recFreeSquares, GameObject[,] recAllSquares)
@@ -39,11 +51,7 @@ public class PottardController : MonoBehaviour
 
         SquareController sq = allSquares[startGridPos.x, startGridPos.y].GetComponent<SquareController>();
 
-        transform.position = new Vector3(
-            sq.SquareXPosition,
-            transform.position.y,
-            sq.SquareZPosition
-        );
+        transform.position = sq.ThisSquarePlayerPosition;
 
         currentSquareController = sq;
         sq.MakePottardSquare(true);
@@ -133,86 +141,159 @@ public class PottardController : MonoBehaviour
         SquareController squareController = allSquares[next.x, next.y].GetComponent<SquareController>();
         if (squareController != null)
         {
-           
-                if (squareController.IsGoalSquare)
-                {
-                    landOnGoal = true;
-                }
 
-         
-                pottardMoveRoutine = StartCoroutine(PottardMovement(next, squareController));
-           
+            if (squareController.IsGoalSquare)
+            {
+                landOnGoal = true;
+            }
 
+
+            pottardMoveRoutine = StartCoroutine(PottardMovement(next, squareController));
 
 
 
-                
+
+
+
         }
     }
 
-    
+
 
     static bool IsCandidateSquare(SquareController sq)
     {
         if (sq is null) return false;
 
-        bool isMoveableType = sq.IsEmptySquare || sq.IsGoalSquare || sq.IsTrapSquare;
-        bool squareValid = isMoveableType && !sq.ThisSquareHoldsPlayer && !sq.IsWater;
+        bool isMoveableType =
+            sq.IsEmptySquare
+            || sq.IsGoalSquare;
+        bool squareValid =
+            isMoveableType
+            && !sq.ThisSquareHoldsPlayer
+            && !sq.IsWater
+            && !sq.IsTrapSquare;
 
         return squareValid;
     }
 
     IEnumerator PottardWaitThenRetry()
+    {
+        yield return new WaitForSeconds(1f);
+        StartNewMoveRoutine(Vector2Int.zero);
+    }
+
+    enum facingPositions
+    {
+        up, down, left, right
+    }
+
+    facingPositions nextFacingPosition = facingPositions.up;
+    facingPositions currentFacingPosition = facingPositions.up;
+    private Quaternion standeeForwardQ, standeeRightQ, standeeLeftQ, standeeBackQ;
+
+    void SetFacing(float normX, float normY)
+    {
+        currentFacingPosition = nextFacingPosition;
+
+        if (normX < 0) nextFacingPosition = facingPositions.left;
+        else if (normX > 0) nextFacingPosition = facingPositions.right;
+        else if (normY < 0) nextFacingPosition = facingPositions.down;
+        else nextFacingPosition = facingPositions.up;
+
+        // 1) Always compute rotation from the current facing
+        Quaternion target;
+        switch (nextFacingPosition)
         {
-            yield return new WaitForSeconds(1f);
-            StartNewMoveRoutine(Vector2Int.zero);
+            case facingPositions.down: target = standeeBackQ; break;
+            case facingPositions.right: target = standeeRightQ; break;
+            case facingPositions.left: target = standeeLeftQ; break;
+            case facingPositions.up:
+            default: target = standeeForwardQ; break;
         }
 
 
 
-        IEnumerator PottardMovement(Vector2Int newPosition, SquareController squareToLand)
+        // Smooth rotate (even if facing didn't change, this is harmless)
+        if (turnRoutine != null) StopCoroutine(turnRoutine);
+        turnRoutine = StartCoroutine(TurnToRotation(target));
+
+        // Only swap sprites when facing changes
+        if (currentFacingPosition == nextFacingPosition) return;
+
+
+
+
+    }
+
+    IEnumerator TurnToRotation(Quaternion target)
+    {
+        Quaternion start = standee.transform.rotation;
+        float t = 0f;
+
+        // quick early-out
+        if (Quaternion.Angle(start, target) < 0.1f)
+            yield break;
+
+        while (t < 1f)
         {
+            t += Time.deltaTime / Mathf.Max(0.0001f, turnDuration);
+            float u = t * t * (3f - 2f * t); // smoothstep
+            standee.transform.rotation = Quaternion.Slerp(start, target, u);
+            yield return null;
+        }
+
+        standee.transform.rotation = target;
+        turnRoutine = null;
+    }
 
 
-            yield return new WaitForSeconds(1);
 
-            Vector3 start = transform.position;
-            Vector3 end = new Vector3(
-                squareToLand.SquareXPosition,
-                transform.position.y,
-                squareToLand.SquareZPosition
-                );
+    IEnumerator PottardMovement(Vector2Int newPosition, SquareController squareToLand)
+    {
 
-        float duration = 0.25f;
-            float t = 0f;
+        Vector2Int moveDelta = newPosition - currentPosition;
+        SetFacing(moveDelta.x, moveDelta.y);
 
-        if(currentSquareController != null)
+        if (turnRoutine != null)
+            yield return turnRoutine;
+
+        Vector3 start = transform.position;
+        Vector3 end = new Vector3(
+                 squareToLand.SquareXPosition,
+                 transform.position.y,
+                 squareToLand.SquareZPosition
+                 );
+
+        float duration = 0.35f;
+        float t = 0f;
+
+        if (currentSquareController != null)
         {
             currentSquareController.MakePottardSquare(false);
         }
 
 
-        
-        
 
-            while (t < duration)
+
+
+        while (t < duration)
+        {
+
+            if (squareToLand.ThisSquareHoldsPlayer)
             {
-                
-                if(squareToLand.ThisSquareHoldsPlayer)
-                {
-                    MovePottardBackOneSquare();
-                    yield break;
+                MovePottardBackOneSquare();
+                yield break;
             }
 
-                t += Time.deltaTime;
-                float u = Mathf.Clamp01(t / duration);
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
 
-                // Smoothstep-ish curve (feels nicer than linear)
-                u = u * u * (3f - 2f * u);
+            // Smoothstep-ish curve (feels nicer than linear)
+            u = u * u * (3f - 2f * u);
 
-                transform.position = Vector3.Lerp(start, end, u);
-                yield return null;
-            }
+            transform.position = Vector3.Lerp(start, end, u);
+            yield return null;
+        }
 
         this.transform.position = new Vector3(
             squareToLand.SquareXPosition,
@@ -222,38 +303,38 @@ public class PottardController : MonoBehaviour
 
         yield return null;
 
-        
 
-            currentPosition = new Vector2Int(newPosition.x, newPosition.y);
+
+        currentPosition = new Vector2Int(newPosition.x, newPosition.y);
 
         if (squareToLand != null)
         {
 
-            if(squareToLand.IsTreasureSquare)
+            if (squareToLand.IsTreasureSquare)
             {
                 squareToLand.MakeEmptySquare();
             }
-            
 
- 
+
+
 
             squareToLand.MakePottardSquare(true);
             currentSquareController = squareToLand;
         }
 
         if (landOnGoal)
-            {
+        {
             Destroy(gameObject);
         }
 
-            else
-            {
-                yield return new WaitForSeconds(1);
+        else
+        {
+            yield return new WaitForSeconds(1);
 
-                StartNewMoveRoutine(Vector2Int.zero);
-            }
-            
+            StartNewMoveRoutine(Vector2Int.zero);
         }
+
+    }
 
     void MovePottardBackOneSquare()
     {
@@ -261,5 +342,5 @@ public class PottardController : MonoBehaviour
         Vector2Int delta = previousPosition - current;
         StartNewMoveRoutine(delta);
     }
-    
+
 }

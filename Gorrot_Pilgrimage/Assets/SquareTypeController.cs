@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
+
+
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class SquareTypeController : MonoBehaviour
 {
 
@@ -86,8 +89,10 @@ public class SquareTypeController : MonoBehaviour
         thisMapData = thisMap;
 
         SetSquareMesh(thisMap);
+       // CombineSquareMesh();
 
-        regularSquareMesh.SetActive(true);
+       
+
 
         if (thisSquareType == SquareType.Enemy)
         {
@@ -160,6 +165,42 @@ public class SquareTypeController : MonoBehaviour
         ClearChildren(squareMeshContainer);
 
         GameObject mesh = Instantiate(prefab, squareMeshContainer);
+    }
+
+    void CombineSquareMesh()
+    {
+        MeshFilter targetMF = regularSquareMesh.GetComponent<MeshFilter>();
+        Transform targetT = regularSquareMesh.transform;
+
+        MeshFilter[] meshFilters = squareMeshContainer.GetComponentsInChildren<MeshFilter>(true);
+        var combineList = new List<CombineInstance>();
+
+        foreach (var mf in meshFilters)
+        {
+            if (mf == null || mf == targetMF || mf.sharedMesh == null)
+                continue;
+
+            combineList.Add(new CombineInstance
+            {
+                mesh = mf.sharedMesh,
+                transform = targetT.worldToLocalMatrix * mf.transform.localToWorldMatrix
+            });
+
+            mf.gameObject.SetActive(false);
+        }
+
+        if (combineList.Count == 0)
+        {
+            Debug.LogWarning("No valid child meshes found to combine.");
+            return;
+        }
+
+        Mesh combinedMesh = new Mesh();
+        combinedMesh.name = "CombinedSquareMesh";
+        combinedMesh.CombineMeshes(combineList.ToArray(), true, true);
+
+        targetMF.sharedMesh = combinedMesh;
+        regularSquareMesh.SetActive(true);
     }
 
     void ClearChildren(Transform parent)
