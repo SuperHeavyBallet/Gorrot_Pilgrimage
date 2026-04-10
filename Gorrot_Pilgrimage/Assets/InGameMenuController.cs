@@ -1,5 +1,7 @@
 using UnityEngine;
 using GorrotGame;
+using TMPro;
+using UnityEngine.UI;
 
 public class InGameMenuController : MonoBehaviour
 {
@@ -9,10 +11,18 @@ public class InGameMenuController : MonoBehaviour
 
     public bool gameIsPaused;
 
+    [SerializeField] TextMeshProUGUI musicVolumeText;
+    [SerializeField] Slider musicVolumeSlider;
+    float musicVolume;
+
+    AudioManager musicManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         inGameMenuOverlay.SetActive(false);
+
+        musicVolumeSlider.value = AudioManager.Instance.MusicVolume;
     }
 
     // Update is called once per frame
@@ -55,5 +65,10 @@ public class InGameMenuController : MonoBehaviour
     public void CloseControlsScreen()
     {
         controlsScreen.SetActive(false);
+    }
+
+    public void UpdateMusicVolume()
+    {
+        AudioManager.Instance.UpdateMusicVolume(musicVolumeSlider.value);
     }
 }

@@ -116,6 +116,7 @@
     <Compile Include="Assets\WaterBuilder.cs" />
     <Compile Include="Assets\OverHeadSpansBuilder.cs" />
     <Compile Include="Assets\MapCatalogue.cs" />
+    <Compile Include="Assets\CombineMeshesInChildren.cs" />
     <Compile Include="Assets\OverheadDecorationController.cs" />
     <Compile Include="Assets\StandeeAnimationController.cs" />
     <Compile Include="Assets\LevelTransitionPhaseResolution.cs" />

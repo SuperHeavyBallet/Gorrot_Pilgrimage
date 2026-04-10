@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource backgroundMusicPlayer;
 
     public bool musicOff;
-    public int musicVolume;
+   public float musicVolume;
 
     public AudioClip takeDamageSoundEffect;
 
@@ -65,15 +65,27 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (musicOff)
         {
             musicVolume = 0;
+            
         }
         else
         {
             musicVolume = 1;
         }
+
+        backgroundMusicPlayer.volume = musicVolume;*/
     }
+
+    public void UpdateMusicVolume(float newVolume)
+    {
+        musicVolume = newVolume;
+        backgroundMusicPlayer.volume = newVolume;
+    }
+
+    public float MusicVolume => musicVolume;
 
     public void changeTurnSound(string turnFor)
     {
