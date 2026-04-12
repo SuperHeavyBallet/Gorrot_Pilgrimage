@@ -96,7 +96,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if (previousMap == null)
         {
-            mapToBuild = GetFirstMap();
+            mapToBuild = FirstMap;
         }
         else if (previousMap.GetIsWildMap())
         {
@@ -112,7 +112,7 @@ public class BattlefieldBuilder : MonoBehaviour
             mapToBuild = previousMap.RollNextMap();
         }
 
-       levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
+        levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
 
 
 
@@ -124,12 +124,9 @@ public class BattlefieldBuilder : MonoBehaviour
 
         playerMovementController.PrepareForMapRebuild();
 
-        if(thisMap == null)
-        {
-            PrepareNextMapToBuild();
-
-        }
+        if (thisMap == null) PrepareNextMapToBuild();
         
+
         thisMap.ParseDialogue();
         UpdateMapDataUI();
         CheckMapisWild();
@@ -144,13 +141,9 @@ public class BattlefieldBuilder : MonoBehaviour
             SetContent();
             previousMap = thisMap;
         }
-        else
-        {
+        else QuitGame();
 
-            QuitGame();
-        }
 
-        
         StartFadeFromBlack();
         playerMovementController.SetReachedGoalSquare(false);
     }
@@ -175,14 +168,6 @@ public class BattlefieldBuilder : MonoBehaviour
 
             contentSquareBuilder.PlaceContentSquares();
 
-            //if (thisMap.GetHasEnemies == true) CollectInitialEnemySquares();
-
-
-            // Check if overhead is needed and double check we actually have border squares to start from
-            if(thisMap.HasOverheadSpanObjects && borderSquares.Count > 0)
-            {
-                overHeadSpansBuilder.CreateOverheadSpanDecorations();
-            }
 
         }
 
@@ -191,7 +176,7 @@ public class BattlefieldBuilder : MonoBehaviour
     }
 
     // Helper Functions
-    
+
     public static readonly Vector2Int[] NeighDiag = new[]
     {
         new Vector2Int(1, 1),   // NE  bit 1
@@ -245,7 +230,12 @@ public class BattlefieldBuilder : MonoBehaviour
     public List<Vector2Int> FreeSquares => freeSquares;
     void PlacePlayer(int size)
     {
+        Debug.Log("PLACE PLAYER");
+        Debug.Log("GOAL SQUARE COORD: " + goalSquareCoord);
+
         SquareController newSquareController = allSquares[playerStartingPosition, 0].GetComponent<SquareController>();
+
+
         if (newSquareController != null)
         {
             int testX = newSquareController.SquareXPosition;
@@ -293,7 +283,22 @@ public class BattlefieldBuilder : MonoBehaviour
     public PlayerDistanceController PlayerDistanceController => playerDistanceController;
     void SetPlayerStartSquare(int currentMapSize)
     {
-        playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
+        Debug.Log("SET PLAYER START SQUARE");
+        Debug.Log("GOAL COORD:" + goalSquareCoord);
+
+        //playerStartingPosition = UnityEngine.Random.Range(0, allSquares.GetLength(0));
+
+    
+        int mapWidth = allSquares.GetLength(0) -1;
+
+
+        int basePlayerStartingPosition = (mapWidth - goalSquareCoord[0]);
+
+        int randomReposition = UnityEngine.Random.Range(mapWidth * -1, mapWidth);
+
+        playerStartingPosition = Mathf.Clamp(basePlayerStartingPosition + randomReposition, 0, mapWidth);
+
+        Debug.Log("PLAYER START POS: " + playerStartingPosition);
 
         SquareController startSqController = allSquares[playerStartingPosition, 0].GetComponent<SquareController>();
 
@@ -320,9 +325,9 @@ public class BattlefieldBuilder : MonoBehaviour
     void ClearEnemySquares() { enemySquares.Clear(); }
     public void CheckMapisWild()
     {
-        if(thisMap.GetIsWildMap())
+        if (thisMap.GetIsWildMap())
         {
-            
+
             wildMapIcon.SetActive(true);
         }
         else
@@ -333,7 +338,7 @@ public class BattlefieldBuilder : MonoBehaviour
     MapData CalculateLostOrProgress()
     {
 
-        MapData chosenMap = null; 
+        MapData chosenMap = null;
 
         float escapeChance = previousMap.GetEscapeChance();
         bool escaped = UnityEngine.Random.value < escapeChance;
@@ -341,7 +346,7 @@ public class BattlefieldBuilder : MonoBehaviour
         if (!escaped)
         {
             isLost = true;
-           chosenMap = previousMap; // repeat
+            chosenMap = previousMap; // repeat
         }
         else
         {
@@ -355,10 +360,8 @@ public class BattlefieldBuilder : MonoBehaviour
     // Map Data Related Functions
     public MapData ThisMap => thisMap;
     void SetFirstMap() { previousMap = mapCatalogue.GetFirstMap(); }
-    MapData GetFirstMap()
-    {
-        return mapCatalogue.GetFirstMap();
-    }
+    MapData FirstMap => mapCatalogue.GetFirstMap();
+    
 
     public void PrepareNextMapToBuild()
     {
@@ -367,7 +370,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if (previousMap == null)
         {
-            mapToBuild = GetFirstMap();
+            mapToBuild = FirstMap;
         }
         else if (previousMap.GetIsWildMap())
         {
@@ -399,7 +402,7 @@ public class BattlefieldBuilder : MonoBehaviour
 
         if (previousMap == null)
         {
-            mapToBuild = GetFirstMap();
+            mapToBuild = FirstMap;
         }
         else if (previousMap.GetIsWildMap())
         {
@@ -417,8 +420,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
         levelTransitionPhaseResolution.SetTransitionData(isLost, previousMap, mapToBuild);
 
-      
-       
+
+
 
         return mapToBuild;
     }
@@ -428,19 +431,21 @@ public class BattlefieldBuilder : MonoBehaviour
     public MapNames NextMapNames => thisMap.GetMapNames();
 
     // UI Functions
-    public void UpdateMapDataUI() 
-    { 
+    public void UpdateMapDataUI()
+    {
         string mapLocation = thisMap.GetMapLocation();
         mapLocation = mapLocation.Replace("_", " ");
 
-        uiController.UpdateMapDataText(thisMap.GetMapName(), mapLocation); 
+        uiController.UpdateMapDataText(thisMap.GetMapName(), mapLocation);
     }
-    public void StartFadeToBlack() { 
-        uiController.StartFadeToBlack(); 
+    public void StartFadeToBlack()
+    {
+        uiController.StartFadeToBlack();
     }
-    public void StartFadeFromBlack() { 
+    public void StartFadeFromBlack()
+    {
         uiController.StartFadeFromBlack();
-        }
+    }
 
     // Almost Certainly Remove all Overhead Actions
 

@@ -106,7 +106,7 @@ public class CombatPhaseResolution : MonoBehaviour
         fightButtonText.text = "Fight";
         talkButton.SetActive(true);
         battlefieldBuilder.StartFadeToBlack();
-        currentMap = battlefieldBuilder.GetThisMap();
+        currentMap = battlefieldBuilder.ThisMap;
         rollDiceButton.SetActive(false);
         ActivateDiceDisplays(true);
         enemyRerolls = 0;

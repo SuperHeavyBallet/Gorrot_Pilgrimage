@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: ec319eb2979ace74eaa4cef3ce215d16
+guid: 5e8fc80d37a6d1d4592515a000c48f4f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1338331509114689099
-    second: square_pack_outmost_Soil_AlbedoTransparency_0
+      213: -3271233479898904103
+    second: border_decoration_outmost_Wood_AlbedoTransparency_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: square_pack_outmost_Soil_AlbedoTransparency_0
+      name: border_decoration_outmost_Wood_AlbedoTransparency_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b465e70ba65b29210800000000000000
-      internalID: 1338331509114689099
+      spriteID: 9d9c2455b7e3a92d0800000000000000
+      internalID: -3271233479898904103
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      square_pack_outmost_Soil_AlbedoTransparency_0: 1338331509114689099
+      border_decoration_outmost_Wood_AlbedoTransparency_0: -3271233479898904103
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

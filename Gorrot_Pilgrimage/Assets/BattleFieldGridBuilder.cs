@@ -42,12 +42,10 @@ public class BattleFieldGridBuilder : MonoBehaviour
                 for (int y = 0; y < size; y++)
                 {
                     GameObject newSquare = Instantiate(battleFieldSquare, transform);
+
                     if (newSquare != null)
                     {
-                        //newSquare.transform.position = new Vector3(x, y, 0);
-                        //newSquare.transform.localRotation = Quaternion.identity;
                         newSquare.transform.localPosition = new Vector3(x, 0, y);
-
                         battlefieldBuilder.AllSquares[x, y] = newSquare;
 
                         SquareController newSquareController = newSquare.GetComponent<SquareController>();
@@ -69,7 +67,6 @@ public class BattleFieldGridBuilder : MonoBehaviour
                         {
                             MakeGoalSquare(newSquareController, newSquare, player);
                             battlefieldBuilder.SetGoalSquareCoord(new Vector2Int(x, y));
-                           // goalSquareLocation = newSquare.transform.position;
                         }
 
                         // Don't add the player start or goal tile to free list either
