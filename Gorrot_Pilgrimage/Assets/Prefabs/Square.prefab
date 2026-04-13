@@ -4274,7 +4274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9110591709881912777
 Transform:
   m_ObjectHideFlags: 0
@@ -8321,6 +8321,10 @@ PrefabInstance:
     - target: {fileID: 1582406542786073014, guid: e86c516c816417e4b8dd84a1e6747047, type: 3}
       propertyPath: m_Name
       value: rockpile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1582406542786073014, guid: e86c516c816417e4b8dd84a1e6747047, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1729139758564106972, guid: e86c516c816417e4b8dd84a1e6747047, type: 3}
       propertyPath: m_LocalPosition.x

@@ -36,7 +36,7 @@ public class CombatPhaseResolution : MonoBehaviour
     bool waitingForPressRoll;
 
     [SerializeField] GameObject diceDisplay;
-    [SerializeField]  GameObject enemyDiceDisplay;
+    [SerializeField]  GameObject enemyInteractDisplay;
 
     [SerializeField] BattlefieldBuilder battlefieldBuilder;
     [SerializeField] PlayerMovementController playerMovementController;
@@ -74,6 +74,8 @@ public class CombatPhaseResolution : MonoBehaviour
 
     bool canReroll;
 
+    [SerializeField] Animator enemyInteractAnimator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -91,7 +93,7 @@ public class CombatPhaseResolution : MonoBehaviour
     void ActivateDiceDisplays(bool value)
     {
         diceDisplay.SetActive(value);
-        enemyDiceDisplay.SetActive(value);
+        enemyInteractDisplay.SetActive(value);
        
     }
 
@@ -101,14 +103,17 @@ public class CombatPhaseResolution : MonoBehaviour
     }
     public void EnterCombatPhase()
     {
+        
+
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.combat);
         state = CombatState.AwaitingStartChoice;
         fightButtonText.text = "Fight";
         talkButton.SetActive(true);
-        battlefieldBuilder.StartFadeToBlack();
+        //battlefieldBuilder.StartFadeToBlack();
         currentMap = battlefieldBuilder.ThisMap;
         rollDiceButton.SetActive(false);
         ActivateDiceDisplays(true);
+        enemyInteractAnimator.SetBool("EnterInteract", true);
         enemyRerolls = 0;
         SetupEnemyStart();
         
@@ -518,7 +523,7 @@ public class CombatPhaseResolution : MonoBehaviour
         playerTotal.text = preparedPlayerString;
     }
 
-    
+
 
 
 
@@ -535,14 +540,18 @@ public class CombatPhaseResolution : MonoBehaviour
         choice = CombatChoice.None;
 
         canReroll = false;
-        battlefieldBuilder.StartFadeFromBlack();
+        //battlefieldBuilder.StartFadeFromBlack();
+
+        enemyInteractAnimator.SetBool("EnterInteract", false);
+
         diceDisplay.SetActive(false);
-        enemyDiceDisplay.SetActive(false);
+        enemyInteractDisplay.SetActive(false);
         currentEnemyRoll = -1;
         enemyRerolls = 0;
         currentEnemyBuff = -1;
         turnOrganiser.SetLandedOnEnemySquare(false, null);
         turnOrganiser.BuildNextTurn();
+
 
     }
 

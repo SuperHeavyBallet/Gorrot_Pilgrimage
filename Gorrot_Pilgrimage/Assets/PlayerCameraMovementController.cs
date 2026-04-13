@@ -4,12 +4,19 @@ public class PlayerCameraMovementController : MonoBehaviour
 {
     public bool isPressingPanLeft;
     public bool isPressingPanRight;
+    public bool isPressingPanReverse;
 
 [SerializeField]    Animator cameraContainerAnimator;
     [SerializeField] CameraTrackPlayer cameraTrackPlayer;
 
     int cameraNormalHash;
 
+
+    public void Set_isPressingPanReverse(bool value)
+    {
+        isPressingPanReverse = value;
+        cameraContainerAnimator.SetBool("isPressingPanReverse", value);
+    }
     public void Set_isPressingPanLeft(bool value)
     {
        // cameraContainerAnimator.enabled = value;

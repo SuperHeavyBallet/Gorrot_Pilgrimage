@@ -24,6 +24,23 @@ public class PlayerInputReceiver : MonoBehaviour
         
     }
 
+    public void PanCameraReverse(InputAction.CallbackContext context)
+    {
+        if(!GorrotGame.GameFunctions.GameIsPaused())
+        {
+            if(context.performed)
+            {
+                playerCameraMovementController.Set_isPressingPanReverse(true);
+                moveInputIsBlocked = true;
+            }
+            else if (context.canceled)
+            {
+                playerCameraMovementController.Set_isPressingPanReverse(false);
+                moveInputIsBlocked = false;
+            }
+        }
+    }
+
    public void PanCameraLeft(InputAction.CallbackContext context)
     {
         if(!GorrotGame.GameFunctions.GameIsPaused())

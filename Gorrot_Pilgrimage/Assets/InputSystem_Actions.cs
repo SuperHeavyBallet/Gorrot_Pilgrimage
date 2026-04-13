@@ -192,6 +192,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""PanCameraReverse"",
+                    ""type"": ""Button"",
+                    ""id"": ""9e00e028-1397-4f43-a447-00415f3c02e5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""92bc038f-33dc-43fd-847d-ec2823e4ac6a"",
@@ -606,6 +615,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PanCameraRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca021048-d10b-407a-9403-aa74a5aef418"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PanCameraReverse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1226,6 +1246,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_PanCameraLeft = m_Player.FindAction("PanCameraLeft", throwIfNotFound: true);
         m_Player_PanCameraRight = m_Player.FindAction("PanCameraRight", throwIfNotFound: true);
+        m_Player_PanCameraReverse = m_Player.FindAction("PanCameraReverse", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1331,6 +1352,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_PanCameraLeft;
     private readonly InputAction m_Player_PanCameraRight;
+    private readonly InputAction m_Player_PanCameraReverse;
     private readonly InputAction m_Player_Menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -1387,6 +1409,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/PanCameraRight".
         /// </summary>
         public InputAction @PanCameraRight => m_Wrapper.m_Player_PanCameraRight;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/PanCameraReverse".
+        /// </summary>
+        public InputAction @PanCameraReverse => m_Wrapper.m_Player_PanCameraReverse;
         /// <summary>
         /// Provides access to the underlying input action "Player/Menu".
         /// </summary>
@@ -1450,6 +1476,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @PanCameraRight.started += instance.OnPanCameraRight;
             @PanCameraRight.performed += instance.OnPanCameraRight;
             @PanCameraRight.canceled += instance.OnPanCameraRight;
+            @PanCameraReverse.started += instance.OnPanCameraReverse;
+            @PanCameraReverse.performed += instance.OnPanCameraReverse;
+            @PanCameraReverse.canceled += instance.OnPanCameraReverse;
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
@@ -1497,6 +1526,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @PanCameraRight.started -= instance.OnPanCameraRight;
             @PanCameraRight.performed -= instance.OnPanCameraRight;
             @PanCameraRight.canceled -= instance.OnPanCameraRight;
+            @PanCameraReverse.started -= instance.OnPanCameraReverse;
+            @PanCameraReverse.performed -= instance.OnPanCameraReverse;
+            @PanCameraReverse.canceled -= instance.OnPanCameraReverse;
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
@@ -1877,6 +1909,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPanCameraRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PanCameraReverse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPanCameraReverse(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

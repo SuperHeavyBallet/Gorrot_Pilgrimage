@@ -88,6 +88,7 @@
     <Compile Include="Assets\CharacterSpriteLibrary.cs" />
     <Compile Include="Assets\DeathPushNameToLedger.cs" />
     <Compile Include="Assets\FateOutcomes.cs" />
+    <Compile Include="Assets\TotemPoleRotationController.cs" />
     <Compile Include="Assets\InventorySlotController.cs" />
     <Compile Include="Assets\PlayerInputReceiver.cs" />
     <Compile Include="Assets\CameraTrackPlayer.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\CombineMeshesInChildren.cs" />
     <Compile Include="Assets\OverheadDecorationController.cs" />
     <Compile Include="Assets\StandeeAnimationController.cs" />
+    <Compile Include="Assets\BatchMeshes.cs" />
     <Compile Include="Assets\LevelTransitionPhaseResolution.cs" />
     <Compile Include="Assets\Scriptable\CharacterSprites\CharacterSpriteSet.cs" />
     <Compile Include="Assets\WaterAdjacencyController.cs" />

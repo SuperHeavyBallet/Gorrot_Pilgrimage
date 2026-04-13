@@ -106,6 +106,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "PanCameraReverse",
+                    "type": "Button",
+                    "id": "9e00e028-1397-4f43-a447-00415f3c02e5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Menu",
                     "type": "Button",
                     "id": "92bc038f-33dc-43fd-847d-ec2823e4ac6a",
@@ -520,6 +529,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PanCameraRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca021048-d10b-407a-9403-aa74a5aef418",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PanCameraReverse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
