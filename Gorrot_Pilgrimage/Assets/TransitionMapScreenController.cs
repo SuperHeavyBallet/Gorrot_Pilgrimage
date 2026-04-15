@@ -17,11 +17,8 @@ public class TransitionMapScreenController : MonoBehaviour
 
     public void StartMapTransition(MapNames fromMap, MapNames toMap)
     {
-        Debug.Log("Go from: " + fromMap.ToString() + ", to: " + toMap.ToString());
-
         cache_fromMap = fromMap;
         cache_toMap = toMap;
-
         GetMapNode();
     }
 
@@ -57,11 +54,8 @@ public class TransitionMapScreenController : MonoBehaviour
     IEnumerator PlayerTransition()
     {
 
-        Debug.Log("In Coroutine");
-
         if (cache_FromMapNode == null || cache_ToMapNode == null)
             yield break;
-
 
         Vector3 fromPosition = cache_FromMapNode.transform.position;
         Vector3 toPosition = cache_ToMapNode.transform.position;

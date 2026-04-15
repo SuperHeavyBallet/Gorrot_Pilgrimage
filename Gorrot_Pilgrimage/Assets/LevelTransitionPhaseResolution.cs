@@ -16,27 +16,15 @@ public class LevelTransitionPhaseResolution : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI transitionText;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool canStartNextLevel;
 
     public void EnterLevelTransitionPhase()
     {
+        canStartNextLevel = false;
+
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.levelTransition);
         transitionMapScreen.SetActive(true);
-        StartCoroutine(BuildNewBattleField());
-
-       
-
-        
+        StartCoroutine(BuildNewBattleField()); 
     }
 
 
@@ -70,17 +58,27 @@ public class LevelTransitionPhaseResolution : MonoBehaviour
         battlefieldBuilder.PrepareNextMapToBuild();
         transitionMapScreenController.StartMapTransition(battlefieldBuilder.CurrentMapNames, battlefieldBuilder.NextMapNames);
         battlefieldBuilder.BuildNewBattlefield();
-
-        yield return new WaitForSeconds(5);
-        
         
 
-        ExitLevelTransitionPhase();
+       
+        yield return new WaitForSeconds(1);
+
+        canStartNextLevel = true;
+
+       
     }
 
     void ExitLevelTransitionPhase()
     {
         transitionMapScreen.SetActive(false);
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.movement);
+    }
+
+    public void OnClickStartNextLevel()
+    {
+        if(canStartNextLevel)
+        {
+            ExitLevelTransitionPhase();
+        }
     }
 }
