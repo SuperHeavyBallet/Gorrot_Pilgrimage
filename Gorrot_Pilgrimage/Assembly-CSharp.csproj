@@ -72,7 +72,9 @@
     <Compile Include="Assets\SmallTerrainController.cs" />
     <Compile Include="Assets\GoalSquareController.cs" />
     <Compile Include="Assets\SquareTypeController.cs" />
+    <Compile Include="Assets\TotemPoleCreator.cs" />
     <Compile Include="Assets\TestScripts\HouseBuilder.cs" />
+    <Compile Include="Assets\TotemPoleSegmentController.cs" />
     <Compile Include="Assets\Scriptable\FateOutcomes\FateOutcome.cs" />
     <Compile Include="Assets\MainMenuController.cs" />
     <Compile Include="Assets\InGameMenuController.cs" />
