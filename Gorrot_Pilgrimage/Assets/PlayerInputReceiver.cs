@@ -9,8 +9,8 @@ public class PlayerInputReceiver : MonoBehaviour
     bool hasPressedMove;
     bool moveInputIsBlocked;
 
-    public    bool isPressingPanCameraLeft;
-    public    bool isPressingPanCameraRight;
+   bool isPressingPanCameraLeft;
+   bool isPressingPanCameraRight;
 
    // public GameObject player;
     PlayerMovementController playerMovementController;
