@@ -71,7 +71,7 @@ public class SquareTypeController : MonoBehaviour
     [SerializeField] Transform squareMeshContainer;
 
     [SerializeField] GameObject terrainSpriteObject;
-
+    
     [SerializeField] GameObject stoneThrowEffect;
 
     private void OnEnable()
@@ -364,6 +364,7 @@ public class SquareTypeController : MonoBehaviour
     void SetEmptySquare()
     {
         DisableAllObjects();
+        thisSquareType = SquareType.Empty;
     }
 
     // Item Pickup Route

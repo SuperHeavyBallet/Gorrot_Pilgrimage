@@ -6,14 +6,14 @@ public class FatePhaseResolution : MonoBehaviour
 {
     TurnOrganiser turnOrganiser;
 
-    public GameObject fateScreen;
-    public GameObject fateDisplay;
+    //public GameObject fateScreen;
+    [SerializeField] GameObject fateDisplay;
 
-    public TextMeshProUGUI fateOutcomeText;
-    public TextMeshProUGUI fateOutcomeStatText;
-    public TextMeshProUGUI fateOutcomeStatDelta;
+    [SerializeField] TextMeshProUGUI fateOutcomeText;
+    [SerializeField] TextMeshProUGUI fateOutcomeStatText;
+    [SerializeField] TextMeshProUGUI fateOutcomeStatDelta;
 
-    public FateOutcomes fateOutcomes;
+    [SerializeField] FateOutcomes fateOutcomes;
 
     FateOutcome fateOutcome;
 
@@ -25,7 +25,6 @@ public class FatePhaseResolution : MonoBehaviour
     void Start()
     {
         turnOrganiser = GetComponent<TurnOrganiser>();
-        fateScreen.SetActive(false);
         fateDisplay.SetActive(false); 
     }
 
@@ -34,7 +33,6 @@ public class FatePhaseResolution : MonoBehaviour
     {
         turnOrganiser.UpdateCurrentPhase(TurnOrganiser.ActivePhase.fate);
         UpdateFateOutComeText("...");
-        //fateScreen.SetActive(true);
         fateDisplay.SetActive(true);
 
         StartCoroutine(FateRollScreen());
@@ -82,7 +80,6 @@ public class FatePhaseResolution : MonoBehaviour
 
     void CloseFateScene()
     {
-       fateScreen.SetActive(false);
         fateDisplay.SetActive(false);
         UpdateFateOutComeText("...");
         
