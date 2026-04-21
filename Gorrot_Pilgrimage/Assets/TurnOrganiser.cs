@@ -10,7 +10,6 @@ public class TurnOrganiser : MonoBehaviour
     bool isPlayerTurn;
 
 
-    [SerializeField] TextMeshProUGUI turnDisplay;
 
     bool hasLandedOnEnemy = false;
     bool hasLandedOnGoal = false;
@@ -29,7 +28,6 @@ public class TurnOrganiser : MonoBehaviour
 
     public bool waitingForFate;
 
-    public TextMeshProUGUI currentPhaseText;
 
     public enum ActivePhase {
         movement,
@@ -111,7 +109,6 @@ public class TurnOrganiser : MonoBehaviour
     public void UpdateCurrentPhase(ActivePhase newPhase)
     {
         currentPhase = newPhase;
-        UpdatePhaseText();
     }
 
     public void UpdateCurrentEnemySize(int newEnemySize)
@@ -123,31 +120,12 @@ public class TurnOrganiser : MonoBehaviour
     {
         return currentEnemySize;
     }
-    void UpdatePhaseText()
-    {
-        switch(currentPhase)
-        {
-            case ActivePhase.movement:
-                currentPhaseText.text = "Movement";
-                break;
-                case ActivePhase.combat:
-                currentPhaseText.text = "Combat";
-                break;
-                case ActivePhase.fate:
-                currentPhaseText.text = "Fate";
-                break;
-                default:
-                currentPhaseText.text = "Broken";
-                break;
-        }
-    }
  
 
     public void disablePlayerTurn()
     {
         AudioManager.Instance.changeTurnSound("enemy");
         isPlayerTurn = false;
-        turnDisplay.text = "Turn: Building Next";   
     }
 
 
@@ -286,7 +264,6 @@ public class TurnOrganiser : MonoBehaviour
         AudioManager.Instance.changeTurnSound("player");
         isPlayerTurn = true;
         hasLandedOnEnemy = false;
-        turnDisplay.text = "Turn: Player";
         
     }
 

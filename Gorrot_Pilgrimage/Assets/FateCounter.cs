@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class FateCounter : MonoBehaviour
 {
-    public TextMeshProUGUI fateCounterText;
+
     int fateCounter = 0;
     int maxFateCounter = 20;
 
@@ -28,8 +28,6 @@ public class FateCounter : MonoBehaviour
     {
         fateCounter = Mathf.Clamp(fateCounter + alterAmount, 0, maxFateCounter);
 
-        Debug.Log("FATE UPDATED: " + fateCounter);
-        UpdateFateCounterText();
         UpdateFateFillBar();
 
         if(fateCounter >= maxFateCounter)
@@ -59,15 +57,9 @@ public class FateCounter : MonoBehaviour
          );
     }
 
-    void UpdateFateCounterText()
-    {
-        fateCounterText.text = "Fate: " + fateCounter;
-    }
-
     public void resetFateCounter()
     {
         fateCounter = 0;
-        UpdateFateCounterText();
         UpdateFateFillBar();
     }
 

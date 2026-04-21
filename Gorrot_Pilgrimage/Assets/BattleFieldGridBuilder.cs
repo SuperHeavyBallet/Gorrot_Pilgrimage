@@ -143,17 +143,6 @@ public class BattleFieldGridBuilder : MonoBehaviour
         if (newSquareController != null)
         {
             newSquareController.MakeSquare(SquareType.Goal, battlefieldBuilder.ThisMap);
-
-            if (player != null)
-            {
-                if (battlefieldBuilder.PlayerCompassController != null) { battlefieldBuilder.PlayerCompassController.SetGoalLocation(newSquare); }
-                else { Debug.LogError("No Compass Controller Component Found on Player"); }
-
-                if (battlefieldBuilder.PlayerDistanceController != null) { battlefieldBuilder.PlayerDistanceController.SetGoalLocation(newSquare); }
-                else { Debug.LogError("No Distance Controller Component Found on Player"); }
-            }
-            else { Debug.Log("No Player Object Found"); }
-
         }
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using GorrotGame;
+using UnityEngine.UI;
 
 public class PlayerStatsController : MonoBehaviour
 {
@@ -56,10 +57,15 @@ public class PlayerStatsController : MonoBehaviour
 
     [SerializeField] PlayerMovementController playerMovementController;
 
+    [SerializeField] GameObject damageOverlay;
+    Coroutine ShowDamageOverlay;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        damageOverlay.SetActive(false);
+
         playerIsAlive = true;
         
 
@@ -210,6 +216,16 @@ public class PlayerStatsController : MonoBehaviour
             else if (alterAmount < 0)
             {
                 AudioManager.Instance.playTakeDamageSoundEffect();
+
+                if (ShowDamageOverlay != null)
+                {
+                    StopCoroutine(ShowDamageOverlay);
+                    ShowDamageOverlay = null;
+                }
+
+                damageOverlay.gameObject.SetActive(false);
+                ShowDamageOverlay = StartCoroutine(DisplayDamageOverlayThenDisable(1));
+                
                 ActivateSignForTime(healthNeg);
             }
 
@@ -221,6 +237,15 @@ public class PlayerStatsController : MonoBehaviour
 
         UpdateNumbersDisplay();
 
+    }
+
+    IEnumerator DisplayDamageOverlayThenDisable(float timeShown)
+    {
+        damageOverlay.gameObject.SetActive(true);
+        yield return new WaitForSeconds(timeShown);
+        damageOverlay.gameObject.SetActive(false);
+
+        ShowDamageOverlay = null;
     }
 
     public void alterSuffering(int alterAmount)

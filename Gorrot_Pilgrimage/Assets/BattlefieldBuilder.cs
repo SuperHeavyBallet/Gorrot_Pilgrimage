@@ -22,8 +22,6 @@ public class BattlefieldBuilder : MonoBehaviour
     [Space(10)]
     [Header("Controller Scripts")]
     [SerializeField] UIController uiController;
-    PlayerCompassController playerCompassController;
-    PlayerDistanceController playerDistanceController;
     PlayerMovementController playerMovementController;
 
     [Space(10)]
@@ -70,13 +68,9 @@ public class BattlefieldBuilder : MonoBehaviour
         if (player != null)
         {
             playerMovementController = player.GetComponent<PlayerMovementController>();
-            playerCompassController = player.GetComponent<PlayerCompassController>();
-            playerDistanceController = player.GetComponent<PlayerDistanceController>();
             playerStatReceiver = player.GetComponent<PlayerStatReceiver>();
 
             if (playerMovementController == null) Debug.LogError("PlayerMovementController missing", player);
-            if (playerCompassController == null) Debug.LogError("PlayerCompassController missing", player);
-            if (playerDistanceController == null) Debug.LogError("PlayerDistanceController missing", player);
             if (playerStatReceiver == null) Debug.LogError("PlayerStatReceiver missing", player);
         }
     }
@@ -279,8 +273,6 @@ public class BattlefieldBuilder : MonoBehaviour
     }
     public int PlayerStartingPosition => playerStartingPosition;
     public void SetGoalSquareCoord(Vector2Int coord) => goalSquareCoord = coord;
-    public PlayerCompassController PlayerCompassController => playerCompassController;
-    public PlayerDistanceController PlayerDistanceController => playerDistanceController;
     void SetPlayerStartSquare(int currentMapSize)
     {
         Debug.Log("SET PLAYER START SQUARE");
