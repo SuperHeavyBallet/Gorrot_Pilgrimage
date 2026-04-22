@@ -64,7 +64,7 @@ public class MapBorderSquareController : MonoBehaviour
     public void MakeCornerBorderAtPosition(Vector3 localPosition, CornerPositions cornerPos)
     {
         GameObject newCornerBorderSquare = Instantiate(
-            SquareSpriteLibrary.Instance.GetBorderCornerSquare(),
+            SquareSpriteLibrary.Instance.BorderCornerSquare,
             transform.parent
         );
 
@@ -106,7 +106,7 @@ public class MapBorderSquareController : MonoBehaviour
     public void MakeBorderSquareAtPosition(Vector3 localPosition, OrthogonalPositions borderPos)
     {
         GameObject newBorderSquare = Instantiate(
-            SquareSpriteLibrary.Instance.getBorderSquare(),
+            SquareSpriteLibrary.Instance.BorderSquare,
             transform.parent
         );
 

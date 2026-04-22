@@ -351,8 +351,8 @@ public class BattlefieldBuilder : MonoBehaviour
 
     // Map Data Related Functions
     public MapData ThisMap => thisMap;
-    void SetFirstMap() { previousMap = mapCatalogue.GetFirstMap(); }
-    MapData FirstMap => mapCatalogue.GetFirstMap();
+    void SetFirstMap() { previousMap = mapCatalogue.FirstMap; }
+    MapData FirstMap => mapCatalogue.FirstMap;
     
 
     public void PrepareNextMapToBuild()

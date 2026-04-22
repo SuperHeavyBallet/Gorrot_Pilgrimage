@@ -3,32 +3,11 @@ using UnityEngine;
 public class MapCatalogue : MonoBehaviour
 {
 
-    [SerializeField] MapData[] allMaps;
 
-    [SerializeField] MapData[] OutworldMaps;
-
-    [SerializeField] MapData[] InworldMaps;
-
-    [SerializeField] MapData[] OuterGorrotMaps;
-
-    [SerializeField] MapData[] InnterGorrotMaps;
 
     [SerializeField] MapData firstMap;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-   public MapData GetFirstMap()
-    {
-        return firstMap;
-    }
+   public MapData FirstMap => firstMap;
+    
 }
