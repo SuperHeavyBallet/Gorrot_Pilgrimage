@@ -19,8 +19,8 @@ public class InventorySlotController : MonoBehaviour
 
     public string itemID = "Empty";
 
-    public Sprite itemSprite;
-    public Sprite itemSprite_Empty;
+    [SerializeField] Sprite itemSprite;
+    [SerializeField] Sprite itemSprite_Empty;
     public Image itemSpriteRenderer;
 
     Coroutine scaleUpAndDown;
@@ -149,21 +149,16 @@ public class InventorySlotController : MonoBehaviour
         if(itemID == "carrion_rose")
         {
             playerStatsController.SetPlayerHasCarrionRose(true);
-            Debug.Log("Player Has Carrion Rose");
         }
        
     }
 
-    public string GetCurrentItemID()
-    {
-        return itemID;
-    }
+    public string CurrentItemID => itemID;
 
     public void PlaceDuplcateItemInSlot()
     {
         itemQuantity += 1;
-        UpdateItemQuantityText();
-       
+        UpdateItemQuantityText();   
     }
 
     void UpdateItemQuantityText()
@@ -176,9 +171,6 @@ public class InventorySlotController : MonoBehaviour
         if(itemQuantity == 0)
         {
             slotIsEmpty = true;
-
-
-            // UpdateItemText("...");
             UpdateItemID("Empty");
             UpdateItemSprite(itemSprite_Empty);
             removeItemButton.SetActive(false);
@@ -186,15 +178,10 @@ public class InventorySlotController : MonoBehaviour
        
     }
 
-    public bool CheckSlotEmpty()
-    {
-        return slotIsEmpty;
-    }
+    public bool SlotEmpty => slotIsEmpty;
 
-    public int GetItemQuantity()
-    {
-        return (int)itemQuantity;
-    }
+
+    public int ItemQuantity => (int)itemQuantity;
 
 
   

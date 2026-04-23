@@ -97,12 +97,12 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             var slot = inventorySlots[i].GetComponent<InventorySlotController>();
-            string held = slot.GetCurrentItemID();
+            string held = slot.CurrentItemID;
 
-            if (!slot.CheckSlotEmpty() && held == newItemID)
+            if (!slot.SlotEmpty && held == newItemID)
                 return new SlotSearchResult { SlotIndex = i, SlotController = slot };
 
-            if (firstEmpty == null && slot.CheckSlotEmpty())
+            if (firstEmpty == null && slot.SlotEmpty)
             {
                 firstEmpty = slot;
                 firstEmptyIndex = i;
