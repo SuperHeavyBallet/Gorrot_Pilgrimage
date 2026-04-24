@@ -103,6 +103,12 @@ public class SquareTypeController : MonoBehaviour
 
             enemySquareVisuals.SetActive(true);
         }
+        else if(thisSquareType == SquareType.NPC)
+        {
+            SetNPCSprite();
+            squareController.LocatePlayer();
+            enemySquareVisuals.SetActive(true);
+        }
         else if (thisSquareType == SquareType.Health)
         {
             SetHealthSprite();
@@ -124,24 +130,24 @@ public class SquareTypeController : MonoBehaviour
         {
             SetTrap();
         }
-        else if(thisSquareType == SquareType.Goal)
+        else if (thisSquareType == SquareType.Goal)
         {
             SetGoal();
             squareController.LocatePlayer();
         }
-        else if(thisSquareType == SquareType.Start)
+        else if (thisSquareType == SquareType.Start)
         {
             SetStart();
         }
-        else if(thisSquareType == SquareType.Merchant)
+        else if (thisSquareType == SquareType.Merchant)
         {
             SetMerchant();
         }
-        else if(thisSquareType == SquareType.Water)
+        else if (thisSquareType == SquareType.Water)
         {
             SetWater();
         }
-        else if(thisSquareType == SquareType.Terrain)
+        else if (thisSquareType == SquareType.Terrain)
         {
             SetSmallTerrain();
         }
@@ -478,6 +484,13 @@ public class SquareTypeController : MonoBehaviour
         }
 
         standeeController.SetSprites(chosenSprite, chosenSprite);
+    }
+
+    void SetNPCSprite()
+    {
+        Sprite chosenSprite = thisMapData.GetNPCSprite();
+        standeeController.SetSprites(chosenSprite, chosenSprite);
+
     }
 
     void SetMood()

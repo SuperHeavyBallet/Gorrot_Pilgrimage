@@ -69,6 +69,7 @@ public class SquareController : MonoBehaviour
     public bool IsItemSquare => squareTypeController.ThisSquareType == SquareType.Item;
     public bool IsTrapSquare => squareTypeController.ThisSquareType == SquareType.Trap;
     public bool IsWater => squareTypeController.ThisSquareType == SquareType.Water;
+    public bool IsNPC => squareTypeController.ThisSquareType == SquareType.NPC;
     public bool IsEnemy => squareTypeController.ThisSquareType == SquareType.Enemy;
     public bool IsMerchantSquare => squareTypeController.ThisSquareType == SquareType.Merchant;
     public bool IsMoveableSquare => squareTypeController.ThisSquareType != SquareType.Terrain;
@@ -128,19 +129,25 @@ public class SquareController : MonoBehaviour
 
     void SetSquareStartSize()
     {
-        int randomChance = UnityEngine.Random.Range(0, 3);
-        switch (randomChance)
-        {
-            case 0:
-                squareSize = SquareSize.Small;
-                break;
-            case 1:
-                squareSize = SquareSize.Medium;
-                break;
-            case 2:
-                squareSize = SquareSize.Large;
-                break;
-        }
+      
+            int randomChance = UnityEngine.Random.Range(0, 3);
+            switch (randomChance)
+            {
+                case 0:
+                    squareSize = SquareSize.Small;
+                    break;
+                case 1:
+                    squareSize = SquareSize.Medium;
+                    break;
+                case 2:
+                    squareSize = SquareSize.Large;
+                    break;
+            }
+        
+     
+            
+
+       
     }
 
     // Tracking Player Position

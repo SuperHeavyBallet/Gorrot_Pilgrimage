@@ -15,7 +15,8 @@ namespace GorrotGame
         Item,
         Trap,
         Merchant,
-        Water
+        Water,
+       NPC
     }
 
     public enum SquareSize
@@ -23,6 +24,7 @@ namespace GorrotGame
         Small,
         Medium,
         Large,
+        Maldebon,
     }
 
     public enum SquareMood

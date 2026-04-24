@@ -79,6 +79,11 @@ public class MapData : ScriptableObject
     [SerializeField] Sprite[] mediumEnemySprites;
     [SerializeField] Sprite[] largeEnemySprites;
 
+    [SerializeField] bool hasNPC;
+    public bool HasNPC => hasNPC;
+
+    [SerializeField] Sprite npcSprite;
+
     [SerializeField] Sprite[] floorSprites;
 
     [SerializeField] bool hasEnemies;
@@ -250,10 +255,13 @@ public class MapData : ScriptableObject
         public string[] negative;
     }
 
+    public string GetNPCLine()
+    {
+        return "I am an NPC!";
+    }
 
     public string GetRandomLine(SquareSize size, SquareMood mood)
-    {
-        Debug.Log(size + " " + mood);   
+    { 
         if (dialogueData == null)
         {
             
@@ -350,6 +358,17 @@ public class MapData : ScriptableObject
     public Sprite GetLargeEnemySprite()
     {
         return largeEnemySprites[0];
+    }
+
+    public Sprite GetNPCSprite()
+    {
+        if(npcSprite == null)
+        {
+            Debug.LogError("Missing Maldebon Sprite");
+            return null;
+        }
+
+        return npcSprite;
     }
 
     public string GetMapLocation()

@@ -109,7 +109,6 @@ public class CombatPhaseResolution : MonoBehaviour
         state = CombatState.AwaitingStartChoice;
         fightButtonText.text = "Fight";
         talkButton.SetActive(true);
-        //battlefieldBuilder.StartFadeToBlack();
         currentMap = battlefieldBuilder.ThisMap;
         rollDiceButton.SetActive(false);
         ActivateDiceDisplays(true);
@@ -124,18 +123,39 @@ public class CombatPhaseResolution : MonoBehaviour
        
         SquareController sq = turnOrganiser.GetLandedSquare();
 
-        currentEnemyDamage = sq.EnemyDamage;
-        currentEnemyBuff = sq.GetEnemyBaseBuff();
-
-        CalculateThisBribe(1);
-        UpdateDiceRollFormulaText(currentEnemyBuff, 0, -1);
-
-        if(waitForInput != null)
+        if(sq.IsNPC)
         {
-            waitForInput = null;
+            currentEnemyDamage = 0;
+            currentEnemyBuff = 0;
+
+            CalculateThisBribe(0);
+            UpdateDiceRollFormulaText(currentEnemyBuff, 0, -1);
+
+
+            if (waitForInput != null)
+            {
+                waitForInput = null;
+            }
+
+            waitForInput = StartCoroutine(WaitForInput());
+        }
+        else
+        {
+            currentEnemyDamage = sq.EnemyDamage;
+            currentEnemyBuff = sq.GetEnemyBaseBuff();
+
+            CalculateThisBribe(1);
+            UpdateDiceRollFormulaText(currentEnemyBuff, 0, -1);
+
+            if (waitForInput != null)
+            {
+                waitForInput = null;
+            }
+
+            waitForInput = StartCoroutine(WaitForInput());
         }
 
-        waitForInput = StartCoroutine(WaitForInput());
+        
 
     }
 
@@ -191,13 +211,19 @@ public class CombatPhaseResolution : MonoBehaviour
             SquareController sq = turnOrganiser.GetLandedSquare();
             SquareSize enemySize = sq.ThisSquareSize;
 
-            SquareMood enemyMood = sq.EnemyMood;  
+            SquareMood enemyMood = sq.EnemyMood;
 
-            Debug.Log(enemySize + " " + enemyMood);
+            string newDialogue = "...";
 
-            string newDialogue = currentMap.GetRandomLine(enemySize, enemyMood);
-
-            Debug.Log(newDialogue);
+            if (sq.IsNPC)
+            {
+                newDialogue = currentMap.GetNPCLine();
+            }
+            else
+            {
+                newDialogue = currentMap.GetRandomLine(enemySize, enemyMood);
+            }
+                
 
             textBoxText.text = newDialogue;
 

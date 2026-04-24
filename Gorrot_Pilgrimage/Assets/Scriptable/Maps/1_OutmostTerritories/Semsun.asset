@@ -41,6 +41,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 789dc32d995fde7489fadec69dc267c5, type: 3}
   largeEnemySprites:
   - {fileID: 21300000, guid: 789dc32d995fde7489fadec69dc267c5, type: 3}
+  hasNPC: 1
+  npcSprite: {fileID: 21300000, guid: 62ccb903f81ba744dad827a941d9fe56, type: 3}
   floorSprites:
   - {fileID: 21300000, guid: e68677636a860654087df74cbb855f75, type: 3}
   - {fileID: 21300000, guid: 78c62ad730f8c704c846ba45db5f7021, type: 3}

@@ -15,6 +15,11 @@ public class ContentSquareBuilder : MonoBehaviour
 
         PlaceTypeSquares(terrainSquareCount, sq => sq.MakeSquare(SquareType.Terrain, thisMap), disallowReservedWalkway: true);
 
+        if(thisMap.HasNPC == true)
+        {
+            PlaceTypeSquares(1, sq => sq.MakeSquare(SquareType.NPC, thisMap), disallowReservedWalkway: true);
+        }
+
         if (thisMap.GetHasEnemies == true)
         {
             int size = thisMap.GetMapSize();

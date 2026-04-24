@@ -133,6 +133,7 @@
     <Compile Include="Assets\UIController.cs" />
     <Compile Include="Assets\Scriptable\Maps\MapData.cs" />
     <Compile Include="Assets\SquareSpriteLibrary.cs" />
+    <Compile Include="Assets\NPCMoveController.cs" />
     <Compile Include="Assets\GoalPhaseResolution.cs" />
     <Compile Include="Assets\PlayerCompassController.cs" />
     <Compile Include="Assets\BuildingFloorPositions.cs" />

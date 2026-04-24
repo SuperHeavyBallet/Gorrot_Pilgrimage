@@ -427,6 +427,11 @@ public class PlayerMovementController : MonoBehaviour
         turnOrganiser.SetLandedOnEnemySquare(true, newSqCon);
     }
 
+    void SteppedOnNPC(SquareController newSqCon)
+    {
+        turnOrganiser.SetLandedOnNPCSquare(true, newSqCon);
+    }
+
     void ApplyMoveTax(SquareController newSqCon, bool isWaiting)
     {
         if (!isWaiting) fateCounter.alterFateCounter(1);
@@ -525,6 +530,12 @@ public class PlayerMovementController : MonoBehaviour
         if(newSquareController.IsMerchantSquare)
         {
             SteppedOnMerchant();
+            return;
+        }
+
+        if(newSquareController.IsNPC)
+        {
+            SteppedOnNPC(newSquareController);
             return;
         }
 

@@ -149,6 +149,15 @@ public class TurnOrganiser : MonoBehaviour
        
     }
 
+    public void SetLandedOnNPCSquare(bool value, SquareController landedSquare)
+    {
+        hasLandedOnEnemy = value;
+        if (landedSquare != null)
+        {
+            SetLandedSquare(landedSquare);
+        }
+    }
+
     public void LandedOnMerchantSquare()
     {
         
@@ -214,6 +223,7 @@ public class TurnOrganiser : MonoBehaviour
             {
                 combatPhaseResolution.EnterCombatPhase();
             }
+   
             else
             {
                 if (waitingForFate)
