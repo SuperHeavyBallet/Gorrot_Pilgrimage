@@ -224,12 +224,16 @@ public class MapData : ScriptableObject
     {
         if (enemyDialogue != null)
         {
-            Debug.Log("Ennemy Dialogue Assigned");
             dialogueData = JsonUtility.FromJson<EnemyDialogueData>(enemyDialogue.text);
         }
         else
         {
             Debug.Log("Ennemy Dialogue Null");
+        }
+
+        if(npcDialogue != null)
+        {
+            npcDialogueData = JsonUtility.FromJson<EnemyDialogueData>(npcDialogue.text);
         }
     }
 
@@ -255,9 +259,35 @@ public class MapData : ScriptableObject
         public string[] negative;
     }
 
-    public string GetNPCLine()
+    [SerializeField] TextAsset npcDialogue;
+    EnemyDialogueData npcDialogueData;
+
+    public string GetNPCLine(SquareMood mood)
     {
-        return "I am an NPC!";
+        if(npcDialogueData == null)
+        {
+            return "...";
+        }
+
+        string[] pool = mood switch
+        {
+            SquareMood.Positive => npcDialogueData.categories.small.positive,
+            SquareMood.Negative => npcDialogueData.categories.small.negative,
+            _ => null
+        };
+
+        if(pool == null || pool.Length == 0)
+        {
+            return "...";
+        }
+
+        int chosenIndex = UnityEngine.Random.Range(0, pool.Length);
+
+        string chosenLine = pool[chosenIndex];
+
+        pool[chosenIndex] = "...";
+
+        return chosenLine;
     }
 
     public string GetRandomLine(SquareSize size, SquareMood mood)

@@ -217,7 +217,7 @@ public class CombatPhaseResolution : MonoBehaviour
 
             if (sq.IsNPC)
             {
-                newDialogue = currentMap.GetNPCLine();
+                newDialogue = currentMap.GetNPCLine( enemyMood);
             }
             else
             {
@@ -430,30 +430,63 @@ public class CombatPhaseResolution : MonoBehaviour
 
         bool playerWins = playerTotalScore >= enemyTotalScore; // ties win
 
-        if (!playerWins)
-        {
-            // Lose Results
-            
-            playerStatsController.alterHealth(currentEnemyDamage * -1);
-            AudioManager.Instance.playTakeDamageSoundEffect();
-            playerStatsController.resetSuffering();
-            playerMovementController.MovePlayerBackOneSquare();
 
+        SquareController sq = turnOrganiser.GetLandedSquare();
+
+        if (sq.IsNPC)
+        {
+            if(!playerWins)
+            {
+                // Lose To NPC
+
+                playerStatsController.resetSuffering();
+            }
+            else
+            {
+                // Win Against NPC
+                playerStatsController.resetSuffering();
+                AudioManager.Instance.playCombatWinSoundEffect();
+
+            }
+
+            currentEnemyDamage = 0;
+
+            combatRoll = null;
+
+            EnterCombatPhase();
         }
         else
         {
-            // Win Results
-            playerStatsController.resetSuffering();
-            playerStatsController.AlterMoney(10);
-            AudioManager.Instance.playCombatWinSoundEffect();
-            //turnOrganiser.GetLandedSquare().MakeEmptySquare();
-            turnOrganiser.GetLandedSquare().MakeSquare(GorrotGame.SquareType.Empty, currentMap);
+            if (!playerWins)
+            {
+                // Lose Results
+
+                playerStatsController.alterHealth(currentEnemyDamage * -1);
+                AudioManager.Instance.playTakeDamageSoundEffect();
+                playerStatsController.resetSuffering();
+                playerMovementController.MovePlayerBackOneSquare();
+
+            }
+            else
+            {
+                // Win Results
+                playerStatsController.resetSuffering();
+                playerStatsController.AlterMoney(10);
+                AudioManager.Instance.playCombatWinSoundEffect();
+                //turnOrganiser.GetLandedSquare().MakeEmptySquare();
+                turnOrganiser.GetLandedSquare().MakeSquare(GorrotGame.SquareType.Empty, currentMap);
+            }
+
+            currentEnemyDamage = 0;
+
+            combatRoll = null;
+
+            CloseCombatScene();
         }
 
-        currentEnemyDamage = 0;
-
-        combatRoll = null;
-        CloseCombatScene();
+            
+        
+            
     }
 
     public void PlayerPressedPay()
