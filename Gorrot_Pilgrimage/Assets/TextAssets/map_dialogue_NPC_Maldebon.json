@@ -6,13 +6,17 @@
         "I am Maldebon, who are you?",
         "What is it, traveller?",
         "I have much to do, and many to bury.",
-        "Bodies, more of them come."
+        "Bodies, more of them come.",
+        "Two hands and a shovel, that's more than enough."
       ],
       "negative": [
         "Go.",
         "Go and speak with Artyrgon, I am busy.",
         "The dead have no time for chit chat.",
-        "They're rising again, I must go.'"
+        "They're rising again, I must go.",
+        "Are you one of them?",
+        "Yes yes, I know why you're here.",
+        "Go away, I'm busy."
       ]
     },
     "medium": {

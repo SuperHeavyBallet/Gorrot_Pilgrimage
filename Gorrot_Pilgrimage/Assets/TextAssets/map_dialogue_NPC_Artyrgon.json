@@ -1,0 +1,36 @@
+{
+  "mapId": "semsun",
+  "categories": {
+    "small": {
+      "positive": [
+        "Hm, you've made it this far? Unusual.",
+        "Well, I suppose something could be waiting for you.",
+        "I'm not sure, it's all strange.",
+        "Hm? Oh yes, yes.",
+        "Go ahead, Gorrot waits."
+      ],
+      "negative": [
+        "Hm? Oh, go on.",
+        "It chose you?",
+        "Why are you here?",
+        "I don't have time for you."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "..."
+      ],
+      "negative": [
+        "..."
+      ]
+    },
+    "large": {
+      "positive": [
+        "..."
+      ],
+      "negative": [
+        "..."
+      ]
+    }
+  }
+}
