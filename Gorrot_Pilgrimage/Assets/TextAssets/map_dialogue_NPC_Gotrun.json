@@ -1,0 +1,37 @@
+{
+  "mapId": "semsun",
+  "categories": {
+    "small": {
+      "positive": [
+        "You young, foolish. Staying better.",
+        "If Gorrot calls, you answer?",
+        "Dead people, alive people. Same.",
+        "Our homes old, our graves young.",
+        "Crawl up, fall down. Same."
+      ],
+      "negative": [
+        "Grrh.",
+        "You go, Gorrot takes you.",
+        "No talk now.",
+        "Flesh towers ready.",
+        "Talk too much."
+      ]
+    },
+    "medium": {
+      "positive": [
+        "..."
+      ],
+      "negative": [
+        "..."
+      ]
+    },
+    "large": {
+      "positive": [
+        "..."
+      ],
+      "negative": [
+        "..."
+      ]
+    }
+  }
+}
