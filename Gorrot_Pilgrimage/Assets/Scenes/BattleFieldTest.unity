@@ -531,9 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Garthun
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -1785,9 +1783,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Fahrnith
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -2012,7 +2008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 633, y: 57}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &124968737
@@ -3232,9 +3228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Kangiel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -4127,7 +4121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: 559, y: 198}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224543303
@@ -4612,9 +4606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Arx Thronus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -5407,7 +5399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -330}
+  m_AnchoredPosition: {x: -244, y: 46}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &307043908
@@ -5556,7 +5548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Molgeritch
 
 '
   m_isRightToLeft: 0
@@ -6346,7 +6338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: -491, y: -196}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367110346
@@ -7359,7 +7351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Dwindir
 
 '
   m_isRightToLeft: 0
@@ -8960,7 +8952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -330}
+  m_AnchoredPosition: {x: 46, y: 168}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &553712163
@@ -9034,7 +9026,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Semsun
 
 '
   m_isRightToLeft: 0
@@ -10387,9 +10379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Ritten
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -10504,7 +10494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -729, y: -119}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &692432523
@@ -10556,7 +10546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 386, y: 77}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693817226
@@ -11557,7 +11547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -328, y: -4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &730306976
@@ -11631,9 +11621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Fetsmeld
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -13000,7 +12988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: 905, y: 206}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822542357
@@ -15536,7 +15524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Wyrsmet
 
 '
   m_isRightToLeft: 0
@@ -15791,7 +15779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: -503, y: -283}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959073059
@@ -16678,9 +16666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Myr
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -17426,9 +17412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Odrikloft
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -17677,7 +17661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: 612, y: 77}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046945485
@@ -17729,7 +17713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: -200, y: -257}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1047633019
@@ -18377,7 +18361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Gorrot Town
 
 '
   m_isRightToLeft: 0
@@ -18516,9 +18500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Limmut
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -18858,9 +18840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Halbegorn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -19882,7 +19862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 303}
+  m_AnchoredPosition: {x: 614, y: 351}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1222173762
@@ -20640,9 +20620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Gorrot Church
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -21359,9 +21337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Gorrot Basement
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -21543,9 +21519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Imthuhl
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -22929,7 +22903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -159, y: -269}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1455189328
@@ -23849,7 +23823,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: -209, y: -176}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542600824
@@ -23864,7 +23838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae46dc5e65d9654ea3ce29081708921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  thisMapName: 9
+  thisMapName: 13
   nameDisplay: {fileID: 182791698}
 --- !u!1 &1553872042
 GameObject:
@@ -24044,7 +24018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 275, y: 183}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564653562
@@ -24118,9 +24092,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Gorrot Waiting Hall
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -24479,7 +24451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: -782, y: -295}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582763796
@@ -24588,9 +24560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Katharn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -24802,9 +24772,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Borgen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -25243,7 +25211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: 38, y: 70}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617565556
@@ -25923,7 +25891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: 292, y: 48}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686163236
@@ -28219,9 +28187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Hingrel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -29733,7 +29699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 135, y: -170}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966293603
@@ -29898,7 +29864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: -685, y: -29}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978539257
@@ -29950,7 +29916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -696, y: -256}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986910811
@@ -30152,7 +30118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: 2, y: 37}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001544776
@@ -30739,7 +30705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -330}
+  m_AnchoredPosition: {x: -222, y: 19}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034897401
@@ -30969,7 +30935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
+  m_text: 'Hindruhn
 
 '
   m_isRightToLeft: 0
@@ -32258,9 +32224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fahrnsmith
-
-'
+  m_text: Ithen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
   m_sharedMaterial: {fileID: 331202408346811464, guid: 6fe88f7397c4997459579e3a5a435933, type: 2}
@@ -32488,7 +32452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: -440, y: -254}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118638017
