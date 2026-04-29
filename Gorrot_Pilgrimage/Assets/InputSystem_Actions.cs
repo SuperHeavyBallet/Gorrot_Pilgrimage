@@ -208,6 +208,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AddHealth"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cb8e9ed-4ea5-4664-8ad8-0ab2dfcdc1af"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -648,6 +657,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e93cb74e-c4b6-4e2d-9c43-f455131a7df4"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddHealth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1248,6 +1268,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_PanCameraRight = m_Player.FindAction("PanCameraRight", throwIfNotFound: true);
         m_Player_PanCameraReverse = m_Player.FindAction("PanCameraReverse", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_AddHealth = m_Player.FindAction("AddHealth", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1354,6 +1375,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PanCameraRight;
     private readonly InputAction m_Player_PanCameraReverse;
     private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_AddHealth;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1417,6 +1439,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Menu".
         /// </summary>
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AddHealth".
+        /// </summary>
+        public InputAction @AddHealth => m_Wrapper.m_Player_AddHealth;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1482,6 +1508,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
+            @AddHealth.started += instance.OnAddHealth;
+            @AddHealth.performed += instance.OnAddHealth;
+            @AddHealth.canceled += instance.OnAddHealth;
         }
 
         /// <summary>
@@ -1532,6 +1561,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
+            @AddHealth.started -= instance.OnAddHealth;
+            @AddHealth.performed -= instance.OnAddHealth;
+            @AddHealth.canceled -= instance.OnAddHealth;
         }
 
         /// <summary>
@@ -1923,6 +1955,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AddHealth" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAddHealth(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

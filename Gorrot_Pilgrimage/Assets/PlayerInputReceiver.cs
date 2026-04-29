@@ -13,6 +13,7 @@ public class PlayerInputReceiver : MonoBehaviour
     PlayerMovementController playerMovementController;
     public DiceController diceController;
     PlayerCameraMovementController playerCameraMovementController;
+    PlayerStatsController playerStatsController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,6 +72,20 @@ public class PlayerInputReceiver : MonoBehaviour
             }
         }
     }
+
+    public void CHEAT_AddHealth(InputAction.CallbackContext context)
+    {
+        if (!GorrotGame.GameFunctions.GameIsPaused())
+        {
+            if(context.performed)
+            {
+                if(playerStatsController != null)
+                {
+                    playerStatsController.alterHealth(100);
+                }
+            }
+        }
+        }
 
     public void CaptureDiceRollInput(InputAction.CallbackContext context)
     {
@@ -146,6 +161,7 @@ public class PlayerInputReceiver : MonoBehaviour
         {
             playerMovementController = this.GetComponent<PlayerMovementController>();
             playerCameraMovementController = this.GetComponent<PlayerCameraMovementController>();
+            playerStatsController = this.GetComponent<PlayerStatsController>();
         }
         else
         {
